@@ -6,6 +6,17 @@ echo "=========================================="
 echo "  iGEM Dashboards — Push to GitHub"
 echo "=========================================="
 
+# Read token from .git-token file (not tracked by git)
+if [ ! -f .git-token ]; then
+    echo ""
+    echo "ERROR: No .git-token file found."
+    echo "Create it with:  echo 'YOUR_TOKEN' > .git-token"
+    echo ""
+    read -p "Press Enter to close..."
+    exit 1
+fi
+TOKEN=$(cat .git-token | tr -d '[:space:]')
+
 # Clean lock files if they exist
 rm -f .git/HEAD.lock .git/objects/maintenance.lock 2>/dev/null
 
@@ -18,7 +29,7 @@ git add -A
 git commit -m "Update dashboard files" 2>/dev/null
 
 # Set remote with token and push
-git remote set-url origin "https://twindha2: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@github.com/twindha2/igem-dashboards.git"
+git remote set-url origin "https://twindha2:${TOKEN}@github.com/twindha2/igem-dashboards.git"
 echo ""
 echo "Pushing to GitHub..."
 git push -u origin main
