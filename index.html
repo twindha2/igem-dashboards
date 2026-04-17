@@ -46,9 +46,9 @@
             display: flex; flex-direction: column; align-items: center; gap: 16px;
         }
         .hub-logo {
-            width: 100px; height: auto; border-radius: 16px;
+            width: 150px; height: 106px;
+            border-radius: 12px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            object-fit: contain;
         }
         .hub-title {
             font-size: 32px; font-weight: 900; color: white;
@@ -91,6 +91,16 @@
         .card-icon.lead { background: linear-gradient(135deg, var(--scarlet), var(--scarlet-dark)); }
         .card-icon.coord { background: linear-gradient(135deg, #F59E0B, #D97706); }
         .card-icon.hp { background: linear-gradient(135deg, #6366F1, #4F46E5); }
+        .card-icon.wiki { background: linear-gradient(135deg, #8B5CF6, #7C3AED); }
+        .card-icon.wetlab { background: linear-gradient(135deg, #22C55E, #16A34A); }
+        .card-icon.modeling { background: linear-gradient(135deg, #F59E0B, #B45309); }
+        .card-icon.outreach { background: linear-gradient(135deg, #A855F7, #7E22CE); }
+        .card.coming-soon { opacity: 0.7; cursor: default; }
+        .card.coming-soon:hover { transform: none; box-shadow: 0 4px 16px rgba(0,0,0,0.1); border-color: transparent; }
+        .card-badge-tbd {
+            font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            padding: 3px 10px; border-radius: 8px; background: rgba(0,0,0,0.06); color: var(--slate-light);
+        }
         .card-body { flex: 1; }
         .card-title { font-size: 18px; font-weight: 700; color: var(--scarlet-dark); margin-bottom: 4px; }
         .card-desc { font-size: 13px; color: var(--slate-light); line-height: 1.4; }
@@ -181,6 +191,42 @@
                 </div>
                 <div class="card-arrow">›</div>
             </a>
+
+            <div class="card coming-soon">
+                <div class="card-icon wiki">📖</div>
+                <div class="card-body">
+                    <div class="card-title">Wiki Lead</div>
+                    <div class="card-desc">Wiki page structure, content integration, design polish, and freeze deadlines</div>
+                </div>
+                <div class="card-badge-tbd">TBD</div>
+            </div>
+
+            <div class="card coming-soon">
+                <div class="card-icon wetlab">🧪</div>
+                <div class="card-body">
+                    <div class="card-title">Wet Lab Lead</div>
+                    <div class="card-desc">Protocols, strain cultivation, transformation experiments, and parts submission</div>
+                </div>
+                <div class="card-badge-tbd">TBD</div>
+            </div>
+
+            <div class="card coming-soon">
+                <div class="card-icon modeling">🧮</div>
+                <div class="card-body">
+                    <div class="card-title">Modeling Lead</div>
+                    <div class="card-desc">Model development, parameter fitting, sensitivity analysis, and validation</div>
+                </div>
+                <div class="card-badge-tbd">TBD</div>
+            </div>
+
+            <div class="card coming-soon">
+                <div class="card-icon outreach">📣</div>
+                <div class="card-body">
+                    <div class="card-title">Outreach Lead</div>
+                    <div class="card-desc">Community engagement, educational events, outreach impact, and documentation</div>
+                </div>
+                <div class="card-badge-tbd">TBD</div>
+            </div>
         </div>
 
         <div class="footer">

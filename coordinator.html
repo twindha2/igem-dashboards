@@ -562,6 +562,15 @@
             color: var(--scarlet-dark);
         }
 
+        .pulse-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--slate);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 1px;
+        }
+
         .pulse-progress {
             margin-bottom: 12px;
         }
@@ -1959,6 +1968,15 @@
                 <div class="calendar-grid" id="calendar-grid">
                     <!-- Populated by JS -->
                 </div>
+                <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:14px;padding:12px 16px;background:rgba(0,0,0,0.03);border-radius:12px;">
+                    <div style="font-size:11px;font-weight:700;color:var(--slate);margin-right:4px;">KEY:</div>
+                    <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--slate);"><span style="color:var(--scarlet);font-weight:700;">●</span> HP Lead</div>
+                    <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--slate);"><span style="color:var(--indigo);font-weight:700;">●</span> Wiki Lead</div>
+                    <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--slate);"><span style="color:var(--emerald);font-weight:700;">●</span> Wet Lab Lead</div>
+                    <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--slate);"><span style="color:var(--amber);font-weight:700;">●</span> Modeling Lead</div>
+                    <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--slate);"><span style="color:var(--purple);font-weight:700;">●</span> Outreach Lead</div>
+                    <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--slate);"><span style="color:var(--slate);font-style:italic;font-weight:700;">●</span> Deadlines</div>
+                </div>
             </div>
         </div>
 
@@ -3091,7 +3109,10 @@
                         ${badgeHTML}
                         <div class="pulse-header">
                             <div class="pulse-emoji">${lead.emoji}</div>
-                            <div class="pulse-name">${lead.name}</div>
+                            <div>
+                                <div class="pulse-name">${lead.name}</div>
+                                <div class="pulse-title">${state.leadTitles[key] || ''}</div>
+                            </div>
                         </div>
                         <div class="pulse-progress">
                             <div class="pulse-progress-label">

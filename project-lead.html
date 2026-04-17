@@ -277,21 +277,62 @@
         .overall-fill { height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--scarlet), var(--gold), var(--emerald)); transition: width 0.8s ease; }
 
         /* Calendar */
-        .cal-month-header { font-size: 18px; font-weight: 800; color: var(--scarlet-dark); margin-bottom: 12px; }
+        .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .cal-nav-btn { background: rgba(255,255,255,0.15); border: none; color: white; font-size: 18px; font-weight: 700; width: 36px; height: 36px; border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+        .cal-nav-btn:hover { background: rgba(255,255,255,0.25); }
+        .cal-month-header { font-size: 18px; font-weight: 800; color: white; }
         .cal-grid {
-            display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 24px;
+            display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 24px;
         }
-        .cal-day-header { text-align: center; font-size: 11px; font-weight: 700; color: var(--slate-light); padding: 6px; }
+        .cal-day-header { text-align: center; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.5); padding: 6px; }
         .cal-day {
-            text-align: center; padding: 8px 4px; font-size: 12px; border-radius: 8px;
-            background: rgba(255,255,255,0.95); min-height: 40px; position: relative;
+            padding: 6px 4px; font-size: 12px; border-radius: 8px;
+            background: rgba(255,255,255,0.95); min-height: 72px; position: relative; cursor: default;
+            display: flex; flex-direction: column;
         }
+        .cal-day.clickable { cursor: pointer; }
+        .cal-day.clickable:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.15); transform: translateY(-1px); }
+        .cal-day-num { font-weight: 600; margin-bottom: 2px; text-align: center; }
         .cal-day.today { background: var(--scarlet); color: white; font-weight: 700; }
-        .cal-day.has-event { font-weight: 700; }
-        .cal-day.empty { background: transparent; }
-        .cal-event-dot {
-            width: 6px; height: 6px; border-radius: 50%; margin: 2px auto 0;
+        .cal-day.today .cal-event-label { color: rgba(255,255,255,0.9); }
+        .cal-day.empty { background: transparent; min-height: 0; }
+        .cal-event-label {
+            font-size: 9px; font-weight: 600; line-height: 1.2; padding: 1px 3px; border-radius: 3px;
+            margin-top: 1px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
         }
+        .cal-event-label.milestone { background: rgba(200,16,46,0.15); color: var(--scarlet-dark); }
+        .cal-event-label.hp { background: rgba(200,16,46,0.10); color: #9B0C23; }
+        .cal-event-label.wiki { background: rgba(99,102,241,0.12); color: var(--indigo); }
+        .cal-event-label.wetlab { background: rgba(22,163,74,0.12); color: var(--emerald); }
+        .cal-event-label.modeling { background: rgba(217,119,6,0.12); color: var(--amber); }
+        .cal-event-label.outreach { background: rgba(124,58,237,0.12); color: var(--purple); }
+        .cal-event-label.team { background: rgba(246,190,0,0.15); color: #9B7B00; }
+        .cal-day.today .cal-event-label.milestone,
+        .cal-day.today .cal-event-label.hp,
+        .cal-day.today .cal-event-label.wiki,
+        .cal-day.today .cal-event-label.wetlab,
+        .cal-day.today .cal-event-label.modeling,
+        .cal-day.today .cal-event-label.outreach,
+        .cal-day.today .cal-event-label.team { background: rgba(255,255,255,0.2); color: white; }
+
+        /* Calendar Overlay */
+        .cal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .cal-overlay-card { background: white; border-radius: 20px; padding: 28px; max-width: 480px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .cal-overlay-date { font-size: 14px; font-weight: 700; color: var(--scarlet); margin-bottom: 16px; }
+        .cal-overlay-item { padding: 14px; border-radius: 12px; margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.06); }
+        .cal-overlay-item .item-title { font-size: 15px; font-weight: 700; color: var(--scarlet-dark); margin-bottom: 4px; }
+        .cal-overlay-item .item-desc { font-size: 13px; color: var(--slate); margin-bottom: 6px; }
+        .cal-overlay-item .item-owner { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 6px; display: inline-block; margin-bottom: 6px; }
+        .cal-overlay-item .item-owner.hp { background: rgba(200,16,46,0.10); color: var(--scarlet); }
+        .cal-overlay-item .item-owner.wiki { background: rgba(99,102,241,0.12); color: var(--indigo); }
+        .cal-overlay-item .item-owner.wetlab { background: rgba(22,163,74,0.12); color: var(--emerald); }
+        .cal-overlay-item .item-owner.modeling { background: rgba(217,119,6,0.12); color: var(--amber); }
+        .cal-overlay-item .item-owner.outreach { background: rgba(124,58,237,0.12); color: var(--purple); }
+        .cal-overlay-item .item-owner.team { background: rgba(246,190,0,0.15); color: #9B7B00; }
+        .cal-overlay-item .item-owner.milestone { background: rgba(200,16,46,0.15); color: var(--scarlet-dark); }
+        .cal-overlay-item .item-link { font-size: 12px; color: var(--scarlet); text-decoration: none; font-weight: 600; }
+        .cal-overlay-item .item-link:hover { text-decoration: underline; }
+        .cal-overlay-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--slate); }
 
         /* Activity Log */
         .activity-timeline-line {
@@ -514,6 +555,96 @@ const MILESTONES = [
     {date:new Date(2026,10,13), title:"JAMBOREE — Paris", desc:"iGEM 2026 Grand Jamboree, November 13-16", phase:"Jamboree Prep", emoji:"🏆"},
 ];
 
+// Known task counts per lead (mirrors coordinator dashboard task definitions)
+const EXPECTED_TASKS = { hp: 26, wiki: 14, wetlab: 12, modeling: 10, outreach: 8 };
+
+// All lead deadlines for calendar (owner maps to TEAM keys)
+const LEAD_DEADLINES = [
+    // HP Lead deadlines
+    {date:new Date(2026,3,21), title:"First check-in with Coordinator", owner:"hp", phase:"Foundation"},
+    {date:new Date(2026,4,1), title:"Set up stakeholder tracker", owner:"hp", phase:"Foundation"},
+    {date:new Date(2026,4,15), title:"IRB/IBC docs + stakeholder map", owner:"hp", phase:"Foundation"},
+    {date:new Date(2026,4,20), title:"Prioritize first 8-10 stakeholders", owner:"hp", phase:"Foundation"},
+    {date:new Date(2026,4,25), title:"Read 3 winning HP wiki pages", owner:"hp", phase:"Foundation"},
+    {date:new Date(2026,5,15), title:"First stakeholder interview", owner:"hp", phase:"Engagement"},
+    {date:new Date(2026,6,1), title:"Begin wiki HP narrative outline", owner:"hp", phase:"Engagement"},
+    {date:new Date(2026,6,15), title:"6-8 stakeholder interviews done", owner:"hp", phase:"Engagement"},
+    {date:new Date(2026,6,20), title:"1+ concrete project change from feedback", owner:"hp", phase:"Engagement"},
+    {date:new Date(2026,7,1), title:"Log all interactions in tracker", owner:"hp", phase:"Engagement"},
+    {date:new Date(2026,7,31), title:"HP wiki draft v1 to Coordinator", owner:"hp", phase:"Integration"},
+    {date:new Date(2026,8,1), title:"Document HP-driven project changes", owner:"hp", phase:"Integration"},
+    {date:new Date(2026,8,10), title:"Follow-ups with key stakeholders", owner:"hp", phase:"Integration"},
+    {date:new Date(2026,9,10), title:"Finalize wiki HP page", owner:"hp", phase:"Documentation"},
+    {date:new Date(2026,9,12), title:"Final wiki draft to Coordinator", owner:"hp", phase:"Documentation"},
+    {date:new Date(2026,9,15), title:"Submit to Austin for sign-off", owner:"hp", phase:"Documentation"},
+    {date:new Date(2026,9,18), title:"Coordinate with Wiki Lead", owner:"hp", phase:"Documentation"},
+    {date:new Date(2026,9,20), title:"Submit judging form (HP sections)", owner:"hp", phase:"Documentation"},
+    {date:new Date(2026,10,1), title:"HP presentation materials ready", owner:"hp", phase:"Jamboree Prep"},
+    {date:new Date(2026,10,5), title:"Practice HP presentation (<3 min)", owner:"hp", phase:"Jamboree Prep"},
+    // Wiki Lead deadlines
+    {date:new Date(2026,3,21), title:"Read iGEM Wiki requirements", owner:"wiki", phase:"Foundation"},
+    {date:new Date(2026,3,28), title:"Review 2025 winning wikis", owner:"wiki", phase:"Foundation"},
+    {date:new Date(2026,4,10), title:"Establish page structure & templates", owner:"wiki", phase:"Foundation"},
+    {date:new Date(2026,4,17), title:"Create project overview template", owner:"wiki", phase:"Foundation"},
+    {date:new Date(2026,4,26), title:"Coordinate with all leads on content", owner:"wiki", phase:"Foundation"},
+    {date:new Date(2026,6,1), title:"Build wiki skeleton pages", owner:"wiki", phase:"Engagement"},
+    {date:new Date(2026,6,15), title:"Integrate HP content from May", owner:"wiki", phase:"Engagement"},
+    {date:new Date(2026,6,29), title:"Integrate modeling content", owner:"wiki", phase:"Engagement"},
+    {date:new Date(2026,8,2), title:"Wet lab results integration", owner:"wiki", phase:"Integration"},
+    {date:new Date(2026,8,23), title:"Wiki draft v1 complete", owner:"wiki", phase:"Integration"},
+    {date:new Date(2026,9,7), title:"Design polish & styling", owner:"wiki", phase:"Documentation"},
+    {date:new Date(2026,9,14), title:"Final content review", owner:"wiki", phase:"Documentation"},
+    {date:new Date(2026,9,25), title:"Wiki freeze submission", owner:"wiki", phase:"Jamboree Prep"},
+    {date:new Date(2026,10,5), title:"Final bug fixes after freeze", owner:"wiki", phase:"Jamboree Prep"},
+    // Wet Lab Lead deadlines
+    {date:new Date(2026,4,10), title:"Protocol design & validation", owner:"wetlab", phase:"Foundation"},
+    {date:new Date(2026,4,17), title:"Materials & equipment inventory", owner:"wetlab", phase:"Foundation"},
+    {date:new Date(2026,4,26), title:"Safety review & approval", owner:"wetlab", phase:"Foundation"},
+    {date:new Date(2026,5,24), title:"Bench setup & calibration", owner:"wetlab", phase:"Engagement"},
+    {date:new Date(2026,6,7), title:"Initial strain cultivation", owner:"wetlab", phase:"Engagement"},
+    {date:new Date(2026,6,28), title:"Transformation experiments", owner:"wetlab", phase:"Engagement"},
+    {date:new Date(2026,8,2), title:"Characterization experiments", owner:"wetlab", phase:"Integration"},
+    {date:new Date(2026,8,23), title:"Data analysis & synthesis", owner:"wetlab", phase:"Integration"},
+    {date:new Date(2026,9,7), title:"Final experiments & optimization", owner:"wetlab", phase:"Documentation"},
+    {date:new Date(2026,9,21), title:"Part submission package prep", owner:"wetlab", phase:"Documentation"},
+    {date:new Date(2026,10,1), title:"Registry submission", owner:"wetlab", phase:"Jamboree Prep"},
+    {date:new Date(2026,10,12), title:"Jamboree presentation materials", owner:"wetlab", phase:"Jamboree Prep"},
+    // Modeling Lead deadlines
+    {date:new Date(2026,4,3), title:"Model scope & objectives", owner:"modeling", phase:"Foundation"},
+    {date:new Date(2026,4,17), title:"Literature review completion", owner:"modeling", phase:"Foundation"},
+    {date:new Date(2026,4,26), title:"Initial parameter research", owner:"modeling", phase:"Foundation"},
+    {date:new Date(2026,5,24), title:"Model framework development", owner:"modeling", phase:"Engagement"},
+    {date:new Date(2026,7,1), title:"Parameter fitting from data", owner:"modeling", phase:"Engagement"},
+    {date:new Date(2026,8,16), title:"Sensitivity analysis", owner:"modeling", phase:"Integration"},
+    {date:new Date(2026,8,30), title:"Model validation against wet lab", owner:"modeling", phase:"Integration"},
+    {date:new Date(2026,9,14), title:"Prediction & design recommendations", owner:"modeling", phase:"Documentation"},
+    {date:new Date(2026,9,21), title:"Wiki integration & visualization", owner:"modeling", phase:"Documentation"},
+    {date:new Date(2026,10,12), title:"Jamboree presentation prep", owner:"modeling", phase:"Jamboree Prep"},
+    // Outreach Lead deadlines
+    {date:new Date(2026,4,10), title:"Event outreach strategy", owner:"outreach", phase:"Foundation"},
+    {date:new Date(2026,4,24), title:"Identify 5+ outreach venues", owner:"outreach", phase:"Foundation"},
+    {date:new Date(2026,4,26), title:"Prepare outreach presentation", owner:"outreach", phase:"Foundation"},
+    {date:new Date(2026,6,15), title:"Execute 2+ outreach events", owner:"outreach", phase:"Engagement"},
+    {date:new Date(2026,7,1), title:"Community feedback collection", owner:"outreach", phase:"Engagement"},
+    {date:new Date(2026,8,23), title:"Educational content creation", owner:"outreach", phase:"Integration"},
+    {date:new Date(2026,9,21), title:"Document outreach impact", owner:"outreach", phase:"Documentation"},
+    {date:new Date(2026,10,12), title:"Jamboree community engagement prep", owner:"outreach", phase:"Jamboree Prep"},
+];
+
+// Google Drive links per subteam
+const DRIVE_LINKS = {
+    team: 'https://drive.google.com/drive/folders/1TkqUnm1hVyqS4-9F0jUo4PEQphNEb9rv',
+    hp: 'https://drive.google.com/drive/folders/1TkqUnm1hVyqS4-9F0jUo4PEQphNEb9rv',
+    wiki: 'https://drive.google.com/drive/folders/1TkqUnm1hVyqS4-9F0jUo4PEQphNEb9rv',
+    wetlab: 'https://drive.google.com/drive/folders/1TkqUnm1hVyqS4-9F0jUo4PEQphNEb9rv',
+    modeling: 'https://drive.google.com/drive/folders/1TkqUnm1hVyqS4-9F0jUo4PEQphNEb9rv',
+    outreach: 'https://drive.google.com/drive/folders/1TkqUnm1hVyqS4-9F0jUo4PEQphNEb9rv',
+};
+
+// Calendar state
+let calMonth = new Date().getMonth();
+let calYear = new Date().getFullYear();
+
 const TEAM = {
     hp:       {name:"May Shin Thant", role:"HP Lead", emoji:"🤝", color:"var(--scarlet)", lsKey:"uh_igem_hp_v3"},
     wiki:     {name:"Lyba Siddiqui", role:"Wiki Lead", emoji:"📖", color:"var(--indigo)", lsKey:"uh_igem_wiki_v1"},
@@ -578,7 +709,8 @@ function getLeadProgress(key) {
         return {done, total, pct: total ? Math.round(done/total*100) : 0};
     }
     const data = readLeadData(key);
-    if (!data) return {done:0, total:0, pct:0};
+    const expectedTotal = EXPECTED_TASKS[key] || 0;
+    if (!data) return {done:0, total:expectedTotal, pct:0};
     // Count tasks from the lead's data
     let done = 0, total = 0;
     if (data.tasks) {
@@ -589,13 +721,9 @@ function getLeadProgress(key) {
             if (data.taskStatus[id] === 'complete' && !data.tasks[id]) { done++; }
         }
     }
-    // If no tasks tracked, estimate from HP phases (26 tasks)
-    if (total === 0 && key === 'hp') {
-        total = 26;
-        if (data.tasks) { for (const id in data.tasks) { if (data.tasks[id]) done++; } }
-        if (data.taskStatus) { for (const id in data.taskStatus) { if (data.taskStatus[id] === 'complete') done++; } }
-    }
-    return {done, total: total || 1, pct: total ? Math.round(done/total*100) : 0};
+    // Use expected task count as baseline if no tasks tracked yet
+    if (total === 0) total = expectedTotal;
+    return {done, total: total || expectedTotal || 1, pct: total ? Math.round(done/total*100) : 0};
 }
 
 function getOverallProgress() {
@@ -945,6 +1073,111 @@ function renderTeamOverview() {
 // ============================================================================
 // RENDER — MILESTONES & CALENDAR TAB
 // ============================================================================
+
+// Get all events for a given date (milestones + lead deadlines)
+function getEventsForDate(date) {
+    const events = [];
+    const ds = date.toDateString();
+    MILESTONES.forEach(m => {
+        if (m.date.toDateString() === ds) {
+            events.push({ type: 'milestone', title: m.title, desc: m.desc, phase: m.phase, emoji: m.emoji, owner: 'team' });
+        }
+    });
+    LEAD_DEADLINES.forEach(d => {
+        if (d.date.toDateString() === ds) {
+            const member = TEAM[d.owner];
+            events.push({ type: 'deadline', title: d.title, owner: d.owner, ownerName: member ? member.name : d.owner, role: member ? member.role : '', emoji: member ? member.emoji : '', phase: d.phase });
+        }
+    });
+    return events;
+}
+
+function showCalOverlay(dateStr) {
+    const date = new Date(dateStr);
+    const events = getEventsForDate(date);
+    if (events.length === 0) return;
+
+    const dateLabel = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+    let html = `<div class="cal-overlay" onclick="if(event.target===this)closeCalOverlay()">
+        <div class="cal-overlay-card" style="position:relative;">
+            <button class="cal-overlay-close" onclick="closeCalOverlay()">&times;</button>
+            <div class="cal-overlay-date">${dateLabel}</div>`;
+
+    events.forEach(ev => {
+        const ownerClass = ev.type === 'milestone' ? 'milestone' : ev.owner;
+        const ownerLabel = ev.type === 'milestone' ? 'Team Milestone' : (ev.role || ev.ownerName);
+        const driveLink = DRIVE_LINKS[ev.owner] || DRIVE_LINKS.team;
+
+        html += `<div class="cal-overlay-item">
+            <div class="item-owner ${ownerClass}">${ev.emoji} ${ownerLabel}</div>
+            <div class="item-title">${ev.title}</div>`;
+        if (ev.desc) html += `<div class="item-desc">${ev.desc}</div>`;
+        if (ev.phase) html += `<div class="item-desc" style="font-size:11px;color:var(--slate-light);">Phase: ${ev.phase}</div>`;
+        if (ev.ownerName && ev.type !== 'milestone') html += `<div class="item-desc" style="font-size:12px;">Owner: <strong>${ev.ownerName}</strong></div>`;
+        html += `<a href="${driveLink}" target="_blank" class="item-link">📁 Open ${ev.type==='milestone'?'Team':'Subteam'} Drive Folder →</a>`;
+        html += `</div>`;
+    });
+
+    html += `</div></div>`;
+    document.getElementById('cal-overlay-container').innerHTML = html;
+}
+
+function closeCalOverlay() {
+    document.getElementById('cal-overlay-container').innerHTML = '';
+}
+
+function calPrev() { calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; } renderCalendar(); }
+function calNext() { calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; } renderCalendar(); }
+
+function renderCalendar() {
+    const now = new Date();
+    const monthDate = new Date(calYear, calMonth, 1);
+    const monthName = monthDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    const firstDay = monthDate.getDay();
+    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+    let html = `<div class="cal-nav">
+        <button class="cal-nav-btn" onclick="calPrev()">‹</button>
+        <div class="cal-month-header">${monthName}</div>
+        <button class="cal-nav-btn" onclick="calNext()">›</button>
+    </div>
+    <div class="cal-grid">`;
+
+    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => {
+        html += `<div class="cal-day-header">${d}</div>`;
+    });
+    for (let i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
+
+    for (let day = 1; day <= daysInMonth; day++) {
+        const thisDate = new Date(calYear, calMonth, day);
+        const isToday = thisDate.toDateString() === now.toDateString();
+        const events = getEventsForDate(thisDate);
+        const hasEvents = events.length > 0;
+        const clickAttr = hasEvents ? `onclick="showCalOverlay('${thisDate.toDateString()}')"` : '';
+        const clickClass = hasEvents ? 'clickable' : '';
+
+        let labels = '';
+        // Show up to 3 event labels per day
+        events.slice(0, 3).forEach(ev => {
+            const cls = ev.type === 'milestone' ? 'milestone' : ev.owner;
+            const shortTitle = ev.title.length > 18 ? ev.title.substring(0, 16) + '…' : ev.title;
+            labels += `<div class="cal-event-label ${cls}">${shortTitle}</div>`;
+        });
+        if (events.length > 3) {
+            labels += `<div class="cal-event-label team" style="text-align:center;">+${events.length - 3} more</div>`;
+        }
+
+        html += `<div class="cal-day ${isToday?'today':''} ${clickClass}" ${clickAttr}>
+            <div class="cal-day-num">${day}</div>
+            ${labels}
+        </div>`;
+    }
+    html += '</div>';
+
+    document.getElementById('cal-container').innerHTML = html;
+}
+
 function renderMilestonesTab() {
     const now = new Date();
     let html = `<div style="font-size:18px;font-weight:800;color:white;margin-bottom:4px;">Project Milestones</div>
@@ -973,41 +1206,28 @@ function renderMilestonesTab() {
     });
     html += '</div>';
 
-    // Simple calendar
+    // Full interactive calendar
     html += `<div style="margin-top:32px;">
-        <div style="font-size:18px;font-weight:800;color:white;margin-bottom:16px;">Calendar</div>`;
+        <div style="font-size:18px;font-weight:800;color:white;margin-bottom:16px;">Project Calendar</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:16px;">Click any day with events to see details, owners, and Drive links.</div>
+        <div id="cal-container"></div>
+    </div>`;
 
-    // Show current month and next month
-    for (let mo = 0; mo < 2; mo++) {
-        const monthDate = new Date(now.getFullYear(), now.getMonth() + mo, 1);
-        const monthName = monthDate.toLocaleDateString('en-US', {month:'long', year:'numeric'});
-        const firstDay = monthDate.getDay();
-        const daysInMonth = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0).getDate();
+    // Legend
+    html += `<div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:12px;">
+        <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,0.6);"><div style="width:10px;height:10px;border-radius:3px;background:rgba(200,16,46,0.5);"></div> Milestone</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,0.6);"><div style="width:10px;height:10px;border-radius:3px;background:rgba(200,16,46,0.3);"></div> HP</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,0.6);"><div style="width:10px;height:10px;border-radius:3px;background:rgba(99,102,241,0.4);"></div> Wiki</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,0.6);"><div style="width:10px;height:10px;border-radius:3px;background:rgba(22,163,74,0.4);"></div> Wet Lab</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,0.6);"><div style="width:10px;height:10px;border-radius:3px;background:rgba(217,119,6,0.4);"></div> Modeling</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,0.6);"><div style="width:10px;height:10px;border-radius:3px;background:rgba(124,58,237,0.4);"></div> Outreach</div>
+    </div>`;
 
-        const monthMilestones = MILESTONES.filter(m =>
-            m.date.getMonth() === monthDate.getMonth() && m.date.getFullYear() === monthDate.getFullYear()
-        );
-
-        html += `<div class="cal-month-header" style="color:white;">${monthName}</div><div class="cal-grid">`;
-        ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => {
-            html += `<div class="cal-day-header" style="color:rgba(255,255,255,0.5);">${d}</div>`;
-        });
-        for (let i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
-        for (let day = 1; day <= daysInMonth; day++) {
-            const thisDate = new Date(monthDate.getFullYear(), monthDate.getMonth(), day);
-            const isToday = thisDate.toDateString() === now.toDateString();
-            const dayMilestones = monthMilestones.filter(m => m.date.getDate() === day);
-            const hasMilestone = dayMilestones.length > 0;
-            const dots = dayMilestones.map(m =>
-                `<div class="cal-event-dot" style="background:var(--scarlet);" title="${m.title}"></div>`
-            ).join('');
-            html += `<div class="cal-day ${isToday?'today':''} ${hasMilestone?'has-event':''}">${day}${dots}</div>`;
-        }
-        html += '</div>';
-    }
-    html += '</div>';
+    // Overlay container
+    html += '<div id="cal-overlay-container"></div>';
 
     document.getElementById('milestones-content').innerHTML = html;
+    renderCalendar();
 }
 
 // ============================================================================
@@ -1217,11 +1437,11 @@ function renderNotifWidget() {
         subtitle.textContent = 'From ' + unique.join(', ') + ' — click to review';
         startHelix();
     } else {
-        stopHelix();
         widget.style.display = 'flex';
         widget.classList.remove('has-new');
         badge.style.display = 'none';
         title.textContent = 'Notifications';
+        startHelix();
         subtitle.textContent = 'All caught up — no new items';
     }
 }
