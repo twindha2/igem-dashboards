@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiki Lead Dashboard — UH iGEM 2026</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --scarlet: #C8102E; --scarlet-dark: #9B0C23; --scarlet-deep: #7A091B;
+  --scarlet-light: #E8394F; --scarlet-faint: #FDE8EC; --scarlet-mid: #D42A47;
+  --indigo: #6366F1; --indigo-dark: #4F46E5; --indigo-deep: #4338CA;
+  --indigo-light: #818CF8; --indigo-faint: #E0E7FF; --indigo-mid: #6366F1;
+  --white: #FFFFFF; --off-white: #FAFAFA; --slate: #54585A; --slate-light: #888B8D;
+  --warm-gray: #E8E3DB; --cream: #FFF8F0;
+  --gold: #F6BE00; --gold-light: #FFF3CC;
+  --black: #1A1A1A; --emerald: #16A34A; --emerald-light: #DCFCE7;
+  --amber: #D97706; --red-alarm: #DC2626;
+}
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  min-height: 100vh; color: var(--black);
+  background: linear-gradient(135deg, var(--scarlet) 0%, var(--scarlet-dark) 40%, var(--scarlet-deep) 100%);
+  background-attachment: fixed;
+}
+/* ─── Full-page science background ─── */
+.bg-art {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.bg-art svg { position: absolute; }
+.page-wrap { position: relative; z-index: 1; min-height: 100vh; }
+
+/* ─── Glass card style ─── */
+.glass {
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+  border-radius: 16px; border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+}
+
+/* ─── Hero Header ─── */
+.hero {
+  padding: 40px 0 0; text-align: center; position: relative;
+}
+.hero-inner { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+.hero-logo { height: 90px; margin-bottom: 12px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); }
+.hero h1 {
+  font-size: 36px; font-weight: 900; color: var(--white); letter-spacing: -0.5px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+.hero .lead-name {
+  font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.8); margin-top: 4px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.hero .subtitle {
+  font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 8px; letter-spacing: 0.5px;
+}
+.hero .suggestion-tag {
+  display: inline-block; font-size: 10px; color: var(--gold); background: rgba(246,190,0,0.15);
+  border: 1px solid rgba(246,190,0,0.3); border-radius: 4px; padding: 1px 6px; margin-left: 4px;
+  vertical-align: middle;
+}
+.quote-bar {
+  margin: 20px auto 24px; padding: 12px 20px; border-radius: 10px; max-width: 700px;
+  background: rgba(255,255,255,0.08); border-left: 3px solid var(--indigo-light);
+}
+.quote-text { font-size: 13px; color: rgba(255,255,255,0.9); font-style: italic; line-height: 1.5; }
+.quote-src { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+/* ═══ NOTIFICATION SYSTEM ═══ */
+.notif-widget {
+  position: relative; cursor: pointer; display: flex; align-items: center; gap: 12px;
+  background: rgba(255,255,255,0.95); border-radius: 14px; padding: 12px 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12); border: 2px solid transparent;
+  transition: all 0.3s ease; margin-bottom: 16px;
+}
+.notif-widget.has-new { border-color: var(--indigo); box-shadow: 0 4px 24px rgba(99,102,241,0.25); }
+.notif-widget:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,0,0,0.15); }
+.notif-logo-wrap {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: linear-gradient(135deg, var(--indigo) 0%, var(--indigo-dark) 100%);
+  flex-shrink: 0; position: relative;
+}
+.notif-logo-wrap canvas { display: block; }
+.notif-badge {
+  position: absolute; top: -4px; right: -4px; background: var(--red-alarm); color: white;
+  font-size: 11px; font-weight: 800; min-width: 20px; height: 20px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; padding: 0 5px;
+  box-shadow: 0 2px 6px rgba(220,38,38,0.4);
+}
+.notif-text { flex: 1; }
+.notif-text-title { font-size: 14px; font-weight: 700; color: var(--indigo-dark); }
+.notif-text-sub { font-size: 12px; color: var(--slate); margin-top: 2px; }
+.notif-arrow { color: var(--slate); opacity: 0.4; font-size: 18px; }
+
+.notif-panel-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 10000;
+  display: none; align-items: flex-start; justify-content: center; padding-top: 80px;
+}
+.notif-panel-overlay.open { display: flex; }
+.notif-panel {
+  background: white; border-radius: 16px; width: 100%; max-width: 480px; max-height: 70vh;
+  overflow-y: auto; box-shadow: 0 12px 48px rgba(0,0,0,0.25);
+}
+.notif-panel-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 20px; border-bottom: 1px solid rgba(0,0,0,0.08);
+  position: sticky; top: 0; background: white; z-index: 1; border-radius: 16px 16px 0 0;
+}
+.notif-panel-header h3 { margin: 0; font-size: 16px; color: var(--indigo-dark); }
+.notif-panel-actions { display: flex; gap: 8px; }
+.notif-panel-actions button {
+  padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.12);
+  background: white; cursor: pointer; font-size: 12px; font-weight: 600;
+  font-family: inherit; transition: all 0.2s;
+}
+.notif-panel-actions button:hover { background: rgba(99,102,241,0.06); border-color: var(--indigo); }
+.notif-item {
+  display: flex; gap: 12px; padding: 14px 20px; border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: background 0.2s;
+}
+.notif-item.unread { background: rgba(99,102,241,0.06); }
+.notif-item:hover { background: rgba(99,102,241,0.04); }
+.notif-item-icon {
+  width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center;
+  justify-content: center; font-size: 18px; flex-shrink: 0;
+}
+.notif-item-icon.approve { background: rgba(22,163,74,0.1); }
+.notif-item-icon.return { background: rgba(217,119,6,0.1); }
+.notif-item-icon.checkin { background: rgba(99,102,241,0.1); }
+.notif-item-icon.notes { background: rgba(124,58,237,0.1); }
+.notif-item-icon.submit { background: rgba(99,102,241,0.1); }
+.notif-item-icon.file { background: rgba(59,130,246,0.1); }
+.notif-item-body { flex: 1; min-width: 0; }
+.notif-item-msg { font-size: 13px; color: #333; line-height: 1.4; }
+.notif-item-msg strong { color: var(--indigo-dark); }
+.notif-item-time { font-size: 11px; color: var(--slate); margin-top: 3px; }
+.notif-empty { padding: 40px 20px; text-align: center; color: var(--slate); font-size: 13px; }
+
+/* ─── Countdown Row ─── */
+.countdown-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  max-width: 1080px; margin: 0 auto 24px; padding: 0 24px;
+}
+.countdown-card {
+  border-radius: 16px; padding: 20px; text-align: center;
+  position: relative; overflow: hidden; cursor: default; transition: transform 0.15s, box-shadow 0.15s;
+}
+.countdown-card.clickable { cursor: pointer; }
+.countdown-card.clickable:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
+.countdown-card .accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.countdown-card .big-num { font-size: 40px; font-weight: 900; line-height: 1; margin: 8px 0 4px; }
+.countdown-card .sub { font-size: 11px; color: var(--slate-light); text-transform: uppercase; letter-spacing: 1.5px; }
+.countdown-card .label { font-size: 13px; font-weight: 600; color: var(--slate); margin-top: 6px; }
+.countdown-card .overdue-msg {
+  font-size: 11px; font-weight: 700; color: var(--red-alarm); text-transform: uppercase;
+  letter-spacing: 1px; margin-top: 4px; animation: pulse 1.5s infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+.countdown-card.alarm { border: 2px solid var(--red-alarm); animation: alarm-glow 2s infinite; }
+@keyframes alarm-glow { 0%,100% { box-shadow: 0 0 0 rgba(220,38,38,0); } 50% { box-shadow: 0 0 20px rgba(220,38,38,0.3); } }
+
+/* ─── Tab bar ─── */
+.tab-container { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+.tab-bar-wrap {
+  border-radius: 12px 12px 0 0; overflow: hidden;
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+}
+.tab-bar { display: flex; border-bottom: 2px solid var(--indigo-faint); }
+.tab-btn {
+  display: flex; align-items: center; gap: 8px; padding: 14px 20px;
+  font-size: 14px; font-weight: 500; border: none; cursor: pointer;
+  border-bottom: 3px solid transparent; color: var(--slate-light);
+  background: transparent; transition: all 0.2s; margin-bottom: -2px; font-family: inherit;
+}
+.tab-btn.active { border-bottom-color: var(--indigo); color: var(--indigo); font-weight: 700; }
+.tab-btn:hover:not(.active) { color: var(--slate); }
+.content-wrap {
+  background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+  border-radius: 0 0 16px 16px; padding: 24px; min-height: 400px;
+  border: 1px solid rgba(255,255,255,0.6); border-top: none;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ─── Dashboard: Phase viewer ─── */
+.phase-viewer { position: relative; }
+.phase-viewer-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
+}
+.phase-title-link {
+  font-size: 18px; font-weight: 800; color: var(--indigo); cursor: pointer;
+  text-decoration: none; border: none; background: none; font-family: inherit;
+  display: flex; align-items: center; gap: 8px; transition: opacity 0.15s;
+}
+.phase-title-link:hover { opacity: 0.7; }
+.phase-nav-btn {
+  width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--indigo);
+  background: var(--white); color: var(--indigo); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+  font-size: 18px; font-family: inherit;
+}
+.phase-nav-btn:hover { background: var(--indigo); color: var(--white); }
+.phase-nav-btn:disabled { opacity: 0.3; cursor: default; }
+.phase-nav-btn:disabled:hover { background: var(--white); color: var(--indigo); }
+.phase-due { font-size: 13px; color: var(--slate); }
+.phase-due strong { color: var(--indigo); }
+.phase-task-list { margin: 12px 0; }
+.phase-task-item {
+  display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+  border-radius: 8px; transition: background 0.15s; font-size: 14px;
+}
+.phase-task-item:hover { background: var(--indigo-faint); }
+.phase-task-item.done { color: var(--slate-light); }
+.phase-task-item.done .task-label { text-decoration: line-through; }
+.phase-task-item .task-label { cursor: pointer; flex: 1; }
+.phase-task-item .task-label:hover { color: var(--indigo); }
+.phase-task-item .task-due-tag { font-size: 11px; color: var(--slate-light); white-space: nowrap; }
+.phase-bar-track { height: 10px; background: #f0f0f0; border-radius: 5px; overflow: hidden; margin-top: 12px; }
+.phase-bar-fill { height: 100%; border-radius: 5px; transition: width 0.5s; }
+.phase-stats { display: flex; justify-content: space-between; margin-top: 8px; font-size: 13px; }
+
+/* ─── Dashboard: Weekly rhythm ─── */
+.rhythm-box { margin-top: 24px; border-radius: 14px; padding: 20px; background: var(--indigo-faint); border: 1px solid rgba(99,102,241,0.12); }
+.rhythm-box h3 { font-size: 16px; font-weight: 700; color: var(--indigo); margin-bottom: 12px; }
+.rhythm-item {
+  display: flex; align-items: flex-start; gap: 10px; padding: 8px 10px;
+  border-radius: 8px; cursor: pointer; transition: background 0.15s; font-size: 13px; color: var(--slate);
+}
+.rhythm-item:hover { background: rgba(99,102,241,0.06); }
+.rhythm-item .r-check { flex-shrink: 0; margin-top: 1px; cursor: pointer; }
+.rhythm-item.checked { color: var(--slate-light); }
+.rhythm-item.checked .r-text { text-decoration: line-through; }
+
+/* ─── Check-in detail panel ─── */
+.checkin-detail {
+  margin-top: 20px; border-radius: 14px; border: 2px solid var(--indigo);
+  overflow: hidden; animation: slideDown 0.25s ease-out;
+}
+@keyframes slideDown { from { opacity: 0; max-height: 0; } to { opacity: 1; max-height: 2000px; } }
+.checkin-detail-header {
+  background: var(--indigo); color: var(--white); padding: 14px 20px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.checkin-detail-header h4 { font-size: 16px; font-weight: 700; }
+.checkin-close {
+  background: none; border: none; color: var(--white); font-size: 20px;
+  cursor: pointer; opacity: 0.7; transition: opacity 0.15s;
+}
+.checkin-close:hover { opacity: 1; }
+.checkin-detail-body { padding: 20px; }
+.checkin-agenda-item {
+  display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0f0f0;
+}
+.checkin-agenda-item:last-child { border-bottom: none; }
+.checkin-agenda-check { flex-shrink: 0; margin-top: 2px; cursor: pointer; }
+.checkin-agenda-content { flex: 1; }
+.checkin-agenda-label { font-size: 14px; font-weight: 600; color: var(--black); margin-bottom: 4px; }
+.checkin-agenda-label.checked-label { color: var(--slate-light); text-decoration: line-through; }
+.checkin-notes {
+  width: 100%; min-height: 36px; border: 1px solid #e0e0e0; border-radius: 6px;
+  padding: 6px 10px; font-family: inherit; font-size: 13px; color: var(--slate);
+  resize: vertical; transition: border-color 0.15s;
+}
+.checkin-notes:focus { outline: none; border-color: var(--indigo); }
+
+/* ─── Task detail overlay ─── */
+.task-detail-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5); z-index: 1000; display: flex;
+  align-items: center; justify-content: center; padding: 24px;
+  animation: fadeIn 0.2s;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.task-detail-panel {
+  background: var(--white); border-radius: 16px; width: 100%; max-width: 700px;
+  max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.task-detail-top {
+  background: linear-gradient(135deg, var(--indigo), var(--indigo-dark));
+  color: var(--white); padding: 24px; border-radius: 16px 16px 0 0;
+  position: relative;
+}
+.task-detail-top h2 { font-size: 20px; font-weight: 800; padding-right: 40px; }
+.task-detail-top .due-badge {
+  display: inline-block; background: rgba(255,255,255,0.2); border-radius: 6px;
+  padding: 4px 10px; font-size: 12px; margin-top: 8px;
+}
+.task-detail-close {
+  position: absolute; top: 20px; right: 20px; background: none; border: none;
+  color: var(--white); font-size: 24px; cursor: pointer; opacity: 0.7;
+}
+.task-detail-close:hover { opacity: 1; }
+.task-detail-body { padding: 24px; }
+.task-section { margin-bottom: 20px; }
+.task-section h3 {
+  font-size: 14px; font-weight: 700; color: var(--indigo); text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 8px; padding-bottom: 6px;
+  border-bottom: 2px solid var(--indigo-faint);
+}
+.task-section p { font-size: 14px; color: var(--slate); line-height: 1.6; }
+.task-section ul { list-style: none; padding: 0; }
+.task-section li {
+  padding: 8px 0; border-bottom: 1px solid #f5f5f5; font-size: 13px; color: var(--slate);
+  display: flex; align-items: center; gap: 8px;
+}
+.task-section li:last-child { border-bottom: none; }
+.task-log-area {
+  width: 100%; min-height: 100px; border: 2px solid #e0e0e0; border-radius: 10px;
+  padding: 12px; font-family: inherit; font-size: 14px; color: var(--black);
+  resize: vertical; transition: border-color 0.15s;
+}
+.task-log-area:focus { outline: none; border-color: var(--indigo); }
+.task-status-bar { display: flex; gap: 8px; margin-top: 8px; }
+.task-status-btn {
+  padding: 6px 14px; border-radius: 8px; border: 2px solid #e0e0e0;
+  background: var(--white); font-family: inherit; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+}
+.task-status-btn.active-status { border-color: var(--indigo); background: var(--indigo-faint); color: var(--indigo); }
+.task-status-btn:hover { border-color: var(--indigo-light); }
+
+/* ─── Upload drop zone ─── */
+.upload-zone {
+  border: 2px dashed #ccc; border-radius: 12px; padding: 24px 16px;
+  text-align: center; color: var(--slate-light); cursor: pointer;
+  transition: all 0.2s; background: #fafafa; position: relative;
+}
+.upload-zone:hover, .upload-zone.drag-over {
+  border-color: var(--indigo); background: var(--indigo-faint); color: var(--indigo);
+}
+.upload-zone input[type="file"] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+.upload-zone-icon { font-size: 28px; margin-bottom: 6px; }
+.upload-zone-text { font-size: 13px; font-weight: 600; }
+.upload-zone-hint { font-size: 11px; margin-top: 4px; }
+.uploaded-files-list { margin-top: 10px; text-align: left; }
+.uploaded-file-item {
+  display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+  background: var(--white); border: 1px solid #e5e5e5; border-radius: 8px;
+  margin-bottom: 6px; font-size: 13px; transition: all 0.15s;
+}
+.uploaded-file-item:hover { border-color: var(--indigo-light); }
+.uploaded-file-name { flex: 1; font-weight: 600; color: var(--slate); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.uploaded-file-size { color: var(--slate-light); font-size: 11px; }
+.uploaded-file-remove {
+  background: none; border: none; cursor: pointer; color: #aaa; font-size: 16px;
+  padding: 2px 6px; border-radius: 4px; transition: all 0.15s;
+}
+.uploaded-file-remove:hover { color: #DC2626; background: #FEF2F2; }
+
+/* ─── Timeline tasks ─── */
+.phase-section { margin-bottom: 12px; border-radius: 12px; overflow: hidden; border: 1px solid #e5e5e5; }
+.phase-section.open { border-color: rgba(99,102,241,0.25); }
+.phase-hdr {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px; background: var(--off-white); border: none; cursor: pointer; font-family: inherit;
+}
+.phase-section.open .phase-hdr { background: var(--indigo-faint); }
+.phase-hdr:hover { background: #f0f0f0; }
+.phase-tasks-list { padding: 12px; }
+.tl-task {
+  display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px;
+  border-radius: 8px; transition: all 0.25s;
+}
+.tl-task:hover { background: var(--indigo-faint); }
+.tl-task-check { background: none; border: none; cursor: pointer; padding: 0; flex-shrink: 0; margin-top: 2px; }
+.tl-task-body { flex: 1; min-width: 0; }
+.tl-task-row { display: flex; align-items: center; gap: 8px; }
+.tl-task-label {
+  flex: 1; font-size: 14px; cursor: pointer; color: var(--black); transition: color 0.15s;
+}
+.tl-task-label:hover { color: var(--indigo); text-decoration: underline; }
+.tl-task-label.done { color: var(--slate-light); text-decoration: line-through; }
+.tl-task-due { font-size: 11px; color: var(--slate-light); white-space: nowrap; }
+
+/* Pending Review state — filled radio, indigo accent */
+.tl-task.status-pending_review { background: rgba(99,102,241,0.03); }
+.tl-task.status-pending_review .tl-task-label { color: var(--indigo-dark); font-weight: 600; }
+.tl-status-tag {
+  display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px;
+  border-radius: 10px; white-space: nowrap; letter-spacing: 0.3px;
+}
+.tl-status-tag.review { background: rgba(99,102,241,0.1); color: var(--indigo); }
+.tl-status-tag.in-progress { background: rgba(217,119,6,0.1); color: var(--amber); }
+
+/* Complete state — greyed out with summary */
+.tl-task.status-complete {
+  background: rgba(0,0,0,0.02); opacity: 0.75;
+}
+.tl-task.status-complete:hover { background: rgba(0,0,0,0.04); transform: none; }
+.tl-task.status-complete .tl-task-label {
+  color: var(--slate); text-decoration: line-through; font-weight: 400;
+}
+.tl-task.status-complete .tl-task-due { color: var(--slate); opacity: 0.5; }
+.tl-completion-summary {
+  margin-top: 8px; padding: 10px 14px; background: rgba(22,163,74,0.04);
+  border-left: 3px solid var(--emerald); border-radius: 0 8px 8px 0;
+  font-size: 12px; color: var(--slate); line-height: 1.5;
+}
+.tl-completion-summary .summary-header {
+  font-weight: 700; color: var(--emerald); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;
+}
+.tl-completion-summary .summary-item {
+  display: flex; gap: 6px; margin-bottom: 4px; align-items: flex-start;
+}
+.tl-completion-summary .summary-item .summary-icon { flex-shrink: 0; font-size: 11px; }
+.tl-completion-summary .summary-item .summary-text { font-size: 12px; }
+.mini-bar { width: 100px; height: 6px; background: #e5e5e5; border-radius: 3px; overflow: hidden; }
+.mini-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
+
+/* ─── Footer ─── */
+.footer {
+  max-width: 920px; margin: 0 auto; padding: 20px 24px;
+  text-align: center; display: flex; align-items: center; justify-content: center; gap: 12px;
+}
+.footer img { height: 20px; opacity: 0.4; }
+.footer span { font-size: 11px; color: rgba(255,255,255,0.5); }
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .countdown-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 700px) {
+  .countdown-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 26px; }
+  .checkin-grid { grid-template-columns: repeat(3, 1fr) !important; }
+}
+
+/* Checkin grid */
+.checkin-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.checkin-btn {
+  padding: 10px 8px; border-radius: 10px; text-align: center; cursor: pointer;
+  border: 1px solid #e5e5e5; background: var(--white); transition: all 0.2s; font-family: inherit;
+}
+.checkin-btn.done { border: 2px solid var(--emerald); background: var(--emerald-light); }
+.checkin-btn.selected { border: 2px solid var(--indigo); background: var(--indigo-faint); }
+.checkin-btn:hover { border-color: var(--indigo-light); }
+.checkin-btn .wk { font-size: 11px; font-weight: 700; color: var(--slate); }
+.checkin-btn.done .wk { color: var(--emerald); }
+.checkin-btn .dt { font-size: 10px; color: var(--slate-light); margin-top: 2px; }
+
+/* Resource cards */
+.res-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+.res-card {
+  display: flex; align-items: flex-start; gap: 14px; padding: 16px; border-radius: 12px;
+  border: 1px solid #e5e5e5; background: var(--white); cursor: pointer; transition: all 0.2s;
+}
+.res-card:hover { border-color: rgba(99,102,241,0.4); box-shadow: 0 2px 12px rgba(99,102,241,0.06); }
+.res-icon {
+  width: 36px; height: 36px; border-radius: 8px; background: var(--indigo-faint);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--indigo);
+}
+.ext-link {
+  display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 10px;
+  border: 1px solid #e5e5e5; margin-bottom: 8px; text-decoration: none; transition: all 0.2s;
+}
+.ext-link:hover { background: var(--indigo-faint); }
+.drive-note {
+  border-radius: 14px; padding: 20px; background: var(--gold-light);
+  border: 1px solid rgba(246,190,0,0.25);
+}
+</style>
+</head>
+<body>
+<!-- ═══ BACKGROUND ART ═══ -->
+<div class="bg-art">
+  <!-- Animated DNA Helix Right -->
+  <svg id="dna-right" style="right:20px;top:60px;opacity:0.18" width="140" height="500" viewBox="0 0 140 500"></svg>
+  <!-- Animated DNA Helix Left -->
+  <svg id="dna-left" style="left:20px;top:150px;opacity:0.15" width="120" height="400" viewBox="0 0 120 400"></svg>
+  <!-- Circuit board -->
+  <svg style="right:100px;bottom:100px;opacity:0.14" width="250" height="250" viewBox="0 0 250 250">
+    <g stroke="#fff" stroke-width="2" fill="none">
+      <path d="M20 125 H80 V50 H150 V125 H220"/>
+      <path d="M20 175 H100 V220 H180 V175 H240"/>
+      <circle cx="80" cy="125" r="6" fill="#fff"/><circle cx="150" cy="125" r="6" fill="#fff"/>
+      <circle cx="100" cy="175" r="6" fill="#fff"/><circle cx="180" cy="175" r="6" fill="#fff"/>
+    </g>
+  </svg>
+  <!-- Bacteria -->
+  <svg style="left:15%;top:35%;opacity:0.12;transform:rotate(-20deg)" width="120" height="60" viewBox="0 0 120 60">
+    <ellipse cx="60" cy="30" rx="50" ry="22" stroke="#fff" stroke-width="2.5" fill="none"/>
+    <path d="M10 30 Q15 15, 28 22" stroke="#fff" stroke-width="2" fill="none"/>
+    <path d="M12 38 Q20 50, 30 42" stroke="#fff" stroke-width="2" fill="none"/>
+    <circle cx="45" cy="28" r="3" fill="#fff" opacity="0.5"/>
+  </svg>
+  <svg style="right:15%;top:55%;opacity:0.10;transform:rotate(15deg) scale(1.5)" width="100" height="50" viewBox="0 0 100 50">
+    <ellipse cx="50" cy="25" rx="42" ry="18" stroke="#fff" stroke-width="2" fill="none"/>
+    <path d="M85 20 Q92 12, 95 22" stroke="#fff" stroke-width="1.5" fill="none"/>
+    <circle cx="35" cy="22" r="2.5" fill="#fff" opacity="0.4"/>
+    <circle cx="55" cy="28" r="2" fill="#fff" opacity="0.3"/>
+  </svg>
+  <!-- Molecule network -->
+  <svg style="left:50%;top:10%;opacity:0.10;transform:translateX(-50%)" width="300" height="200" viewBox="0 0 300 200">
+    <g stroke="#fff" stroke-width="1.5" fill="#fff">
+      <line x1="50" y1="30" x2="120" y2="60"/><line x1="120" y1="60" x2="200" y2="30"/><line x1="200" y1="30" x2="260" y2="80"/>
+      <line x1="120" y1="60" x2="100" y2="130"/><line x1="100" y1="130" x2="180" y2="150"/><line x1="180" y1="150" x2="260" y2="80"/>
+      <line x1="50" y1="30" x2="30" y2="100"/><line x1="30" y1="100" x2="100" y2="130"/>
+      <circle cx="50" cy="30" r="6"/><circle cx="120" cy="60" r="8"/><circle cx="200" cy="30" r="6"/>
+      <circle cx="260" cy="80" r="7"/><circle cx="100" cy="130" r="6"/><circle cx="180" cy="150" r="7"/>
+      <circle cx="30" cy="100" r="5"/>
+    </g>
+  </svg>
+</div>
+
+<div class="page-wrap">
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <svg class="hero-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#fff;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#E0E7FF;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#logoGrad)" stroke="#C8102E" stroke-width="2"/>
+      <text x="50" y="65" font-size="48" font-weight="bold" text-anchor="middle" fill="#6366F1" font-family="serif">W</text>
+    </svg>
+    <h1>Wiki Lead Dashboard</h1>
+    <div class="lead-name">Lyba Siddiqui</div>
+    <div class="subtitle">Wiki & Documentation Lead</div>
+    <div class="quote-bar">
+      <div class="quote-text">The wiki is where your science becomes a story the world can understand.</div>
+      <div class="quote-src">— UH iGEM 2026</div>
+    </div>
+    <div class="notif-widget" id="notif-widget" onclick="openNotifPanel()">
+      <div class="notif-logo-wrap">
+        <canvas id="helix-canvas" width="44" height="44"></canvas>
+        <span class="notif-badge" id="notif-badge" style="display:none;">0</span>
+      </div>
+      <div class="notif-text">
+        <div class="notif-text-title" id="notif-title">No new messages</div>
+        <div class="notif-text-sub" id="notif-sub">Check back often for updates</div>
+      </div>
+      <div class="notif-arrow">›</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ COUNTDOWNS ═══ -->
+<div class="countdown-grid" id="countdownRow"></div>
+
+<!-- ═══ TABS ═══ -->
+<div class="tab-container">
+  <div class="tab-bar-wrap">
+    <div class="tab-bar" id="tabBar"></div>
+  </div>
+  <div class="content-wrap">
+    <div class="tab-panel" id="panel-dashboard"></div>
+    <div class="tab-panel" id="panel-timeline"></div>
+    <div class="tab-panel" id="panel-checkins"></div>
+    <div class="tab-panel" id="panel-resources"></div>
+    <div class="tab-panel" id="panel-activity"></div>
+  </div>
+</div>
+
+<!-- ═══ OVERLAYS ═══ -->
+<div id="notif-panel-overlay" class="notif-panel-overlay">
+  <div class="notif-panel">
+    <div class="notif-panel-header">
+      <h3>Notifications</h3>
+      <div class="notif-panel-actions">
+        <button onclick="markAllNotifsRead()">Mark all read</button>
+        <button onclick="closeNotifPanel()">Close</button>
+      </div>
+    </div>
+    <div id="notif-list"></div>
+  </div>
+</div>
+<div id="taskOverlay"></div>
+
+<!-- ═══ FOOTER ═══ -->
+<div class="footer">
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Ctext x='5' y='20' font-size='16' font-weight='bold' fill='%23666'%3EUH iGEM%3C/text%3E%3C/svg%3E" />
+  <span>Wiki Lead Dashboard — 2026 Competition Season</span>
+</div>
+
+</div>
+
+<script>
+/* ═══ CONFIGURATION ═══ */
+const MY_ROLE = 'wiki';
+const NOTIF_LS_KEY = 'uh_igem_notifications_v1';
+const STORAGE_KEY = 'uh_igem_wiki_v1';
+const JAMBOREE = new Date(2026, 10, 13);
+const WIKI_FREEZE = new Date(2026, 9, 25);
+
+// ICONS
+const I = {
+  check: '◉', circle: '○', x: '✕', ext: '↗', file: '📄', trophy: '🏆',
+};
+
+// ═══ WIKI PHASES AND TASKS ═══
+const PHASES = [
+  {name:"Phase 1: Foundation",emoji:"📚",range:"Apr 16 – May 26",end:new Date(2026,4,26),color:"#6366F1",
+   tasks:[
+    {id:"wiki-1",text:"Read iGEM Wiki requirements",due:"Apr 21",
+     guide:"Study the official iGEM Wiki requirements document. Understand required pages, judging criteria, technical constraints (HTML/CSS limits, media storage), and deadlines. Take notes on: mandatory sections, file size limits, linking structure, and accessibility standards.",
+     resources:["iGEM Wiki Requirements","Technical Specifications"],
+     docs:[]},
+    {id:"wiki-2",text:"Review 2025 winning wikis",due:"Apr 28",
+     guide:"Analyze 3–5 wiki pages from 2025 Best Wiki Award winners. Note their: page structure, navigation design, content organization, visual style, use of media, and integration of project narrative. Document patterns and best practices you'll follow.",
+     resources:["iGEM Wiki Awards","Winning Wiki Gallery"],
+     docs:[]},
+    {id:"wiki-3",text:"Establish page structure & templates",due:"May 10",
+     guide:"Design the overall wiki structure: which pages will exist, how they link, breadcrumb navigation, footer style. Create reusable HTML/CSS templates for consistency. Set up the basic skeleton with placeholder pages.",
+     resources:["Wiki Structure Guide","HTML/CSS Templates"],
+     docs:[]},
+    {id:"wiki-4",text:"Create project overview template",due:"May 17",
+     guide:"Build the home/overview page template. This is where judges land first—it must clearly communicate your project, team, and scientific approach. Include spaces for: title, abstract, problem statement, team section, and visual hierarchy.",
+     resources:["Past Project Overviews","Wiki Design Patterns"],
+     docs:[]},
+    {id:"wiki-5",text:"Coordinate with all leads on wiki content",due:"May 26",
+     guide:"Meet with HP Lead (May), Model Lead, Wet Lab Lead, and Project Lead (Austin). Discuss what content each subteam will contribute, deadlines for drafts, format requirements, and media needs. Document all agreements in a content calendar.",
+     resources:["Subteam Schedule","Wiki Content Calendar"],
+     docs:[]},
+   ]},
+  {name:"Phase 2: Content Build",emoji:"✍️",range:"May 27 – Aug 1",end:new Date(2026,7,1),color:"#818CF8",
+   tasks:[
+    {id:"wiki-6",text:"Build wiki skeleton pages",due:"Jun 1",
+     guide:"Create all main wiki pages with structure and placeholder content. Include: Project Overview, Problem & Solution, Design, Methods, Results, Modeling, Human Practices, Team, Achievements. Link everything together. No final content yet—just framework.",
+     resources:["Page Templates","Navigation Structure"],
+     docs:[]},
+    {id:"wiki-7",text:"Integrate HP content from May",due:"Jun 15",
+     guide:"Receive final HP narrative from May Shin Thant. Edit for wiki formatting, integrate into the HP page with styling consistent with other pages. Add photos and quotes (with proper credits). Ensure all stakeholder data is de-identified.",
+     resources:["HP Wiki Guidelines","Photo/Quote Attribution"],
+     docs:[]},
+    {id:"wiki-8",text:"Integrate modeling content",due:"Jun 29",
+     guide:"Collect modeling documentation from the modeling subteam. Create dedicated modeling pages: Model Overview, Methodology, Results, Interactive Visualizations. Test any embedded models or interactive tools. Ensure all links and math rendering work correctly.",
+     resources:["Modeling Documentation Template","Math Rendering Guide"],
+     docs:[]},
+   ]},
+  {name:"Phase 3: Integration",emoji:"🔗",range:"Aug 2 – Sep 16",end:new Date(2026,8,16),color:"#A78BFA",
+   tasks:[
+    {id:"wiki-9",text:"Wet lab results & data integration",due:"Aug 2",
+     guide:"Integrate wet lab experimental results, data visualizations, and figure captions into Results pages. Ensure all figures have clear titles, legends, and explanations. Check that data is presented clearly and supports the narrative.",
+     resources:["Results Template","Data Visualization Guide"],
+     docs:[]},
+    {id:"wiki-10",text:"Wiki draft v1 complete",due:"Aug 23",
+     guide:"All main content sections drafted and integrated. Every page populated with appropriate content, images, and links. Styling should be consistent. Submit to Project Coordinator (Austin) and subteam leads for comprehensive review.",
+     resources:["Draft Submission Checklist"],
+     docs:[]},
+   ]},
+  {name:"Phase 4: Polish",emoji:"✨",range:"Sep 17 – Oct 21",end:new Date(2026,9,21),color:"#C4B5FD",
+   tasks:[
+    {id:"wiki-11",text:"Design polish & styling",due:"Sep 7",
+     guide:"Refine the visual design: typography, color consistency, spacing, responsive layout on mobile. Test on multiple browsers. Ensure images are optimized for web (proper resolution and file size). Check accessibility: color contrast, alt text, keyboard navigation.",
+     resources:["Design Polish Checklist","Accessibility Audit"],
+     docs:[]},
+    {id:"wiki-12",text:"Final content review",due:"Sep 14",
+     guide:"Comprehensive content review: check spelling, grammar, consistency in terminology, citation accuracy, and scientific clarity. Verify all links work. Ensure figures have proper captions. Update any outdated information.",
+     resources:["Content Review Template","Link Checker Tool"],
+     docs:[]},
+   ]},
+  {name:"Phase 5: Submission",emoji:"🎯",range:"Oct 22 – Nov 11",end:new Date(2026,10,11),color:"#E9D5FF",
+   tasks:[
+    {id:"wiki-13",text:"Wiki freeze submission",due:"Sep 25",
+     guide:"Final wiki submission and freeze. No more content changes after this date. Do a final full-page review: load times, media display, link functionality. Archive a backup copy. Notify judges and prepare supplementary materials.",
+     resources:["Pre-Submission Checklist","Backup Archive"],
+     docs:[]},
+    {id:"wiki-14",text:"Final bug fixes after freeze",due:"Oct 5",
+     guide:"After submission, only fix critical bugs (broken links, images not loading, rendering errors). Log all fixes with timestamps. Do NOT change content, headings, or design elements—only technical corrections.",
+     resources:["Bug Report Template"],
+     docs:[]},
+   ]},
+];
+
+const CHECKIN_AGENDA = [
+  {label:"Content delivery status — what wiki sections received from subteams?", key:"content"},
+  {label:"Design & styling progress — UI polish and visual consistency", key:"design"},
+  {label:"Technical issues — broken links, media problems, performance?", key:"tech"},
+  {label:"Blockers or dependencies — content waiting from other leads?", key:"blockers"},
+  {label:"Timeline review — on track for freeze and submission?", key:"timeline"},
+  {label:"Action items for next week", key:"actions"},
+  {label:"Questions for Project Lead (Austin) or subteam leads", key:"questions"},
+];
+
+const WEEKLY_CHECKINS = [
+  {id:"wk1",week:1,date:"Apr 21",fullDate:new Date(2026,3,21)},
+  {id:"wk2",week:2,date:"Apr 28",fullDate:new Date(2026,3,28)},
+  {id:"wk3",week:3,date:"May 5",fullDate:new Date(2026,4,5)},
+  {id:"wk4",week:4,date:"May 12",fullDate:new Date(2026,4,12)},
+  {id:"wk5",week:5,date:"May 19",fullDate:new Date(2026,4,19)},
+  {id:"wk6",week:6,date:"May 26",fullDate:new Date(2026,4,26)},
+  {id:"wk7",week:7,date:"Jun 2",fullDate:new Date(2026,5,2)},
+  {id:"wk8",week:8,date:"Jun 9",fullDate:new Date(2026,5,9)},
+  {id:"wk9",week:9,date:"Jun 16",fullDate:new Date(2026,5,16)},
+  {id:"wk10",week:10,date:"Jun 23",fullDate:new Date(2026,5,23)},
+  {id:"wk11",week:11,date:"Jun 30",fullDate:new Date(2026,5,30)},
+  {id:"wk12",week:12,date:"Jul 7",fullDate:new Date(2026,6,7)},
+  {id:"wk13",week:13,date:"Jul 14",fullDate:new Date(2026,6,14)},
+  {id:"wk14",week:14,date:"Jul 21",fullDate:new Date(2026,6,21)},
+  {id:"wk15",week:15,date:"Jul 28",fullDate:new Date(2026,6,28)},
+  {id:"wk16",week:16,date:"Aug 4",fullDate:new Date(2026,7,4)},
+  {id:"wk17",week:17,date:"Aug 11",fullDate:new Date(2026,7,11)},
+  {id:"wk18",week:18,date:"Aug 18",fullDate:new Date(2026,7,18)},
+  {id:"wk19",week:19,date:"Aug 25",fullDate:new Date(2026,7,25)},
+  {id:"wk20",week:20,date:"Sep 1",fullDate:new Date(2026,8,1)},
+  {id:"wk21",week:21,date:"Sep 8",fullDate:new Date(2026,8,8)},
+  {id:"wk22",week:22,date:"Sep 15",fullDate:new Date(2026,8,15)},
+  {id:"wk23",week:23,date:"Sep 22",fullDate:new Date(2026,8,22)},
+  {id:"wk24",week:24,date:"Sep 29",fullDate:new Date(2026,8,29)},
+  {id:"wk25",week:25,date:"Oct 6",fullDate:new Date(2026,9,6)},
+  {id:"wk26",week:26,date:"Oct 13",fullDate:new Date(2026,9,13)},
+  {id:"wk27",week:27,date:"Oct 20",fullDate:new Date(2026,9,20)},
+  {id:"wk28",week:28,date:"Oct 27",fullDate:new Date(2026,9,27)},
+  {id:"wk29",week:29,date:"Nov 3",fullDate:new Date(2026,10,3)},
+  {id:"wk30",week:30,date:"Nov 10",fullDate:new Date(2026,10,10)},
+];
+
+const DRIVE_BASE = "https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7";
+const FILE_DRIVE_URLS = {
+  "Wiki_Lead_Strategy_Guide.docx": "https://drive.google.com/file/d/1BMPN-oR6DwIRsZcqkOH29O1zUG5NECK4/view",
+  "Wiki_Content_Calendar.xlsx": "https://drive.google.com/file/d/1NlEo89NGJ0RPsEPsakvTSIUhbtQe41nr/view",
+  "iGEM_2026_Competition_Strategy.docx": "https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",
+};
+function driveUrl(file){return FILE_DRIVE_URLS[file]||DRIVE_BASE;}
+
+/* ═══ STORAGE ═══ */
+let S = {};
+function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(S)); }
+function load() {
+  const data = localStorage.getItem(STORAGE_KEY);
+  S = data ? JSON.parse(data) : {};
+  S.tasks = S.tasks || {};
+  S.taskStatus = S.taskStatus || {};
+  S.taskLogs = S.taskLogs || {};
+  S.taskUrgent = S.taskUrgent || {};
+  S.taskFiles = S.taskFiles || {};
+  S.weeks = S.weeks || {};
+  S.checkinData = S.checkinData || {};
+  S.activityLog = S.activityLog || [];
+}
+load();
+
+/* ═══ ICONS & SYMBOLS ═══ */
+function createSVGHelix(canvas, size=44) {
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, size, size);
+  const time = (Date.now() % 3000) / 1000;
+  const cx = size / 2, cy = size / 2, r = size / 5;
+  const amp = size / 4;
+  for (let i = 0; i < 6; i++) {
+    const y = (cy - r) + i * 5;
+    const angle = time * 2 + i * 0.5;
+    const x1 = cx + amp * Math.sin(angle);
+    const x2 = cx - amp * Math.sin(angle);
+    const z1 = Math.cos(angle);
+    const z2 = -Math.cos(angle);
+    const sc1 = 0.5 + 0.5 * Math.max(0, z1);
+    const sc2 = 0.5 + 0.5 * Math.max(0, z2);
+    ctx.fillStyle = `rgba(99, 102, 241, ${sc1 * 0.8})`;
+    ctx.beginPath();
+    ctx.arc(x1, y, r * 0.6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = `rgba(99, 102, 241, ${sc2 * 0.8})`;
+    ctx.beginPath();
+    ctx.arc(x2, y, r * 0.6, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  requestAnimationFrame(() => createSVGHelix(canvas, size));
+}
+const helixCanvas = document.getElementById('helix-canvas');
+if (helixCanvas) createSVGHelix(helixCanvas);
+
+/* ═══ TABS ═══ */
+const TABS = ['dashboard', 'timeline', 'checkins', 'resources', 'activity'];
+let currentTab = 'dashboard';
+
+function switchTab(tabName) {
+  currentTab = tabName;
+  renderTabs();
+  renderPanel();
+}
+
+function renderTabs() {
+  const html = TABS.map(t => {
+    const icons = { dashboard: '📊', timeline: '📋', checkins: '✓', resources: '📚', activity: '📝' };
+    const labels = { dashboard: 'Dashboard', timeline: 'Timeline', checkins: 'Check-Ins', resources: 'Resources', activity: 'Activity' };
+    return `<button class="tab-btn ${t===currentTab?'active':''}" onclick="switchTab('${t}')">${icons[t]} ${labels[t]}</button>`;
+  }).join('');
+  document.getElementById('tabBar').innerHTML = html;
+}
+
+/* ═══ MAIN RENDER ═══ */
+let viewPhaseOffset = 0;
+
+function renderPanel() {
+  const panels = {
+    dashboard: () => renderDashboard(),
+    timeline: () => renderTimeline(),
+    checkins: () => renderCheckins(),
+    resources: () => renderResources(),
+    activity: () => renderActivity(),
+  };
+  TABS.forEach(t => {
+    const p = document.getElementById(`panel-${t}`);
+    p.classList.toggle('active', t === currentTab);
+    if (t === currentTab) {
+      panels[t]();
+    }
+  });
+}
+
+function renderDashboard() {
+  const phaseIdx = getCurrentPhaseIdx();
+  const p = PHASES[phaseIdx + viewPhaseOffset] || PHASES[PHASES.length - 1];
+  const idx = PHASES.indexOf(p);
+  const ps = phaseStats(idx);
+  const nextTasks = p.tasks.filter(t => !S.tasks[t.id]).slice(0, 3);
+
+  const tasksHtml = p.tasks.map(t => `<div class="phase-task-item ${S.tasks[t.id]?'done':''}">
+    <span style="cursor:pointer;font-size:18px" onclick="toggleTask('${t.id}')">${S.tasks[t.id] ? '✓' : '○'}</span>
+    <span class="task-label" onclick="openTaskDetail('${t.id}')">${t.text}</span>
+    <span class="task-due-tag">${t.due}</span>
+  </div>`).join('');
+
+  const rhythmHtml = [
+    {day: 'Monday', task: 'Review task board & prioritize wiki work', key: 'mon'},
+    {day: 'Wednesday', task: 'Content integration check with subteam leads', key: 'wed'},
+    {day: 'Friday', task: 'Push updates & log progress', key: 'fri'},
+  ].map(r => {
+    const checked = !!S[r.key];
+    return `<div class="rhythm-item ${checked?'checked':''}">
+      <span class="r-check" onclick="S['${r.key}']=!S['${r.key}'];save();renderDashboard()">${checked ? '✓' : '○'}</span>
+      <span class="r-text">${r.day}: ${r.task}</span>
+    </div>`;
+  }).join('');
+
+  document.getElementById('panel-dashboard').innerHTML = `
+    <div class="phase-viewer">
+      <div class="phase-viewer-header">
+        <button class="phase-nav-btn" onclick="viewPhaseOffset=Math.max(viewPhaseOffset-1,-getCurrentPhaseIdx());renderDashboard()">‹</button>
+        <button class="phase-title-link" onclick="switchTab('timeline')">${p.emoji} ${p.name}</button>
+        <button class="phase-nav-btn" onclick="viewPhaseOffset=Math.min(viewPhaseOffset+1,${PHASES.length-1-getCurrentPhaseIdx()});renderDashboard()">›</button>
+      </div>
+      <div class="phase-due">Ends: <strong>${p.range.split('–')[1]}</strong></div>
+      <div class="phase-task-list">${tasksHtml}</div>
+      <div class="phase-bar-track"><div class="phase-bar-fill" style="width:${ps.pct}%;background:${p.color}"></div></div>
+      <div class="phase-stats"><span>${ps.done} of ${ps.total} tasks complete</span><span style="color:${p.color};font-weight:700">${ps.pct}%</span></div>
+    </div>
+    <div class="rhythm-box">
+      <h3>📅 Weekly Rhythm</h3>
+      ${rhythmHtml}
+    </div>
+    <div style="margin-top:24px;padding:16px;background:#f0f8ff;border-radius:12px;border-left:4px solid #6366F1">
+      <div style="font-size:14px;font-weight:700;color:#6366F1;margin-bottom:8px">Next Tasks</div>
+      ${nextTasks.length > 0 ? nextTasks.map(t => `<div style="font-size:13px;color:var(--slate);margin-bottom:6px;cursor:pointer" onclick="openTaskDetail('${t.id}')">${t.emoji||'📌'} <strong>${t.text.substring(0,50)}</strong> — Due ${t.due}</div>`).join('') : '<div style="font-size:13px;color:var(--emerald)">✅ All caught up!</div>'}
+    </div>
+  `;
+}
+
+function renderTimeline() {
+  const html = PHASES.map((p, i) => {
+    const ps = phaseStats(i);
+    const isOpen = i === getCurrentPhaseIdx();
+    const tasksHtml = isOpen ? `<div class="phase-tasks-list">${p.tasks.map(t => {
+      const done = S.tasks[t.id];
+      const status = S.taskStatus[t.id] || 'not_started';
+      const statusLabel = status === 'complete' ? '✅' : status === 'pending_review' ? '📤' : status === 'in_progress' ? '▶️' : '⬜';
+      return `<div class="tl-task status-${status}">
+        <button class="tl-task-check" onclick="toggleTask('${t.id}');renderTimeline()">${done ? '✓' : '○'}</button>
+        <div class="tl-task-body">
+          <div class="tl-task-row">
+            <span class="tl-task-label ${done?'done':''}" onclick="openTaskDetail('${t.id}')">${t.text}</span>
+            ${status !== 'not_started' && status !== 'complete' ? `<span class="tl-status-tag ${status === 'pending_review' ? 'review' : 'in-progress'}">${statusLabel}</span>` : ''}
+            <span class="tl-task-due">${t.due}</span>
+          </div>
+        </div>
+      </div>`;
+    }).join('') + (ps.pct === 100 ? `<div style="padding:12px;background:rgba(22,163,74,0.06);border-radius:8px;color:var(--emerald);font-size:12px;font-weight:600">✅ Phase complete!</div>` : '') + `</div>` : '';
+
+    return `<div class="phase-section ${isOpen?'open':''}">
+      <button class="phase-hdr" onclick="this.parentElement.classList.toggle('open');renderTimeline()">
+        <div style="display:flex;align-items:center;gap:10px;flex:1">
+          <span style="font-size:18px">${p.emoji}</span>
+          <div style="text-align:left">
+            <div style="font-weight:700;color:var(--black)">${p.name}</div>
+            <div style="font-size:11px;color:var(--slate-light)">${p.range}</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-weight:700;color:${p.color}">${ps.pct}%</div>
+          <div class="mini-bar" style="width:100px;margin-top:4px"><div class="mini-fill" style="width:${ps.pct}%;background:${p.color}"></div></div>
+        </div>
+      </button>
+      ${tasksHtml}
+    </div>`;
+  }).join('');
+
+  document.getElementById('panel-timeline').innerHTML = html;
+}
+
+function renderCheckins() {
+  let detailHtml = '';
+  const weeksHtml = WEEKLY_CHECKINS.map(wk => {
+    const done = !!S.weeks[wk.id];
+    const isSelected = selectedCheckin === wk.id;
+    return `<button class="checkin-btn ${done?'done':''} ${isSelected?'selected':''}" onclick="selectCheckin('${wk.id}')">
+      <div class="wk">W${wk.week}</div>
+      <div class="dt">${wk.date}</div>
+    </button>`;
+  }).join('');
+
+  if (selectedCheckin) {
+    const wk = WEEKLY_CHECKINS.find(w => w.id === selectedCheckin);
+    const cd = S.checkinData[selectedCheckin] || {};
+    const thisWeekTasks = getTasksDueInWeek(wk.fullDate);
+    const nextWeekTasks = getTasksDueNextWeek(wk.fullDate);
+
+    let guidanceHtml = `<div style="padding:16px;background:var(--indigo-faint);border-radius:12px;border-left:4px solid var(--indigo);margin-bottom:16px">
+      <div style="font-size:14px;font-weight:700;color:var(--indigo);margin-bottom:12px">📝 Week ${wk.week} Guidance (${wk.date})</div>`;
+
+    if (thisWeekTasks.length > 0) {
+      guidanceHtml += `<div style="margin-bottom:14px;">
+        <div style="font-size:13px;font-weight:700;color:var(--indigo);margin-bottom:8px;">🎯 Due This Week</div>`;
+      thisWeekTasks.forEach(t => {
+        const statusColor = t.status === 'complete' ? 'var(--emerald)' : t.status === 'pending_review' ? 'var(--amber)' : t.status === 'in_progress' ? 'var(--indigo)' : 'var(--slate)';
+        const statusLabel = t.status === 'complete' ? '✅ Complete' : t.status === 'pending_review' ? '📤 In Review' : t.status === 'in_progress' ? '▶️ In Progress' : '⬜ Not Started';
+        const isDone = t.done || t.status === 'complete';
+        guidanceHtml += `<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:${isDone?'rgba(22,163,74,0.06)':'rgba(255,255,255,0.8)'};border-radius:8px;margin-bottom:4px;border-left:3px solid ${statusColor};cursor:pointer;" onclick="openTaskDetail('${t.id}')">
+          <span style="font-size:12px;font-weight:600;color:var(--indigo-dark);flex:1;${isDone?'text-decoration:line-through;opacity:0.6;':''}">${t.text.substring(0,65)}${t.text.length>65?'…':''}</span>
+          <span style="font-size:10px;font-weight:700;color:${statusColor};white-space:nowrap;">${statusLabel}</span>
+          <span style="font-size:10px;color:var(--slate);white-space:nowrap;">${t.due}</span>
+        </div>`;
+      });
+      guidanceHtml += `</div>`;
+    } else {
+      guidanceHtml += `<div style="margin-bottom:14px;padding:10px 14px;background:rgba(22,163,74,0.06);border-radius:8px;color:var(--emerald);font-size:13px;font-weight:600;">✅ No tasks due this week — great time to get ahead!</div>`;
+    }
+
+    if (nextWeekTasks.length > 0) {
+      guidanceHtml += `<div style="margin-bottom:14px;">
+        <div style="font-size:13px;font-weight:700;color:var(--amber);margin-bottom:8px;">👀 Coming Up Next Week</div>`;
+      nextWeekTasks.forEach(t => {
+        const isDone = t.done || t.status === 'complete';
+        guidanceHtml += `<div style="display:flex;align-items:center;gap:10px;padding:6px 12px;background:rgba(217,119,6,0.04);border-radius:8px;margin-bottom:4px;border-left:3px solid var(--amber);opacity:${isDone?'0.5':'0.85'};cursor:pointer;" onclick="openTaskDetail('${t.id}')">
+          <span style="font-size:12px;color:var(--indigo-dark);flex:1;${isDone?'text-decoration:line-through;':''}">${t.text.substring(0,65)}${t.text.length>65?'…':''}</span>
+          <span style="font-size:10px;color:var(--slate);white-space:nowrap;">${t.due}</span>
+        </div>`;
+      });
+      guidanceHtml += `</div>`;
+    }
+
+    guidanceHtml += `</div>`;
+
+    const agendaHtml = CHECKIN_AGENDA.map(a => {
+      const checked = !!cd[a.key + "_done"];
+      const notes = cd[a.key + "_notes"] || "";
+      return `<div class="checkin-agenda-item">
+        <span class="checkin-agenda-check" onclick="toggleCheckinItem('${selectedCheckin}','${a.key}')">${checked ? I.check : I.circle}</span>
+        <div class="checkin-agenda-content">
+          <div class="checkin-agenda-label ${checked ? 'checked-label' : ''}">${a.label}</div>
+          <textarea class="checkin-notes" placeholder="Wiki status notes — content received, design progress, blockers..." oninput="saveCheckinNote('${selectedCheckin}','${a.key}',this.value)">${notes}</textarea>
+        </div>
+      </div>`;
+    }).join("");
+
+    detailHtml = `<div class="checkin-detail">
+      <div class="checkin-detail-header">
+        <h4>Week ${wk.week} Check-In — ${wk.date}</h4>
+        <div style="display:flex;gap:12px;align-items:center">
+          <button style="background:rgba(99,102,241,0.2);border:none;color:white;padding:4px 12px;border-radius:6px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600" onclick="markCheckinDone('${selectedCheckin}')">
+            ${S.weeks[selectedCheckin] ? '✓ Completed' : 'Mark Complete'}
+          </button>
+          <button class="checkin-close" onclick="selectedCheckin=null;renderCheckins();">${I.x}</button>
+        </div>
+      </div>
+      <div class="checkin-detail-body">
+        ${guidanceHtml}
+        <div style="font-size:14px;font-weight:700;color:white;margin-bottom:12px;">📝 Check-In Agenda</div>
+        ${agendaHtml}
+      </div>
+    </div>`;
+  }
+
+  document.getElementById("panel-checkins").innerHTML =
+    `<p style="font-size:13px;color:var(--slate-light);margin-bottom:16px">Click a week to open its check-in agenda. Cover each item with your Project Coordinator during your Monday meeting.</p>
+    <div class="checkin-grid">${weeksHtml}</div>${detailHtml}`;
+}
+
+function renderResources() {
+  const resCards = [
+    {name: "iGEM Wiki Requirements", desc: "Official iGEM wiki rules, judging criteria, and technical specifications", url: "https://igem.org/wiki-specifications"},
+    {name: "Wiki Best Practices Guide", desc: "Tips, templates, and design patterns from winning teams", url: DRIVE_BASE},
+    {name: "Content Calendar", desc: "Track deadlines and content delivery from each subteam", url: driveUrl("Wiki_Content_Calendar.xlsx")},
+    {name: "Design & Style Guide", desc: "Color palettes, typography, spacing, and responsive layout standards", url: DRIVE_BASE},
+    {name: "HTML/CSS Templates", desc: "Reusable page templates for consistency across wiki", url: DRIVE_BASE},
+    {name: "Competition Strategy", desc: "Overall iGEM 2026 strategy and wiki requirements", url: driveUrl("iGEM_2026_Competition_Strategy.docx")},
+  ].map(r => `<a class="res-card" href="${r.url||DRIVE_BASE}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer"><div class="res-icon">📄</div><div>
+    <div style="font-size:14px;font-weight:600;color:var(--indigo)">${r.name}</div>
+    <div style="font-size:12px;color:var(--slate-light);margin-top:2px">${r.desc}</div>
+    <div style="font-size:11px;color:var(--slate);margin-top:4px;display:flex;align-items:center;gap:4px">${I.ext} Open link</div>
+  </div></a>`).join("");
+
+  const extHtml = [
+    {name: "iGEM 2025 Wiki Winners", url: "https://igem.org/competition/results/"},
+    {name: "iGEM Wiki Hosting Guide", url: "https://igem.org/wiki-hosting"},
+    {name: "Web Accessibility Guide", url: "https://www.w3.org/WAI/"},
+  ].map(l => `<a class="ext-link" href="${l.url}" target="_blank" rel="noopener noreferrer">
+    ${I.ext}<span style="font-size:14px;font-weight:600;color:var(--indigo)">${l.name}</span>
+    <span style="font-size:11px;color:var(--slate-light);margin-left:auto">${l.url}</span>
+  </a>`).join("");
+
+  document.getElementById("panel-resources").innerHTML = `
+    <h3 style="margin:0 0 12px;font-size:16px;font-weight:700">Team Drive Documents</h3>
+    <p style="font-size:12px;color:var(--slate-light);margin-bottom:16px">These files are in your Wiki Lead folder on Google Drive.</p>
+    <div class="res-grid">${resCards}</div>
+    <h3 style="margin:0 0 12px;font-size:16px;font-weight:700">External iGEM Resources</h3>
+    <div style="margin-bottom:28px">${extHtml}</div>
+    <h3 style="margin:24px 0 12px;font-size:16px;font-weight:700">📎 Upload Documents</h3>
+    <p style="font-size:12px;color:var(--slate-light);margin-bottom:12px">Upload any documents related to your wiki role — design drafts, content outlines, images, style guides, testing notes. All uploads are saved to the team Google Drive folder.</p>
+    <div class="upload-zone" id="dropzone-resources"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="event.preventDefault();this.classList.remove('drag-over');handleResourceFileDrop(event.dataTransfer.files)">
+      <div class="upload-zone-icon">📂</div>
+      <div class="upload-zone-text">Drag & drop files here, or click to browse</div>
+      <div class="upload-zone-hint">Supports any file type — PDFs, images, design files, documents, etc.</div>
+      <input type="file" multiple onchange="handleResourceFileDrop(this.files);this.value=''"/>
+    </div>
+    <div class="uploaded-files-list" id="filelist-resources">${renderResourceFiles()}</div>`;
+}
+
+function renderResourceFiles() {
+  const files = S.taskFiles['resources'] || [];
+  return files.length === 0 ? '' : files.map(f => `<div class="uploaded-file-item">
+    <span style="font-size:14px">📎</span>
+    <span class="uploaded-file-name">${f.name}</span>
+    <span class="uploaded-file-size">${(f.size/1024/1024).toFixed(1)}MB</span>
+    <button class="uploaded-file-remove" onclick="removeResourceFile('${f.name}')">${I.x}</button>
+  </div>`).join('');
+}
+
+function handleResourceFileDrop(fileList) {
+  if (!S.taskFiles['resources']) S.taskFiles['resources'] = [];
+  Array.from(fileList).forEach(f => {
+    S.taskFiles['resources'].push({name: f.name, size: f.size, uploaded: Date.now()});
+  });
+  save();
+  renderResources();
+  sendNotification('coord', 'file', `<strong>Wiki Lead</strong> uploaded ${fileList.length} file(s) to Resources`, null);
+  logActivity('file', `Uploaded ${fileList.length} resource file(s)`, Array.from(fileList).map(f=>f.name).join(', '), {fileCount: fileList.length});
+}
+
+function removeResourceFile(name) {
+  S.taskFiles['resources'] = (S.taskFiles['resources'] || []).filter(f => f.name !== name);
+  save();
+  renderResources();
+}
+
+function renderActivity() {
+  const logs = (S.activityLog || []).sort((a, b) => b.timestamp - a.timestamp).slice(0, 50);
+  const html = logs.map(log => {
+    const date = new Date(log.timestamp);
+    const timeStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    const icons = {
+      progress: '▶️', complete: '✅', submit: '📤', notes: '📝', file: '📎',
+      checkin: '📋', urgent: '🚨', urgent_clear: '📌',
+    };
+    return `<div style="display:flex;gap:12px;padding:12px;border-bottom:1px solid #f0f0f0">
+      <span style="font-size:18px;flex-shrink:0">${icons[log.type] || '📌'}</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600;color:var(--indigo-dark)">${log.action}</div>
+        ${log.details ? `<div style="font-size:12px;color:var(--slate);margin-top:2px;opacity:0.8">${log.details}</div>` : ''}
+        <div style="font-size:11px;color:var(--slate-light);margin-top:4px">${timeStr}</div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById("panel-activity").innerHTML = html || '<div style="padding:40px;text-align:center;color:var(--slate-light)">No activity yet</div>';
+}
+
+/* ═══ TASK DETAIL ═══ */
+let selectedCheckin = null;
+
+function openTaskDetail(taskId) {
+  const task = PHASES.flatMap(p => p.tasks).find(t => t.id === taskId);
+  if (!task) return;
+
+  const status = S.taskStatus[taskId] || 'not_started';
+  const log = S.taskLogs[taskId] || '';
+
+  const statusHtml = ['not_started', 'in_progress', 'pending_review', 'complete'].map(s => {
+    const label = {not_started: 'Not Started', in_progress: 'In Progress', pending_review: 'Pending Review', complete: 'Complete'}[s];
+    return `<button class="task-status-btn ${status === s ? 'active-status' : ''}" onclick="setTaskStatus('${taskId}','${s}');renderTimeline();openTaskDetail('${taskId}')">${label}</button>`;
+  }).join('');
+
+  const filesHtml = (S.taskFiles[taskId] || []).map(f => `<div class="uploaded-file-item">
+    <span style="font-size:14px">📎</span>
+    <span class="uploaded-file-name">${f.name}</span>
+    <span class="uploaded-file-size">${(f.size/1024/1024).toFixed(1)}MB</span>
+    <button class="uploaded-file-remove" onclick="removeTaskFile('${taskId}','${f.name}');openTaskDetail('${taskId}')">${I.x}</button>
+  </div>`).join('');
+
+  const html = `
+  <div class="task-detail-overlay" onclick="if(event.target===this)closeOverlay()">
+    <div class="task-detail-panel">
+      <div class="task-detail-top">
+        <h2>${task.text}</h2>
+        <div class="due-badge">Due: ${task.due}</div>
+        <button class="task-detail-close" onclick="closeOverlay()">${I.x}</button>
+      </div>
+      <div class="task-detail-body">
+        <div class="task-section">
+          <h3>Guide</h3>
+          <p>${task.guide}</p>
+        </div>
+        <div class="task-section">
+          <h3>Status</h3>
+          <div class="task-status-bar">${statusHtml}</div>
+        </div>
+        <div class="task-section">
+          <h3>Notes</h3>
+          <textarea class="task-log-area" onchange="saveTaskLog('${taskId}',this.value)">${log}</textarea>
+        </div>
+        <div class="task-section">
+          <h3>Files</h3>
+          <div class="upload-zone" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="event.preventDefault();this.classList.remove('drag-over');handleFileDrop('${taskId}',event.dataTransfer.files);openTaskDetail('${taskId}')">
+            <div class="upload-zone-icon">📤</div>
+            <div class="upload-zone-text">Drag files here or click to upload</div>
+            <input type="file" multiple onchange="handleFileDrop('${taskId}',this.files);this.value='';openTaskDetail('${taskId}')" />
+          </div>
+          <div class="uploaded-files-list">${filesHtml}</div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  document.getElementById('taskOverlay').innerHTML = html;
+}
+
+function setTaskStatus(id, status) {
+  S.taskStatus[id] = status;
+  save();
+}
+
+function saveTaskLog(id, val) {
+  S.taskLogs[id] = val;
+  save();
+}
+
+function handleFileDrop(taskId, fileList) {
+  if (!S.taskFiles[taskId]) S.taskFiles[taskId] = [];
+  Array.from(fileList).forEach(f => {
+    S.taskFiles[taskId].push({name: f.name, size: f.size, uploaded: Date.now()});
+  });
+  save();
+  const task = PHASES.flatMap(p => p.tasks).find(t => t.id === taskId);
+  const taskName = task ? task.text.substring(0, 50) : taskId;
+  sendNotification('coord', 'file', `<strong>Wiki Lead</strong> uploaded ${fileList.length} file(s) to <strong>${taskName}</strong>`, taskId);
+  logActivity('file', `Uploaded ${fileList.length} file(s): ${taskName}`, Array.from(fileList).map(f=>f.name).join(', '), {taskId: taskId, fileCount: fileList.length});
+}
+
+function removeTaskFile(taskId, name) {
+  S.taskFiles[taskId] = (S.taskFiles[taskId] || []).filter(f => f.name !== name);
+  save();
+}
+
+function toggleTask(id) {
+  S.tasks[id] = !S.tasks[id];
+  save();
+  const task = PHASES.flatMap(p => p.tasks).find(t => t.id === id);
+  if (S.tasks[id]) {
+    S.taskStatus[id] = 'complete';
+    logActivity('complete', `Completed: ${task.text}`, '', {taskId: id});
+  }
+}
+
+function closeOverlay() {
+  document.getElementById('taskOverlay').innerHTML = '';
+}
+
+/* ═══ HELPERS ═══ */
+function getCurrentPhaseIdx() {
+  const now = new Date();
+  for (let i = 0; i < PHASES.length; i++) {
+    if (PHASES[i].end > now) return i;
+  }
+  return PHASES.length - 1;
+}
+
+function phaseStats(idx) {
+  const p = PHASES[idx];
+  const total = p.tasks.length;
+  const done = p.tasks.filter(t => S.tasks[t.id]).length;
+  return {done, total, pct: Math.round(done * 100 / total)};
+}
+
+function totalStats() {
+  const total = PHASES.flatMap(p => p.tasks).length;
+  const done = PHASES.flatMap(p => p.tasks).filter(t => S.tasks[t.id]).length;
+  return {done, total, pct: Math.round(done * 100 / total)};
+}
+
+function getTasksDueInWeek(weekDate) {
+  const weekStart = new Date(weekDate);
+  weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+  const weekEnd = new Date(weekStart);
+  weekEnd.setDate(weekEnd.getDate() + 6);
+
+  const tasks = [];
+  PHASES.forEach(p => p.tasks.forEach(t => {
+    const parts = t.due.match(/(\w+)\s+(\d+)/);
+    if (parts) {
+      const m = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ").indexOf(parts[1]);
+      const d = new Date(2026, m, parseInt(parts[2]));
+      if (d >= weekStart && d <= weekEnd) tasks.push({...t, dueDate: d, phase: p.name, status: S.taskStatus[t.id] || 'not_started', done: !!S.tasks[t.id]});
+    }
+  }));
+  tasks.sort((a, b) => a.dueDate - b.dueDate);
+  return tasks;
+}
+
+function getTasksDueNextWeek(weekDate) {
+  const nextStart = new Date(weekDate);
+  nextStart.setDate(nextStart.getDate() + 7);
+  return getTasksDueInWeek(nextStart);
+}
+
+function selectCheckin(id) {
+  selectedCheckin = selectedCheckin === id ? null : id;
+  renderCheckins();
+}
+
+function toggleCheckinItem(wkId, key) {
+  if (!S.checkinData[wkId]) S.checkinData[wkId] = {};
+  S.checkinData[wkId][key + "_done"] = !S.checkinData[wkId][key + "_done"];
+  save();
+  renderCheckins();
+}
+
+function saveCheckinNote(wkId, key, val) {
+  if (!S.checkinData[wkId]) S.checkinData[wkId] = {};
+  S.checkinData[wkId][key + "_notes"] = val;
+  save();
+}
+
+function markCheckinDone(id) {
+  S.weeks[id] = !S.weeks[id];
+  save();
+  renderCheckins();
+  renderCountdowns();
+}
+
+/* ═══ COUNTDOWNS ═══ */
+function renderCountdowns() {
+  const now = new Date();
+  const wikiFreeze = WIKI_FREEZE;
+  const jamboree = JAMBOREE;
+
+  const daysToFreeze = Math.ceil((wikiFreeze - now) / (1000 * 60 * 60 * 24));
+  const daysToJamboree = Math.ceil((jamboree - now) / (1000 * 60 * 60 * 24));
+
+  let nextDeadline = null;
+  for (const p of PHASES) {
+    for (const t of p.tasks) {
+      if (!S.tasks[t.id]) {
+        const parts = t.due.match(/(\w+)\s+(\d+)/);
+        if (parts) {
+          const m = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ").indexOf(parts[1]);
+          const d = new Date(2026, m, parseInt(parts[2]));
+          if (d > now && (!nextDeadline || d < nextDeadline.date)) {
+            nextDeadline = {date: d, task: t.text.substring(0, 40)};
+          }
+        }
+      }
+    }
+  }
+
+  const st = totalStats();
+
+  let html = `
+    <div class="countdown-card glass clickable" onclick="switchTab('timeline')">
+      <div class="accent-bar" style="background:var(--indigo)"></div>
+      <div class="big-num">${st.pct}%</div>
+      <div class="sub">Overall Progress</div>
+      <div class="label">${st.done}/${st.total} tasks</div>
+    </div>`;
+
+  if (nextDeadline) {
+    const daysLeft = Math.ceil((nextDeadline.date - now) / (1000 * 60 * 60 * 24));
+    const isOverdue = daysLeft < 0;
+    const cardClass = daysLeft <= 3 && daysLeft > 0 ? 'alarm' : '';
+    html += `
+      <div class="countdown-card glass ${cardClass} clickable" onclick="switchTab('timeline')">
+        <div class="accent-bar" style="background:${daysLeft <= 0 ? 'var(--red-alarm)' : 'var(--indigo)'}"></div>
+        <div class="big-num" style="color:${isOverdue ? 'var(--red-alarm)' : 'var(--black)'}">${Math.abs(daysLeft)}</div>
+        <div class="sub">Days ${isOverdue ? 'Overdue' : 'Left'}</div>
+        <div class="label" style="font-size:12px">${nextDeadline.task}</div>
+        ${isOverdue ? '<div class="overdue-msg">OVERDUE</div>' : ''}
+      </div>`;
+  }
+
+  html += `
+    <div class="countdown-card glass clickable" onclick="switchTab('checkins')">
+      <div class="accent-bar" style="background:var(--indigo)"></div>
+      <div class="big-num">${daysToFreeze}</div>
+      <div class="sub">Days to Wiki Freeze</div>
+      <div class="label">Sep 25</div>
+    </div>
+    <div class="countdown-card glass">
+      <div class="accent-bar" style="background:#F6BE00"></div>
+      <div class="big-num">${daysToJamboree}</div>
+      <div class="sub">Days to Jamboree</div>
+      <div class="label">Nov 13–16 Paris</div>
+    </div>`;
+
+  document.getElementById('countdownRow').innerHTML = html;
+}
+
+/* ═══ NOTIFICATIONS ═══ */
+function getNotifications() {
+  const data = localStorage.getItem(NOTIF_LS_KEY);
+  return data ? JSON.parse(data) : [];
+}
+
+function saveNotifications(notifs) {
+  localStorage.setItem(NOTIF_LS_KEY, JSON.stringify(notifs));
+}
+
+function getMyNotifications() {
+  return getNotifications().filter(n => n.to === MY_ROLE);
+}
+
+function sendNotification(toRole, type, message, taskId = null) {
+  const notifs = getNotifications();
+  notifs.push({
+    id: 'notif_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+    to: toRole,
+    type: type,
+    message: message,
+    taskId: taskId,
+    timestamp: Date.now(),
+    read: false
+  });
+  saveNotifications(notifs);
+  renderNotifWidget();
+}
+
+function renderNotifWidget() {
+  const unread = getMyNotifications().filter(n => !n.read);
+  const badge = document.getElementById('notif-badge');
+  const title = document.getElementById('notif-title');
+  const sub = document.getElementById('notif-sub');
+
+  if (unread.length === 0) {
+    badge.style.display = 'none';
+    title.textContent = 'All caught up';
+    sub.textContent = 'No new messages';
+    document.getElementById('notif-widget').classList.remove('has-new');
+  } else {
+    badge.style.display = 'flex';
+    badge.textContent = unread.length;
+    title.textContent = unread.length + ' new message' + (unread.length > 1 ? 's' : '');
+    sub.textContent = unread[0].message.replace(/<[^>]*>/g, '').substring(0, 60) + '...';
+    document.getElementById('notif-widget').classList.add('has-new');
+  }
+}
+
+function openNotifPanel() {
+  const list = document.getElementById('notif-list');
+  const unread = getMyNotifications().filter(n => !n.read);
+  if (unread.length === 0) {
+    list.innerHTML = '<div class="notif-empty">All caught up — no new notifications!</div>';
+  } else {
+    list.innerHTML = unread.map(n => {
+      const iconMap = {
+        approve: {icon: '✅', cls: 'approve'},
+        return: {icon: '🔄', cls: 'return'},
+        checkin: {icon: '📋', cls: 'checkin'},
+        notes: {icon: '📝', cls: 'notes'},
+        submit: {icon: '📤', cls: 'submit'},
+        file: {icon: '📎', cls: 'file'},
+        urgent: {icon: '🚨', cls: 'return'}
+      };
+      const ic = iconMap[n.type] || {icon: '🔔', cls: 'notes'};
+      const timeAgo = formatTimeAgo(n.timestamp);
+      return `<div class="notif-item unread" onclick="handleNotifClick('${n.id}'${n.taskId ? ",'" + n.taskId + "'" : ''})">
+        <div class="notif-item-icon ${ic.cls}">${ic.icon}</div>
+        <div class="notif-item-body">
+          <div class="notif-item-msg">${n.message}</div>
+          <div class="notif-item-time">${timeAgo}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  document.getElementById('notif-panel-overlay').classList.add('open');
+}
+
+function closeNotifPanel() {
+  document.getElementById('notif-panel-overlay').classList.remove('open');
+  renderNotifWidget();
+}
+
+function handleNotifClick(notifId, taskId) {
+  const notifs = getNotifications();
+  const n = notifs.find(x => x.id === notifId);
+  if (n) {n.read = true; saveNotifications(notifs);}
+  closeNotifPanel();
+  if (taskId) {
+    switchTab('timeline');
+    setTimeout(() => openTaskDetail(taskId), 200);
+  }
+}
+
+function markAllNotifsRead() {
+  const notifs = getNotifications();
+  notifs.forEach(n => {if (n.to === MY_ROLE) n.read = true;});
+  saveNotifications(notifs);
+  openNotifPanel();
+  renderNotifWidget();
+}
+
+function formatTimeAgo(ts) {
+  const diff = Date.now() - ts;
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'Just now';
+  if (mins < 60) return mins + 'm ago';
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return hrs + 'h ago';
+  const days = Math.floor(hrs / 24);
+  return days + 'd ago';
+}
+
+/* ═══ ACTIVITY LOG ═══ */
+function logActivity(type, action, details, metadata = {}) {
+  if (!S.activityLog) S.activityLog = [];
+  S.activityLog.push({
+    type: type,
+    action: action,
+    details: details,
+    timestamp: Date.now(),
+    metadata: metadata
+  });
+  save();
+  if (currentTab === 'activity') renderActivity();
+}
+
+/* ═══ INIT ═══ */
+renderTabs();
+renderPanel();
+renderCountdowns();
+renderNotifWidget();
+setInterval(renderCountdowns, 60000);
+</script>
+</body>
+</html>
