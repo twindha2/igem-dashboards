@@ -616,6 +616,55 @@
             font-size: 11px;
         }
 
+        /* ─── Team Members Grid ─── */
+        .team-section { margin-top: 28px; margin-bottom: 40px; }
+        .team-section h3 { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; text-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+        .team-card {
+          display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+          border-radius: 12px; border: 1px solid #e5e5e5; background: var(--white);
+          cursor: pointer; transition: all 0.2s; position: relative;
+        }
+        .team-card:hover { border-color: var(--scarlet); box-shadow: 0 4px 16px rgba(200,16,46,0.12); transform: translateY(-1px); }
+        .team-card .tc-emoji { font-size: 24px; flex-shrink: 0; }
+        .team-card .tc-info { flex: 1; min-width: 0; }
+        .team-card .tc-name { font-size: 13px; font-weight: 700; color: var(--slate-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .team-card .tc-role { font-size: 11px; color: var(--slate-light); margin-top: 2px; }
+        .team-card.is-me { border-color: var(--scarlet-light); background: rgba(200,16,46,0.05); }
+
+        /* Message Modal */
+        .msg-modal-overlay {
+          position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 10001;
+          display: flex; align-items: center; justify-content: center; padding: 24px;
+          animation: fadeIn 0.2s;
+        }
+        .msg-modal {
+          background: white; border-radius: 16px; width: 100%; max-width: 480px;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden;
+        }
+        .msg-modal-header {
+          background: linear-gradient(135deg, var(--scarlet), var(--scarlet-dark));
+          color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .msg-modal-header h3 { font-size: 16px; font-weight: 700; margin: 0; }
+        .msg-modal-close { background: none; border: none; color: white; font-size: 22px; cursor: pointer; opacity: 0.7; }
+        .msg-modal-close:hover { opacity: 1; }
+        .msg-modal-body { padding: 20px; }
+        .msg-textarea {
+          width: 100%; min-height: 100px; border: 2px solid #e0e0e0; border-radius: 10px;
+          padding: 12px; font-family: inherit; font-size: 14px; resize: vertical; box-sizing: border-box;
+        }
+        .msg-textarea:focus { outline: none; border-color: var(--scarlet); }
+        .msg-urgent-row { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 13px; color: var(--slate); }
+        .msg-urgent-row input[type="checkbox"] { accent-color: var(--red-alarm); }
+        .msg-send-btn {
+          width: 100%; margin-top: 16px; padding: 12px; border: none; border-radius: 10px;
+          background: var(--scarlet); color: white; font-size: 15px; font-weight: 700;
+          cursor: pointer; font-family: inherit; transition: background 0.15s;
+        }
+        .msg-send-btn:hover { background: var(--scarlet-dark); }
+        .msg-send-btn:disabled { opacity: 0.5; cursor: default; }
+
         /* Weekly Rhythm */
         .rhythm-section {
             margin-bottom: 40px;
@@ -1365,6 +1414,189 @@
             background: #b91c1c;
         }
 
+        /* Wiki Submissions Panel */
+        .wiki-submissions-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .wiki-submissions-section {
+            margin-bottom: 32px;
+        }
+
+        .wiki-submissions-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .wiki-submissions-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--scarlet-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .wiki-upload-zone {
+            border: 2px dashed var(--gold);
+            border-radius: 12px;
+            padding: 40px 24px;
+            text-align: center;
+            background: rgba(246, 190, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .wiki-upload-zone:hover {
+            background: rgba(246, 190, 0, 0.1);
+            border-color: #e8ac00;
+        }
+
+        .wiki-upload-zone.drag-over {
+            background: rgba(246, 190, 0, 0.15);
+            border-color: #e8ac00;
+            transform: scale(1.02);
+        }
+
+        .wiki-upload-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .wiki-upload-text {
+            font-weight: 600;
+            color: var(--scarlet-dark);
+            margin-bottom: 4px;
+        }
+
+        .wiki-upload-subtext {
+            font-size: 12px;
+            color: var(--slate);
+        }
+
+        .wiki-submit-button {
+            background: var(--gold);
+            color: var(--scarlet-dark);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .wiki-submit-button:hover {
+            background: #e8ac00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(246, 190, 0, 0.3);
+        }
+
+        .wiki-submit-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .wiki-drive-link {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 12px;
+            background: rgba(246, 190, 0, 0.1);
+            border: 1px solid var(--gold);
+            border-radius: 6px;
+            color: var(--scarlet);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .wiki-drive-link:hover {
+            background: rgba(246, 190, 0, 0.2);
+            border-color: #e8ac00;
+        }
+
+        .wiki-submissions-overview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .wiki-overview-card {
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .wiki-overview-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--scarlet-dark);
+            margin-bottom: 4px;
+        }
+
+        .wiki-overview-label {
+            font-size: 12px;
+            color: var(--slate);
+            font-weight: 600;
+        }
+
+        .wiki-submissions-list {
+            margin-top: 16px;
+        }
+
+        .wiki-submission-item {
+            background: rgba(0, 0, 0, 0.03);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            font-size: 12px;
+        }
+
+        .wiki-submission-meta {
+            flex: 1;
+        }
+
+        .wiki-submission-name {
+            color: var(--slate);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .wiki-submission-info {
+            color: rgba(84, 88, 90, 0.7);
+            font-size: 11px;
+        }
+
+        .wiki-approved-section {
+            border-left: 4px solid var(--emerald);
+            padding-left: 12px;
+        }
+
+        .wiki-approved-list {
+            margin-top: 16px;
+        }
+
+        .wiki-drive-links-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
         /* Task Detail Overlay */
         .overlay {
             display: none;
@@ -1789,6 +2021,7 @@
         <button class="tab-button" data-tab="team-progress">Team Progress</button>
         <button class="tab-button" data-tab="check-ins">Check-Ins</button>
         <button class="tab-button" data-tab="calendar">Calendar</button>
+        <button class="tab-button" data-tab="wiki-submissions">Wiki Submissions</button>
         <button class="tab-button" data-tab="resources">Resources</button>
         <button class="tab-button" data-tab="activity-log">📋 Activity Log</button>
     </div>
@@ -1832,6 +2065,14 @@
             <div class="pulse-section">
                 <div class="section-header">Team Pulse</div>
                 <div class="pulse-row" id="pulse-row">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Team Directory -->
+            <div class="team-section">
+                <h3>👥 Team Directory</h3>
+                <div class="team-grid" id="team-grid">
                     <!-- Populated by JS -->
                 </div>
             </div>
@@ -1980,6 +2221,84 @@
             </div>
         </div>
 
+        <!-- Wiki Submissions Tab -->
+        <div id="wiki-submissions" class="tab-content">
+            <div class="wiki-submissions-panel">
+                <!-- Window 1: Submit for Approval -->
+                <div class="wiki-submissions-section">
+                    <div class="wiki-submissions-title" style="color: var(--gold); display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 18px;">📤</span> Submit Content for Approval
+                    </div>
+                    <div style="font-size: 13px; color: var(--slate); margin-bottom: 16px;">Files submitted here will be sent to Austin (Project Lead) for review.</div>
+                    <div class="wiki-upload-zone" id="wiki-coord-upload-zone">
+                        <div class="wiki-upload-icon">📁</div>
+                        <div class="wiki-upload-text">Drop your wiki submissions here</div>
+                        <div class="wiki-upload-subtext">Files are stored locally and sent to the shared pending pool when submitted</div>
+                    </div>
+                    <div class="wiki-coord-files-list" id="wiki-coord-files-list"></div>
+                    <button class="wiki-submit-button" id="wiki-submit-button" disabled>Submit to Wiki Lead for Approval</button>
+                    <a class="wiki-drive-link" href="https://drive.google.com/drive/folders/13NoWk1S78B4mWreu9tZnxfO65SIda80i" target="_blank">📁 Google Drive — Pending Approval</a>
+                </div>
+
+                <!-- Window 2: Submit Approved Content -->
+                <div class="wiki-submissions-section" style="border-top: 2px solid rgba(0,0,0,0.08); padding-top: 32px;">
+                    <div class="wiki-submissions-title" style="color: var(--emerald); display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 18px;">✅</span> Submit Approved Content to Wiki
+                    </div>
+                    <div style="background: rgba(220, 38, 38, 0.1); border: 1px solid var(--red-alarm); border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 10px;">
+                        <span style="font-size: 16px; flex-shrink: 0;">⚠️</span>
+                        <div style="font-size: 12px; color: var(--red-alarm); font-weight: 600;">Only upload content that has already been approved by Austin. Unapproved content uploaded here will need to be removed.</div>
+                    </div>
+                    <div class="wiki-upload-zone" id="wiki-approved-upload-zone" style="border-color: var(--emerald); background: rgba(22, 163, 74, 0.05);">
+                        <div class="wiki-upload-icon">✅</div>
+                        <div class="wiki-upload-text">Drop approved content here</div>
+                        <div class="wiki-upload-subtext">Files will be marked as approved and sent to the wiki lead</div>
+                    </div>
+                    <div class="wiki-approved-files-list" id="wiki-approved-files-list"></div>
+                    <button class="wiki-submit-button" id="wiki-submit-approved-button" style="background: var(--emerald);" disabled>Submit Approved Content</button>
+                    <a class="wiki-drive-link" href="https://drive.google.com/drive/folders/1-Owa_TKAaGsc32ekIrxHisMqAj7luTCG" target="_blank">✅ Google Drive — Approved Content</a>
+                </div>
+
+                <!-- Submissions Overview (Supervisor View) -->
+                <div class="wiki-submissions-section" style="border-top: 2px solid rgba(0,0,0,0.08); padding-top: 32px;">
+                    <div class="wiki-submissions-title">📊 Submissions Overview</div>
+                    <div class="wiki-submissions-overview">
+                        <div class="wiki-overview-card">
+                            <div class="wiki-overview-number" id="wiki-pending-count">0</div>
+                            <div class="wiki-overview-label">Pending Review</div>
+                        </div>
+                        <div class="wiki-overview-card">
+                            <div class="wiki-overview-number" id="wiki-approved-count">0</div>
+                            <div class="wiki-overview-label">Approved</div>
+                        </div>
+                    </div>
+
+                    <!-- Pending Submissions -->
+                    <div style="margin-bottom: 24px;">
+                        <div style="font-size: 13px; font-weight: 600; color: var(--scarlet-dark); margin-bottom: 12px;">Pending Submissions</div>
+                        <div class="wiki-submissions-list" id="wiki-pending-list">
+                            <div style="font-size: 12px; color: rgba(84, 88, 90, 0.6); padding: 12px; text-align: center;">No pending submissions</div>
+                        </div>
+                    </div>
+
+                    <!-- Approved Submissions -->
+                    <div class="wiki-approved-section">
+                        <div style="font-size: 13px; font-weight: 600; color: var(--emerald); margin-bottom: 12px;">✅ Approved Submissions</div>
+                        <div class="wiki-approved-list" id="wiki-approved-list">
+                            <div style="font-size: 12px; color: rgba(84, 88, 90, 0.6); padding: 12px; text-align: center;">No approved submissions yet</div>
+                        </div>
+                    </div>
+
+                    <!-- Drive Links -->
+                    <div class="wiki-drive-links-section" style="margin-top: 16px;">
+                        <a class="wiki-drive-link" href="https://drive.google.com/drive/folders/13NoWk1S78B4mWreu9tZnxfO65SIda80i" target="_blank">📁 Pending Approval Folder</a>
+                        <a class="wiki-drive-link" href="https://drive.google.com/drive/folders/1-Owa_TKAaGsc32ekIrxHisMqAj7luTCG" target="_blank">✅ Approved Folder</a>
+                        <a class="wiki-drive-link" href="https://drive.google.com/drive/folders/1qmB0FRSeg4l5tZjmDEb6FYyHm08B9gE_" target="_blank">📚 Wiki Submissions Parent</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Resources Tab -->
         <div id="resources" class="tab-content">
             <div class="resources-container">
@@ -2114,6 +2433,7 @@
         // STATE MANAGEMENT
         // ============================================================================
         const LS_KEY = "uh_igem_coord_v2";
+        const WIKI_SUBMISSIONS_KEY = "uh_igem_wiki_submissions";
 
         // ============================================================================
         // LEAD DASHBOARD REGISTRY & HP PHASES CONSTANTS
@@ -2257,6 +2577,25 @@
             return {week:i+1, date:d.toLocaleDateString("en-US",{month:"short",day:"numeric"}), id:`wk${i+1}`, fullDate:new Date(d)};
         });
 
+        /* ═══ TEAM ROSTER ═══ */
+        const TEAM_ROSTER = [
+          {id:'austin', name:'Austin Routt', role:'Project Lead', emoji:'👑', dashKey:'projectlead', assignment:'Project Lead'},
+          {id:'coord', name:'Timothy Windham, DDS', role:'Project Coordinator', emoji:'🎯', dashKey:'coord', assignment:'Project Coordinator — Operations & Mentorship'},
+          {id:'hp', name:'May Shin Thant', role:'HP Lead', emoji:'🤝', dashKey:'hp', assignment:'Human Practices Lead'},
+          {id:'wiki', name:'Lyba Siddiqui', role:'Wiki Lead', emoji:'📖', dashKey:'wiki', assignment:'Wiki & Documentation Lead'},
+          {id:'christopher', name:'Christopher Loorkhoor', role:'Undergraduate', emoji:'🔬', dashKey:'christopher', assignment:'Undergraduate Student, UH'},
+          {id:'harry', name:'Harry Odiakosa', role:'Student', emoji:'🔬', dashKey:'harry', assignment:'Student, UH'},
+          {id:'itsy', name:'Itsy', role:'Lab Assistant', emoji:'🧪', dashKey:'itsy', assignment:'Laboratory Assistant, UH'},
+          {id:'jaekyun', name:'Jaekyun Baek', role:'Graduate Student', emoji:'🧬', dashKey:'jaekyun', assignment:'Graduate Student, UH'},
+          {id:'mary', name:'Mary', role:'Research Assistant', emoji:'🔬', dashKey:'mary', assignment:'Research Assistant, UH'},
+          {id:'nora', name:'Nora', role:'Student Researcher', emoji:'🔬', dashKey:'nora', assignment:'Student Researcher, UH'},
+          {id:'ruchi', name:'Ruchi', role:'Graduate Researcher', emoji:'🧬', dashKey:'ruchi', assignment:'Graduate Student Researcher, UH'},
+          {id:'shalaka', name:'Shalaka', role:'Student', emoji:'🔬', dashKey:'shalaka', assignment:'Student, UH'},
+          {id:'vu', name:'Vu Phuong Uyen Van', role:'Undergraduate', emoji:'🔬', dashKey:'vu', assignment:'Undergraduate Student, UH'},
+          {id:'alejandro', name:'Alejandro Schmieder', role:'Community Mentor', emoji:'💼', dashKey:'alejandro', assignment:'Community Mentor — Columbia MBA'},
+          {id:'shevkoplyas', name:'Prof. Sergey Shevkoplyas', role:'Faculty PI', emoji:'🎓', dashKey:'shevkoplyas', assignment:'Faculty PI, UH'}
+        ];
+
         const QUOTES = [
             "Leadership is about making sure your team has what they need to succeed.",
             "Coordination is the art of getting people to work together toward a common goal.",
@@ -2327,6 +2666,8 @@
             },
             coordNotes: {},
             approvedFiles: [],
+            coordWikiFiles: [],
+            coordApprovedFiles: [],
             weeklyRhythm: {},
             checkinNotes: {},
             deliverables: {},
@@ -2357,6 +2698,96 @@
         function saveState() {
             state.lastUpdate = Date.now();
             localStorage.setItem(LS_KEY, JSON.stringify(state));
+        }
+
+        // ============================================================================
+        // TEAM MESSAGING
+        // ============================================================================
+        const MY_ROLE = 'coord';
+
+        const DASHBOARD_MEMBERS = ['projectlead','coord','hp','wiki'];
+
+        function openMessageModal(memberId) {
+          const member = TEAM_ROSTER.find(m => m.id === memberId);
+          if (!member) return;
+          const hasDash = DASHBOARD_MEMBERS.includes(member.dashKey);
+          const overlay = document.createElement('div');
+          overlay.className = 'msg-modal-overlay';
+          overlay.id = 'msg-modal-overlay';
+          overlay.onclick = (e) => { if (e.target === overlay) closeMessageModal(); };
+
+          if (hasDash) {
+            overlay.innerHTML = `
+              <div class="msg-modal">
+                <div class="msg-modal-header">
+                  <h3>${member.emoji} Message ${member.name}</h3>
+                  <button class="msg-modal-close" onclick="closeMessageModal()">✕</button>
+                </div>
+                <div class="msg-modal-body">
+                  <textarea class="msg-textarea" id="msg-text" placeholder="Type your message to ${member.name}..."></textarea>
+                  <div class="msg-urgent-row">
+                    <input type="checkbox" id="msg-urgent"> <label for="msg-urgent">🚨 Mark as urgent</label>
+                  </div>
+                  <button class="msg-send-btn" onclick="sendTeamMessage('${memberId}')">Send Message</button>
+                </div>
+              </div>`;
+            document.body.appendChild(overlay);
+            document.getElementById("msg-text").focus();
+          } else {
+            overlay.innerHTML = `
+              <div class="msg-modal">
+                <div class="msg-modal-header">
+                  <h3>${member.emoji} ${member.name}</h3>
+                  <button class="msg-modal-close" onclick="closeMessageModal()">✕</button>
+                </div>
+                <div class="msg-modal-body" style="text-align:center;">
+                  <div style="font-size:48px;margin-bottom:12px;">${member.emoji}</div>
+                  <h2 style="margin:0 0 4px;font-size:20px;color:var(--dark);">${member.name}</h2>
+                  <p style="margin:0 0 16px;color:var(--slate);font-size:14px;">${member.assignment}</p>
+                  <div style="background:var(--cream);border-radius:10px;padding:16px;text-align:left;font-size:13px;color:var(--slate);">
+                    <p style="margin:0 0 8px;"><strong>Role:</strong> ${member.role}</p>
+                    <p style="margin:0 0 8px;"><strong>Team:</strong> UH iGEM 2026</p>
+                    <p style="margin:0;"><strong>Contact:</strong> Reach out via team Slack or email</p>
+                  </div>
+                  <p style="font-size:11px;color:var(--slate-light);margin-top:12px;font-style:italic;">This member doesn't have a dashboard — messages can be sent via Slack or email.</p>
+                </div>
+              </div>`;
+            document.body.appendChild(overlay);
+          }
+        }
+
+        function closeMessageModal() {
+          const el = document.getElementById('msg-modal-overlay');
+          if (el) el.remove();
+        }
+
+        function sendTeamMessage(toId) {
+          const text = document.getElementById('msg-text').value.trim();
+          if (!text) { alert('Please type a message.'); return; }
+          const urgent = document.getElementById('msg-urgent').checked;
+          const member = TEAM_ROSTER.find(m => m.id === toId);
+          if (!member) return;
+
+          // Send via shared notification system
+          const notifKey = 'uh_igem_notifications';
+          try {
+            const notifs = JSON.parse(localStorage.getItem(notifKey) || '[]');
+            notifs.push({
+              id: Date.now() + '_' + Math.random().toString(36).slice(2),
+              to: member.dashKey,
+              from: MY_ROLE,
+              fromName: 'Dr. Windham',
+              type: urgent ? 'urgent' : 'message',
+              message: (urgent ? '🚨 <strong>URGENT</strong>: ' : '') + text,
+              timestamp: new Date().toISOString(),
+              read: false
+            });
+            localStorage.setItem(notifKey, JSON.stringify(notifs));
+          } catch(e) {}
+
+          logActivity('message', 'Sent Message', 'To ' + member.name + (urgent ? ' [URGENT]' : '') + ': ' + text.slice(0, 50) + (text.length > 50 ? '...' : ''));
+          closeMessageModal();
+          alert('✓ Message sent to ' + member.name + (urgent ? ' (marked urgent)' : ''));
         }
 
         // ============================================================================
@@ -3132,6 +3563,19 @@
             }).join('');
         }
 
+        function renderTeamGrid() {
+            const container = document.getElementById('team-grid');
+            container.innerHTML = TEAM_ROSTER.map(m => `
+                <div class="team-card ${m.dashKey === 'coord' ? 'is-me' : ''}" onclick="openMessageModal('${m.id}')">
+                    <div class="tc-emoji">${m.emoji}</div>
+                    <div class="tc-info">
+                        <div class="tc-name">${m.name}</div>
+                        <div class="tc-role">${m.role}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         function renderReviewQueueTab() {
             const container = document.getElementById('review-queue-container');
             const leads = Object.entries(state.leads);
@@ -3807,6 +4251,11 @@
                 }
                 return `<a class="resource-link" href="${url}" target="_blank">${lead.emoji} ${lead.name}'s Dashboard</a>`;
             }).join('');
+
+            // Initialize wiki submissions display
+            renderCoordWikiUploadZone();
+            renderWikiSubmissionsOverview();
+            updateWikiSubmitButton();
         }
 
         function renderAustinReviewFiles() {
@@ -4236,6 +4685,7 @@
             renderUrgent();
             renderReviewQueue();
             renderTeamPulse();
+            renderTeamGrid();
             renderCoordTasks();
             document.querySelector('.motivational-quote').textContent = `"${getRandomQuote()}"`;
         }
@@ -4380,7 +4830,6 @@
         // NOTIFICATION SYSTEM
         // ============================================================================
         const NOTIF_LS_KEY = "uh_igem_notifications";
-        const MY_ROLE = "coord";
 
         function getNotifications() {
             try { return JSON.parse(localStorage.getItem(NOTIF_LS_KEY) || "[]"); } catch(e) { return []; }
@@ -4658,6 +5107,255 @@
             a.click();
         }
 
+        // ============================================================================
+        // WIKI SUBMISSIONS SYSTEM
+        // ============================================================================
+        function getWikiSubmissions() {
+            const saved = localStorage.getItem(WIKI_SUBMISSIONS_KEY);
+            if (saved) return JSON.parse(saved);
+            return { pending: [], approved: [] };
+        }
+
+        function saveWikiSubmissions(data) {
+            localStorage.setItem(WIKI_SUBMISSIONS_KEY, JSON.stringify(data));
+        }
+
+        function addCoordWikiFile(file) {
+            if (!state.coordWikiFiles) state.coordWikiFiles = [];
+            state.coordWikiFiles.push({
+                id: 'temp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                name: file.name,
+                size: file.size,
+                data: file,
+                addedAt: Date.now()
+            });
+            saveState();
+            renderCoordWikiUploadZone();
+            updateWikiSubmitButton();
+        }
+
+        function removeCoordWikiFile(fileId) {
+            if (!state.coordWikiFiles) return;
+            state.coordWikiFiles = state.coordWikiFiles.filter(f => f.id !== fileId);
+            saveState();
+            renderCoordWikiUploadZone();
+            updateWikiSubmitButton();
+        }
+
+        function updateWikiSubmitButton() {
+            const btn = document.getElementById('wiki-submit-button');
+            if (btn) {
+                btn.disabled = !state.coordWikiFiles || state.coordWikiFiles.length === 0;
+            }
+        }
+
+        function renderCoordWikiUploadZone() {
+            const container = document.getElementById('wiki-coord-files-list');
+            if (!container) return;
+
+            if (!state.coordWikiFiles || state.coordWikiFiles.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            state.coordWikiFiles.forEach(file => {
+                const sizeKB = (file.size / 1024).toFixed(1);
+                html += `
+                    <div class="uploaded-file">
+                        <div class="uploaded-file-name">
+                            📄 ${file.name}
+                            <span style="color: rgba(84, 88, 90, 0.6); font-size: 11px; margin-left: 8px;">(${sizeKB} KB)</span>
+                        </div>
+                        <button class="btn-remove-file" onclick="removeCoordWikiFile('${file.id}')">Remove</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function submitCoordWikiFiles() {
+            if (!state.coordWikiFiles || state.coordWikiFiles.length === 0) {
+                showNotification('No files to submit');
+                return;
+            }
+
+            const submissions = getWikiSubmissions();
+            const filesAdded = [];
+
+            state.coordWikiFiles.forEach(file => {
+                const entry = {
+                    id: 'coord_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                    name: file.name,
+                    size: file.size,
+                    from: 'coord',
+                    submittedAt: Date.now(),
+                    status: 'pending',
+                    approvedAt: null,
+                    returnNote: null
+                };
+                submissions.pending.push(entry);
+                filesAdded.push(file.name);
+            });
+
+            saveWikiSubmissions(submissions);
+            state.coordWikiFiles = [];
+            saveState();
+
+            renderCoordWikiUploadZone();
+            updateWikiSubmitButton();
+            renderWikiSubmissionsOverview();
+
+            showNotification(`${filesAdded.length} file(s) submitted to wiki lead for approval`);
+            logActivity('submit', 'Wiki Content Submitted', `Coordinator submitted ${filesAdded.length} file(s) for wiki approval`, {files: filesAdded.length});
+        }
+
+        function addCoordApprovedFile(file) {
+            if (!state.coordApprovedFiles) state.coordApprovedFiles = [];
+            state.coordApprovedFiles.push({
+                id: 'approved_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                name: file.name,
+                size: file.size,
+                data: file,
+                addedAt: Date.now()
+            });
+            saveState();
+            renderCoordApprovedUploadZone();
+            updateWikiApprovedSubmitButton();
+        }
+
+        function removeCoordApprovedFile(fileId) {
+            if (!state.coordApprovedFiles) return;
+            state.coordApprovedFiles = state.coordApprovedFiles.filter(f => f.id !== fileId);
+            saveState();
+            renderCoordApprovedUploadZone();
+            updateWikiApprovedSubmitButton();
+        }
+
+        function updateWikiApprovedSubmitButton() {
+            const btn = document.getElementById('wiki-submit-approved-button');
+            if (btn) {
+                btn.disabled = !state.coordApprovedFiles || state.coordApprovedFiles.length === 0;
+            }
+        }
+
+        function renderCoordApprovedUploadZone() {
+            const container = document.getElementById('wiki-approved-files-list');
+            if (!container) return;
+
+            if (!state.coordApprovedFiles || state.coordApprovedFiles.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            state.coordApprovedFiles.forEach(file => {
+                const sizeKB = (file.size / 1024).toFixed(1);
+                html += `
+                    <div class="uploaded-file">
+                        <div class="uploaded-file-name">
+                            📄 ${file.name}
+                            <span style="color: rgba(84, 88, 90, 0.6); font-size: 11px; margin-left: 8px;">(${sizeKB} KB)</span>
+                        </div>
+                        <button class="btn-remove-file" onclick="removeCoordApprovedFile('${file.id}')">Remove</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function submitCoordApprovedFiles() {
+            if (!state.coordApprovedFiles || state.coordApprovedFiles.length === 0) {
+                showNotification('No files to submit');
+                return;
+            }
+
+            const submissions = getWikiSubmissions();
+            const filesAdded = [];
+
+            state.coordApprovedFiles.forEach(file => {
+                const entry = {
+                    id: 'coord_approved_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                    name: file.name,
+                    size: file.size,
+                    from: 'coord',
+                    submittedAt: Date.now(),
+                    status: 'approved',
+                    approvedAt: Date.now(),
+                    returnNote: null
+                };
+                submissions.approved.push(entry);
+                filesAdded.push(file.name);
+            });
+
+            saveWikiSubmissions(submissions);
+            state.coordApprovedFiles = [];
+            saveState();
+
+            renderCoordApprovedUploadZone();
+            updateWikiApprovedSubmitButton();
+            renderWikiSubmissionsOverview();
+
+            showNotification(`${filesAdded.length} approved file(s) submitted to wiki lead`);
+            logActivity('submit', 'Approved Wiki Content Submitted', `Coordinator submitted ${filesAdded.length} approved file(s) for wiki`, {files: filesAdded.length});
+        }
+
+        function renderWikiSubmissionsOverview() {
+            const submissions = getWikiSubmissions();
+
+            // Update counts
+            const pendingCount = document.getElementById('wiki-pending-count');
+            const approvedCount = document.getElementById('wiki-approved-count');
+            if (pendingCount) pendingCount.textContent = submissions.pending.length;
+            if (approvedCount) approvedCount.textContent = submissions.approved.length;
+
+            // Render pending list
+            const pendingList = document.getElementById('wiki-pending-list');
+            if (pendingList) {
+                if (submissions.pending.length === 0) {
+                    pendingList.innerHTML = '<div style="font-size: 12px; color: rgba(84, 88, 90, 0.6); padding: 12px; text-align: center;">No pending submissions</div>';
+                } else {
+                    let html = '';
+                    submissions.pending.forEach(sub => {
+                        const date = new Date(sub.submittedAt).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'2-digit'});
+                        const roleLabel = sub.from === 'coord' ? 'Coordinator' : sub.from === 'hp' ? 'HP Lead' : 'Wiki Lead';
+                        html += `
+                            <div class="wiki-submission-item">
+                                <div class="wiki-submission-meta">
+                                    <div class="wiki-submission-name">📄 ${sub.name}</div>
+                                    <div class="wiki-submission-info">From: ${roleLabel} | Submitted: ${date}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    pendingList.innerHTML = html;
+                }
+            }
+
+            // Render approved list
+            const approvedList = document.getElementById('wiki-approved-list');
+            if (approvedList) {
+                if (submissions.approved.length === 0) {
+                    approvedList.innerHTML = '<div style="font-size: 12px; color: rgba(84, 88, 90, 0.6); padding: 12px; text-align: center;">No approved submissions yet</div>';
+                } else {
+                    let html = '';
+                    submissions.approved.forEach(sub => {
+                        const date = new Date(sub.approvedAt).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'2-digit'});
+                        const roleLabel = sub.from === 'coord' ? 'Coordinator' : sub.from === 'hp' ? 'HP Lead' : 'Wiki Lead';
+                        html += `
+                            <div class="wiki-submission-item">
+                                <div class="wiki-submission-meta">
+                                    <div class="wiki-submission-name">✅ ${sub.name}</div>
+                                    <div class="wiki-submission-info">From: ${roleLabel} | Approved: ${date}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    approvedList.innerHTML = html;
+                }
+            }
+        }
+
         // INITIALIZATION
         // ============================================================================
         document.addEventListener('DOMContentLoaded', () => {
@@ -4688,6 +5386,8 @@
                         renderCheckInsTab();
                     } else if (tabId === 'calendar') {
                         renderCalendar();
+                    } else if (tabId === 'wiki-submissions') {
+                        renderWikiSubmissionsOverview();
                     } else if (tabId === 'resources') {
                         renderResources();
                         renderUploadZone();
@@ -4755,6 +5455,58 @@
                 showNotification(`${files.length} file(s) added`);
             });
 
+            // Wiki Submissions Upload Zone (Pending Approval)
+            const wikiCoordUploadZone = document.getElementById('wiki-coord-upload-zone');
+            if (wikiCoordUploadZone) {
+                wikiCoordUploadZone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    wikiCoordUploadZone.classList.add('drag-over');
+                });
+                wikiCoordUploadZone.addEventListener('dragleave', () => {
+                    wikiCoordUploadZone.classList.remove('drag-over');
+                });
+                wikiCoordUploadZone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    wikiCoordUploadZone.classList.remove('drag-over');
+                    const files = Array.from(e.dataTransfer.files);
+                    files.forEach(file => {
+                        addCoordWikiFile(file);
+                    });
+                });
+            }
+
+            // Wiki Submit Button (Pending Approval)
+            const wikiSubmitBtn = document.getElementById('wiki-submit-button');
+            if (wikiSubmitBtn) {
+                wikiSubmitBtn.addEventListener('click', submitCoordWikiFiles);
+            }
+
+            // Wiki Approved Content Upload Zone
+            const wikiApprovedUploadZone = document.getElementById('wiki-approved-upload-zone');
+            if (wikiApprovedUploadZone) {
+                wikiApprovedUploadZone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    wikiApprovedUploadZone.classList.add('drag-over');
+                });
+                wikiApprovedUploadZone.addEventListener('dragleave', () => {
+                    wikiApprovedUploadZone.classList.remove('drag-over');
+                });
+                wikiApprovedUploadZone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    wikiApprovedUploadZone.classList.remove('drag-over');
+                    const files = Array.from(e.dataTransfer.files);
+                    files.forEach(file => {
+                        addCoordApprovedFile(file);
+                    });
+                });
+            }
+
+            // Wiki Submit Button (Approved Content)
+            const wikiSubmitApprovedBtn = document.getElementById('wiki-submit-approved-button');
+            if (wikiSubmitApprovedBtn) {
+                wikiSubmitApprovedBtn.addEventListener('click', submitCoordApprovedFiles);
+            }
+
             // Checkin notes autosave
             setTimeout(() => {
                 document.querySelectorAll('.checkin-notes-field').forEach(textarea => {
@@ -4790,6 +5542,11 @@
                 if (e.key === ACTIVITY_LS_KEY) {
                     const activeTab = document.querySelector('.tab-content.active');
                     if (activeTab && activeTab.id === 'activity-log') renderActivityLog();
+                    return;
+                }
+                if (e.key === WIKI_SUBMISSIONS_KEY) {
+                    const activeTab = document.querySelector('.tab-content.active');
+                    if (activeTab && activeTab.id === 'resources') renderWikiSubmissionsOverview();
                     return;
                 }
                 const leadKey = Object.entries(LEAD_LS_KEYS).find(([k, v]) => v === e.key)?.[0];
