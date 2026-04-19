@@ -22,10 +22,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             padding: 40px 20px;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         /* DNA Helix background */
@@ -49,6 +50,11 @@
             width: 150px; height: 106px;
             border-radius: 12px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            animation: spin-logo 20s linear infinite;
+        }
+        @keyframes spin-logo {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
         }
         .hub-title {
             font-size: 32px; font-weight: 900; color: white;
@@ -178,7 +184,7 @@
                 <div class="card-icon coord">⚡</div>
                 <div class="card-body">
                     <div class="card-title">Project Coordinator</div>
-                    <div class="card-desc">Timothy Windham — Team check-ins, task reviews, mentee oversight, and operations</div>
+                    <div class="card-desc">Timothy Windham, DDS — Team check-ins, task reviews, mentee oversight, and operations</div>
                 </div>
                 <div class="card-arrow">›</div>
             </a>
