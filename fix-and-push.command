@@ -31,15 +31,12 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Update strategy guide links, wire real Drive folders, add docs + clean logo
+    git commit -m "Fix Project Lead snapshot text: white-on-white → readable dark text
 
-- Strategy guide refs now point to local HTML docs instead of Google Drive
-- Wiki upload zones target real Drive folders (Pending Approval + Approved)
-- Coordinator approval uploads target real Submissions folder
-- Added HP, Wiki, Team strategy guide HTML files + shared CSS to docs/
-- Added clean transparent team logo to assets/
-- Applied new design system: DnaBackdrop, white glass header, lab-notebook hub
-- Fixed push script to clean index.lock and pull before push
+- Task cards, quote, and metadata in Today's Snapshot were using
+  rgba(255,255,255,...) colors meant for a dark background, but the
+  snapshot container has a white background — text was invisible
+- Switched to var(--black), var(--slate), var(--slate-light) for readability
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
