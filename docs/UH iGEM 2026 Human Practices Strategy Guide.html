@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>UH iGEM 2026 — Human Practices Strategy Guide</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_guide_shared.css">
+<style>
+  /* HP-specific additions: escalation + gold example + dashboard cue callouts */
+  .callout.escalate{
+    border-left:4px solid var(--scarlet-dark);
+    background:#fff5f5;
+  }
+  .callout.escalate .callout-label{color:var(--scarlet-dark)}
+  .callout.gold-example{
+    border-left:4px solid var(--gold);
+    background:#fffdf5;
+  }
+  .callout.gold-example .callout-label{color:var(--gold-dark)}
+  .callout.dashcue{
+    border-left:4px solid var(--ink);
+    background:#fafafa;
+  }
+  .callout.dashcue .callout-label{color:var(--ink)}
+
+  /* Beat list for interview flow */
+  .beats{margin:20px 0;counter-reset:beat}
+  .beat{
+    display:grid;grid-template-columns:80px 1fr;gap:20px;
+    padding:16px 0;border-bottom:1px solid var(--line);
+  }
+  .beat:last-child{border-bottom:none}
+  .beat-num{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--scarlet);font-weight:700;
+    border-right:2px solid var(--scarlet);padding-right:12px;
+  }
+  .beat-num span{display:block;font-size:24px;font-weight:800;color:var(--ink);letter-spacing:-0.5px;margin-top:4px}
+  .beat-body h5{font-size:15px;margin:0 0 6px;font-weight:800;color:var(--ink)}
+  .beat-body p{font-size:14px;color:var(--slate);margin:0;line-height:1.55}
+
+  /* Case-study stack */
+  .case{
+    background:var(--paper);border:1px solid var(--line);
+    padding:24px 28px;margin:20px 0;
+    border-top:3px solid var(--gold);
+  }
+  .case-tag{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    letter-spacing:0.25em;text-transform:uppercase;
+    color:var(--gold-dark);font-weight:700;margin-bottom:6px;
+  }
+  .case h4{
+    font-size:18px;font-weight:800;margin:0 0 10px;
+    color:var(--ink);letter-spacing:-0.2px;
+    font-family:inherit;text-transform:none;
+  }
+  .case p{font-size:14px;color:var(--slate);margin:0 0 10px;line-height:1.6}
+
+  /* Log-entry preview */
+  .log-table th,.log-table td{font-size:13px}
+  .log-table td:first-child{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--scarlet);width:160px}
+</style>
+</head>
+<body>
+
+<div class="tape">
+  <div class="rec"><span class="rec-dot"></span><span>DOC · HP-STRATEGY-001</span></div>
+  <div>UH iGEM 2026 · HUMAN PRACTICES STRATEGY GUIDE</div>
+  <div>REV · v1.0 / APR 2026</div>
+</div>
+
+<div style="max-width:1200px;margin:0 auto;padding:0 24px">
+  <header class="hero">
+    <span class="corner-bl"></span><span class="corner-br"></span>
+    <div class="hero-kicker">Human Practices · Paris 2026</div>
+    <h1>Human Practices<br><em>Strategy Guide</em></h1>
+    <p class="hero-sub">A step-by-step playbook for the Gold Medal, the Best Human Practices Special Prize, and engagement that actually changes the project.</p>
+    <div class="hero-meta">
+      <span><b>Prepared for</b>May Shin Thant · HP Lead</span>
+      <span><b>Mentor</b>Dr. Windham · Project Coordinator</span>
+      <span><b>Project Lead</b>Austin Routt</span>
+      <span><b>Jamboree</b>Nov 13–16, 2026 · Paris</span>
+    </div>
+  </header>
+
+  <div class="how-to-use">
+    <h3>How to use this guide</h3>
+    <p>You are not doing this alone. This guide exists so any undergraduate picking it up — with no prior iGEM experience — can walk into Human Practices and know exactly what to do, when to do it, and when to ask for help.</p>
+    <ol>
+      <li><b>Orientation (§1–2):</b> what "Gold" and "Best HP" actually mean, and what past winning teams did. Read cover-to-cover first.</li>
+      <li><b>Execution (§3–7):</b> stakeholder strategy, interview workflow, Design Change Log, inclusivity, wiki writing. Open as you need them.</li>
+      <li><b>Rhythm &amp; support (§8–10):</b> your daily/weekly/monthly calendar, how to work with the dashboard and mentors, and the path to the Jamboree.</li>
+    </ol>
+    <p style="margin-top:10px"><strong>The rule:</strong> whenever you are unsure, stuck, or a decision feels above your pay-grade — email Dr. Windham. That is what mentorship is for.</p>
+  </div>
+
+  <div class="how-to-use" style="border-left-color:var(--scarlet)">
+    <h3 style="color:var(--scarlet)">The symbols you'll see</h3>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px 24px;font-size:13px;color:var(--slate);margin-top:6px">
+      <div><span class="mono" style="color:var(--scarlet);font-weight:700">▲ SCARLET</span> — things you must do or must not miss</div>
+      <div><span class="mono" style="color:var(--gold-dark);font-weight:700">★ GOLD</span> — tips and examples that separate Best HP from good-enough</div>
+      <div><span class="mono" style="color:var(--scarlet-dark);font-weight:700">✉ ESCALATE</span> — specific trigger moments to email Dr. Windham</div>
+      <div><span class="mono" style="color:var(--ink);font-weight:700">◉ DASHBOARD</span> — places where the HP Lead Dashboard is the tool you reach for</div>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+
+  <nav class="toc" id="toc">
+    <div class="toc-header">Contents</div>
+    <ol>
+      <li><a href="#part-1"><span class="num">01</span>Start here</a></li>
+      <li class="sub"><a href="#role">1.1  Your role in one sentence</a></li>
+      <li class="sub"><a href="#two-wins">1.2  The two wins we're aiming for</a></li>
+      <li class="sub"><a href="#three-resp">1.3  Your three core responsibilities</a></li>
+      <li><a href="#part-2"><span class="num">02</span>What Gold and Best HP look like</a></li>
+      <li class="sub"><a href="#tiers">2.1  The three tiers</a></li>
+      <li class="sub"><a href="#cases">2.2  Case studies</a></li>
+      <li class="sub"><a href="#mistakes">2.3  Mistakes that cost the Gold</a></li>
+      <li><a href="#part-3"><span class="num">03</span>Stakeholder strategy</a></li>
+      <li class="sub"><a href="#map">3.1  Target stakeholder map</a></li>
+      <li class="sub"><a href="#prioritize">3.2  The 3-question test</a></li>
+      <li class="sub"><a href="#brief">3.3  Pre-interview brief template</a></li>
+      <li><a href="#part-4"><span class="num">04</span>Interview workflow</a></li>
+      <li class="sub"><a href="#before">4.1–4.2  Before the interview</a></li>
+      <li class="sub"><a href="#during">4.3  During — the 5-beat flow</a></li>
+      <li class="sub"><a href="#after">4.4  Within 24 hours after</a></li>
+      <li class="sub"><a href="#worked">4.5  Worked example</a></li>
+      <li><a href="#part-5"><span class="num">05</span>Design Change Log</a></li>
+      <li class="sub"><a href="#log-capture">5.1  What the log captures</a></li>
+      <li class="sub"><a href="#log-template">5.2  The template</a></li>
+      <li class="sub"><a href="#log-count">5.3  How many entries</a></li>
+      <li><a href="#part-6"><span class="num">06</span>Inclusivity &amp; equity</a></li>
+      <li><a href="#part-7"><span class="num">07</span>Writing the HP wiki</a></li>
+      <li><a href="#part-8"><span class="num">08</span>Your calendar</a></li>
+      <li class="sub"><a href="#daily">8.1  Daily</a></li>
+      <li class="sub"><a href="#weekly">8.2  Weekly</a></li>
+      <li class="sub"><a href="#monthly">8.3  Monthly milestones</a></li>
+      <li><a href="#part-9"><span class="num">09</span>Working with your team</a></li>
+      <li><a href="#part-10"><span class="num">10</span>The finish line</a></li>
+      <li><a href="#bottom-line"><span class="num">END</span>Closing note</a></li>
+    </ol>
+  </nav>
+
+  <main class="content">
+
+  <!-- ============ PART 1 ============ -->
+  <section id="part-1">
+    <div class="part-header">
+      <span class="part-num">Part 01</span>
+      <h2>Start here</h2>
+    </div>
+
+    <div class="section">
+      <h3 id="role">1.1  Your role in one sentence</h3>
+      <p>As HP Lead, your job is to <strong>make the UH iGEM 2026 project better by bringing outside perspectives into our design decisions — and to document that process so the judges can see it.</strong> Everything else in this guide is in service of that sentence.</p>
+
+      <h3 id="two-wins">1.2  The two wins we're aiming for</h3>
+      <table>
+        <thead><tr><th>Target</th><th>What it requires</th><th>What it earns</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Gold Medal</strong><br><span class="mono" style="font-size:11px;color:var(--slate-light)">INTEGRATED HP</span></td>
+            <td>At least one documented feedback loop: stakeholder said X → team changed Y → result Z.</td>
+            <td>HP is one of three Gold requirements for the team medal.</td>
+          </tr>
+          <tr>
+            <td><strong>Best HP</strong><br><span class="mono" style="font-size:11px;color:var(--scarlet)">SPECIAL PRIZE</span></td>
+            <td>Exceptional depth, diversity, inclusivity, creativity, and storytelling across the entire HP program.</td>
+            <td>Global recognition at the Paris Jamboree — awarded to one team in the entire competition.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout key">
+        <span class="callout-label">★ Gold is the floor, Best HP is the ceiling</span>
+        <p>The team will earn Gold with roughly 6–8 deeply integrated stakeholder conversations. Best HP requires something more: engagement that changes minds outside the lab, reaches communities experts usually overlook, and is told as a compelling narrative — not a list of meetings.</p>
+        <p>You don't have to choose between them. <strong>Execute for Best HP and Gold arrives on the way.</strong></p>
+      </div>
+
+      <h3 id="three-resp">1.3  Your three core responsibilities</h3>
+      <div class="medal-row">
+        <div class="medal-card bronze" style="border-top-color:var(--scarlet)">
+          <div class="medal-num" style="color:var(--scarlet)">01 · ENGAGEMENT</div>
+          <h4>Stakeholder engagement</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">You decide who we talk to, you run the interviews, you follow up.</p>
+        </div>
+        <div class="medal-card silver" style="border-top-color:var(--gold)">
+          <div class="medal-num" style="color:var(--gold-dark)">02 · INTEGRATION</div>
+          <h4>Design integration</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">You make sure what stakeholders say reaches Austin, wet lab, and modeling — and that changes land in the Design Change Log.</p>
+        </div>
+        <div class="medal-card gold" style="border-top-color:var(--ink)">
+          <div class="medal-num" style="color:var(--ink)">03 · DOCUMENTATION</div>
+          <h4>Documentation</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">You own the HP section of the team wiki. Judges read the wiki; that is where the prize is won or lost.</p>
+        </div>
+      </div>
+
+      <div class="callout escalate">
+        <span class="callout-label">✉ Email Dr. Windham immediately if…</span>
+        <p>• You haven't been given access to the HP Lead Dashboard, the Stakeholder Tracker, or the shared Drive.<br>
+        • You're unsure whether you're the confirmed HP Lead (Dr. Windham will tell you the status).<br>
+        • You want to begin reaching out to stakeholders before a check-in.</p>
+        <p style="color:var(--slate);font-size:13px">Subject lines that work: <span class="mono">"HP Lead — quick question on [topic]"</span>. Short, specific, with a clear ask.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PART 2 ============ -->
+  <section id="part-2">
+    <div class="part-header">
+      <span class="part-num">Part 02</span>
+      <h2>What Gold and Best HP actually look like</h2>
+    </div>
+
+    <div class="section">
+      <p>This is the most important section in the guide. Every past team that won Best HP did the same core things. Every team that missed Gold on HP made the same core mistakes. Here is the playbook in plain language.</p>
+
+      <h3 id="tiers">2.1  The three tiers, explained</h3>
+      <div class="medal-row">
+        <div class="medal-card silver">
+          <div class="medal-num">Silver · The floor</div>
+          <h4>"We thought about it."</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">Show you considered the real-world context — a stakeholder map, some desk research, evidence you spoke with people outside the lab. Most teams clear this bar. It doesn't win prizes.</p>
+        </div>
+        <div class="medal-card gold">
+          <div class="medal-num">Gold · The goal</div>
+          <h4>"We changed something because of what we heard."</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">A traceable feedback loop where stakeholder input produced a documented change. One good loop is enough to qualify. Most teams who miss Gold on HP miss it here — good interviews but no documented change.</p>
+        </div>
+        <div class="medal-card bronze" style="border-top-color:var(--scarlet)">
+          <div class="medal-num" style="color:var(--scarlet)">Best HP · The ceiling</div>
+          <h4>"…and we told the story in a way you won't forget."</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">Depth, diversity, inclusivity, creativity, and storytelling. Awarded to exactly one team. Multi-round conversations, voices beyond the academic circle, engagement formats beyond the interview, a wiki that reads like a narrative.</p>
+        </div>
+      </div>
+
+      <div class="callout key">
+        <span class="callout-label">★ The Gold medal test</span>
+        <p>For any conversation you have, ask yourself: <em>"If I showed a judge a page with the stakeholder's quote on the left and a before/after project change on the right, would it convince them?"</em></p>
+        <p>If <strong>yes</strong> — you have Gold evidence. If <strong>no</strong> — you have a nice conversation. Go further.</p>
+      </div>
+
+      <h3 id="cases">2.2  Case studies — what past winners actually did</h3>
+      <p>Read these closely. Each teaches a specific move. When you build your own program, you should be able to say "I'm borrowing this from [winner] because we have the same shape of problem."</p>
+
+      <div class="case">
+        <div class="case-tag">Case 01 · Depth</div>
+        <h4>Multi-round conversations, not one-offs</h4>
+        <p>Past-winning teams don't treat stakeholder interviews as transactions. They go back to the same person two or three times across the project: first to frame the problem, then to test a design choice, and finally to get reactions to the result. Each round produces a different kind of evidence.</p>
+        <p><strong>How to apply it.</strong> Identify 2–3 top stakeholders you can genuinely engage multiple times. Plan <em>three</em> touch-points on your calendar per person: early (framing), mid-project (design check), late (results and communication). Three conversations, one stakeholder, three distinct pieces of evidence — that's Best-HP depth.</p>
+      </div>
+
+      <div class="case">
+        <div class="case-tag">Case 02 · Reach</div>
+        <h4>Go where the project lands, not where your network sits</h4>
+        <p>Winning teams engage the communities their project would actually affect — not just the professors in their own department. Community health workers, caregivers, patient advocates, and members of affected populations — their perspective is what academic interviews cannot replace.</p>
+        <p><strong>Houston is a gift for this.</strong> Harris Health System serves one of the largest uninsured populations in the United States. Older adults attending community health clinics, senior centers, and AARP-Houston programs can tell you — directly — what works for them and what doesn't. <em>A 20-minute conversation with a community health worker at a Harris Health clinic is worth three interviews with PhDs who already agree the project is interesting.</em></p>
+        <p style="font-size:13px;color:var(--slate-light);font-style:italic">If you need help setting up these conversations, email Dr. Windham. He has clinical contacts and will help you draft the approach.</p>
+      </div>
+
+      <div class="case">
+        <div class="case-tag">Case 03 · Format</div>
+        <h4>Engagement formats beyond the interview</h4>
+        <p>Best-HP teams don't just interview — they hold workshops, run surveys, co-design with communities, build public-engagement events, and produce tools that live beyond the competition. A podcast episode, an educational video, a library partnership, a high-school workshop, a community forum — any of these, done well, is Best-HP evidence an interview cannot replicate.</p>
+        <p><strong>Realistic second-format options for us:</strong></p>
+        <ul>
+          <li>A 45-minute public forum at a UH library or community center. 10–20 attendees is plenty — what matters is that community members asked questions and you documented their concerns.</li>
+          <li>A short survey distributed through an aging-focused partner organization. 30 responses is plenty for a wiki graphic.</li>
+          <li>An educational one-pager or short video at a general-audience reading level, co-developed with a bioethicist and reviewed by non-scientists before publishing.</li>
+        </ul>
+      </div>
+
+      <div class="case">
+        <div class="case-tag">Case 04 · Reflection</div>
+        <h4>Reflection is evidence</h4>
+        <p>Teams often forget that judges reward honest reflection — what you tried and did not work, whose voices you could not reach, what you would do differently. A paragraph that says "we attempted to engage X community and were unable to; here is what we learned about why, and what we'd recommend for next year's team" is Best-HP evidence.</p>
+        <p>Pretending your HP was flawless is not.</p>
+      </div>
+
+      <h3 id="mistakes">2.3  The mistakes that cost teams the Gold</h3>
+      <ul>
+        <li><strong>"We talked to 20 people"</strong> with no depth on any of them. Quality beats quantity. 8 deep conversations beat 30 shallow ones.</li>
+        <li><strong>Stakeholders who "validated" the project</strong> with no critical feedback. If no expert ever pushed back, judges assume you didn't ask hard questions.</li>
+        <li><strong>Activities listed without project-level consequences.</strong> "We held a workshop" is not HP. "We held a workshop and as a result we reframed our public-communication language" is HP.</li>
+        <li><strong>Feedback loops buried.</strong> The Design Change Log is the front-and-center artifact on the wiki, not a footnote.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ PART 3 ============ -->
+  <section id="part-3">
+    <div class="part-header">
+      <span class="part-num">Part 03</span>
+      <h2>Your stakeholder strategy</h2>
+    </div>
+
+    <div class="section">
+      <p>Our project touches multiple expertise domains — each generates a different kind of feedback and each protects against a different kind of mistake. The map below is scoped for a project in the aging-intervention / engineered-probiotic space; you'll sharpen it once the technical plan is locked.</p>
+
+      <h3 id="map">3.1  Target stakeholder map</h3>
+      <p>Aim for <strong>a dozen or so interviews</strong> across the competition season, distributed across the five categories below, with meaningful representation from traditionally underserved communities. The exact count is less important than the <em>depth</em> and <em>diversity</em> of who you talked to. This is the shape of a program that earns Gold comfortably and competes for Best HP.</p>
+      <table>
+        <thead><tr><th>Category</th><th>Who to target</th><th>What they protect us from</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Scientific / technical</strong></td>
+            <td>Biogerontologists, model-organism methodology experts, synthetic biologists, microbiome researchers</td>
+            <td>Designing the wrong experiment, missing a known failure mode, choosing a dose or endpoint the field considers indefensible.</td>
+          </tr>
+          <tr>
+            <td><strong>Clinical / translational</strong></td>
+            <td>Gastroenterologists (TMC, Baylor, MD Anderson), geriatricians, clinical trialists</td>
+            <td>Overclaiming translational relevance, missing clinical risk factors, ignoring what a real patient population would require.</td>
+          </tr>
+          <tr>
+            <td><strong>Biosafety / regulatory</strong></td>
+            <td>UH IBC members, synthetic-biology safety reviewers, FDA-experienced regulatory consultants</td>
+            <td>Insufficient containment, unaddressed horizontal-gene-transfer concerns, regulatory naivety.</td>
+          </tr>
+          <tr>
+            <td><strong>Ethics + policy</strong></td>
+            <td>Bioethicists (UH Medical Humanities), health-policy researchers, patient advocacy leaders</td>
+            <td>Equity blind spots, irresponsible communication, enhancement-vs-treatment confusion.</td>
+          </tr>
+          <tr>
+            <td><strong>Community / public</strong></td>
+            <td>Community health workers, senior-center participants, public-library science programs, high-school students</td>
+            <td>Assuming the public understands or wants what we're building; missing the voices of people most affected.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 id="prioritize">3.2  How to prioritize — the 3-question test</h3>
+      <p>Before you add anyone to the stakeholder tracker, ask:</p>
+      <ol>
+        <li>Will what this person says change how we build the project, communicate it, or contain it?</li>
+        <li>Do they bring a perspective we don't already have on the team?</li>
+        <li>Can I reach them realistically within the next 3 weeks?</li>
+      </ol>
+      <p>If any answer is "no," deprioritize. It is better to have 12 great interviews than 20 mediocre ones.</p>
+
+      <div class="callout dashcue">
+        <span class="callout-label">◉ Dashboard cue — start the tracker today</span>
+        <p>Open the Stakeholder Tracker from Team Dashboards. Your first week's goal: add <strong>3 names per category</strong>, with contact info and a one-line note on why they matter.</p>
+        <p>If a category has fewer than 3 viable candidates after an hour of searching, email Dr. Windham. He will connect you directly or suggest alternatives.</p>
+      </div>
+
+      <h3 id="brief">3.3  Example stakeholder brief — use this template every time</h3>
+      <p>Before every interview, write a one-page brief. It forces clarity and saves you from a wasted 30 minutes.</p>
+      <div class="callout gold-example">
+        <span class="callout-label">★ Pre-interview brief · template</span>
+        <p><strong>Stakeholder:</strong> Name, title, department, institution.<br>
+        <strong>Expertise:</strong> One-line summary of their relevant work (e.g. "15 years of published work on aging biology").<br>
+        <strong>Why this conversation:</strong> The specific reason they are on your list. Tie it to a decision the team is making.<br>
+        <strong>What I want out of the meeting:</strong> 2–3 concrete outputs. Example: (1) a yes/no on dose range, (2) top 2 concerns about our host strain, (3) one "what I wish teams like yours would do" opinion.<br>
+        <strong>Pre-read sent:</strong> HP framing one-pager, 48 hours before. Confirm received.<br>
+        <strong>Consent form:</strong> signed and returned. Recording approved.<br>
+        <strong>Decision I'm prepared to take if they say X:</strong> Write it out. Example: "If they recommend a dose-response pilot, I'll propose the change to Austin within 24 hours."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PART 4 ============ -->
+  <section id="part-4">
+    <div class="part-header">
+      <span class="part-num">Part 04</span>
+      <h2>The interview workflow</h2>
+    </div>
+
+    <div class="section">
+      <p>Every interview follows the same structure. Deviations are fine once you have 3–4 interviews under your belt, but until then, follow this checklist literally.</p>
+
+      <h3 id="before">4.1  Three days before</h3>
+      <ul>
+        <li>Send the framing one-pager with a short email introducing the team and confirming the meeting time.</li>
+        <li>Send the consent form. Ask them to sign and return before the meeting.</li>
+        <li>Prepare 5–7 open-ended questions from the relevant question bank. Do not reuse the same question set for a clinician and a bioethicist.</li>
+        <li>Write the pre-interview brief (see §3.3).</li>
+      </ul>
+
+      <h3>4.2  The morning of</h3>
+      <ul>
+        <li>Open the stakeholder tracker and the Design Change Log in browser tabs you can type into live.</li>
+        <li>Test recording equipment. If it's a video call, test the record function in a dummy meeting first.</li>
+        <li>Re-read their pre-interview brief and the 5–7 questions. Practice the opening script aloud once.</li>
+        <li>Have water nearby. Interviews run long when they go well — plan for 60 minutes even if you scheduled 45.</li>
+      </ul>
+
+      <h3 id="during">4.3  During the interview — the 5-beat flow</h3>
+      <div class="beats">
+        <div class="beat">
+          <div class="beat-num">Beat<span>01</span></div>
+          <div class="beat-body"><h5>Opening · 1–2 min</h5>
+          <p>Use the standard opening from the protocol. Thank them, name the team, name the project in one sentence, name the ask in one sentence, and turn it over. Resist the urge to over-explain. They've read the one-pager.</p></div>
+        </div>
+        <div class="beat">
+          <div class="beat-num">Beat<span>02</span></div>
+          <div class="beat-body"><h5>Their reaction · 5–10 min</h5>
+          <p>Open with: <em>"Having read the one-pager, what is the first thing that stood out to you, good or bad?"</em> Then listen. Take notes. Do not interrupt with clarifications for the first 2 minutes.</p></div>
+        </div>
+        <div class="beat">
+          <div class="beat-num">Beat<span>03</span></div>
+          <div class="beat-body"><h5>Your prepared questions · 20–25 min</h5>
+          <p>Work through your 5–7 questions. Best follow-ups: <em>"Can you say more about that?"</em> and <em>"How would that change what we should do?"</em></p></div>
+        </div>
+        <div class="beat">
+          <div class="beat-num">Beat<span>04</span></div>
+          <div class="beat-body"><h5>The "what am I missing" question · 5 min</h5>
+          <p>Always close with some version of: <em>"Is there anything we should be thinking about that I haven't asked?"</em> The most important thing a stakeholder tells you is almost always the thing you didn't know to ask about.</p></div>
+        </div>
+        <div class="beat">
+          <div class="beat-num">Beat<span>05</span></div>
+          <div class="beat-body"><h5>Close · 2–3 min</h5>
+          <p>Confirm permission to quote them (or attribute anonymously). Tell them when the wiki will be public. Offer to share a draft before submission.</p></div>
+        </div>
+      </div>
+
+      <h3 id="after">4.4  Within 24 hours after</h3>
+      <ul>
+        <li>Transcribe the recording (rough transcript with timestamps is fine — not verbatim).</li>
+        <li>Write a one-page <strong>insights memo</strong>: 3 key quotes, 3 insights, 1–2 proposed project changes (even if you end up not making them).</li>
+        <li>Update the stakeholder tracker: status → Complete, insights memo link, proposed changes.</li>
+        <li>If they proposed a change, flag it for the weekly check-in with Dr. Windham and (if load-bearing) for Austin.</li>
+        <li>Send a thank-you email within 48 hours. 3–4 sentences is fine.</li>
+      </ul>
+
+      <div class="callout escalate">
+        <span class="callout-label">✉ Email Dr. Windham within 24 hours if…</span>
+        <p>• A stakeholder said something that could change a major design decision.<br>
+        • A stakeholder raised a safety concern we hadn't previously considered.<br>
+        • A stakeholder asked to be anonymous or to withdraw their participation.<br>
+        • A stakeholder made you uncomfortable in any way — you are not obligated to process that alone.<br>
+        • The recording failed or the consent form is unclear.</p>
+      </div>
+
+      <h3 id="worked">4.5  Worked example — an interview that earned Gold evidence</h3>
+      <div class="callout gold-example">
+        <span class="callout-label">★ A bioethicist interview, start to finish</span>
+        <p style="font-family:var(--mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--slate-light);margin:0 0 14px 0;padding:8px 12px;background:rgba(0,0,0,0.04);border-left:3px solid var(--slate-light)">— hypothetical example for illustration —</p>
+        <p><strong>Pre-interview.</strong> May sends the framing one-pager and signed consent form. Prepares 6 questions focused on communication practices and the enhancement/treatment line.</p>
+        <p><strong>During.</strong> The bioethicist raises a concern: describing the project with "anti-aging" language invites both regulatory scrutiny and public misunderstanding. She recommends framing the project in "healthspan proof-of-concept" language and being explicit about the limits of the experimental model.</p>
+        <p><strong>Within 24h.</strong> May writes the insights memo, flags this as a proposed communication-framing change, updates the tracker.</p>
+        <p><strong>Within 48h.</strong> May emails Dr. Windham: <em>"Recommending we review the framing one-pager and the wiki drafts to remove 'anti-aging' language in favor of 'healthspan-proof-of-concept' language. Bioethicist quote attached."</em></p>
+        <p><strong>Week 2.</strong> Austin approves the change. May edits the one-pager and coordinates with the wiki lead. The change is logged in the Design Change Log with the bioethicist's quote, the before/after framing, and the date.</p>
+        <p><strong>On the wiki.</strong> A short panel titled <em>"How one conversation changed how we talk about our project"</em> with the quote, the before/after paragraph, and the follow-up email confirming the change.</p>
+        <p style="margin-top:14px;border-top:1px solid var(--line);padding-top:12px"><strong>That is Gold-medal evidence, and a piece of Best-HP storytelling, from a single well-run interview.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PART 5 ============ -->
+  <section id="part-5">
+    <div class="part-header">
+      <span class="part-num">Part 05</span>
+      <h2>The Design Change Log — where Gold is won</h2>
+    </div>
+
+    <div class="section">
+      <p>The Design Change Log is the single most important artifact you will produce. It is the evidence the judges will read when deciding whether our HP is Integrated (Gold) or just activity (Silver). Treat it as the most important page in the wiki, because it is.</p>
+
+      <h3 id="log-capture">5.1  What the log captures</h3>
+      <p>For every consequential stakeholder input, the log records four things:</p>
+      <ol>
+        <li>What the expert said (quote or paraphrase, with attribution).</li>
+        <li>What project decision it bears on (design, methodology, communication, containment, etc.).</li>
+        <li>What change was made — <em>OR</em> what change was explicitly considered and declined.</li>
+        <li>The reasoning, including who signed off.</li>
+      </ol>
+      <div class="callout key">
+        <span class="callout-label">★ Declines matter as much as changes</span>
+        <p>If a stakeholder recommended something and the team chose not to do it, that is <em>still</em> Gold evidence — as long as the log shows you considered it carefully and documented the reason for the decision. <em>"Expert said X, team considered it, decided against because Y"</em> is a perfectly valid feedback loop.</p>
+        <p>What is <strong>not</strong> valid: expert said X, and there is no record of whether the team looked at it.</p>
+      </div>
+
+      <h3 id="log-template">5.2  The log template</h3>
+      <p style="font-family:var(--mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--slate-light);margin:0 0 10px 0;padding:8px 12px;background:rgba(0,0,0,0.04);border-left:3px solid var(--slate-light)">— example template showing what a filled-out entry looks like. your real first entry will be DCL-001. —</p>
+      <table class="log-table">
+        <thead><tr><th>Field</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Entry ID</td><td><span class="mono">DCL-00X</span></td></tr>
+          <tr><td>Date</td><td>2026-06-12</td></tr>
+          <tr><td>Stakeholder</td><td>Dr. [Name], Bioethicist, UH Medical Humanities</td></tr>
+          <tr><td>Category</td><td>Ethics + policy</td></tr>
+          <tr><td>Interview ID</td><td><span class="mono">INT-005</span></td></tr>
+          <tr><td>Input</td><td><em>"Framing this as 'anti-aging' invites both regulatory scrutiny and public misunderstanding. 'Healthspan proof-of-concept' is more accurate and more defensible."</em></td></tr>
+          <tr><td>Bears on</td><td>External communication; framing one-pager; wiki narrative.</td></tr>
+          <tr><td>Decision</td><td><strong>ADOPTED.</strong> Framing one-pager and wiki updated to remove 'anti-aging' language in favor of 'healthspan proof-of-concept.' No change to scientific plan.</td></tr>
+          <tr><td>Rationale</td><td>Input aligns with the team's existing commitment to not overclaim; the new framing is both more accurate and better aligned with what the experimental data actually supports.</td></tr>
+          <tr><td>Signoff</td><td>Austin Routt (Project Lead), 2026-06-13</td></tr>
+          <tr><td>Follow-up</td><td>Sent revised one-pager 2026-06-15; response confirming the revision addresses the concern received 2026-06-17.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="log-count">5.3  How many log entries do we need?</h3>
+      <p>Gold requires at least one well-documented feedback loop. In practice, aim for <strong>5–8 well-documented entries</strong> by the October wiki freeze. Anything more is a bonus; anything less is a risk. Note that a single deep interview can produce 2–3 log entries (one per decision it touched), so 5–8 entries does not mean 5–8 interviews.</p>
+
+      <div class="callout dashcue">
+        <span class="callout-label">◉ Dashboard cue — every Friday</span>
+        <p>As part of your weekly rhythm, open the Design Change Log on Friday and ask: <em>"Did anything stakeholders said this week change anything about the project?"</em> If yes, add an entry. If no, write one line explaining why not.</p>
+        <p>This 5-minute Friday ritual is what separates teams that have a full log by October from teams that are scrambling.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PART 6 ============ -->
+  <section id="part-6">
+    <div class="part-header">
+      <span class="part-num">Part 06</span>
+      <h2>Inclusivity and equity</h2>
+    </div>
+
+    <div class="section">
+      <p>Best-HP winners all engage with communities that expert-only outreach misses. For a project in the aging and healthspan space — where access to future interventions could deepen existing inequities — this is not optional. It is the center of the ethical argument our project has to make.</p>
+
+      <h3>6.1  Why this matters for our project specifically</h3>
+      <p>If engineered-probiotic healthspan interventions ever become real, the people most likely to benefit are those who can already afford expensive wellness products. The people most likely to be overlooked are low-income older adults, uninsured patients, communities with limited primary-care access, and populations whose relationship with the healthcare system is characterized by distrust earned through historical injustice.</p>
+      <p><strong>Best-HP evidence means engaging those voices at the project stage — not treating equity as a disclosure at the end.</strong></p>
+
+      <h3>6.2  Houston-specific opportunities</h3>
+      <table>
+        <thead><tr><th>Partner</th><th>What they offer · how to start</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Harris Health System</strong></td><td>Serves one of the largest uninsured populations in the U.S. Community health workers, patient educators, and clinic-based social workers. Start via the UH School of Public Health's community partnerships office.</td></tr>
+          <tr><td><strong>AARP Houston</strong></td><td>Community engagement arm that has partnered with UH on aging-related events in the past.</td></tr>
+          <tr><td><strong>Senior centers · faith programs</strong></td><td>Evelyn Rubenstein JCC, Area Agency on Aging of the Harris County Area, and multiple church-based senior ministries run programs where a short, respectful conversation is welcome.</td></tr>
+          <tr><td><strong>Public libraries</strong></td><td>HPL and Harris County Public Library run adult-education programs that welcome synthetic-biology outreach talks.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout escalate">
+        <span class="callout-label">✉ Email Dr. Windham when you're ready to set up community engagement</span>
+        <p>Community engagement is high-impact but requires care. When you reach out to any of the organizations above, keep Dr. Windham in the loop by sharing: (1) which organization, (2) your specific ask — interview, forum, survey, (3) the format and time commitment you're proposing.</p>
+        <p><strong>Do not reach out cold to community health workers or patient populations without this check.</strong> It protects them and it protects the project.</p>
+      </div>
+
+      <h3>6.3  The equity questions you must ask</h3>
+      <p>Regardless of whom you interview, work these questions into the conversation whenever they fit:</p>
+      <ul>
+        <li>"If this technology worked, who would be able to afford it? Who wouldn't? What would need to change for that to be different?"</li>
+        <li>"What concerns would you have about this technology being marketed to people like you?"</li>
+        <li>"Are there communities or voices that projects like ours typically miss?"</li>
+        <li>"What would make you trust a research team working in this area?"</li>
+      </ul>
+      <p style="color:var(--slate);font-style:italic">Document the answers. They are wiki gold.</p>
+    </div>
+  </section>
+
+  <!-- ============ PART 7 ============ -->
+  <section id="part-7">
+    <div class="part-header">
+      <span class="part-num">Part 07</span>
+      <h2>Writing the HP wiki — where Best HP is decided</h2>
+    </div>
+
+    <div class="section">
+      <p>Judges read hundreds of wiki pages in a week. Yours has to be memorable without being gimmicky, rigorous without being dry. The principle: <strong>tell a story, not a list.</strong></p>
+
+      <h3>7.1  The structure that works</h3>
+      <ol>
+        <li><strong>Opening frame</strong> — 1 paragraph: what we were trying to learn from the outside world, and why that mattered for this project specifically.</li>
+        <li><strong>Stakeholder map</strong> — a visual: who we engaged, grouped by category, with a one-line note per person on what they brought.</li>
+        <li><strong>3–5 key-conversation panels</strong> — for each, a photo or icon, a quote, and 200–300 words on what the stakeholder said, what we changed, and what happened.</li>
+        <li><strong>The Design Change Log</strong> — embedded as a sortable, readable table. This is the core Gold evidence.</li>
+        <li><strong>Inclusivity + equity section</strong> — communities engaged beyond the academic circle, what we heard, what we learned, and which voices we could not reach.</li>
+        <li><strong>Reflections</strong> — 1 page: what surprised you, what you'd do differently, what HP taught the team about our own science.</li>
+        <li><strong>Thank-yous</strong> — every stakeholder, with permission-based attribution.</li>
+      </ol>
+
+      <h3>7.2  Three wiki principles that separate Best-HP pages from the rest</h3>
+      <div class="medal-row">
+        <div class="medal-card silver" style="border-top-color:var(--scarlet)">
+          <div class="medal-num" style="color:var(--scarlet)">Principle 01</div>
+          <h4 style="font-size:18px">Show the seam, not the polish</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">Don't write a wiki that makes HP sound like it unfolded perfectly. Show the interview that made the team realize they were asking the wrong question, the community meeting that was awkwardly attended. Honesty is a competitive advantage.</p>
+        </div>
+        <div class="medal-card silver" style="border-top-color:var(--gold)">
+          <div class="medal-num" style="color:var(--gold-dark)">Principle 02</div>
+          <h4 style="font-size:18px">Let the stakeholder speak</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">Every key panel should include a direct quote (with permission) in the stakeholder's own voice. A 30-word quote from a community health worker is worth 300 words of you paraphrasing her.</p>
+        </div>
+        <div class="medal-card silver" style="border-top-color:var(--ink)">
+          <div class="medal-num" style="color:var(--ink)">Principle 03</div>
+          <h4 style="font-size:18px">Make the feedback loop visible</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">For at least 3 featured stakeholders, use a small before/after visual — original design or framing on the left, revised version on the right, stakeholder quote underneath. Judges scan fast.</p>
+        </div>
+      </div>
+
+      <div class="callout gold-example">
+        <span class="callout-label">★ Example — a wiki panel that hits all three principles</span>
+        <p><strong>Headline:</strong> <em>"Why we stopped saying 'anti-aging' halfway through the project."</em></p>
+        <p><strong>Panel image:</strong> photo of the stakeholder, or a respectful illustration if they declined photo attribution.</p>
+        <p><strong>Pull-quote:</strong> <em>"'Anti-aging' sounds like a product you sell. 'Healthspan proof-of-concept' sounds like the science you're actually doing. The language matters."</em> — Dr. [Name], Bioethicist</p>
+        <p><strong>Body (250 words):</strong> what we were originally saying, why we thought it was fine, what the bioethicist pushed back on, what we changed, and what she said when we sent her the revision.</p>
+        <p><strong>Before/after visual:</strong> the original one-pager headline on the left, the revised headline on the right, dated.</p>
+        <p><strong>Link:</strong> Design Change Log entry DCL-00X.</p>
+      </div>
+
+      <h3>7.3  Common wiki mistakes to avoid</h3>
+      <ul>
+        <li>Passive voice everywhere ("stakeholders were engaged," "feedback was received"). Use active voice. Name who did what.</li>
+        <li>Stock photos. If you don't have a photo, use an illustration or icon — not a generic stock image of "scientists in a lab."</li>
+        <li>Claiming impact you don't have evidence for. If a change happened, show the before/after.</li>
+        <li>Walls of text. Judges read fast. Use headings, panels, and pull-quotes.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ PART 8 ============ -->
+  <section id="part-8">
+    <div class="part-header">
+      <span class="part-num">Part 08</span>
+      <h2>Your calendar — daily, weekly, monthly</h2>
+    </div>
+
+    <div class="section">
+      <p>This section is the operational heart of the guide. Follow the rhythms below and the work will compound. Skip them and you will feel behind by July.</p>
+
+      <h3 id="daily">8.1  Daily rhythm</h3>
+      <p>A quick check-in most weekdays — ideally at the start of your study session. This stays short by design:</p>
+      <ul>
+        <li>Open the HP Lead Dashboard. Check the next task due and any notifications from Dr. Windham or Austin.</li>
+        <li>Respond to time-sensitive stakeholder emails (replies within 24 hours; same day if they're scheduling).</li>
+        <li>Log progress from the previous day in task notes — these feed directly into your weekly check-in agenda.</li>
+        <li>Scan the stakeholder tracker for outreach &gt;7 days without a response — send a polite follow-up.</li>
+      </ul>
+
+      <h3 id="weekly">8.2  Weekly rhythm</h3>
+      <table>
+        <thead><tr><th>Day</th><th>Ritual</th><th>Time</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Monday</strong></td><td>Weekly check-in with Dr. Windham. Bring: the dashboard, the stakeholder tracker, any decisions needing sign-off, and questions.</td><td class="mono">as scheduled</td></tr>
+          <tr><td><strong>Tuesday</strong></td><td>Stakeholder outreach. Send a few new outreach emails. Confirm logistics for that week's interviews.</td><td class="mono">when you have time</td></tr>
+          <tr><td><strong>Wednesday</strong></td><td>Interview / insights day. Run scheduled interviews or write insights memos for the ones just past.</td><td class="mono">when interviews are booked</td></tr>
+          <tr><td><strong>Thursday</strong></td><td>Design integration day. Route any stakeholder inputs that affect the project: email Austin, update wet-lab or modeling leads, flag for the next check-in.</td><td class="mono">as needed</td></tr>
+          <tr><td><strong>Friday</strong></td><td>Documentation &amp; reflection. Update Design Change Log. Update wiki drafts. Write one reflective paragraph on what you learned this week.</td><td class="mono">when you have time</td></tr>
+          <tr><td><strong>Weekend</strong></td><td>Rest, or one light reading session on a past winning HP wiki page.</td><td class="mono">optional</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout dashcue">
+        <span class="callout-label">◉ Dashboard cue — weekly check-in prep</span>
+        <p>Each Sunday evening (or Monday morning before the check-in), open the HP Lead Dashboard's Weekly Rhythm tab. It auto-generates an agenda from your task notes, flagged items, and any Austin-approval blockers.</p>
+        <p>If the agenda looks thin or nothing substantive has happened, bring that to the check-in anyway. Slow weeks are normal in April–May.</p>
+      </div>
+
+      <h3 id="monthly">8.3  Monthly milestones</h3>
+      <table>
+        <thead><tr><th>Month</th><th>What must be true by the end of the month</th></tr></thead>
+        <tbody>
+          <tr><td><strong>April 2026</strong></td><td>Stakeholder tracker populated with names across all five categories. IRB / consent process confirmed. First outreach emails sent.</td></tr>
+          <tr><td><strong>May 2026</strong></td><td>First interview completed. First insights memo filed. First Design Change Log entry drafted. Read 3 past-winning HP wiki pages.</td></tr>
+          <tr><td><strong>June 2026</strong></td><td>Early interviews underway. First cross-category conversation (e.g. clinician + bioethicist). Community-engagement outreach plan drafted and reviewed.</td></tr>
+          <tr><td><strong>July 2026</strong></td><td>Interviews building momentum. At least one community-engagement event confirmed for August. Design Change Log has multiple substantive entries. Wiki draft v0 (structure + key panels).</td></tr>
+          <tr><td><strong>August 2026</strong></td><td>Most interviews complete. Community event executed and documented. Second-round follow-ups started with key stakeholders. Wiki draft v1 complete.</td></tr>
+          <tr><td><strong>September 2026</strong></td><td>All interviews complete. Design Change Log has 5–8 entries. Wiki draft v2 submitted to Dr. Windham, then Austin, for feedback.</td></tr>
+          <tr><td><strong>October 2026</strong></td><td>Wiki finalized. Stakeholders offered pre-submission review. Jamboree presentation materials drafted. <strong>Wiki freeze by October 20.</strong></td></tr>
+          <tr><td><strong>November 2026</strong></td><td>Jamboree prep and travel. Paris, November 13–16.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ PART 9 ============ -->
+  <section id="part-9">
+    <div class="part-header">
+      <span class="part-num">Part 09</span>
+      <h2>Working with your team</h2>
+    </div>
+
+    <div class="section">
+      <h3>9.1  The HP Lead Dashboard</h3>
+      <p>Your HP Lead Dashboard is your command center. Open it daily. It is the single place where:</p>
+      <ul>
+        <li>Your current tasks and deadlines live.</li>
+        <li>Every resource in this guide is linked (so you don't have to remember file names).</li>
+        <li>Weekly check-in agendas auto-generate from your task notes.</li>
+        <li>Urgent items can be escalated with a single button — when you mark a task "Urgent," it surfaces on Dr. Windham's Coordinator Dashboard immediately.</li>
+      </ul>
+
+      <div class="callout dashcue">
+        <span class="callout-label">◉ Dashboard cue — the "Mark as Urgent" button</span>
+        <p>Use this button when a decision cannot wait for the Monday check-in. For example: a stakeholder requested a 24-hour turnaround on a revised one-pager, or a safety concern surfaced that we need to discuss before the next wet-lab meeting.</p>
+        <p>Do not overuse it — if everything is urgent, nothing is. Aim for <strong>0–2 urgent flags per month.</strong></p>
+      </div>
+
+      <h3>9.2  Dr. Windham — mentor &amp; Project Coordinator</h3>
+      <p>Dr. Windham is your first line of support outside the formal structure. Think of him as a senior colleague who has read the entire project context and understands the bigger picture. He will:</p>
+      <ul>
+        <li>Review your work weekly at the Monday check-in.</li>
+        <li>Answer off-cycle questions by email.</li>
+        <li>Help you draft outreach emails when you're unsure of tone.</li>
+        <li>Pre-read proposals before you route them to Austin, so you arrive at Austin's desk with something already tightened.</li>
+        <li>Back you up when a decision is hard — he is on your side by default.</li>
+      </ul>
+
+      <div class="callout escalate">
+        <span class="callout-label">✉ When to email Dr. Windham (not wait for check-in)</span>
+        <p>• A stakeholder input could change a major design decision.<br>
+        • A safety concern surfaces that wasn't previously considered.<br>
+        • You're setting up community engagement.<br>
+        • You want to reach out to a clinician, faculty member, or regulator.<br>
+        • A stakeholder asked to withdraw or be anonymous.<br>
+        • A stakeholder made you uncomfortable.<br>
+        • An IRB, IBC, or consent-form question arises.<br>
+        • You feel stuck, overwhelmed, or behind.<br>
+        • You're about to write something public-facing that makes claims about human benefit.<br>
+        • You just don't know what the next move is.</p>
+      </div>
+
+      <div class="callout key">
+        <span class="callout-label">★ If it feels hard to do — email Dr. Windham</span>
+        <p>Seriously. The single most common mistake undergraduate iGEM leads make is trying to figure out hard things alone for two weeks before asking for help. A 10-minute email conversation on Tuesday saves a 10-hour crisis on Sunday.</p>
+        <p>Short emails are welcome. <em>"Hi Dr. Windham — I want to reach out to [X organization] about a community forum. Is that okay, and do you know the right contact? — May"</em> is a perfect email. You do not have to draft paragraphs.</p>
+      </div>
+
+      <h3>9.3  Austin Routt — Project Lead</h3>
+      <p>Austin has final sign-off on any decision that affects the science. Route stakeholder-driven change proposals to Austin <em>through</em> Dr. Windham first. Two reasons: Dr. Windham will tighten the proposal so it lands well with Austin, and it keeps Austin's inbox from filling up with exploratory questions.</p>
+
+      <h3>9.4  Other team leads</h3>
+      <ul>
+        <li><strong>Wet-lab lead.</strong> Loop in for stakeholder input that touches containment, strain handling, or lab safety.</li>
+        <li><strong>Modeling lead.</strong> Loop in for input about dose, metabolic flux, or model assumptions.</li>
+        <li><strong>Wiki lead.</strong> Collaborate continuously from August onward on layout, visuals, and integration of HP into the team wiki.</li>
+        <li><strong>Outreach lead.</strong> Coordinate on public-facing communication — overlapping mandates here are fine as long as you talk.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ PART 10 ============ -->
+  <section id="part-10">
+    <div class="part-header">
+      <span class="part-num">Part 10</span>
+      <h2>The finish line</h2>
+    </div>
+
+    <div class="section">
+      <h3>10.1  Pre-wiki-freeze checklist (by October 20, 2026)</h3>
+      <div class="checklist">
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">All 12+ interviews complete and transcribed</div><div class="checklist-meta">Tracker status · Complete</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">All insight memos filed</div><div class="checklist-meta">One per interview · in Drive</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">Design Change Log has 5–8 substantive entries</div><div class="checklist-meta">All fields completed · signoffs recorded</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">At least 3 before/after visual panels built</div><div class="checklist-meta">In the wiki · attached to log entries</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">Inclusivity + equity section complete</div><div class="checklist-meta">Includes paragraph on voices you couldn't reach</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">Reflections section written</div><div class="checklist-meta">~1 page · surprises, differences, lessons</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">Every stakeholder offered pre-submission review</div><div class="checklist-meta">Permission-based attribution confirmed</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">All stakeholders sent a thank-you acknowledgment</div><div class="checklist-meta">Within 48h of each interview, or a final round</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">Wiki draft reviewed by Dr. Windham AND Austin AND wiki lead before freeze</div><div class="checklist-meta">All three signoffs recorded</div></div></div>
+      </div>
+
+      <h3>10.2  Jamboree preparation (Oct 21 – Nov 12)</h3>
+      <ul>
+        <li>Draft a 2-minute "integrated HP" talking track you can deliver to any judge who visits our poster.</li>
+        <li>Build a 1-page HP summary handout (PDF) for the poster session.</li>
+        <li>Rehearse the Design Change Log walk-through with Dr. Windham and Austin.</li>
+        <li>Pack the pre-interview briefs and insight memos in a well-organized binder or digital portfolio judges can flip through.</li>
+      </ul>
+
+      <h3>10.3  The Jamboree itself (Nov 13–16, Paris)</h3>
+      <p>Show up rested, dressed professionally, and ready to tell the story. Judges will ask: <em>"What did you learn from your Human Practices that changed your project?"</em> You should be able to answer in under 30 seconds, by name, with a specific example. That 30-second answer is the distilled output of everything in this guide.</p>
+    </div>
+  </section>
+
+  <!-- ============ BOTTOM LINE ============ -->
+  <section id="bottom-line">
+    <div class="bottom-line">
+      <h2>A closing note from Dr. Windham.</h2>
+      <p>HP is one of the most rewarding parts of iGEM. The teams that win Best HP aren't the ones who talked to the most stakeholders — they're the ones who listened, changed something, and showed their work with honesty. You don't have to be perfect at this on day one. You just have to start, keep the rhythm, and ask for help when you need it.</p>
+      <p>Everything in this guide is designed to make that possible. Use it. Bend it where it doesn't fit. And remember: every conversation you have is a chance to make the project better and to tell a story the judges — and the world — will remember.</p>
+      <p>You've got this. Paris is waiting.</p>
+    </div>
+  </section>
+
+  <div class="footer">
+    UH iGEM 2026 · Human Practices Strategy Guide · v1.0 · April 2026 · Internal — Do Not Distribute
+  </div>
+
+  </main>
+</div>
+
+<script>
+  const links = document.querySelectorAll('#toc a');
+  const sections = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  function updateActive(){
+    const y = window.scrollY + 120;
+    let active = sections[0];
+    for(const s of sections){ if(s.offsetTop <= y) active = s; }
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active.id));
+  }
+  window.addEventListener('scroll', updateActive, {passive:true});
+  updateActive();
+</script>
+</body>
+</html>

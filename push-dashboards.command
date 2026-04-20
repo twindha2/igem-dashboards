@@ -18,7 +18,7 @@ fi
 TOKEN=$(cat .git-token | tr -d '[:space:]')
 
 # Clean lock files if they exist
-rm -f .git/HEAD.lock .git/objects/maintenance.lock 2>/dev/null
+rm -f .git/index.lock .git/HEAD.lock .git/objects/maintenance.lock 2>/dev/null
 
 # Configure git
 git config user.name "Timothy Windham"

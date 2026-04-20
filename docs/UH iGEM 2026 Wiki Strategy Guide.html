@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>UH iGEM 2026 — Wiki &amp; Documentation Strategy Guide</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_guide_shared.css">
+<style>
+  /* Callouts — same palette as HP guide so all three guides feel like a set */
+  .callout.escalate{ border-left:4px solid var(--scarlet-dark); background:#fff5f5; }
+  .callout.escalate .callout-label{ color:var(--scarlet-dark); }
+  .callout.gold-example{ border-left:4px solid var(--gold); background:#fffdf5; }
+  .callout.gold-example .callout-label{ color:var(--gold-dark); }
+  .callout.dashcue{ border-left:4px solid var(--ink); background:#fafafa; }
+  .callout.dashcue .callout-label{ color:var(--ink); }
+
+  /* Case card — Best Wiki case studies */
+  .case{
+    background:var(--paper); border:1px solid var(--line);
+    padding:24px 28px; margin:20px 0;
+    border-top:3px solid var(--gold);
+  }
+  .case-tag{
+    font-family:'JetBrains Mono',monospace; font-size:10px;
+    letter-spacing:0.25em; text-transform:uppercase;
+    color:var(--gold-dark); font-weight:700; margin-bottom:6px;
+  }
+  .case h4{
+    font-size:18px; font-weight:800; margin:0 0 10px;
+    color:var(--ink); letter-spacing:-0.2px;
+    font-family:inherit; text-transform:none;
+  }
+  .case p{ font-size:14px; color:var(--slate); margin:0 0 10px; line-height:1.6; }
+
+  /* URL table — make slug column mono and scarlet */
+  .url-table th,.url-table td{ font-size:13px; }
+  .url-table td.slug{ font-family:'JetBrains Mono',monospace; color:var(--scarlet); font-weight:600; white-space:nowrap; }
+  .url-table td.owner{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--slate); }
+  .url-table td.level{ font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; }
+
+  /* Worked example — multi-line scenario */
+  .story{
+    background:var(--paper); border:1px solid var(--line);
+    padding:20px 24px; margin:16px 0;
+  }
+  .story p{ font-size:14px; color:var(--slate); margin:0 0 8px; line-height:1.6; }
+  .story p:last-child{ margin-bottom:0; }
+  .story strong{ color:var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="tape">
+  <div class="rec"><span class="rec-dot"></span><span>DOC · WIKI-STRATEGY-001</span></div>
+  <div>UH iGEM 2026 · WIKI &amp; DOCUMENTATION STRATEGY GUIDE</div>
+  <div>REV · v1.0 / APR 2026</div>
+</div>
+
+<div style="max-width:1200px;margin:0 auto;padding:0 24px">
+  <header class="hero">
+    <span class="corner-bl"></span><span class="corner-br"></span>
+    <div class="hero-kicker">Wiki &amp; Documentation · Paris 2026</div>
+    <h1>Wiki &amp; Documentation<br><em>Strategy Guide</em></h1>
+    <p class="hero-sub">A step-by-step playbook for the Gold Medal, the Best Wiki Special Prize, and a wiki the world remembers.</p>
+    <div class="hero-meta">
+      <span><b>Prepared for</b>Lyba Siddiqui · Wiki Lead</span>
+      <span><b>Mentor</b>Dr. Windham · Project Coordinator</span>
+      <span><b>Project Lead</b>Austin Routt</span>
+      <span><b>Jamboree</b>Nov 13–16, 2026 · Paris</span>
+    </div>
+  </header>
+
+  <div class="how-to-use">
+    <h3>How to use this guide</h3>
+    <p>You are not doing this alone. This guide exists so any undergraduate picking it up — with no prior iGEM experience — can walk into wiki documentation and know exactly what to do, when to do it, and when to ask for help.</p>
+    <ol>
+      <li><b>Orientation (§1–2):</b> what "Gold" and "Best Wiki" actually mean, and what past winning teams did. Read cover-to-cover first.</li>
+      <li><b>Execution (§3–7):</b> required pages, architecture, design system, content collection, writing standards, technical best practices. Open as you need them.</li>
+      <li><b>Rhythm &amp; support (§8–10):</b> your daily/weekly/monthly calendar, how to work with the dashboard and mentors, and the path to the Jamboree.</li>
+    </ol>
+    <p style="margin-top:10px"><strong>The rule:</strong> whenever you are unsure, stuck, or a decision feels above your pay-grade — email Dr. Windham. That is what mentorship is for.</p>
+  </div>
+
+  <div class="how-to-use" style="border-left-color:var(--scarlet)">
+    <h3 style="color:var(--scarlet)">The symbols you'll see</h3>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px 24px;font-size:13px;color:var(--slate);margin-top:6px">
+      <div><span class="mono" style="color:var(--scarlet);font-weight:700">▲ SCARLET</span> — things you must do or must not miss</div>
+      <div><span class="mono" style="color:var(--gold-dark);font-weight:700">★ GOLD</span> — tips and examples that separate Best Wiki from good-enough</div>
+      <div><span class="mono" style="color:var(--scarlet-dark);font-weight:700">✉ ESCALATE</span> — specific trigger moments to email Dr. Windham</div>
+      <div><span class="mono" style="color:var(--ink);font-weight:700">◉ DASHBOARD</span> — places where the Wiki Lead Dashboard is the tool you reach for</div>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+
+  <nav class="toc" id="toc">
+    <div class="toc-header">Contents</div>
+    <ol>
+      <li><a href="#part-1"><span class="num">01</span>Start here</a></li>
+      <li class="sub"><a href="#role">1.1  Your role in one sentence</a></li>
+      <li class="sub"><a href="#two-wins">1.2  The two wins we're aiming for</a></li>
+      <li class="sub"><a href="#three-resp">1.3  Your three core responsibilities</a></li>
+      <li><a href="#part-2"><span class="num">02</span>What Gold and Best Wiki look like</a></li>
+      <li class="sub"><a href="#tiers">2.1  The three tiers</a></li>
+      <li class="sub"><a href="#cases">2.2  Case studies</a></li>
+      <li class="sub"><a href="#mistakes">2.3  Mistakes that cost Best Wiki</a></li>
+      <li><a href="#part-3"><span class="num">03</span>Required pages and URLs</a></li>
+      <li><a href="#part-4"><span class="num">04</span>Architecture &amp; design system</a></li>
+      <li class="sub"><a href="#ia">4.1  Information architecture</a></li>
+      <li class="sub"><a href="#ds">4.2  Design system</a></li>
+      <li><a href="#part-5"><span class="num">05</span>Content collection workflow</a></li>
+      <li class="sub"><a href="#request">5.1  Content request process</a></li>
+      <li class="sub"><a href="#quality">5.2  Quality standards</a></li>
+      <li class="sub"><a href="#worked">5.3  Worked example</a></li>
+      <li><a href="#part-6"><span class="num">06</span>Writing for the wiki</a></li>
+      <li class="sub"><a href="#voice">6.1  Voice and tone</a></li>
+      <li class="sub"><a href="#structure">6.2  Page structure</a></li>
+      <li class="sub"><a href="#principles">6.3  Three principles</a></li>
+      <li><a href="#part-7"><span class="num">07</span>Technical best practices</a></li>
+      <li class="sub"><a href="#perf">7.1  Performance</a></li>
+      <li class="sub"><a href="#a11y">7.2  Accessibility</a></li>
+      <li class="sub"><a href="#vcs">7.3  Version control</a></li>
+      <li><a href="#part-8"><span class="num">08</span>Your calendar</a></li>
+      <li class="sub"><a href="#daily">8.1  Daily</a></li>
+      <li class="sub"><a href="#weekly">8.2  Weekly</a></li>
+      <li class="sub"><a href="#monthly">8.3  Monthly milestones</a></li>
+      <li><a href="#part-9"><span class="num">09</span>Working with your team</a></li>
+      <li><a href="#part-10"><span class="num">10</span>The finish line</a></li>
+      <li><a href="#bottom-line"><span class="num">END</span>Closing note</a></li>
+    </ol>
+  </nav>
+
+  <main class="content">
+
+  <!-- ============ PART 1 ============ -->
+  <section id="part-1">
+    <div class="part-header">
+      <span class="part-num">Part 01</span>
+      <h2>Start here</h2>
+    </div>
+
+    <div class="section">
+      <h3 id="role">1.1  Your role in one sentence</h3>
+      <p>As Wiki Lead, your job is to <strong>build and maintain the team wiki so that judges, future iGEM teams, and the entire world can see what UH Houston-TX accomplished — and to tell that story so well that they remember it.</strong> Everything else in this guide is in service of that sentence.</p>
+
+      <h3 id="two-wins">1.2  The two wins we're aiming for</h3>
+      <table>
+        <thead><tr><th>Target</th><th>What it requires</th><th>What it earns</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Gold Medal</strong><br><span class="mono" style="font-size:11px;color:var(--slate-light)">WIKI DELIVERABLES</span></td>
+            <td>All required Standard URL pages complete, accurate, properly cited, and linked in the Judging Form.</td>
+            <td>Team qualifies for Gold overall — wiki is one of the core deliverables.</td>
+          </tr>
+          <tr>
+            <td><strong>Best Wiki</strong><br><span class="mono" style="font-size:11px;color:var(--scarlet)">SPECIAL PRIZE</span></td>
+            <td>Exceptional design, accessibility, storytelling, interactive elements, consistent editorial voice, and professional-grade visual identity.</td>
+            <td>Global recognition at the Paris Jamboree — awarded to the one team whose wiki sets the standard for the next year.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout key">
+        <span class="callout-label">★ Gold is the floor, Best Wiki is the ceiling</span>
+        <p>The team will earn Gold with a complete, accurate, well-organized wiki. Best Wiki requires something more: a wiki that is so well-designed, so accessible, and so beautifully told that judges point to it as the model every team should follow.</p>
+        <p>You don't have to choose between them. <strong>Execute for Best Wiki and Gold arrives on the way.</strong></p>
+      </div>
+
+      <h3 id="three-resp">1.3  Your three core responsibilities</h3>
+      <div class="medal-row">
+        <div class="medal-card bronze" style="border-top-color:var(--scarlet)">
+          <div class="medal-num" style="color:var(--scarlet)">01 · INFRASTRUCTURE</div>
+          <h4>Wiki infrastructure</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">You build and maintain the site — navigation, templates, page structure, deployment, hosting, GitLab repo.</p>
+        </div>
+        <div class="medal-card silver" style="border-top-color:var(--gold)">
+          <div class="medal-num" style="color:var(--gold-dark)">02 · CONTENT</div>
+          <h4>Collection &amp; editing</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">You collect content from every subteam lead, edit for consistency and quality, and publish. You are the editor-in-chief.</p>
+        </div>
+        <div class="medal-card gold" style="border-top-color:var(--ink)">
+          <div class="medal-num" style="color:var(--ink)">03 · DESIGN</div>
+          <h4>Design &amp; accessibility</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">You own the visual identity, user experience, mobile responsiveness, and accessibility. Judges notice all of these.</p>
+        </div>
+      </div>
+
+      <div class="callout escalate">
+        <span class="callout-label">✉ Email Dr. Windham immediately if…</span>
+        <p>• You haven't been given access to the Wiki Lead Dashboard, the team Google Drive, or the GitLab repository.<br>
+        • You're unsure whether you're the confirmed Wiki Lead (this role is currently proposed and awaiting Austin's final confirmation — Dr. Windham will tell you the status).<br>
+        • You want to begin building wiki infrastructure before a check-in.</p>
+        <p style="color:var(--slate);font-size:13px">Subject lines that work: <span class="mono">"Wiki Lead — quick question on [topic]"</span>. Short, specific, with a clear ask.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PART 2 ============ -->
+  <section id="part-2">
+    <div class="part-header">
+      <span class="part-num">Part 02</span>
+      <h2>What Gold and Best Wiki actually look like</h2>
+    </div>
+
+    <div class="section">
+      <p>This is the most important section in the guide. Every past team that won Best Wiki did the same core things. Every team that submitted a mediocre wiki made the same core mistakes. Here is the playbook in plain language, illustrated with real examples from past iGEM winners.</p>
+
+      <h3 id="tiers">2.1  The three tiers, explained</h3>
+      <div class="medal-row">
+        <div class="medal-card silver">
+          <div class="medal-num">Bronze / Silver · The floor</div>
+          <h4>"We documented it."</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">All required pages at their Standard URLs, with content that demonstrates the project. A stakeholder map, experimental results, a functioning site. Most teams clear this bar. It does not win prizes.</p>
+        </div>
+        <div class="medal-card gold">
+          <div class="medal-num">Gold · The goal</div>
+          <h4>"We documented it completely and clearly."</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">Every deliverable page is thorough, well-written, properly cited, and cross-linked. Engineering success is documented with iterative cycles. HP shows integrated feedback loops. The Model page connects to the wet-lab data. Everything findable; nothing broken.</p>
+        </div>
+        <div class="medal-card bronze" style="border-top-color:var(--scarlet)">
+          <div class="medal-num" style="color:var(--scarlet)">Best Wiki · The ceiling</div>
+          <h4>"We told the story in a way you won't forget."</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">Beyond completeness: exceptional design (custom visual identity, not a template clone), accessibility (alt text, contrast, keyboard nav, mobile-first), interactivity (data viz, animated diagrams, embedded models), and storytelling that makes complex science feel human and important.</p>
+        </div>
+      </div>
+
+      <div class="callout key">
+        <span class="callout-label">★ The Gold medal test</span>
+        <p>For any page on the wiki, ask yourself: <em>"If a judge lands on this page with no context, can they understand what we did, why we did it, and what the result was — within 60 seconds?"</em></p>
+        <p>If <strong>yes</strong> — you have Gold-level content. If <strong>no</strong> — rewrite until the answer is yes.</p>
+      </div>
+
+      <h3 id="cases">2.2  Case studies — what past winners actually did</h3>
+      <p>Read these closely. Each one teaches a specific move. When you are building your wiki, you should be able to say <em>"I'm borrowing this approach from [winner] because it solves the same problem we have."</em></p>
+
+      <div class="case">
+        <div class="case-tag">Case 01 · Heidelberg 2024 · Custom illustration</div>
+        <h4>Custom illustrations that tell the science</h4>
+        <p>Heidelberg created hand-drawn, custom scientific illustrations for every major concept on their wiki. No stock photos, no generic diagrams. Each illustration was designed in the team's visual style and served a specific storytelling purpose. Their genetic circuit visualizer was interactive — judges could hover over components to see function descriptions.</p>
+        <p><strong>How to apply this to our wiki.</strong> Commission or create original diagrams for every major concept in our project — even simple custom illustrations in a consistent style are better than polished stock images. Use BioRender, Figma, or Canva — ask Dr. Windham for access if needed. Lock down the illustration style <em>before</em> you produce many of them; the style matters more than the polish.</p>
+      </div>
+
+      <div class="case">
+        <div class="case-tag">Case 02 · DTU-Denmark 2022 · Accessibility</div>
+        <h4>Accessibility as a competitive advantage</h4>
+        <p>DTU built their entire wiki mobile-first, used CSS-only solutions where possible, tested with screen readers, and included a dedicated accessibility statement. Their color palette passed WCAG AAA contrast standards. This was not just ethical — it was strategic. Judges who reviewed on tablets or had visual preferences noticed immediately.</p>
+        <p><strong>How to apply this to our wiki.</strong> From day one, build with accessibility in mind: alt text on every image, ARIA labels on interactive elements, 4.5:1 minimum contrast ratio, keyboard-navigable menus. Test on mobile weekly. A 30-minute accessibility audit each Friday will compound into Best-Wiki evidence by October.</p>
+      </div>
+
+      <div class="case">
+        <div class="case-tag">Case 03 · IISER-Pune 2021 · Narrative voice</div>
+        <h4>Narrative-driven content, not lab-report style</h4>
+        <p>IISER-Pune wrote their wiki pages as stories, not reports. Each page opened with a question <em>("How do we know our circuit works?")</em>, walked through the reasoning, showed the evidence, and closed with what they learned. The voice was consistent across all pages because a single editor reviewed every draft.</p>
+        <p><strong>How to apply this to our wiki.</strong> You are that single editor. Every piece of content that goes on the wiki passes through your review. Establish a style guide (voice, tense, heading format, caption format) and enforce it. Judges read fast — a consistent editorial voice is what makes a wiki feel polished rather than cobbled together.</p>
+      </div>
+
+      <div class="case">
+        <div class="case-tag">Case 04 · Vilnius-Lithuania 2023 · The 3-click rule</div>
+        <h4>Every page reachable in 3 clicks</h4>
+        <p>Vilnius structured their navigation so that every piece of content was reachable within 3 clicks from the homepage. They used a sticky top nav with clear section labels, a homepage that served as a visual table of contents, and breadcrumb navigation on sub-pages. Judges never felt lost.</p>
+        <p><strong>How to apply this to our wiki.</strong> Map the full IA before you build any page. Homepage → section page → sub-page. If a piece of content needs a 4th click to reach, restructure the nav — don't leave it buried.</p>
+      </div>
+
+      <h3 id="mistakes">2.3  The mistakes that cost teams the Best Wiki</h3>
+      <ul>
+        <li><strong>Template clone with no customization.</strong> Judges know the iGEM starter template. If your wiki looks identical, it signals low effort.</li>
+        <li><strong>Broken links, missing images, placeholder text</strong> ("TODO") anywhere. Instant credibility killers.</li>
+        <li><strong>Inconsistent formatting</strong> across pages — different heading styles, different caption formats, different tone.</li>
+        <li><strong>Walls of text with no visual breaks.</strong> Judges read hundreds of pages in a week. Headings, pull-quotes, figures, and white space matter.</li>
+        <li><strong>Mobile-unfriendly layout.</strong> Some judges review on tablets during Jamboree sessions.</li>
+        <li><strong>No alt text on images.</strong> This is an accessibility failure and disqualifies you from Best Wiki consideration.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ PART 3 ============ -->
+  <section id="part-3">
+    <div class="part-header">
+      <span class="part-num">Part 03</span>
+      <h2>Required wiki pages and Standard URLs</h2>
+    </div>
+
+    <div class="section">
+      <p>iGEM requires specific pages at specific URLs. If a page is missing or at the wrong URL, judges cannot evaluate it and the team may not receive credit. <strong>This is non-negotiable.</strong></p>
+      <p>Every page must live at the Standard URL format:</p>
+      <p class="mono" style="font-size:14px;color:var(--scarlet);background:var(--paper);padding:10px 14px;border-left:3px solid var(--scarlet)">https://2026.igem.wiki/houston-tx/[page-name]</p>
+
+      <table class="url-table">
+        <thead><tr><th>Page</th><th>URL slug</th><th>Medal level</th><th>Content owner</th></tr></thead>
+        <tbody>
+          <tr><td>Home</td><td class="slug">/</td><td class="level">Bronze</td><td class="owner">Lyba (design + copy)</td></tr>
+          <tr><td>Team</td><td class="slug">/team</td><td class="level">Bronze</td><td class="owner">Lyba (collect bios from all members)</td></tr>
+          <tr><td>Attributions</td><td class="slug">/attributions</td><td class="level">Bronze</td><td class="owner">Lyba + all leads</td></tr>
+          <tr><td>Description</td><td class="slug">/description</td><td class="level">Bronze</td><td class="owner">Austin</td></tr>
+          <tr><td>Contribution</td><td class="slug">/contribution</td><td class="level">Bronze</td><td class="owner">Austin</td></tr>
+          <tr><td>Engineering</td><td class="slug">/engineering</td><td class="level">Silver</td><td class="owner">Austin + wet lab</td></tr>
+          <tr><td>Human Practices</td><td class="slug">/human-practices</td><td class="level">Silver</td><td class="owner">May (HP Lead)</td></tr>
+          <tr><td>Experiments</td><td class="slug">/experiments</td><td class="level">Silver</td><td class="owner">Wet lab team</td></tr>
+          <tr><td>Results</td><td class="slug">/results</td><td class="level">Silver</td><td class="owner">Wet lab team</td></tr>
+          <tr><td>Notebook</td><td class="slug">/notebook</td><td class="level">Silver</td><td class="owner">Wet lab team</td></tr>
+          <tr><td>Safety</td><td class="slug">/safety</td><td class="level">Silver</td><td class="owner">Austin + Lyba</td></tr>
+          <tr><td>Model</td><td class="slug">/model</td><td class="level">Gold target</td><td class="owner">Austin</td></tr>
+          <tr><td>Parts</td><td class="slug">/parts</td><td class="level">Gold target</td><td class="owner">Austin + wet lab</td></tr>
+          <tr><td>Inclusivity</td><td class="slug">/inclusivity</td><td class="level">Special prize</td><td class="owner">May + Lyba</td></tr>
+          <tr><td>Sustainable Dev.</td><td class="slug">/sustainable</td><td class="level">Special prize</td><td class="owner">HP team</td></tr>
+          <tr><td>Education</td><td class="slug">/education</td><td class="level">Special prize</td><td class="owner">HP + outreach</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout key">
+        <span class="callout-label">▲ You are the editor-in-chief, not the author of every page</span>
+        <p>Your job is to: (1) build and maintain the wiki infrastructure, (2) set the design system, (3) collect content from other leads on deadline, (4) edit for consistency and quality, (5) ensure every page meets the standard. <strong>You do NOT write all the content yourself.</strong> If anyone on the team expects you to, flag it at the next check-in — that's a scope problem to solve early.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PART 4 ============ -->
+  <section id="part-4">
+    <div class="part-header">
+      <span class="part-num">Part 04</span>
+      <h2>Wiki architecture and design system</h2>
+    </div>
+
+    <div class="section">
+      <p>A winning wiki is not a collection of pages — it is a designed experience. Before you write a single word of content, you need to establish the architecture.</p>
+
+      <h3 id="ia">4.1  Information architecture (the 3-click rule)</h3>
+      <p>Every piece of content on the wiki should be reachable within 3 clicks from the homepage:</p>
+      <ul>
+        <li><strong>Level 1 · Homepage.</strong> Project overview, visual navigation to all major sections, team identity. This is your storefront.</li>
+        <li><strong>Level 2 · Section pages.</strong> Description, Engineering, HP, Model, Safety, Team, Notebook, etc.</li>
+        <li><strong>Level 3 · Sub-pages.</strong> Individual experiments, specific HP interviews, parts detail pages. Use only if needed.</li>
+      </ul>
+
+      <h3 id="ds">4.2  Design system — establish before building</h3>
+      <p>Lock these decisions in your first two weeks. Everything else builds on them.</p>
+      <table>
+        <thead><tr><th>Element</th><th>Specification</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Color palette</strong></td>
+            <td>Primary: UH Scarlet <span class="mono">#C8102E</span>. Secondary: Navy / Dark. Accent: Gold <span class="mono">#F6BE00</span>. Max 4 colors.</td>
+            <td>Consistent branding reads as professional. Judges notice.</td>
+          </tr>
+          <tr>
+            <td><strong>Typography</strong></td>
+            <td>1 heading font + 1 body font. Web-safe or Google Fonts. Min 16 px body.</td>
+            <td>Readability. Judges read hundreds of pages.</td>
+          </tr>
+          <tr>
+            <td><strong>Navigation</strong></td>
+            <td>Sticky top nav with all sections. Hamburger on mobile. Breadcrumbs on sub-pages.</td>
+            <td>3-click rule. Judges should never feel lost.</td>
+          </tr>
+          <tr>
+            <td><strong>Page template</strong></td>
+            <td>Consistent header, content area, footer across all pages.</td>
+            <td>Cohesion. Inconsistent pages look unfinished.</td>
+          </tr>
+          <tr>
+            <td><strong>Images</strong></td>
+            <td>Consistent aspect ratios, border treatment, caption format. Compressed &lt;200 KB.</td>
+            <td>Fast loading. Broken images = amateur.</td>
+          </tr>
+          <tr>
+            <td><strong>Mobile</strong></td>
+            <td>Test every page on phone / tablet. CSS media queries, not JS-heavy.</td>
+            <td>Accessibility. Some judges review on tablets.</td>
+          </tr>
+          <tr>
+            <td><strong>Accessibility</strong></td>
+            <td>Alt text on all images. ARIA labels. Color contrast &gt;4.5:1. Keyboard navigable.</td>
+            <td>Required for Best Wiki consideration.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout escalate">
+        <span class="callout-label">✉ If you get stuck on design or code for more than 2 hours — email Dr. Windham</span>
+        <p>He can connect you with design resources, troubleshoot CSS/HTML issues, or set up a working session. Do not spend a weekend stuck on a technical problem alone.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PART 5 ============ -->
+  <section id="part-5">
+    <div class="part-header">
+      <span class="part-num">Part 05</span>
+      <h2>The content collection workflow</h2>
+    </div>
+
+    <div class="section">
+      <p>This is the hardest part of being Wiki Lead — not the coding, not the design, but getting other people to submit their content on time and at the quality level you need. The workflow below is battle-tested.</p>
+
+      <h3 id="request">5.1  The content request process</h3>
+      <ul>
+        <li>Send a content request to the subteam lead <strong>at least 2 weeks</strong> before you need the final version.</li>
+        <li>Include: <em>what you need</em> (text, figures, data), <em>word count target</em>, <em>format</em> (Google Doc with headings), and <em>deadline</em>.</li>
+        <li>First draft due 10 days before Wiki Freeze. This gives you time for 2 rounds of editing.</li>
+        <li>If a lead misses their deadline by 3 days, escalate to Dr. Windham. He will follow up. <strong>Do not chase people alone.</strong></li>
+        <li>Final content goes through your editorial review before it goes on the wiki. No exceptions.</li>
+      </ul>
+
+      <h3 id="quality">5.2  Content quality standards</h3>
+      <p>Every piece of content on the wiki must meet these standards before you publish:</p>
+      <ul>
+        <li><strong>Accuracy.</strong> All scientific claims are cited. No unverified claims. Austin reviews all technical content.</li>
+        <li><strong>Clarity.</strong> Written for an educated non-specialist. If a smart undergrad outside your field can't follow it, simplify.</li>
+        <li><strong>Originality.</strong> No copied text. All content must be CC BY 4.0 compatible. All images must be original or properly licensed.</li>
+        <li><strong>Formatting.</strong> Follows the design system. Headings are consistent, images are captioned, links work.</li>
+        <li><strong>Attribution.</strong> Every external contribution is credited on the Attributions page.</li>
+      </ul>
+
+      <h3 id="worked">5.3  Worked example — how one page gets built</h3>
+      <div class="callout gold-example">
+        <span class="callout-label">★ Example — a Model page, start to finish</span>
+        <p style="font-family:var(--mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--slate-light);margin:0 0 14px 0;padding:8px 12px;background:rgba(0,0,0,0.04);border-left:3px solid var(--slate-light)">— hypothetical example for illustration —</p>
+        <p><strong>Week 11.</strong> Lyba sends Austin a content request: <em>"Need 800–1200 words on the model, 3–4 figures, and a paragraph connecting the model to wet-lab validation. Due June 25."</em></p>
+        <p><strong>June 22.</strong> Austin submits a Google Doc with the text and figures.</p>
+        <p><strong>June 23.</strong> Lyba reads it, flags two claims that need citations, asks for a caption on Figure 2, and suggests cutting a paragraph that duplicates the Description page.</p>
+        <p><strong>June 25.</strong> Austin returns the revised draft. Lyba formats it in the wiki template, adds alt text to figures, compresses images, and publishes.</p>
+        <p><strong>June 27 (Friday review).</strong> Lyba clicks through the live page, checks mobile rendering, and confirms all links work.</p>
+        <p style="margin-top:14px;border-top:1px solid var(--line);padding-top:12px"><strong>That is a well-run content pipeline. One page, one week, no drama.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PART 6 ============ -->
+  <section id="part-6">
+    <div class="part-header">
+      <span class="part-num">Part 06</span>
+      <h2>Writing for the wiki</h2>
+    </div>
+
+    <div class="section">
+      <p>Scientific writing on a wiki is different from writing a lab report or a paper. The audience is broader, the attention span is shorter, and visual communication matters as much as text.</p>
+
+      <h3 id="voice">6.1  Voice and tone</h3>
+      <ul>
+        <li><strong>First person plural:</strong> <em>"We designed…"</em> <em>"Our results show…"</em> This is a team project.</li>
+        <li><strong>Active voice:</strong> <em>"We optimized the model"</em> — not <em>"The model was optimized."</em></li>
+        <li><strong>Accessible but not dumbed down:</strong> Write for an intelligent reader who is not an expert in your specific field. Define technical terms on first use.</li>
+        <li><strong>Confident but honest:</strong> <em>"Our model predicts a 3.2-fold increase"</em> — not <em>"We think maybe it might increase."</em> But also: <em>"This result was inconclusive"</em> when appropriate.</li>
+      </ul>
+
+      <h3 id="structure">6.2  Page structure — every page should follow this</h3>
+      <ol>
+        <li><strong>Hook.</strong> 1–2 sentences that tell the reader why this page matters. What question does it answer?</li>
+        <li><strong>Context.</strong> Brief background — what the reader needs to understand what follows.</li>
+        <li><strong>Content.</strong> The substance — methods, results, analysis, narrative.</li>
+        <li><strong>So what.</strong> What does this mean for the project? What did you learn? Where does it connect to other pages?</li>
+        <li><strong>References.</strong> Properly formatted citations at the bottom.</li>
+      </ol>
+
+      <h3 id="principles">6.3  Three wiki principles that separate Best Wiki from the rest</h3>
+      <div class="medal-row">
+        <div class="medal-card silver" style="border-top-color:var(--scarlet)">
+          <div class="medal-num" style="color:var(--scarlet)">Principle 01</div>
+          <h4 style="font-size:18px">Show the seam, not the polish</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">Tempting as it is to write a wiki that makes everything sound like it unfolded perfectly, don't. Best-Wiki entries show the seams — the experiment that failed, the design pivot, the model that didn't converge. Honesty is a competitive advantage.</p>
+        </div>
+        <div class="medal-card silver" style="border-top-color:var(--gold)">
+          <div class="medal-num" style="color:var(--gold-dark)">Principle 02</div>
+          <h4 style="font-size:18px">One story per page</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">Each page should answer one clear question. Description: "What are we building and why?" Engineering: "How did we iteratively improve our design?" If a page tries to answer three questions, split it or restructure.</p>
+        </div>
+        <div class="medal-card silver" style="border-top-color:var(--ink)">
+          <div class="medal-num" style="color:var(--ink)">Principle 03</div>
+          <h4 style="font-size:18px">Make the evidence visual</h4>
+          <p style="font-size:13px;color:var(--slate);margin:0">For every major claim, include a figure, chart, or diagram. Judges scan fast. A well-labeled figure with a clear caption catches the eye in a way a paragraph cannot. Pair every figure with a one-sentence caption that tells the reader what to take away.</p>
+        </div>
+      </div>
+
+      <div class="callout key">
+        <span class="callout-label">▲ Common wiki writing mistakes to avoid</span>
+        <p>• <em>"We did a lot of experiments and they worked"</em> — vague, no evidence.<br>
+        • <em>"Please see Figure 3 for results"</em> — describe the results in text; figures support, don't replace.<br>
+        • Copying text from lab notebooks verbatim — lab notes are not wiki prose.<br>
+        • Having different writing styles on different pages — you are the editor, make it consistent.<br>
+        • Leaving placeholder text (<em>"TODO", "add figure here"</em>) anywhere on the live wiki.<br>
+        • Passive voice everywhere (<em>"stakeholders were engaged," "results were obtained"</em>). Name who did what.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PART 7 ============ -->
+  <section id="part-7">
+    <div class="part-header">
+      <span class="part-num">Part 07</span>
+      <h2>Technical best practices</h2>
+    </div>
+
+    <div class="section">
+      <p>These are the technical details that separate amateur wikis from professional ones. You don't need to be an expert developer, but you do need to follow these standards.</p>
+
+      <h3 id="perf">7.1  Performance</h3>
+      <ul>
+        <li><strong>Image compression.</strong> Use TinyPNG or Squoosh. Every image under 200 KB. Use WebP where possible.</li>
+        <li><strong>Lazy loading.</strong> Images below the fold should lazy-load. This dramatically improves page speed.</li>
+        <li><strong>Minify CSS / JS.</strong> Before freeze, minify all stylesheets and scripts.</li>
+        <li><strong>Test on slow connections.</strong> Use Chrome DevTools throttling on 3G. If a page takes &gt;5 s, fix it.</li>
+      </ul>
+
+      <h3 id="a11y">7.2  Accessibility (this wins Best Wiki)</h3>
+      <ul>
+        <li><strong>Alt text.</strong> Every image must have descriptive alt text. Not <em>"image1.png"</em> but a concrete description of what the figure shows and why it's on the page.</li>
+        <li><strong>Color contrast.</strong> Use WebAIM's contrast checker. Minimum 4.5:1 ratio for body text, 3:1 for large text.</li>
+        <li><strong>Keyboard navigation.</strong> All interactive elements reachable via Tab. Focus states must be visible.</li>
+        <li><strong>Screen reader.</strong> Test with VoiceOver (Mac) or NVDA (Windows) at least once before freeze.</li>
+        <li><strong>Font size.</strong> Minimum 16 px body text. Never use font sizes below 14 px.</li>
+        <li><strong>Semantic HTML.</strong> Proper heading hierarchy (h1 → h2 → h3). Use <span class="mono">&lt;nav&gt;</span>, <span class="mono">&lt;main&gt;</span>, <span class="mono">&lt;article&gt;</span>, <span class="mono">&lt;figure&gt;</span>.</li>
+      </ul>
+
+      <h3 id="vcs">7.3  Version control</h3>
+      <ul>
+        <li><strong>Use GitLab.</strong> iGEM provides GitLab repos. Commit often with descriptive messages.</li>
+        <li><strong>Branch strategy.</strong> Main branch = live wiki. Feature branches for new pages. Merge only when tested.</li>
+        <li><strong>Backup.</strong> Before every major change, tag a release. Before Wiki Freeze, create a full backup.</li>
+      </ul>
+
+      <div class="callout escalate">
+        <span class="callout-label">✉ If you are not comfortable with Git or HTML / CSS</span>
+        <p>That is completely okay. Email Dr. Windham — he will set up a working session to get you comfortable. You can also use the iGEM wiki starter template as your base. Many Best Wiki winners started from the template and customized. <strong>Starting from scratch is NOT required.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PART 8 ============ -->
+  <section id="part-8">
+    <div class="part-header">
+      <span class="part-num">Part 08</span>
+      <h2>Your calendar — daily, weekly, monthly</h2>
+    </div>
+
+    <div class="section">
+      <p>This section is the operational heart of the guide. Follow the rhythms below and the work will compound. Skip them and you will feel behind by July.</p>
+
+      <h3 id="daily">8.1  Daily rhythm (10–15 min)</h3>
+      <p>Every weekday, ideally at the start of your study session:</p>
+      <ul>
+        <li>Open the Wiki Lead Dashboard. Check the next task due and any notifications from Dr. Windham or Austin.</li>
+        <li>Review any content submissions from other leads (check shared Drive folder and group chat).</li>
+        <li>Make one small improvement to the wiki: fix a typo, add an image alt tag, compress an image, test a link.</li>
+        <li>Log your progress in the dashboard task notes — these feed directly into your weekly check-in agenda.</li>
+        <li>Scan for any overdue content from subteam leads — if &gt;3 days late, flag for Dr. Windham.</li>
+      </ul>
+
+      <h3 id="weekly">8.2  Weekly rhythm</h3>
+      <table>
+        <thead><tr><th>Day</th><th>Ritual</th><th>Time</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Monday</strong></td><td>Weekly check-in with Dr. Windham. Bring: the dashboard, content status, any decisions needing sign-off, and questions.</td><td class="mono">30 min</td></tr>
+          <tr><td><strong>Tuesday</strong></td><td>Content outreach day. Send follow-up emails to leads with upcoming deadlines. Confirm any content that's in progress.</td><td class="mono">30 min</td></tr>
+          <tr><td><strong>Wednesday</strong></td><td>Build day. Focus time on wiki infrastructure: new pages, design improvements, interactive elements.</td><td class="mono">60–90 min</td></tr>
+          <tr><td><strong>Thursday</strong></td><td>Review day. Read through 2–3 wiki pages as if you're a judge. Note anything that needs fixing.</td><td class="mono">30 min</td></tr>
+          <tr><td><strong>Friday</strong></td><td>Quality audit + documentation. Check 3 random images for alt text. Test 5 links. Update progress tracker. Write one reflective note.</td><td class="mono">45 min</td></tr>
+          <tr><td><strong>Weekend</strong></td><td>Rest, or one light session reviewing a past Best Wiki winner. Never required.</td><td class="mono">optional</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout dashcue">
+        <span class="callout-label">◉ Dashboard cue — weekly check-in prep</span>
+        <p>Each Sunday evening (or Monday morning before the check-in), open the Wiki Lead Dashboard's Weekly Rhythm tab. It auto-generates an agenda from your task notes, flagged items, and any content-deadline blockers.</p>
+        <p>If the agenda looks thin or nothing substantive has happened, bring that to the check-in anyway. Slow weeks are normal in April–May. They become a problem only if they extend into June.</p>
+      </div>
+
+      <h3 id="monthly">8.3  Monthly milestones</h3>
+      <table>
+        <thead><tr><th>Month</th><th>What must be true by the end of the month</th></tr></thead>
+        <tbody>
+          <tr><td><strong>April 2026</strong></td><td>Study 3+ past Best Wiki winners. Create inspiration board. Set up dev environment and GitLab access. Choose framework.</td></tr>
+          <tr><td><strong>May 2026</strong></td><td>Design system locked (colors, fonts, nav, templates). Homepage wireframe reviewed by Dr. Windham. All Standard URL pages created (even if empty). First content requests sent to all subteam leads.</td></tr>
+          <tr><td><strong>June 2026</strong></td><td>Team, Description, Safety, Engineering, and Experiments pages have first-draft content. Original illustration pipeline started. Mobile responsiveness tested.</td></tr>
+          <tr><td><strong>July 2026</strong></td><td>Model, HP, Results, Notebook pages have first-draft content. All major pages populated. Citation format standardized. Full wiki walkthrough with Dr. Windham and Austin.</td></tr>
+          <tr><td><strong>August 2026</strong></td><td>Second-draft editing pass on all pages. Cross-page linking complete. Accessibility audit started. Image compression complete.</td></tr>
+          <tr><td><strong>September 2026</strong></td><td>All pages at final-draft quality. Accessibility audit complete and issues resolved. Attributions finalized. Full proofread by 2 team members. Pre-freeze review with Dr. Windham and Austin.</td></tr>
+          <tr><td><strong>October 2026</strong></td><td>Wiki finalized. Cross-browser testing (Chrome, Firefox, Safari, mobile). Backup stored. <strong>Wiki frozen by October 20.</strong> Submission confirmed.</td></tr>
+          <tr><td><strong>November 2026</strong></td><td>Jamboree prep and travel. Paris, November 13–16. Present your work. Win Best Wiki.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ PART 9 ============ -->
+  <section id="part-9">
+    <div class="part-header">
+      <span class="part-num">Part 09</span>
+      <h2>Working with your team</h2>
+    </div>
+
+    <div class="section">
+      <h3>9.1  The Wiki Lead Dashboard</h3>
+      <p>Your Wiki Lead Dashboard is your command center. Open it daily. It is the single place where:</p>
+      <ul>
+        <li>Your current tasks and deadlines live.</li>
+        <li>Every resource in this guide is linked (so you don't have to remember file names).</li>
+        <li>Weekly check-in agendas auto-generate from your task notes.</li>
+        <li>Urgent items can be escalated with a single button — when you mark a task "Urgent," it surfaces on Dr. Windham's Coordinator Dashboard immediately.</li>
+      </ul>
+
+      <div class="callout dashcue">
+        <span class="callout-label">◉ Dashboard cue — the "Mark as Urgent" button</span>
+        <p>Use this button when a decision cannot wait for the Monday check-in. For example: the GitLab build is failing and you can't deploy, or a subteam lead says their content won't be ready for another 2 weeks and it's already overdue.</p>
+        <p>Do not overuse it — if everything is urgent, nothing is. Aim for <strong>0–2 urgent flags per month.</strong></p>
+      </div>
+
+      <h3>9.2  Dr. Windham — mentor &amp; Project Coordinator</h3>
+      <p>Dr. Windham is your first line of support outside the formal structure. Think of him as a senior colleague who has read the entire project context and understands the bigger picture. He will:</p>
+      <ul>
+        <li>Review your work weekly at the Monday check-in.</li>
+        <li>Answer off-cycle questions by email.</li>
+        <li>Help you troubleshoot design or code issues.</li>
+        <li>Pre-read content before you route it to Austin.</li>
+        <li>Back you up when a decision is hard.</li>
+      </ul>
+
+      <div class="callout escalate">
+        <span class="callout-label">✉ When to email Dr. Windham (not wait for check-in)</span>
+        <p>Here is the consolidated escalation list. Any of these is a direct-email trigger:</p>
+        <p>• A subteam lead has missed a content deadline by more than 3 days.<br>
+        • You're stuck on a design or technical problem for more than 2 hours.<br>
+        • You need help prioritizing — too many things due at once.<br>
+        • You want to build something new (interactive element, animation) and need input before investing time.<br>
+        • The wiki build is broken or GitLab is giving errors you can't resolve.<br>
+        • You're unsure whether content from a subteam is scientifically accurate — route through Austin first, then Dr. Windham if Austin is unavailable.<br>
+        • You feel stuck, overwhelmed, or behind. Seriously.<br>
+        • You just don't know what the next move is.</p>
+      </div>
+
+      <div class="callout key">
+        <span class="callout-label">★ If it feels hard to do — email Dr. Windham</span>
+        <p>The single most common mistake undergraduate iGEM leads make is trying to figure out hard things alone for two weeks before asking for help. A 10-minute email conversation on Tuesday saves a 10-hour crisis on Sunday.</p>
+        <p>Short emails are welcome. <em>"Hi Dr. Windham — I'm stuck on the nav CSS and can't get mobile breakpoints working. Can we set up a 15-min call? — Lyba"</em> is a perfect email. You do not have to draft paragraphs.</p>
+      </div>
+
+      <h3>9.3  Austin Routt — Project Lead</h3>
+      <p>Austin has final sign-off on any content that involves the science — strain design, metabolic modeling, experimental methods, claims about results. Route technical content through Austin before publishing. For non-technical wiki decisions (design, layout, navigation), you have autonomy — use it.</p>
+
+      <h3>9.4  Other team leads</h3>
+      <ul>
+        <li><strong>HP Lead (May).</strong> Collaborate closely on the Human Practices and Inclusivity pages. She provides content; you integrate it into the wiki design.</li>
+        <li><strong>Wet-lab team.</strong> Your source for Experiments, Results, Notebook, Engineering, and Parts content.</li>
+        <li><strong>Modeling lead.</strong> Your source for the Model page. Austin may handle this directly.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ PART 10 ============ -->
+  <section id="part-10">
+    <div class="part-header">
+      <span class="part-num">Part 10</span>
+      <h2>The finish line</h2>
+    </div>
+
+    <div class="section">
+      <h3>10.1  Pre-wiki-freeze checklist (by October 20, 2026)</h3>
+      <div class="checklist">
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">All Standard URL pages live, complete, and linked in the Judging Form</div><div class="checklist-meta">16 required pages · all at correct slugs</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">Every image has alt text · every link works · every citation is formatted</div><div class="checklist-meta">Full pass — no exceptions</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">Accessibility audit complete</div><div class="checklist-meta">Contrast · keyboard nav · screen reader · mobile</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">Cross-page linking in place</div><div class="checklist-meta">Engineering → Model, HP → Design changes, etc.</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">All images compressed to &lt;200 KB · page load &lt;3 s</div><div class="checklist-meta">Tested on throttled 3G</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">Attributions page complete</div><div class="checklist-meta">Every external contribution credited</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">Full proofread by at least 2 team members (not just you)</div><div class="checklist-meta">Fresh eyes catch what you miss</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">Wiki reviewed by Dr. Windham AND Austin before freeze</div><div class="checklist-meta">Both signoffs recorded</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">Cross-browser testing complete</div><div class="checklist-meta">Chrome · Firefox · Safari · mobile</div></div></div>
+        <div class="checklist-item"><span class="checklist-check"></span><div class="checklist-body"><div class="checklist-title">Full backup created and stored</div><div class="checklist-meta">Tagged release in GitLab + Drive copy</div></div></div>
+      </div>
+
+      <h3>10.2  Jamboree preparation (Oct 21 – Nov 12)</h3>
+      <ul>
+        <li>Draft a 2-minute "wiki design philosophy" talking track for judges.</li>
+        <li>Build a 1-page wiki summary handout (PDF) for the poster session.</li>
+        <li>Prepare to explain how the wiki demonstrates engineering iteration, integrated HP, and modeling.</li>
+        <li>Practice the walk-through with Dr. Windham and Austin.</li>
+      </ul>
+
+      <h3>10.3  The Jamboree itself (Nov 13–16, Paris)</h3>
+      <p>Show up rested, dressed professionally, and ready to tell the story. Judges will ask: <em>"Walk me through your wiki."</em> You should be able to open the homepage, navigate to any page in under 3 clicks, and explain the design choices that made it work. That 60-second walkthrough is the distilled output of everything in this guide.</p>
+    </div>
+  </section>
+
+  <!-- ============ BOTTOM LINE ============ -->
+  <section id="bottom-line">
+    <div class="bottom-line">
+      <h2>A closing note from Dr. Windham.</h2>
+      <p>The wiki is the permanent record of everything your team accomplished. Long after the Jamboree is over, your wiki will still be online — future iGEM teams, researchers, and the public will read it. The teams that win Best Wiki aren't the ones with the most technical skill. They're the ones who planned early, collected content systematically, maintained quality standards, and told a story that made complex science feel human and important.</p>
+      <p>Everything in this guide is designed to make that possible. Use it. Bend it where it doesn't fit. And remember: every page you build is a chance to make the project visible and to create something the judges — and the world — will remember.</p>
+      <p>You've got this. Paris is waiting.</p>
+    </div>
+  </section>
+
+  <div class="footer">
+    UH iGEM 2026 · Wiki &amp; Documentation Strategy Guide · v1.0 · April 2026 · Internal — Do Not Distribute
+  </div>
+
+  </main>
+</div>
+
+<script>
+  const links = document.querySelectorAll('#toc a');
+  const sections = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  function updateActive(){
+    const y = window.scrollY + 120;
+    let active = sections[0];
+    for(const s of sections){ if(s.offsetTop <= y) active = s; }
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active.id));
+  }
+  window.addEventListener('scroll', updateActive, {passive:true});
+  updateActive();
+</script>
+</body>
+</html>
