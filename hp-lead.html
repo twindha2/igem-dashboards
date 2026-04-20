@@ -2675,7 +2675,11 @@ function renderNotifWidget() {
       title.textContent = 'Notifications';
       subtitle.textContent = 'All caught up — click to view history';
     } else {
-      widget.style.display = 'none';
+      widget.style.display = 'flex';
+      widget.classList.remove('has-new');
+      badge.style.display = 'none';
+      title.textContent = 'Notifications';
+      subtitle.textContent = 'No notifications yet — updates from Dr. Windham will appear here';
     }
   }
 }
