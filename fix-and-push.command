@@ -31,12 +31,13 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Redesign HP & Wiki Lead dashboards to match Project Lead reference
+    git commit -m "Fix countdown cards and TODAY'S FOCUS placement on HP & Wiki dashboards
 
-- HP Lead: scarlet gradient background, countdown cards with T-badges,
-  numbered tabs, TODAY'S FOCUS section with epigraph + priority queue
-- Wiki Lead: same treatment — countdown cards, numbered tabs, TODAY'S FOCUS
-- Both dashboards ready for lead handover
+- HP Lead: clean countdown card structure matching reference (consistent T-badges,
+  no emoji icons above numbers, uniform card layout)
+- Wiki Lead: move TODAY'S FOCUS from inside dashboard tab to above tabs
+  (matching HP Lead and Project Lead reference layout)
+- Both dashboards now have identical top-section structure
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."

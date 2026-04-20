@@ -1148,9 +1148,58 @@ function getQuoteOfDay() {
 }
 
 function renderSnapshot() {
-  // Snapshot is now integrated into the Dashboard tab as TODAY'S FOCUS section
-  // This function is kept for backward compatibility but does nothing
-  document.getElementById('today-snapshot').innerHTML = '';
+  const allTasks = PHASES.flatMap((ph, pidx) => ph.tasks.map(t => ({...t, phaseIdx: pidx})));
+  const upcomingTasks = allTasks
+    .filter(t => !S.tasks[t.id] && S.taskStatus[t.id] !== 'complete' && S.taskStatus[t.id] !== 'coordinator_approved')
+    .sort((a, b) => {
+      const aMonth = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ").indexOf(a.due.match(/(\w+)/)[1]);
+      const bMonth = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ").indexOf(b.due.match(/(\w+)/)[1]);
+      const aDate = parseInt(a.due.match(/(\d+)/)[1]);
+      const bDate = parseInt(b.due.match(/(\d+)/)[1]);
+      const aTime = new Date(2026, aMonth, aDate).getTime();
+      const bTime = new Date(2026, bMonth, bDate).getTime();
+      return aTime - bTime;
+    })
+    .slice(0, 2);
+
+  const focusQuote = getQuoteOfDay();
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric'}).toUpperCase();
+
+  const focusQueueHtml = upcomingTasks.length > 0 ? upcomingTasks.map(t => `
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,0.06);border-radius:4px;margin-bottom:6px;cursor:pointer" onclick="openTaskDetail('${t.id}')">
+      <span style="width:6px;height:6px;border-radius:50%;background:var(--gold)"></span>
+      <span style="font-family:var(--font-sans);font-size:12px;color:rgba(255,255,255,0.9);flex:1">${t.text.substring(0,50)}${t.text.length>50?'…':''}</span>
+      <span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.6);white-space:nowrap">${t.due}</span>
+    </div>
+  `).join('') : '<div style="font-size:12px;color:rgba(255,255,255,0.5)">All tasks on track!</div>';
+
+  document.getElementById("today-snapshot").innerHTML = `<div style="background:linear-gradient(135deg,var(--scarlet-dark),var(--scarlet-deep));border-radius:4px;padding:20px 28px;margin-bottom:24px;box-shadow:0 4px 20px rgba(0,0,0,0.15);margin-left:40px;margin-right:40px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center">
+          <span style="font-size:14px">🎯</span>
+        </div>
+        <div>
+          <div style="font-family:var(--font-display);font-size:26px;color:white;text-transform:uppercase;letter-spacing:1px;line-height:1">Today's Focus</div>
+          <div style="font-family:var(--font-mono);font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-top:2px">WIKI LEAD · PHASE ${getCurrentPhaseIdx()+1}</div>
+        </div>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:white;border:1px solid var(--gold-dark);padding:4px 12px;border-radius:2px;letter-spacing:1px">${dateStr}</div>
+    </div>
+    <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:16px"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+      <div>
+        <div style="font-family:var(--font-mono);font-size:9px;color:var(--scarlet-light);letter-spacing:2px;margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="width:14px;height:2px;background:var(--scarlet-light)"></span> EPIGRAPH</div>
+        <div style="font-family:var(--font-serif);font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.6">"${focusQuote.text}"</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.5);margin-top:8px">— ${focusQuote.src}</div>
+      </div>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:9px;color:var(--emerald);letter-spacing:2px;margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="width:14px;height:2px;background:var(--emerald)"></span> PRIORITY QUEUE · NEXT ${upcomingTasks.length}</div>
+        ${focusQueueHtml}
+      </div>
+    </div>
+  </div>`;
 }
 
 /* ═══ COUNTDOWNS ═══ */
@@ -1252,60 +1301,6 @@ function renderDash(){
   const p=PHASES[ci], ps=phaseStats(ci), st=totalStats();
   const phaseDays=daysTo(p.end);
 
-  // Get today's focus data
-  const allTasks = PHASES.flatMap((ph, pidx) => ph.tasks.map(t => ({...t, phaseIdx: pidx})));
-  const upcomingTasks = allTasks
-    .filter(t => !S.tasks[t.id] && S.taskStatus[t.id] !== 'complete' && S.taskStatus[t.id] !== 'coordinator_approved')
-    .sort((a, b) => {
-      const aMonth = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ").indexOf(a.due.match(/(\w+)/)[1]);
-      const bMonth = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ").indexOf(b.due.match(/(\w+)/)[1]);
-      const aDate = parseInt(a.due.match(/(\d+)/)[1]);
-      const bDate = parseInt(b.due.match(/(\d+)/)[1]);
-      const aTime = new Date(2026, aMonth, aDate).getTime();
-      const bTime = new Date(2026, bMonth, bDate).getTime();
-      return aTime - bTime;
-    })
-    .slice(0, 2);
-
-  const focusQuote = getQuoteOfDay();
-  const now = new Date();
-  const dateStr = now.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
-
-  const focusQueueHtml = upcomingTasks.length > 0 ? upcomingTasks.map(t => `
-    <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,0.06);border-radius:4px;margin-bottom:6px;cursor:pointer" onclick="openTaskDetail('${t.id}')">
-      <span style="width:6px;height:6px;border-radius:50%;background:var(--gold)"></span>
-      <span style="font-family:var(--font-sans);font-size:12px;color:rgba(255,255,255,0.9);flex:1">${t.text.substring(0,50)}${t.text.length>50?'…':''}</span>
-      <span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.6);white-space:nowrap">${t.due}</span>
-    </div>
-  `).join('') : '<div style="font-size:12px;color:rgba(255,255,255,0.5)">All tasks on track!</div>';
-
-  const todaysFocusHtml = `<div style="background:linear-gradient(135deg,var(--scarlet-dark),var(--scarlet-deep));border-radius:4px;padding:20px 28px;margin-bottom:24px;box-shadow:0 4px 20px rgba(0,0,0,0.15)">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div style="width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center">
-          <span style="font-size:14px">🎯</span>
-        </div>
-        <div>
-          <div style="font-family:var(--font-display);font-size:26px;color:white;text-transform:uppercase;letter-spacing:1px;line-height:1">Today's Focus</div>
-          <div style="font-family:var(--font-mono);font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-top:2px">WIKI LEAD · AWAITING TASKS</div>
-        </div>
-      </div>
-      <div style="font-family:var(--font-mono);font-size:11px;color:white;border:1px solid var(--gold-dark);padding:4px 12px;border-radius:2px;letter-spacing:1px">${dateStr}</div>
-    </div>
-    <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:16px"></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
-      <div>
-        <div style="font-family:var(--font-mono);font-size:9px;color:var(--scarlet-light);letter-spacing:2px;margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="width:14px;height:2px;background:var(--scarlet-light)"></span> EPIGRAPH</div>
-        <div style="font-family:var(--font-serif);font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.6">"${focusQuote.text}"</div>
-        <div style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.5);margin-top:8px">— ${focusQuote.src}</div>
-      </div>
-      <div>
-        <div style="font-family:var(--font-mono);font-size:9px;color:var(--emerald);letter-spacing:2px;margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="width:14px;height:2px;background:var(--emerald)"></span> PRIORITY QUEUE · NEXT <span>${upcomingTasks.length}</span></div>
-        ${focusQueueHtml}
-      </div>
-    </div>
-  </div>`;
-
   const tasksHtml=p.tasks.map(t=>{
     const done=!!S.tasks[t.id];
     const tStatus=S.taskStatus[t.id]||'not_started';
@@ -1335,7 +1330,6 @@ function renderDash(){
   }).join("");
 
   document.getElementById("panel-dashboard").innerHTML=`
-    ${todaysFocusHtml}
     <div class="phase-viewer">
       <div class="phase-viewer-header">
         <button class="phase-nav-btn" onclick="navPhase(-1)" ${ci<=0?'disabled':''}>${I.arrowL}</button>

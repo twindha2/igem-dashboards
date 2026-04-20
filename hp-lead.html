@@ -1108,55 +1108,66 @@ document.getElementById('header-date').textContent=new Date().toLocaleDateString
 /* ═══ COUNTDOWNS ═══ */
 function renderCountdowns(){
   const ndt=getNextDueTask(), st=totalStats(), jd=daysTo(JAMBOREE);
-  let leftHtml="", leftClass="glass countdown-card clickable";
-  if(ndt){
-    const dd=daysTo(ndt.dueDate);
-    const overdue=dd<0;
-    const urgColor=overdue?"var(--red-alarm)":dd<7?"var(--amber)":dd<30?"var(--scarlet)":"var(--emerald)";
-    if(overdue)leftClass+=" alarm";
-    leftHtml=`<div class="accent-bar" style="background:${overdue?'var(--red-alarm)':'var(--scarlet)'}"></div>
-      <div style="color:var(--slate-light);margin-bottom:8px">${I.clock}</div>
-      <div class="big-num" style="color:${urgColor}">${overdue?Math.abs(dd):dd}</div>
-      <div class="sub">${overdue?"days overdue":"days left"}</div>
-      ${overdue?'<div class="overdue-msg">⚠ OVERDUE — ACT NOW</div>':''}
-      <div class="label" style="margin-top:6px;font-size:12px;color:var(--slate);max-width:200px;margin:6px auto 0">${ndt.text.substring(0,60)}${ndt.text.length>60?'…':''}</div>`;
-  } else {
-    leftHtml=`<div class="accent-bar" style="background:var(--emerald)"></div>
-      <div style="color:var(--emerald);margin-bottom:8px">${I.check}</div>
-      <div class="big-num" style="color:var(--emerald)">✓</div>
-      <div class="sub">All tasks complete!</div>`;
-  }
-  // Next check-in countdown
+
+  // Next deadline
+  const nextDays = ndt ? daysTo(ndt.dueDate) : 0;
+  const nextOverdue = ndt && nextDays < 0;
+  const nextAccent = nextOverdue ? "#DC2626" : (nextDays < 7 ? "#D97706" : (nextDays < 30 ? "#C8102E" : "#16A34A"));
+
+  // Next check-in
   const nextCheckin = getNextCheckin();
   const checkinDays = nextCheckin ? daysTo(nextCheckin.fullDate) : null;
-  const checkinColor = checkinDays !== null ? (checkinDays < 0 ? 'var(--red-alarm)' : checkinDays < 2 ? 'var(--amber)' : 'var(--emerald)') : 'var(--emerald)';
+  const checkinAccent = checkinDays !== null ? (checkinDays < 0 ? '#DC2626' : checkinDays < 2 ? '#D97706' : '#16A34A') : '#16A34A';
 
-  document.getElementById("countdownGrid").innerHTML=`
-    <div class="${leftClass}" onclick="${ndt ? "openTaskDetail('"+ndt.id+"')" : "switchTab('timeline')"}">${leftHtml}<div class="t-badge">T01</div></div>
-    <div class="countdown-card" onclick="${nextCheckin ? "openCheckinWeek('"+nextCheckin.id+"')" : "switchTab('checkins')"}">
-      <div class="t-badge">T02</div>
-      <div class="accent-bar" style="background:${checkinColor}"></div>
-      <div style="color:var(--slate-light);margin-bottom:8px">${I.clock}</div>
-      <div class="big-num" style="color:${checkinColor}">${checkinDays !== null ? (checkinDays < 0 ? Math.abs(checkinDays) : checkinDays) : '—'}</div>
-      <div class="sub">${checkinDays !== null ? (checkinDays < 0 ? 'days overdue' : checkinDays === 0 ? 'today!' : 'days left') : ''}</div>
-      <div class="label">Weekly Check-In${nextCheckin ? ' — Wk '+nextCheckin.week : ''}</div>
-    </div>
-    <div class="countdown-card" onclick="openProgressOverview()">
-      <div class="t-badge">T03</div>
-      <div class="accent-bar" style="background:var(--emerald)"></div>
-      <div style="color:var(--slate-light);margin-bottom:8px">${I.target}</div>
-      <div class="big-num" style="color:${st.pct>=80?'var(--emerald)':st.pct>=40?'var(--amber)':'var(--scarlet)'}">${st.pct}%</div>
-      <div class="sub">${st.done}/${st.total} tasks</div>
-      <div class="label">Overall Progress</div>
-    </div>
-    <div class="countdown-card" onclick="openCalendar()">
-      <div class="t-badge">T04</div>
-      <div class="accent-bar" style="background:var(--gold)"></div>
-      <div style="color:var(--slate-light);margin-bottom:8px">${I.trophy}</div>
-      <div class="big-num" style="color:${jd<60?'var(--amber)':'var(--scarlet)'}">${jd}</div>
-      <div class="sub">days (${Math.floor(jd/7)} weeks)</div>
-      <div class="label">Jamboree — Paris</div>
+  const cards = [
+    {
+      badge: "T01",
+      days: ndt ? Math.abs(nextDays) : 0,
+      label: ndt ? "Next Deadline" : "All Tasks Done",
+      sub: ndt ? (nextOverdue ? "days overdue" : "days") : "complete",
+      accent: ndt ? nextAccent : "#16A34A",
+      clickHandler: ndt ? "openTaskDetail('"+ndt.id+"')" : "switchTab('timeline')",
+      alarm: nextOverdue
+    },
+    {
+      badge: "T02",
+      days: checkinDays !== null ? Math.abs(checkinDays) : 0,
+      label: "Weekly Check-In" + (nextCheckin ? " — Wk "+nextCheckin.week : ""),
+      sub: checkinDays !== null ? (checkinDays < 0 ? "days overdue" : checkinDays === 0 ? "today!" : "days") : "",
+      accent: checkinAccent,
+      clickHandler: nextCheckin ? "openCheckinWeek('"+nextCheckin.id+"')" : "switchTab('checkins')"
+    },
+    {
+      badge: "T03",
+      days: st.pct,
+      label: "Overall Progress",
+      sub: st.done+"/"+st.total+" tasks",
+      accent: st.pct >= 80 ? "#16A34A" : st.pct >= 40 ? "#D97706" : "#C8102E",
+      isPercent: true,
+      clickHandler: "openProgressOverview()"
+    },
+    {
+      badge: "T04",
+      days: jd,
+      label: "Jamboree — Paris",
+      sub: "days ("+Math.floor(jd/7)+" weeks)",
+      accent: "#F6BE00",
+      clickHandler: "openCalendar()"
+    }
+  ];
+
+  const html = cards.map(card => {
+    const display = card.isPercent ? card.days + '%' : card.days;
+    return `<div class="countdown-card${card.alarm?' alarm':''}" onclick="${card.clickHandler}">
+      <div class="accent-bar" style="background:${card.accent}"></div>
+      <div class="t-badge">${card.badge}</div>
+      <div class="big-num">${display}</div>
+      <div class="sub">${card.sub}</div>
+      <div class="label">${card.label}</div>
     </div>`;
+  }).join("");
+
+  document.getElementById("countdownGrid").innerHTML = html;
 }
 
 /* ═══ TODAY'S FOCUS ═══ */
