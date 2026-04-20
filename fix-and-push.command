@@ -31,12 +31,12 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Fix Project Lead snapshot text: white-on-white → readable dark text
+    git commit -m "Redesign HP & Wiki Lead dashboards to match Project Lead reference
 
-- Task cards, quote, and metadata in Today's Snapshot were using
-  rgba(255,255,255,...) colors meant for a dark background, but the
-  snapshot container has a white background — text was invisible
-- Switched to var(--black), var(--slate), var(--slate-light) for readability
+- HP Lead: scarlet gradient background, countdown cards with T-badges,
+  numbered tabs, TODAY'S FOCUS section with epigraph + priority queue
+- Wiki Lead: same treatment — countdown cards, numbered tabs, TODAY'S FOCUS
+- Both dashboards ready for lead handover
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
