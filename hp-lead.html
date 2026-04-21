@@ -108,7 +108,7 @@ body {
 }
 .header-wrap{position:sticky;top:0;z-index:10;background:rgba(255,255,255,0.98);backdrop-filter:blur(16px);box-shadow:0 6px 18px rgba(0,0,0,0.18)}
 .header-left-group{display:flex;align-items:center;gap:18px}
-.header-logo{height:112px;width:112px;object-fit:cover;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+.header-logo{height:112px;width:112px;object-fit:contain;border-radius:50%;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2)) drop-shadow(0 1px 2px rgba(0,0,0,0.3))}
 .header-mark-sep{width:1px;height:80px;background:rgba(200,16,46,0.25)}
 .header-kicker{font-family:var(--font-mono);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--slate-light);margin-bottom:3px}
 .ruler-bar {
@@ -406,20 +406,21 @@ body {
 
 /* ─── Check-in detail panel ─── */
 .checkin-detail {
-  margin-top: 20px; border-radius: 4px; border: 2px solid var(--scarlet);
-  overflow: hidden; animation: slideDown 0.25s ease-out;
+  margin-top: 20px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.08);
+  overflow: hidden; animation: slideDown 0.25s ease-out; box-shadow: 0 4px 16px rgba(0,0,0,0.08);
 }
 @keyframes slideDown { from { opacity: 0; max-height: 0; } to { opacity: 1; max-height: 2000px; } }
 .checkin-detail-header {
-  background: var(--scarlet); color: var(--white); padding: 14px 20px;
+  background: var(--white); color: var(--scarlet-dark); padding: 14px 20px;
   display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
 }
-.checkin-detail-header h4 { font-size: 16px; font-weight: 700; }
+.checkin-detail-header h4 { font-size: 16px; font-weight: 700; color: var(--scarlet-dark); }
 .checkin-close {
-  background: none; border: none; color: var(--white); font-size: 20px;
-  cursor: pointer; opacity: 0.7; transition: opacity 0.15s;
+  background: none; border: none; color: var(--slate); font-size: 20px;
+  cursor: pointer; transition: color 0.2s;
 }
-.checkin-close:hover { opacity: 1; }
+.checkin-close:hover { color: var(--scarlet); }
 .checkin-detail-body { padding: 20px; }
 .checkin-agenda-item {
   display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0f0f0;
@@ -449,20 +450,19 @@ body {
   max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
 .task-detail-top {
-  background: linear-gradient(135deg, var(--scarlet), var(--scarlet-dark));
-  color: var(--white); padding: 24px; border-radius: 4px 4px 0 0;
-  position: relative;
+  background: var(--white); padding: 20px 24px; border-radius: 4px 4px 0 0;
+  position: relative; border-bottom: 1px solid rgba(0,0,0,0.08);
 }
-.task-detail-top h2 { font-size: 20px; font-weight: 800; padding-right: 40px; }
+.task-detail-top h2 { font-size: 18px; font-weight: 800; padding-right: 40px; color: var(--scarlet-dark); }
 .task-detail-top .due-badge {
-  display: inline-block; background: rgba(255,255,255,0.2); border-radius: 4px;
-  padding: 4px 10px; font-size: 12px; margin-top: 8px;
+  display: inline-block; background: var(--scarlet-faint); border-radius: 4px;
+  padding: 4px 10px; font-size: 12px; margin-top: 8px; color: var(--scarlet);
 }
 .task-detail-close {
-  position: absolute; top: 20px; right: 20px; background: none; border: none;
-  color: var(--white); font-size: 24px; cursor: pointer; opacity: 0.7;
+  position: absolute; top: 16px; right: 16px; background: none; border: none;
+  color: var(--slate); font-size: 24px; cursor: pointer; transition: color 0.2s;
 }
-.task-detail-close:hover { opacity: 1; }
+.task-detail-close:hover { color: var(--scarlet); }
 .task-detail-body { padding: 24px; }
 .task-section { margin-bottom: 20px; }
 .task-section h3 {
@@ -489,7 +489,7 @@ body {
   background: var(--white); font-family: inherit; font-size: 13px; font-weight: 600;
   cursor: pointer; transition: all 0.15s;
 }
-.task-status-btn.active-status { border-color: var(--scarlet); background: var(--scarlet-faint); color: var(--scarlet); }
+.task-status-btn.active-status { border-color: var(--scarlet); background: var(--scarlet-faint); color: var(--scarlet); font-weight: 700; }
 .task-status-btn:hover { border-color: var(--scarlet-light); }
 
 /* ─── Upload drop zone ─── */
@@ -582,12 +582,12 @@ body {
   box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden;
 }
 .msg-modal-header {
-  background: linear-gradient(135deg, var(--scarlet), var(--scarlet-dark));
-  color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center;
+  background: var(--white); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
 }
-.msg-modal-header h3 { font-size: 16px; font-weight: 700; margin: 0; }
-.msg-modal-close { background: none; border: none; color: white; font-size: 22px; cursor: pointer; opacity: 0.7; }
-.msg-modal-close:hover { opacity: 1; }
+.msg-modal-header h3 { font-size: 16px; font-weight: 700; margin: 0; color: var(--scarlet-dark); }
+.msg-modal-close { background: none; border: none; color: var(--slate); font-size: 22px; cursor: pointer; transition: color 0.2s; }
+.msg-modal-close:hover { color: var(--scarlet); }
 .msg-modal-body { padding: 20px; }
 .msg-textarea {
   width: 100%; min-height: 100px; border: 2px solid #e0e0e0; border-radius: 4px;
@@ -721,6 +721,42 @@ body {
   border: 1px solid rgba(246,190,0,0.25);
 }
 
+/* Activity Log */
+.activity-timeline-line {
+    position: absolute; left: 12px; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(180deg, var(--scarlet) 0%, var(--gold) 50%, var(--emerald) 100%);
+}
+.activity-entry {
+    position: relative; margin-bottom: 12px; padding: 12px 14px;
+    background: rgba(255,255,255,0.95); border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.06); transition: all 0.2s;
+}
+.activity-entry:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateX(3px); }
+.activity-dot {
+    position: absolute; left: -24px; top: 16px; width: 12px; height: 12px;
+    border-radius: 50%; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.activity-dot.hp { background: var(--scarlet); }
+.activity-dot.coord { background: var(--gold); }
+.activity-dot.wiki { background: var(--indigo); }
+.activity-dot.wetlab { background: var(--emerald); }
+.activity-dot.modeling { background: var(--amber); }
+.activity-dot.lead { background: var(--scarlet-dark); }
+.activity-source-tag {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; padding: 2px 7px; border-radius: 4px;
+}
+.activity-source-tag.hp { background: rgba(200,16,46,0.12); color: var(--scarlet); }
+.activity-source-tag.coord { background: rgba(246,190,0,0.15); color: #b8940e; }
+.activity-source-tag.wiki { background: rgba(99,102,241,0.12); color: var(--indigo); }
+.activity-source-tag.lead { background: rgba(155,12,35,0.12); color: var(--scarlet-dark); }
+.activity-date-group {
+    font-size: 12px; font-weight: 700; color: white;
+    margin: 20px 0 10px -28px; padding: 4px 14px;
+    background: rgba(255,255,255,0.15); border-radius: 4px;
+    display: inline-block; text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
 /* === DnaBackdrop === */
 .dna-backdrop{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .dna-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(rgba(255,255,255,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.08) 1px,transparent 1px);background-size:24px 24px,24px 24px,120px 120px,120px 120px}
@@ -794,7 +830,7 @@ body {
 <!-- ═══ HERO ═══ -->
 <div class="header-main">
   <div class="header-left-group">
-    <img src="assets/uh-igem-logo.png" class="header-logo" alt="UH iGEM">
+    <img src="assets/uh-igem-logo.png?v=2" class="header-logo" alt="UH iGEM">
     <div class="header-mark-sep"></div>
     <div>
       <div class="header-kicker">UH iGEM 2026 · Longevity Track</div>
@@ -870,6 +906,7 @@ body {
     <div id="panel-timeline" class="tab-panel"></div>
     <div id="panel-checkins" class="tab-panel"></div>
     <div id="panel-wikisubmit" class="tab-panel"></div>
+    <div id="panel-activity-log" class="tab-panel"></div>
     <div id="panel-resources" class="tab-panel"></div>
   </div>
 </div>
@@ -905,83 +942,83 @@ const PHASES = [
     {id:"p1t1",text:"Complete stakeholder map — identify and categorize all target stakeholders",due:"May 15",
      guide:"Identify the types of people, organizations, and communities that could be affected by or inform your project. Group them by category: academic, industry, regulatory, patient/community, bioethics, public health, environmental. ⚠️ Do NOT enter names or contact details here — log all identifiable stakeholder info in your Stakeholder Tracker on Google Drive.",
      resources:["HP Strategy Guide — Section 2: Stakeholder Strategy","Stakeholder Tracker Spreadsheet","Past iGEM HP wiki examples"],
-     docs:["HP_Lead_Strategy_Guide.docx","HP_Lead_Stakeholder_Tracker.xlsx",null]},
+     docs:["UH iGEM 2026 Human Practices Strategy Guide.docx","UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx",null]},
     {id:"p1t2",text:"Submit IRB/IBC documentation (consent forms, protocols)",due:"May 15",
      guide:"Prepare and submit Institutional Review Board and Institutional Biosafety Committee documentation. Use the provided templates on Google Drive for consent forms and interview protocols. Get PI signature before submission. ⚠️ All IRB/IBC documents must be stored on Google Drive only — do not paste consent or protocol content into dashboard notes.",
      resources:["Consent Form Template","Interview Protocol","IRB/IBC Letter Templates"],
-     docs:["HP_Consent_Form.docx","HP_Interview_Protocol.docx","HP_IRB_IBC_Letters.docx"]},
+     docs:["UH iGEM 2026 Human Practices Consent Form.docx","UH iGEM 2026 Human Practices Interview Protocol.docx","UH iGEM 2026 Human Practices IRB IBC Letters.docx"]},
     {id:"p1t3",text:"Prioritize first 8–10 stakeholders to contact",due:"May 20",
      guide:"From your stakeholder map, select 8-10 high-priority contacts to reach out to first. Prioritize diversity of perspective: at least one from each major category. Enter all names, contact info, and outreach dates into the Stakeholder Tracker on Google Drive — not here. Use this space only for general status notes (e.g. '5 of 8 contacts identified').",
      resources:["Stakeholder Tracker Spreadsheet","HP Strategy Guide — Stakeholder Categories Table"],
-     docs:["HP_Lead_Stakeholder_Tracker.xlsx","HP_Lead_Strategy_Guide.docx"]},
+     docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Strategy Guide.docx"]},
     {id:"p1t4",text:"Read 3 winning HP wiki pages from past iGEM teams",due:"May 25",
      guide:"Study what excellent HP looks like. Read at least 3 past Best HP prize winners. Take notes on: narrative structure, how they showed the feedback loop, what evidence they included, how they integrated stakeholder input into project changes.",
      resources:["iGEM HP Resources Page","Past HP Award Winners","HP Strategy Guide — Section 6: Wiki Writing Tips"],
-     docs:[null,null,"HP_Lead_Strategy_Guide.docx"]},
+     docs:[null,null,"UH iGEM 2026 Human Practices Strategy Guide.docx"]},
     {id:"p1t5",text:"Set up stakeholder tracker spreadsheet and begin logging",due:"May 1",
      guide:"Open the stakeholder tracker template on Google Drive. Familiarize yourself with all 4 tabs: Stakeholder Tracker, Change Log, Weekly Check-Ins, Quick Reference. All stakeholder names, contact details, and interaction logs go in the Google Drive tracker — this dashboard is for status updates only.",
      resources:["Stakeholder Tracker Spreadsheet (4 tabs)"],
-     docs:["HP_Lead_Stakeholder_Tracker.xlsx"]},
+     docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx"]},
     {id:"p1t6",text:"First weekly check-in with Project Coordinator",due:"Apr 21",
      guide:"Meet with the Project Coordinator for your first weekly check-in. Discuss initial stakeholder targets, set expectations for weekly updates, and confirm your understanding of Gold medal requirements.",
      resources:["HP Strategy Guide","UH iGEM 2026 Competition Strategy Playbook"],
-     docs:["HP_Lead_Strategy_Guide.docx","UH_iGEM_2026_Competition_Strategy_Playbook.docx"]},
+     docs:["UH iGEM 2026 Human Practices Strategy Guide.docx","UH iGEM 2026 Team Strategy Playbook.docx"]},
   ]},
   {name:"Phase 2: Engagement",emoji:"🔬",range:"May 27 – Aug 1",end:new Date(2026,7,1),color:"#E8394F",
    tasks:[
     {id:"p2t1",text:"Conduct first stakeholder interview",due:"Jun 15",
      guide:"Schedule and conduct your first formal stakeholder interview. Use the Interview Protocol on Google Drive. Send consent form in advance. Record all interview details, key takeaways, and follow-up actions in your Google Drive Stakeholder Tracker — not in this dashboard. Here, just note your progress status (e.g. 'First interview completed, takeaways logged in tracker').",
      resources:["Interview Protocol","Consent Form","Stakeholder Tracker"],
-     docs:["HP_Interview_Protocol.docx","HP_Consent_Form.docx","HP_Lead_Stakeholder_Tracker.xlsx"]},
+     docs:["UH iGEM 2026 Human Practices Interview Protocol.docx","UH iGEM 2026 Human Practices Consent Form.docx","UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx"]},
     {id:"p2t2",text:"Complete 6–8 stakeholder interviews (diverse categories)",due:"Jul 15",
      guide:"Conduct interviews across diverse stakeholder categories. Judges want to see breadth AND depth. Track each interaction meticulously in your Google Drive Stakeholder Tracker — that spreadsheet is your Gold medal evidence. Use this dashboard only for progress counts (e.g. '4 of 8 interviews complete, 2 scheduled').",
      resources:["Interview Protocol","Stakeholder Tracker","HP Strategy Guide"],
-     docs:["HP_Interview_Protocol.docx","HP_Lead_Stakeholder_Tracker.xlsx","HP_Lead_Strategy_Guide.docx"]},
+     docs:["UH iGEM 2026 Human Practices Interview Protocol.docx","UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Strategy Guide.docx"]},
     {id:"p2t3",text:"Identify at least 1 concrete project change from feedback",due:"Jul 20",
      guide:"This is the GOLD MEDAL requirement. Review your stakeholder feedback (in the Google Drive tracker) and identify at least one concrete way the project design, approach, or implementation was changed. Document the full details in the Change Log tab on Google Drive. Here, just summarize what changed and why (no stakeholder names).",
      resources:["Stakeholder Tracker — Change Log Tab","HP Strategy Guide — Gold Medal Section"],
-     docs:["HP_Lead_Stakeholder_Tracker.xlsx","HP_Lead_Strategy_Guide.docx"]},
+     docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Strategy Guide.docx"]},
     {id:"p2t4",text:"Log all interactions in stakeholder tracker with status updates",due:"Ongoing",
      guide:"Keep your Google Drive Stakeholder Tracker current — every interaction should be logged there with dates and status. That spreadsheet is your real-time evidence base. In this dashboard, just note your overall tracking status (e.g. '12 interactions logged, tracker up to date').",
-     resources:["Stakeholder Tracker"],docs:["HP_Lead_Stakeholder_Tracker.xlsx"]},
+     resources:["Stakeholder Tracker"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx"]},
     {id:"p2t5",text:"Begin drafting wiki HP narrative outline",due:"Jul 1",
      guide:"Start outlining your HP wiki page. Structure: Introduction → Stakeholder Overview → Engagement Process → Key Findings → Project Changes (Gold!) → Reflection. Don't write final prose yet — focus on the narrative arc.",
      resources:["HP Strategy Guide — Section 6: Wiki Writing Tips","Past HP Award Winners"],
-     docs:["HP_Lead_Strategy_Guide.docx",null]},
+     docs:["UH iGEM 2026 Human Practices Strategy Guide.docx",null]},
     {id:"p2t6",text:"Engage at least 1 stakeholder from underrepresented community",due:"Jul 31",
      guide:"Inclusivity matters for the Best HP Prize. Intentionally reach out to stakeholders from underrepresented or underserved communities. Document all details in the Google Drive Stakeholder Tracker. Here, note progress status only — no names or identifying information.",
      resources:["HP Strategy Guide — Section 4: Inclusivity in HP","Stakeholder Tracker"],
-     docs:["HP_Lead_Strategy_Guide.docx","HP_Lead_Stakeholder_Tracker.xlsx"]},
+     docs:["UH iGEM 2026 Human Practices Strategy Guide.docx","UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx"]},
   ]},
   {name:"Phase 3: Integration",emoji:"⚙️",range:"Aug 2 – Sep 16",end:new Date(2026,8,16),color:"#F6BE00",
    tasks:[
     {id:"p3t1",text:"Complete remaining stakeholder interviews",due:"Aug 31",
      guide:"Finish all planned interviews. Aim for 12+ total interactions across diverse categories. Track all interview details and follow-ups in your Google Drive Stakeholder Tracker. Use this dashboard for progress counts only.",
-     resources:["Stakeholder Tracker","Interview Protocol"],docs:["HP_Lead_Stakeholder_Tracker.xlsx","HP_Interview_Protocol.docx"]},
+     resources:["Stakeholder Tracker","Interview Protocol"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Interview Protocol.docx"]},
     {id:"p3t2",text:"Document all HP-driven project changes (Gold medal evidence!)",due:"Sep 1",
      guide:"This is your most important deliverable. For each HP-driven project change, document the full details in the Google Drive Change Log tab: what feedback led to the change, what was modified, and evidence of implementation. Here, summarize the number of changes documented and their general themes — no stakeholder names or quotes.",
-     resources:["Stakeholder Tracker — Change Log Tab","HP Strategy Guide — Gold Medal Section"],docs:["HP_Lead_Stakeholder_Tracker.xlsx","HP_Lead_Strategy_Guide.docx"]},
+     resources:["Stakeholder Tracker — Change Log Tab","HP Strategy Guide — Gold Medal Section"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Strategy Guide.docx"]},
     {id:"p3t3",text:"Second round of follow-ups with key stakeholders",due:"Sep 10",
      guide:"Conduct follow-up conversations to share how feedback was integrated. This multi-round engagement separates Best HP Prize winners from the pack. Log all follow-up details in your Google Drive Stakeholder Tracker. Dashboard notes: status only (e.g. '3 of 5 follow-ups complete').",
-     resources:["Stakeholder Tracker","Consent Form"],docs:["HP_Lead_Stakeholder_Tracker.xlsx","HP_Consent_Form.docx"]},
+     resources:["Stakeholder Tracker","Consent Form"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Consent Form.docx"]},
     {id:"p3t4",text:"HP wiki draft v1 complete — submit to Project Coordinator",due:"Aug 31",
      guide:"Write the full first draft of your HP wiki page. Include all sections, evidence, quotes, and photos. Submit to the Project Coordinator for review and feedback.",
-     resources:["HP Strategy Guide — Wiki Writing Tips","Past HP Winners"],docs:["HP_Lead_Strategy_Guide.docx",null]},
+     resources:["HP Strategy Guide — Wiki Writing Tips","Past HP Winners"],docs:["UH iGEM 2026 Human Practices Strategy Guide.docx",null]},
     {id:"p3t5",text:"Update Change Log in tracker with all integrated HP evidence",due:"Sep 15",
      guide:"Final pass through the Change Log. Make sure every HP-driven change is documented with clear before/after evidence. This tab is your Gold medal proof.",
-     resources:["Stakeholder Tracker — Change Log Tab"],docs:["HP_Lead_Stakeholder_Tracker.xlsx"]},
+     resources:["Stakeholder Tracker — Change Log Tab"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx"]},
   ]},
   {name:"Phase 4: Documentation",emoji:"📝",range:"Sep 17 – Oct 21",end:new Date(2026,9,21),color:"#D97706",
    tasks:[
     {id:"p4t1",text:"Finalize wiki HP page — narrative, evidence, photos, quotes",due:"Oct 10",
      guide:"Polish the wiki page to competition-ready quality. Every claim needs evidence. Source stakeholder quotes and photos from your Google Drive files (ensure you have consent for any quotes used). Note your wiki progress status here — do not paste stakeholder quotes or identifiable content into dashboard notes.",
-     resources:["HP Strategy Guide — Wiki Writing Tips"],docs:["HP_Lead_Strategy_Guide.docx"]},
+     resources:["HP Strategy Guide — Wiki Writing Tips"],docs:["UH iGEM 2026 Human Practices Strategy Guide.docx"]},
     {id:"p4t2",text:"Submit final wiki draft to Project Coordinator for review",due:"Oct 12",
      guide:"Send the final draft to the Project Coordinator for comprehensive review. Be prepared for feedback and revisions.",
      resources:["Completed wiki draft"],docs:[null]},
     {id:"p4t3",text:"Submit to Austin for final sign-off",due:"Oct 15",
      guide:"Austin Routt (Project Lead) gives final approval on all wiki content. Address any feedback promptly.",
-     resources:["Completed wiki draft","UH iGEM 2026 Competition Strategy Playbook"],docs:[null,"UH_iGEM_2026_Competition_Strategy_Playbook.docx"]},
+     resources:["Completed wiki draft","UH iGEM 2026 Competition Strategy Playbook"],docs:[null,"UH iGEM 2026 Team Strategy Playbook.docx"]},
     {id:"p4t4",text:"Coordinate with Wiki Lead for final integration",due:"Oct 18",
      guide:"Work with the Wiki Lead to integrate your HP content into the full team wiki. Ensure formatting consistency, all links work, and images display correctly.",
      resources:["Wiki Lead","Full wiki structure"],docs:[null,null]},
@@ -993,7 +1030,7 @@ const PHASES = [
    tasks:[
     {id:"p5t1",text:"Prepare HP presentation materials (slides, talking points)",due:"Nov 1",
      guide:"Create presentation slides that tell the HP story clearly. Focus on: the problem, who you talked to, what changed, and the evidence. Practice the narrative flow.",
-     resources:["UH iGEM 2026 Competition Strategy Playbook","HP wiki page"],docs:["UH_iGEM_2026_Competition_Strategy_Playbook.docx",null]},
+     resources:["UH iGEM 2026 Competition Strategy Playbook","HP wiki page"],docs:["UH iGEM 2026 Team Strategy Playbook.docx",null]},
     {id:"p5t2",text:"Practice presenting integrated HP clearly (under 3 minutes)",due:"Nov 5",
      guide:"Rehearse your HP segment of the presentation. Judges have limited time — you need to convey the feedback loop clearly in under 3 minutes. Practice with the team.",
      resources:["Presentation slides"],docs:[null]},
@@ -1002,7 +1039,7 @@ const PHASES = [
      resources:["Wiki HP page"],docs:[null]},
     {id:"p5t4",text:"Pack evidence packet for Jamboree",due:"Nov 10",
      guide:"Prepare a physical/digital evidence packet from your Google Drive files: de-identified stakeholder summaries, approved quotes (with consent), project change documentation, photos. Have it ready for judge Q&A at the Jamboree in Paris. Note packing status here only.",
-     resources:["Stakeholder Tracker Export"],docs:["HP_Lead_Stakeholder_Tracker.xlsx"]},
+     resources:["Stakeholder Tracker Export"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx"]},
   ]},
 ];
 
@@ -1019,22 +1056,22 @@ const CHECKIN_AGENDA = [
 
 const DRIVE_BASE = "https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7";
 const FILE_DRIVE_URLS = {
-  "HP_Lead_Strategy_Guide.docx": "docs/UH%20iGEM%202026%20Human%20Practices%20Strategy%20Guide.html",
-  "HP_Lead_Stakeholder_Tracker.xlsx": "https://drive.google.com/file/d/1NlEo89NGJ0RPsEPsakvTSIUhbtQe41nr/view",
-  "HP_Consent_Form.docx": "https://drive.google.com/file/d/1aaaTTj7on4jWf3ShK0ib3TxlpijXTIpy/view",
-  "HP_Interview_Protocol.docx": "https://drive.google.com/file/d/12tQbqMDoykExPL5RY-n3GMhUnU5f2W9b/view",
-  "HP_IRB_IBC_Letters.docx": "https://drive.google.com/file/d/1C5Ua_sO4NpYbfeRrFFOuGYSHuptVNqnR/view",
-  "UH_iGEM_2026_Competition_Strategy_Playbook.docx": "https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",
+  "UH iGEM 2026 Human Practices Strategy Guide.docx": "docs/UH%20iGEM%202026%20Human%20Practices%20Strategy%20Guide.html",
+  "UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx": "https://drive.google.com/file/d/1NlEo89NGJ0RPsEPsakvTSIUhbtQe41nr/view",
+  "UH iGEM 2026 Human Practices Consent Form.docx": "https://drive.google.com/file/d/1aaaTTj7on4jWf3ShK0ib3TxlpijXTIpy/view",
+  "UH iGEM 2026 Human Practices Interview Protocol.docx": "https://drive.google.com/file/d/12tQbqMDoykExPL5RY-n3GMhUnU5f2W9b/view",
+  "UH iGEM 2026 Human Practices IRB IBC Letters.docx": "https://drive.google.com/file/d/1C5Ua_sO4NpYbfeRrFFOuGYSHuptVNqnR/view",
+  "UH iGEM 2026 Team Strategy Playbook.docx": "https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",
 };
 function driveUrl(file){return FILE_DRIVE_URLS[file]||DRIVE_BASE;}
 
 const RESOURCES = [
-  {name:"HP Strategy Guide",desc:"Your playbook for Gold medal HP",file:"HP_Lead_Strategy_Guide.docx",url:"docs/UH%20iGEM%202026%20Human%20Practices%20Strategy%20Guide.html",category:"hp-lead"},
-  {name:"Stakeholder Tracker",desc:"Log all interactions, changes, follow-ups",file:"HP_Lead_Stakeholder_Tracker.xlsx",url:"https://drive.google.com/file/d/1NlEo89NGJ0RPsEPsakvTSIUhbtQe41nr/view",category:"hp-lead"},
-  {name:"Consent Form Template",desc:"Send before every interview",file:"HP_Consent_Form.docx",url:"https://drive.google.com/file/d/1aaaTTj7on4jWf3ShK0ib3TxlpijXTIpy/view",category:"hp-lead"},
-  {name:"Interview Protocol",desc:"Question framework for stakeholder interviews",file:"HP_Interview_Protocol.docx",url:"https://drive.google.com/file/d/12tQbqMDoykExPL5RY-n3GMhUnU5f2W9b/view",category:"hp-lead"},
+  {name:"HP Strategy Guide",desc:"Your playbook for Gold medal HP",file:"UH iGEM 2026 Human Practices Strategy Guide.docx",url:"docs/UH%20iGEM%202026%20Human%20Practices%20Strategy%20Guide.html",category:"hp-lead"},
+  {name:"Stakeholder Tracker",desc:"Log all interactions, changes, follow-ups",file:"UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx",url:"https://drive.google.com/file/d/1NlEo89NGJ0RPsEPsakvTSIUhbtQe41nr/view",category:"hp-lead"},
+  {name:"Consent Form Template",desc:"Send before every interview",file:"UH iGEM 2026 Human Practices Consent Form.docx",url:"https://drive.google.com/file/d/1aaaTTj7on4jWf3ShK0ib3TxlpijXTIpy/view",category:"hp-lead"},
+  {name:"Interview Protocol",desc:"Question framework for stakeholder interviews",file:"UH iGEM 2026 Human Practices Interview Protocol.docx",url:"https://drive.google.com/file/d/12tQbqMDoykExPL5RY-n3GMhUnU5f2W9b/view",category:"hp-lead"},
   {name:"Design Change Log Template",desc:"Track all HP-driven changes to project",file:"HP_Design_Change_Log.xlsx",url:"https://drive.google.com/file/d/1NlEo89NGJ0RPsEPsakvTSIUhbtQe41nr/view",category:"hp-lead"},
-  {name:"UH iGEM 2026 Competition Strategy Playbook",desc:"Team-wide strategy with HP alignment",file:"UH_iGEM_2026_Competition_Strategy_Playbook.docx",url:"https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",category:"all"},
+  {name:"UH iGEM 2026 Competition Strategy Playbook",desc:"Team-wide strategy with HP alignment",file:"UH iGEM 2026 Team Strategy Playbook.docx",url:"https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",category:"all"},
   {name:"iGEM Competition Portal",desc:"Official judging criteria and submission portal",file:null,url:"https://competition.igem.org/",category:"all"},
   {name:"iGEM HP Resources",desc:"Official HP guidelines and award information",file:null,url:"https://competition.igem.org/judging/human-practices",category:"all"},
   {name:"iGEM Judging Rubrics",desc:"Detailed Gold, Silver, Bronze medal criteria",file:null,url:"https://competition.igem.org/judging/medals",category:"all"},
@@ -1119,55 +1156,35 @@ function renderCountdowns(){
   const checkinDays = nextCheckin ? daysTo(nextCheckin.fullDate) : null;
   const checkinAccent = checkinDays !== null ? (checkinDays < 0 ? '#DC2626' : checkinDays < 2 ? '#D97706' : '#16A34A') : '#16A34A';
 
-  const cards = [
-    {
-      badge: "T01",
-      days: ndt ? Math.abs(nextDays) : 0,
-      label: ndt ? "Next Deadline" : "All Tasks Done",
-      sub: ndt ? (nextOverdue ? "days overdue" : "days") : "complete",
-      accent: ndt ? nextAccent : "#16A34A",
-      clickHandler: ndt ? "openTaskDetail('"+ndt.id+"')" : "switchTab('timeline')",
-      alarm: nextOverdue
-    },
-    {
-      badge: "T02",
-      days: checkinDays !== null ? Math.abs(checkinDays) : 0,
-      label: "Weekly Check-In" + (nextCheckin ? " — Wk "+nextCheckin.week : ""),
-      sub: checkinDays !== null ? (checkinDays < 0 ? "days overdue" : checkinDays === 0 ? "today!" : "days") : "",
-      accent: checkinAccent,
-      clickHandler: nextCheckin ? "openCheckinWeek('"+nextCheckin.id+"')" : "switchTab('checkins')"
-    },
-    {
-      badge: "T03",
-      days: st.pct,
-      label: "Overall Progress",
-      sub: st.done+"/"+st.total+" tasks",
-      accent: st.pct >= 80 ? "#16A34A" : st.pct >= 40 ? "#D97706" : "#C8102E",
-      isPercent: true,
-      clickHandler: "openProgressOverview()"
-    },
-    {
-      badge: "T04",
-      days: jd,
-      label: "Jamboree — Paris",
-      sub: "days ("+Math.floor(jd/7)+" weeks)",
-      accent: "#F6BE00",
-      clickHandler: "openCalendar()"
-    }
-  ];
-
-  const html = cards.map(card => {
-    const display = card.isPercent ? card.days + '%' : card.days;
-    return `<div class="countdown-card${card.alarm?' alarm':''}" onclick="${card.clickHandler}">
-      <div class="accent-bar" style="background:${card.accent}"></div>
-      <div class="t-badge">${card.badge}</div>
-      <div class="big-num">${display}</div>
-      <div class="sub">${card.sub}</div>
-      <div class="label">${card.label}</div>
+  document.getElementById("countdownGrid").innerHTML = `
+    <div class="countdown-card${nextOverdue?' alarm':''}" onclick="${ndt ? "openTaskDetail('"+ndt.id+"')" : "switchTab('timeline')"}">
+      <div class="accent-bar" style="background:${ndt ? nextAccent : '#16A34A'}"></div>
+      <div style="color:var(--slate-light);margin-bottom:6px;font-size:12px;">📋</div>
+      <div class="big-num" style="color:${ndt ? nextAccent : '#16A34A'}">${ndt ? Math.abs(nextDays) : 0}</div>
+      <div class="sub">${ndt ? (nextOverdue ? 'days overdue' : 'days') : 'complete'}</div>
+      <div class="label">${ndt ? 'Next Deadline' : 'All Tasks Done'}</div>
+    </div>
+    <div class="countdown-card" onclick="switchTab('checkins')">
+      <div class="accent-bar" style="background:${checkinAccent}"></div>
+      <div style="color:var(--slate-light);margin-bottom:6px;font-size:12px;">🗓️</div>
+      <div class="big-num" style="color:${checkinAccent}">${checkinDays !== null ? Math.abs(checkinDays) : 0}</div>
+      <div class="sub">${checkinDays !== null ? (checkinDays < 0 ? 'days overdue' : checkinDays === 0 ? 'today!' : 'days') : ''}</div>
+      <div class="label">Weekly Check-In${nextCheckin ? ' — Wk '+nextCheckin.week : ''}</div>
+    </div>
+    <div class="countdown-card" onclick="switchTab('timeline')">
+      <div class="accent-bar" style="background:${st.pct >= 80 ? 'var(--emerald)' : st.pct >= 40 ? 'var(--amber)' : 'var(--scarlet)'}"></div>
+      <div style="color:var(--slate-light);margin-bottom:6px;font-size:12px;">🎯</div>
+      <div class="big-num" style="color:${st.pct >= 80 ? 'var(--emerald)' : st.pct >= 40 ? 'var(--amber)' : 'var(--scarlet)'}">${st.pct}%</div>
+      <div class="sub">${st.done}/${st.total} tasks</div>
+      <div class="label">Overall Progress</div>
+    </div>
+    <div class="countdown-card" onclick="switchTab('timeline')">
+      <div class="accent-bar" style="background:var(--gold)"></div>
+      <div style="color:var(--slate-light);margin-bottom:6px;font-size:12px;">🏆</div>
+      <div class="big-num" style="color:var(--scarlet)">${jd}</div>
+      <div class="sub">days (${Math.floor(jd/7)} weeks)</div>
+      <div class="label">Jamboree — Paris</div>
     </div>`;
-  }).join("");
-
-  document.getElementById("countdownGrid").innerHTML = html;
 }
 
 /* ═══ TODAY'S FOCUS ═══ */
@@ -1191,45 +1208,59 @@ function renderSnapshot(){
   allTasks.sort((a, b) => a.dueDate - b.dueDate);
   const nextTasks = allTasks.slice(0, 2);
 
-  let html = `<div style="background:linear-gradient(135deg,var(--scarlet-dark),var(--scarlet-deep));border-radius:4px;padding:20px 28px;margin-bottom:24px;box-shadow:0 4px 20px rgba(0,0,0,0.15);margin-left:40px;margin-right:40px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-        <div style="display:flex;align-items:center;gap:12px">
-            <div style="width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center">
-                <span style="font-size:14px">🎯</span>
-            </div>
-            <div>
-                <div style="font-family:var(--font-display);font-size:26px;color:white;text-transform:uppercase;letter-spacing:1px;line-height:1">Today's Focus</div>
-                <div style="font-family:var(--font-mono);font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-top:2px">HP LEAD · PHASE ${getCurrentPhaseIdx()+1}: FOUNDATION</div>
+  // Color coding for days remaining
+  const getColorClass = (days) => {
+    if (days < 7) return 'var(--scarlet)';
+    if (days < 14) return 'var(--amber)';
+    return 'var(--slate)';
+  };
+
+  const taskCards = nextTasks.map(t => {
+    const parts = t.due.match(/(\w+)\s+(\d+)/);
+    let daysLeft = 0;
+    if (parts) {
+      const m = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ").indexOf(parts[1]);
+      const d = new Date(2026, m, parseInt(parts[2]));
+      daysLeft = Math.ceil((d - new Date()) / 86400000);
+    }
+    const color = getColorClass(daysLeft);
+    return `<div style="background:rgba(0,0,0,0.03);border-radius:4px;padding:16px;cursor:pointer;transition:all 0.2s"
+         onmouseover="this.style.background='rgba(0,0,0,0.06)'"
+         onmouseout="this.style.background='rgba(0,0,0,0.03)'"
+         onclick="openTaskDetail('${t.id}')">
+        <div style="font-weight:600;font-size:14px;color:var(--black);margin-bottom:8px">${t.text.substring(0,50)}${t.text.length>50?'…':''}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:11px;color:var(--slate-light)">Due: ${t.due}</div>
+            <div style="font-weight:700;font-size:14px;color:${color}">${daysLeft} day${daysLeft !== 1 ? 's' : ''}</div>
+        </div>
+    </div>`;
+  }).join('');
+
+  const quoteHtml = quote ? `
+    <div style="background:rgba(0,0,0,0.03);border-left:3px solid var(--indigo);padding:16px;border-radius:4px">
+        <div style="font-style:italic;font-size:13px;color:var(--slate);margin-bottom:8px">"${quote.t}"</div>
+        <div style="font-size:11px;color:var(--slate-light)">— ${quote.s}</div>
+    </div>
+  ` : '';
+
+  document.getElementById("today-snapshot").innerHTML = `
+    <div style="max-width:100%;margin:0 auto 24px;padding:0 40px">
+        <div style="background:rgba(255,255,255,0.95);border-radius:4px;box-shadow:0 4px 20px rgba(0,0,0,0.08);padding:24px">
+            <h3 style="margin:0 0 16px;font-size:18px;font-weight:700;color:var(--scarlet-dark)">Today's Snapshot</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+                <div>
+                    <div style="font-size:12px;font-weight:600;color:rgba(0,0,0,0.6);margin-bottom:12px;text-transform:uppercase">Next Deadlines</div>
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                        ${taskCards || '<div style="color:rgba(0,0,0,0.4);font-size:13px">No upcoming deadlines</div>'}
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size:12px;font-weight:600;color:rgba(0,0,0,0.6);margin-bottom:12px;text-transform:uppercase">Daily Inspiration</div>
+                    ${quoteHtml}
+                </div>
             </div>
         </div>
-        <div style="font-family:var(--font-mono);font-size:11px;color:white;border:1px solid var(--gold-dark);padding:4px 12px;border-radius:2px;letter-spacing:1px">${dateStr}</div>
-    </div>
-    <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:16px"></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
-        <div>
-            <div style="font-family:var(--font-mono);font-size:9px;color:var(--scarlet-light);letter-spacing:2px;margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="width:14px;height:2px;background:var(--scarlet-light)"></span> EPIGRAPH</div>
-            <div style="font-family:var(--font-serif);font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.6">"${quote.t}"</div>
-            <div style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.5);margin-top:8px">— ${quote.s}</div>
-        </div>
-        <div>
-            <div style="font-family:var(--font-mono);font-size:9px;color:var(--emerald);letter-spacing:2px;margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="width:14px;height:2px;background:var(--emerald)"></span> PRIORITY QUEUE · NEXT ${nextTasks.length}</div>`;
-
-  if (nextTasks.length > 0) {
-    nextTasks.forEach(t => {
-      html += `<div style="margin-bottom:8px;cursor:pointer;padding:8px;border-radius:4px;background:rgba(255,255,255,0.1);transition:all 0.2s;font-size:12px;color:white" onclick="openTaskDetail('${t.id}')" onmouseover="this.style.background='rgba(255,255,255,0.15)';this.style.paddingLeft='12px'" onmouseout="this.style.background='rgba(255,255,255,0.1)';this.style.paddingLeft='8px'">
-        <div style="font-weight:600;margin-bottom:2px">${t.text.substring(0,40)}${t.text.length>40?'…':''}</div>
-        <div style="font-size:10px;color:rgba(255,255,255,0.7)">Due: ${t.due}</div>
-      </div>`;
-    });
-  } else {
-    html += `<div style="font-size:12px;color:rgba(255,255,255,0.7)">No upcoming tasks — you're on track!</div>`;
-  }
-
-  html += `</div>
-    </div>
-  </div>`;
-
-  document.getElementById("today-snapshot").innerHTML = html;
+    </div>`;
 }
 
 /* ═══ TEAM ROSTER ═══ */
@@ -1338,7 +1369,7 @@ function sendTeamMessage(toId) {
 }
 
 /* ═══ TABS ═══ */
-const TABS=[{id:"dashboard",label:"Dashboard",icon:I.target},{id:"timeline",label:"Timeline & Tasks",icon:I.cal},{id:"checkins",label:"Weekly Check-Ins",icon:I.clock},{id:"wikisubmit",label:"Wiki Submissions",icon:'📤'},{id:"resources",label:"Resources",icon:I.book}];
+const TABS=[{id:"dashboard",label:"Dashboard",icon:I.target},{id:"timeline",label:"Timeline & Tasks",icon:I.cal},{id:"checkins",label:"Weekly Check-Ins",icon:I.clock},{id:"wikisubmit",label:"Wiki Submissions",icon:'📤'},{id:"activity-log",label:"Activity Log",icon:'📋'},{id:"resources",label:"Resources",icon:I.book}];
 function switchTab(id){activeTab=id;renderTabs();renderPanel();}
 function renderTabs(){
   let tabIndex = 1;
@@ -1356,6 +1387,7 @@ function renderPanel(){
   else if(activeTab==="timeline")renderTimeline();
   else if(activeTab==="checkins")renderCheckins();
   else if(activeTab==="wikisubmit")renderWikiSubmit();
+  else if(activeTab==="activity-log")renderActivityLogPanel();
   else if(activeTab==="resources")renderResources();
 }
 
@@ -1377,8 +1409,8 @@ function renderDash(){
   }).join("");
 
   const rhythmItems=[
-    {text:"Update Google Drive stakeholder tracker with new interactions (opens Drive)",action:"window.open(driveUrl('HP_Lead_Stakeholder_Tracker.xlsx'),'_blank')"},
-    {text:"Log HP-driven project changes in Google Drive Change Log (opens Drive)",action:"window.open(driveUrl('HP_Lead_Stakeholder_Tracker.xlsx'),'_blank')"},
+    {text:"Update Google Drive stakeholder tracker with new interactions (opens Drive)",action:"window.open(driveUrl('UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx'),'_blank')"},
+    {text:"Log HP-driven project changes in Google Drive Change Log (opens Drive)",action:"window.open(driveUrl('UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx'),'_blank')"},
     {text:"Check off completed tasks in timeline",action:"switchTab('timeline')"},
     {text:"Monday check-in with Project Coordinator",action:"switchTab('checkins')"},
     {text:"Review upcoming deadlines for the week",action:"openCalendar()"},
@@ -2203,6 +2235,30 @@ function submitWikiApprovedContent(){
   renderWikiSubmit();
 }
 
+/* ═══ ACTIVITY LOG PANEL ═══ */
+function renderActivityLogPanel(){
+  document.getElementById("panel-activity-log").innerHTML = `
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h2 style="color:white;margin:0;font-size:20px;">Human Practices Activity Timeline</h2>
+        <div style="display:flex;gap:8px;">
+          <select id="activity-source-filter" onchange="renderActivityLog()" style="padding:5px 10px;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.9);font-size:11px;font-weight:600;">
+            <option value="all">All Sources</option>
+            <option value="hp">HP Lead</option>
+            <option value="coord">Coordinator</option>
+            <option value="lead">Project Lead</option>
+            <option value="wiki">Wiki Lead</option>
+          </select>
+          <button onclick="exportActivityLog()" style="padding:5px 12px;border-radius:4px;border:none;background:rgba(255,255,255,0.9);color:var(--scarlet-dark);font-size:11px;font-weight:600;cursor:pointer;">Export CSV</button>
+        </div>
+      </div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-bottom:14px;">Master record of all HP activity — feeds into wiki documentation.</div>
+      <div id="activity-log-container" style="position:relative;padding-left:28px;"></div>
+    </div>
+  `;
+  renderActivityLog();
+}
+
 /* ═══ RESOURCES ═══ */
 function renderResources(){
   // Separate resources by category
@@ -2829,6 +2885,48 @@ window.addEventListener('storage', function(e) {
 
 // Poll for notifications (same-tab fallback)
 setInterval(renderNotifWidget, 5000);
+
+/* ═══ ACTIVITY LOG RENDERING ═══ */
+function renderActivityLog() {
+    const log = getActivityLog();
+    const sourceFilter = document.getElementById('activity-source-filter').value;
+    let filtered = sourceFilter === 'all' ? log : log.filter(e => e.source === sourceFilter);
+    const container = document.getElementById('activity-log-container');
+    if (filtered.length === 0) {
+        container.innerHTML = '<div style="text-align:center;padding:40px;color:rgba(255,255,255,0.4);"><div style="font-size:40px;margin-bottom:8px;">📋</div><div>No activity recorded yet</div></div>';
+        return;
+    }
+    const groups = {};
+    filtered.forEach(entry => {
+        const d = new Date(entry.timestamp);
+        const key = d.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(entry);
+    });
+    const typeIcons = {approve:'✅',submit:'📤',notes:'📝',file:'📎',checkin:'🗓️',checkin_complete:'✅',urgent:'🚨',return:'↩️',feedback:'💬',progress:'▶️',signoff:'🔏',message:'💬',submit_wiki:'📤',upload_wiki:'✅'};
+    let html = '<div class="activity-timeline-line"></div>';
+    Object.entries(groups).forEach(([date, entries]) => {
+        html += '<div class="activity-date-group">' + date + '</div>';
+        entries.forEach(entry => {
+            const time = new Date(entry.timestamp).toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'});
+            const icon = typeIcons[entry.type] || '📌';
+            html += '<div class="activity-entry"><div class="activity-dot ' + entry.source + '"></div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><span class="activity-source-tag ' + entry.source + '">' + (entry.sourceName || entry.source) + '</span><span style="font-size:11px;color:var(--slate);">' + time + '</span></div><div style="font-weight:600;font-size:13px;color:var(--scarlet-dark);">' + icon + ' ' + entry.title + '</div>' + (entry.detail ? '<div style="font-size:11px;color:var(--slate);margin-top:4px;max-height:40px;overflow:hidden;">' + entry.detail + '</div>' : '') + '</div>';
+        });
+    });
+    container.innerHTML = html;
+}
+
+function exportActivityLog() {
+    const log = getActivityLog();
+    if (!log.length) { alert('No activity to export.'); return; }
+    const esc = s => '"' + (s||'').replace(/"/g,'""').replace(/\n/g,' ') + '"';
+    const csv = 'Timestamp,Source,Type,Title,Detail\n' +
+        log.map(e => e.timestamp + ',' + e.source + ',' + e.type + ',' + esc(e.title) + ',' + esc(e.detail)).join('\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv'}));
+    a.download = 'iGEM_HP_Activity_Log_' + new Date().toISOString().split('T')[0] + '.csv';
+    a.click();
+}
 
 /* ═══ RULER TICKS ═══ */
 function initRuler() {

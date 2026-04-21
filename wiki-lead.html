@@ -72,7 +72,7 @@ body {
 /* ─── Header ─── */
 .header-wrap{position:sticky;top:0;z-index:10;background:rgba(255,255,255,0.98);backdrop-filter:blur(16px);box-shadow:0 6px 18px rgba(0,0,0,0.18)}
 .header-left-group{display:flex;align-items:center;gap:18px}
-.header-logo{height:112px;width:112px;object-fit:cover;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+.header-logo{height:112px;width:112px;object-fit:contain;border-radius:50%;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2)) drop-shadow(0 1px 2px rgba(0,0,0,0.3))}
 .header-mark-sep{width:1px;height:80px;background:rgba(200,16,46,0.25)}
 .header-kicker{font-family:var(--font-mono);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--slate-light);margin-bottom:3px}
 .header-main {
@@ -372,20 +372,21 @@ body {
 
 /* ─── Check-in detail panel ─── */
 .checkin-detail {
-  margin-top: 20px; border-radius: 4px; border: 2px solid var(--scarlet);
-  overflow: hidden; animation: slideDown 0.25s ease-out;
+  margin-top: 20px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.08);
+  overflow: hidden; animation: slideDown 0.25s ease-out; box-shadow: 0 4px 16px rgba(0,0,0,0.08);
 }
 @keyframes slideDown { from { opacity: 0; max-height: 0; } to { opacity: 1; max-height: 2000px; } }
 .checkin-detail-header {
-  background: var(--scarlet); color: var(--white); padding: 14px 20px;
+  background: var(--white); color: var(--scarlet-dark); padding: 14px 20px;
   display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
 }
-.checkin-detail-header h4 { font-size: 16px; font-weight: 700; }
+.checkin-detail-header h4 { font-size: 16px; font-weight: 700; color: var(--scarlet-dark); }
 .checkin-close {
-  background: none; border: none; color: var(--white); font-size: 20px;
-  cursor: pointer; opacity: 0.7; transition: opacity 0.15s;
+  background: none; border: none; color: var(--slate); font-size: 20px;
+  cursor: pointer; transition: color 0.2s;
 }
-.checkin-close:hover { opacity: 1; }
+.checkin-close:hover { color: var(--scarlet); }
 .checkin-detail-body { padding: 20px; }
 .checkin-agenda-item {
   display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0f0f0;
@@ -415,20 +416,19 @@ body {
   max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
 .task-detail-top {
-  background: linear-gradient(135deg, var(--scarlet), var(--scarlet-dark));
-  color: var(--white); padding: 24px; border-radius: 4px 4px 0 0;
-  position: relative;
+  background: var(--white); padding: 20px 24px; border-radius: 4px 4px 0 0;
+  position: relative; border-bottom: 1px solid rgba(0,0,0,0.08);
 }
-.task-detail-top h2 { font-size: 20px; font-weight: 800; padding-right: 40px; }
+.task-detail-top h2 { font-size: 18px; font-weight: 800; padding-right: 40px; color: var(--scarlet-dark); }
 .task-detail-top .due-badge {
-  display: inline-block; background: rgba(255,255,255,0.2); border-radius: 4px;
-  padding: 4px 10px; font-size: 12px; margin-top: 8px;
+  display: inline-block; background: var(--scarlet-faint); border-radius: 4px;
+  padding: 4px 10px; font-size: 12px; margin-top: 8px; color: var(--scarlet);
 }
 .task-detail-close {
-  position: absolute; top: 20px; right: 20px; background: none; border: none;
-  color: var(--white); font-size: 24px; cursor: pointer; opacity: 0.7;
+  position: absolute; top: 16px; right: 16px; background: none; border: none;
+  color: var(--slate); font-size: 24px; cursor: pointer; transition: color 0.2s;
 }
-.task-detail-close:hover { opacity: 1; }
+.task-detail-close:hover { color: var(--scarlet); }
 .task-detail-body { padding: 24px; }
 .task-section { margin-bottom: 20px; }
 .task-section h3 {
@@ -668,10 +668,10 @@ body {
 .msg-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 10001; display: none; align-items: center; justify-content: center; padding: 24px; animation: fadeIn 0.2s; }
 .msg-modal-overlay.open { display: flex; }
 .msg-modal { background: white; border-radius: 4px; width: 100%; max-width: 480px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; }
-.msg-modal-header { background: linear-gradient(135deg, var(--scarlet), var(--scarlet-dark)); color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; }
-.msg-modal-header h3 { font-size: 16px; font-weight: 700; margin: 0; }
-.msg-modal-close { background: none; border: none; color: white; font-size: 22px; cursor: pointer; opacity: 0.7; }
-.msg-modal-close:hover { opacity: 1; }
+.msg-modal-header { background: var(--white); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.08); }
+.msg-modal-header h3 { font-size: 16px; font-weight: 700; margin: 0; color: var(--scarlet-dark); }
+.msg-modal-close { background: none; border: none; color: var(--slate); font-size: 22px; cursor: pointer; transition: color 0.2s; }
+.msg-modal-close:hover { color: var(--scarlet); }
 .msg-modal-body { padding: 20px; }
 .msg-textarea { width: 100%; min-height: 100px; border: 2px solid #e0e0e0; border-radius: 4px; padding: 12px; font-family: inherit; font-size: 14px; resize: vertical; transition: border-color 0.15s; }
 .msg-textarea:focus { outline: none; border-color: var(--scarlet); }
@@ -687,6 +687,42 @@ body {
 .dna-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 0%,transparent 55%,rgba(0,0,0,0.28) 100%)}
 .dna-helix-svg{position:absolute;right:24px;top:40px;opacity:0.62;filter:drop-shadow(0 2px 10px rgba(0,0,0,0.25))}
 .reg-mark{position:absolute;opacity:0.35}
+
+/* Activity Log */
+.activity-timeline-line {
+    position: absolute; left: 12px; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(180deg, var(--scarlet) 0%, var(--gold) 50%, var(--emerald) 100%);
+}
+.activity-entry {
+    position: relative; margin-bottom: 12px; padding: 12px 14px;
+    background: rgba(255,255,255,0.95); border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.06); transition: all 0.2s;
+}
+.activity-entry:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateX(3px); }
+.activity-dot {
+    position: absolute; left: -24px; top: 16px; width: 12px; height: 12px;
+    border-radius: 50%; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.activity-dot.hp { background: var(--scarlet); }
+.activity-dot.coord { background: var(--gold); }
+.activity-dot.wiki { background: var(--indigo); }
+.activity-dot.wetlab { background: var(--emerald); }
+.activity-dot.modeling { background: var(--amber); }
+.activity-dot.lead { background: var(--scarlet-dark); }
+.activity-source-tag {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; padding: 2px 7px; border-radius: 4px;
+}
+.activity-source-tag.hp { background: rgba(200,16,46,0.12); color: var(--scarlet); }
+.activity-source-tag.coord { background: rgba(246,190,0,0.15); color: #b8940e; }
+.activity-source-tag.wiki { background: rgba(99,102,241,0.12); color: var(--indigo); }
+.activity-source-tag.lead { background: rgba(155,12,35,0.12); color: var(--scarlet-dark); }
+.activity-date-group {
+    font-size: 12px; font-weight: 700; color: white;
+    margin: 20px 0 10px -28px; padding: 4px 14px;
+    background: rgba(255,255,255,0.15); border-radius: 4px;
+    display: inline-block; text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
 </style>
 </head>
 <body>
@@ -750,7 +786,7 @@ body {
     </div>
     <div class="header-main">
       <div class="header-left-group">
-        <img src="assets/uh-igem-logo.png" class="header-logo" alt="UH iGEM">
+        <img src="assets/uh-igem-logo.png?v=2" class="header-logo" alt="UH iGEM">
         <div class="header-mark-sep"></div>
         <div>
           <div class="header-kicker">UH iGEM 2026 · Longevity Track</div>
@@ -795,6 +831,7 @@ body {
       <div id="panel-timeline" class="tab-panel"></div>
       <div id="panel-checkins" class="tab-panel"></div>
       <div id="panel-wikisubmit" class="tab-panel"></div>
+      <div id="panel-activity-log" class="tab-panel"></div>
       <div id="panel-resources" class="tab-panel"></div>
     </div>
   </div>
@@ -996,18 +1033,18 @@ const CHECKIN_AGENDA = [
 
 const DRIVE_BASE = "https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7";
 const FILE_DRIVE_URLS = {
-  "Wiki_Requirements.docx": "https://drive.google.com/file/d/1Wiki_Requirements_Link/view",
-  "Wiki_Lead_Strategy_Guide.docx": "docs/UH%20iGEM%202026%20Wiki%20Strategy%20Guide.html",
-  "Previous_Award_Winners.docx": "https://drive.google.com/file/d/1Previous_Winners_Link/view",
-  "iGEM_2026_Competition_Strategy.docx": "https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",
+  "UH iGEM 2026 Wiki Requirements.docx": "https://drive.google.com/file/d/1Wiki_Requirements_Link/view",
+  "UH iGEM 2026 Wiki and Documentation Strategy Guide.docx": "docs/UH%20iGEM%202026%20Wiki%20Strategy%20Guide.html",
+  "UH iGEM 2026 Previous Award Winners Reference.docx": "https://drive.google.com/file/d/1Previous_Winners_Link/view",
+  "UH iGEM 2026 Team Strategy Playbook.docx": "https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",
 };
 function driveUrl(file){return FILE_DRIVE_URLS[file]||DRIVE_BASE;}
 
 const RESOURCES = [
-  {name:"UH iGEM 2026 Team Wiki and Documentation Strategy Guide",desc:"Your playbook for a winning wiki — structure, style guide, content standards, deadlines",file:"Wiki_Lead_Strategy_Guide.docx",url:"docs/UH%20iGEM%202026%20Wiki%20Strategy%20Guide.html",category:"wiki-lead"},
-  {name:"Design System reference",desc:"Color palettes, typography, component patterns, accessibility standards",file:"Design_System_Reference.docx",url:"https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7",category:"wiki-lead"},
-  {name:"Content Standards",desc:"Writing style, tone, terminology guide, formatting conventions for consistency",file:"Content_Standards.docx",url:"https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7",category:"wiki-lead"},
-  {name:"UH iGEM 2026 Competition Strategy Playbook",desc:"Team-wide strategy with wiki alignment — village, prizes, project narrative, judging focus",file:"UH_iGEM_2026_Competition_Strategy_Playbook.docx",url:"https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",category:"all"},
+  {name:"UH iGEM 2026 Team Wiki and Documentation Strategy Guide",desc:"Your playbook for a winning wiki — structure, style guide, content standards, deadlines",file:"UH iGEM 2026 Wiki and Documentation Strategy Guide.docx",url:"docs/UH%20iGEM%202026%20Wiki%20Strategy%20Guide.html",category:"wiki-lead"},
+  {name:"Design System reference",desc:"Color palettes, typography, component patterns, accessibility standards",file:"UH iGEM 2026 Design System Reference.docx",url:"https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7",category:"wiki-lead"},
+  {name:"Content Standards",desc:"Writing style, tone, terminology guide, formatting conventions for consistency",file:"UH iGEM 2026 Content Standards.docx",url:"https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7",category:"wiki-lead"},
+  {name:"UH iGEM 2026 Competition Strategy Playbook",desc:"Team-wide strategy with wiki alignment — village, prizes, project narrative, judging focus",file:"UH iGEM 2026 Team Strategy Playbook.docx",url:"https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",category:"all"},
   {name:"iGEM Judging Rubrics",desc:"Detailed medal criteria and special achievement award scoring guidelines",file:"iGEM_Judging_Rubrics.pdf",url:"https://competition.igem.org/judging/medals",category:"all"},
   {name:"Jamboree Logistics",desc:"Wiki freeze dates, submission procedures, judging schedule, Paris venue information",file:"Jamboree_Logistics.pdf",url:"https://competition.igem.org/jamboree/info",category:"all"},
   {name:"Shared Team Drive",desc:"Central repository for all subteam files, designs, data, and documents",file:"Team_Drive_Access",url:"https://drive.google.com/drive/u/0/folders/1-team-drive-folder-id",category:"all"},
@@ -1278,7 +1315,7 @@ function renderCountdowns() {
 }
 
 /* ═══ TABS ═══ */
-const TABS=[{id:"dashboard",label:"Dashboard",icon:I.target,num:"01"},{id:"timeline",label:"Timeline & Tasks",icon:I.cal,num:"02"},{id:"checkins",label:"Weekly Check-Ins",icon:I.clock,num:"03"},{id:"wikisubmit",label:"Wiki Submissions",icon:"📤",num:"04"},{id:"resources",label:"Resources",icon:I.book,num:"05"}];
+const TABS=[{id:"dashboard",label:"Dashboard",icon:I.target,num:"01"},{id:"timeline",label:"Timeline & Tasks",icon:I.cal,num:"02"},{id:"checkins",label:"Weekly Check-Ins",icon:I.clock,num:"03"},{id:"wikisubmit",label:"Wiki Submissions",icon:"📤",num:"04"},{id:"activity-log",label:"Activity Log",icon:"📋",num:"05"},{id:"resources",label:"Resources",icon:I.book,num:"06"}];
 function switchTab(id){activeTab=id;renderTabs();renderPanel();}
 function renderTabs(){
   document.getElementById("tabBar").innerHTML=TABS.map(t=>
@@ -1292,6 +1329,7 @@ function renderPanel(){
   else if(activeTab==="timeline")renderTimeline();
   else if(activeTab==="checkins")renderCheckins();
   else if(activeTab==="wikisubmit")renderWikiSubmit();
+  else if(activeTab==="activity-log")renderActivityLog();
   else if(activeTab==="resources")renderResources();
 }
 
@@ -1314,7 +1352,7 @@ function renderDash(){
   }).join("");
 
   const rhythmItems=[
-    {text:"Review wiki skeleton structure (opens Strategy Guide)",action:"window.open(driveUrl('Wiki_Lead_Strategy_Guide.docx'),'_blank')"},
+    {text:"Review wiki skeleton structure (opens Strategy Guide)",action:"window.open(driveUrl('UH iGEM 2026 Wiki and Documentation Strategy Guide.docx'),'_blank')"},
     {text:"Check for content updates from subteam leads",action:"switchTab('timeline')"},
     {text:"Update design/styling checklist",action:"switchTab('timeline')"},
     {text:"Sync with HP Lead on integration",action:"switchTab('checkins')"},
@@ -2374,6 +2412,85 @@ toggleUrgent = function(id) {
     logActivity('urgent_clear', `Cleared urgent flag: ${taskName}`, '', {taskId:id});
   }
 };
+
+/* ═══ ACTIVITY LOG RENDERING ═══ */
+function renderActivityLog() {
+  const log = getActivityLog();
+
+  document.getElementById("panel-activity-log").innerHTML=`
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h2 style="color:white;margin:0;font-size:20px;">Wiki Activity Timeline</h2>
+        <div style="display:flex;gap:8px;">
+          <select id="activity-source-filter" onchange="renderActivityLogContent()" style="padding:5px 10px;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.9);font-size:11px;font-weight:600;">
+            <option value="all">All Sources</option>
+            <option value="wiki">Wiki Lead</option>
+            <option value="hp">HP Lead</option>
+            <option value="coord">Coordinator</option>
+            <option value="lead">Project Lead</option>
+          </select>
+          <button onclick="exportActivityLog()" style="padding:5px 12px;border-radius:4px;border:none;background:rgba(255,255,255,0.9);color:var(--scarlet-dark);font-size:11px;font-weight:600;cursor:pointer;">Export CSV</button>
+        </div>
+      </div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-bottom:14px;">Master record of all wiki activity — feeds into wiki documentation.</div>
+      <div id="activity-log-container" style="position:relative;padding-left:28px;"></div>
+    </div>`;
+
+  renderActivityLogContent();
+}
+
+function renderActivityLogContent() {
+  const log = getActivityLog();
+  const sourceFilter = document.getElementById('activity-source-filter').value;
+  let filtered = sourceFilter === 'all' ? log : log.filter(e => e.source === sourceFilter);
+
+  const container = document.getElementById('activity-log-container');
+  if (filtered.length === 0) {
+    container.innerHTML = `<div style="text-align:center;padding:40px;color:rgba(255,255,255,0.4);"><div style="font-size:40px;margin-bottom:8px;">📋</div><div>No activity recorded yet</div></div>`;
+    return;
+  }
+
+  const groups = {};
+  filtered.forEach(entry => {
+    const d = new Date(entry.timestamp);
+    const key = d.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(entry);
+  });
+
+  const typeIcons = {approve:'✅',submit:'📤',notes:'📝',file:'📎',checkin:'🗓️',checkin_complete:'✅',urgent:'🚨',return:'↩️',feedback:'💬',progress:'▶️',signoff:'🔏'};
+
+  let html = '<div class="activity-timeline-line"></div>';
+  Object.entries(groups).forEach(([date, entries]) => {
+    html += `<div class="activity-date-group">${date}</div>`;
+    entries.forEach(entry => {
+      const time = new Date(entry.timestamp).toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'});
+      const icon = typeIcons[entry.type] || '📌';
+      html += `<div class="activity-entry">
+        <div class="activity-dot ${entry.source}"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <span class="activity-source-tag ${entry.source}">${entry.sourceName || entry.source}</span>
+          <span style="font-size:11px;color:var(--slate);">${time}</span>
+        </div>
+        <div style="font-weight:600;font-size:13px;color:var(--scarlet-dark);">${icon} ${entry.title}</div>
+        ${entry.detail ? `<div style="font-size:11px;color:var(--slate);margin-top:4px;max-height:40px;overflow:hidden;">${entry.detail}</div>` : ''}
+      </div>`;
+    });
+  });
+  container.innerHTML = html;
+}
+
+function exportActivityLog() {
+  const log = getActivityLog();
+  if (!log.length) { alert('No activity to export.'); return; }
+  const esc = s => '"' + (s||'').replace(/"/g,'""').replace(/\n/g,' ') + '"';
+  const csv = 'Timestamp,Source,Type,Title,Detail\n' +
+    log.map(e => `${e.timestamp},${e.source},${e.type},${esc(e.title)},${esc(e.detail)}`).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv'}));
+  a.download = `iGEM_Wiki_Activity_Log_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+}
 
 /* ═══ WIKI SUBMISSIONS MANAGEMENT ═══ */
 function getWikiSubmissions() {

@@ -31,10 +31,15 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "HP Lead: show notification bar when empty + match wiki lead
+    git commit -m "Design system parity: convert all overlays to white-glass, cache-bust logo
 
-- Show 'No notifications yet' placeholder instead of hiding widget
-- Ensures all lead dashboards have consistent notification bar visibility
+- All task detail, calendar, progress overlays converted from scarlet gradient to white card design
+- Check-in detail panels converted to white card with subtle border
+- Message modals across all dashboards converted to white header design
+- Coordinator check-in header converted with proper text colors
+- Logo cache-busting (?v=2) added across all 5 HTML files
+- Hub logo centering fix (consolidated hero-crest CSS)
+- All overlay close buttons now use slate/scarlet hover pattern (matching Project Lead)
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
