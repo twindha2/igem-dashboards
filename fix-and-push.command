@@ -31,13 +31,14 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "CRISPR strands: more per wave, always move away from logo, hub full travel
+    git commit -m "Dashboard restructuring: homepage content, resource consolidation, Strategy Guide rename
 
-- Increased wave size from 3-4 to 5-7 strands per burst
-- Strands never turn back toward the logo, always move outward
-- Hub page: strands travel the full card window, dissolve at edges
-- Hub MAX_SEGMENTS increased to 22 for longer travel distance
-- All dashboards and hub page
+- HP Lead and Wiki Lead: removed Dashboard tab, moved content to always-visible homepage section
+- HP Lead: consolidated Stakeholder Tracker + Design Change Log into UH iGEM 2026 Stakeholder Map
+- All dashboards: Competition Strategy Playbook replaced with UH iGEM 2026 Team Strategy Guide
+- Coordinator: removed duplicate resource link, kept Team Strategy Guide
+- Wiki Lead: fixed duplicate name in resource listing
+- CRISPR animation: more strands per wave, outward-only movement, hub full travel
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."

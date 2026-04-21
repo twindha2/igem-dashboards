@@ -857,13 +857,14 @@ body {
 
   <div id="today-snapshot"></div>
 
-  <div class="tab-container">
+  <div id="homepage-content"></div>
+
+<div class="tab-container">
     <div class="tab-bar-wrap">
       <div class="tab-bar" id="tabBar"></div>
     </div>
     <div class="content-wrap">
-      <div id="panel-dashboard" class="tab-panel"></div>
-      <div id="panel-timeline" class="tab-panel"></div>
+        <div id="panel-timeline" class="tab-panel"></div>
       <div id="panel-checkins" class="tab-panel"></div>
       <div id="panel-wikisubmit" class="tab-panel"></div>
       <div id="panel-activity-log" class="tab-panel"></div>
@@ -1071,7 +1072,7 @@ const FILE_DRIVE_URLS = {
   "UH iGEM 2026 Wiki Requirements.docx": "https://drive.google.com/file/d/1Wiki_Requirements_Link/view",
   "UH iGEM 2026 Wiki and Documentation Strategy Guide.docx": "docs/UH%20iGEM%202026%20Wiki%20Strategy%20Guide.html",
   "UH iGEM 2026 Previous Award Winners Reference.docx": "https://drive.google.com/file/d/1Previous_Winners_Link/view",
-  "UH iGEM 2026 Team Strategy Playbook.docx": "https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",
+  "UH iGEM 2026 Team Strategy Guide.docx": "https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",
 };
 function driveUrl(file){return FILE_DRIVE_URLS[file]||DRIVE_BASE;}
 
@@ -1079,7 +1080,7 @@ const RESOURCES = [
   {name:"UH iGEM 2026 Team Wiki and Documentation Strategy Guide",desc:"Your playbook for a winning wiki — structure, style guide, content standards, deadlines",file:"UH iGEM 2026 Wiki and Documentation Strategy Guide.docx",url:"docs/UH%20iGEM%202026%20Wiki%20Strategy%20Guide.html",category:"wiki-lead"},
   {name:"Design System reference",desc:"Color palettes, typography, component patterns, accessibility standards",file:"UH iGEM 2026 Design System Reference.docx",url:"https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7",category:"wiki-lead"},
   {name:"Content Standards",desc:"Writing style, tone, terminology guide, formatting conventions for consistency",file:"UH iGEM 2026 Content Standards.docx",url:"https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7",category:"wiki-lead"},
-  {name:"UH iGEM 2026 Competition Strategy Playbook",desc:"Team-wide strategy with wiki alignment — village, prizes, project narrative, judging focus",file:"UH iGEM 2026 Team Strategy Playbook.docx",url:"https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",category:"all"},
+  {name:"UH iGEM 2026 Team Strategy Guide",desc:"Team-wide strategy and competition alignment — village, prizes, project narrative, judging focus",file:"UH iGEM 2026 Team Strategy Guide.docx",url:"https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",category:"all"},
   {name:"iGEM Judging Rubrics",desc:"Detailed medal criteria and special achievement award scoring guidelines",file:"iGEM_Judging_Rubrics.pdf",url:"https://competition.igem.org/judging/medals",category:"all"},
   {name:"Jamboree Logistics",desc:"Wiki freeze dates, submission procedures, judging schedule, Paris venue information",file:"Jamboree_Logistics.pdf",url:"https://competition.igem.org/jamboree/info",category:"all"},
   {name:"Shared Team Drive",desc:"Central repository for all subteam files, designs, data, and documents",file:"Team_Drive_Access",url:"https://drive.google.com/drive/u/0/folders/1-team-drive-folder-id",category:"all"},
@@ -1379,8 +1380,8 @@ function renderCountdowns() {
 }
 
 /* ═══ TABS ═══ */
-const TABS=[{id:"dashboard",label:"Dashboard",icon:I.target,num:"01"},{id:"timeline",label:"Timeline & Tasks",icon:I.cal,num:"02"},{id:"checkins",label:"Weekly Check-Ins",icon:I.clock,num:"03"},{id:"wikisubmit",label:"Wiki Submissions",icon:"📤",num:"04"},{id:"activity-log",label:"Activity Log",icon:"📋",num:"05"},{id:"resources",label:"Resources",icon:I.book,num:"06"}];
-function switchTab(id){activeTab=id;renderTabs();renderPanel();}
+const TABS=[{id:"timeline",label:"Timeline & Tasks",icon:I.cal,num:"01"},{id:"checkins",label:"Weekly Check-Ins",icon:I.clock,num:"02"},{id:"wikisubmit",label:"Wiki Submissions",icon:"📤",num:"03"},{id:"activity-log",label:"Activity Log",icon:"📋",num:"04"},{id:"resources",label:"Resources",icon:I.book,num:"05"}];
+function switchTab(id){activeTab=id;renderDash();renderTabs();renderPanel();renderDash();}
 function renderTabs(){
   document.getElementById("tabBar").innerHTML=TABS.map(t=>
     `<button class="tab-btn ${activeTab===t.id?'active':''}" onclick="switchTab('${t.id}')"><span class="tab-num">${t.num}</span>${t.label}</button>`
@@ -1389,8 +1390,7 @@ function renderTabs(){
   document.getElementById("panel-"+activeTab).classList.add("active");
 }
 function renderPanel(){
-  if(activeTab==="dashboard")renderDash();
-  else if(activeTab==="timeline")renderTimeline();
+  if(activeTab==="timeline")renderTimeline();
   else if(activeTab==="checkins")renderCheckins();
   else if(activeTab==="wikisubmit")renderWikiSubmit();
   else if(activeTab==="activity-log")renderActivityLog();
@@ -1431,7 +1431,7 @@ function renderDash(){
     </div>`;
   }).join("");
 
-  document.getElementById("panel-dashboard").innerHTML=`
+  document.getElementById("homepage-content").innerHTML=`
     <div class="phase-viewer">
       <div class="phase-viewer-header">
         <button class="phase-nav-btn" onclick="navPhase(-1)" ${ci<=0?'disabled':''}>${I.arrowL}</button>

@@ -917,11 +917,13 @@ body {
 <!-- ═══ TODAY'S SNAPSHOT ═══ -->
 <div id="today-snapshot"></div>
 
+<!-- ═══ HOMEPAGE CONTENT ═══ -->
+<div id="homepage-content"></div>
+
 <!-- ═══ MAIN CONTENT ═══ -->
 <div class="tab-container">
   <div class="tab-bar-wrap"><div class="tab-bar" id="tabBar"></div></div>
   <div class="content-wrap">
-    <div id="panel-dashboard" class="tab-panel active"></div>
     <div id="panel-timeline" class="tab-panel"></div>
     <div id="panel-checkins" class="tab-panel"></div>
     <div id="panel-wikisubmit" class="tab-panel"></div>
@@ -960,8 +962,8 @@ const PHASES = [
    tasks:[
 {id:"p1t6",text:"First weekly check-in with Project Coordinator",due:"Apr 21",
      guide:"Meet with the Project Coordinator for your first weekly check-in. Discuss initial stakeholder targets, set expectations for weekly updates, and confirm your understanding of Gold medal requirements.",
-     resources:["HP Strategy Guide","UH iGEM 2026 Competition Strategy Playbook"],
-     docs:["UH iGEM 2026 Human Practices Strategy Guide.docx","UH iGEM 2026 Team Strategy Playbook.docx"]},
+     resources:["HP Strategy Guide","UH iGEM 2026 Team Strategy Guide"],
+     docs:["UH iGEM 2026 Human Practices Strategy Guide.docx","UH iGEM 2026 Team Strategy Guide.docx"]},
 {id:"p1t5",text:"Set up stakeholder tracker spreadsheet and begin logging",due:"May 1",
      guide:"Open the stakeholder tracker template on Google Drive. Familiarize yourself with all 4 tabs: Stakeholder Tracker, Change Log, Weekly Check-Ins, Quick Reference. All stakeholder names, contact details, and interaction logs go in the Google Drive tracker — this dashboard is for status updates only.",
      resources:["Stakeholder Tracker Spreadsheet (4 tabs)"],
@@ -1037,7 +1039,7 @@ const PHASES = [
      resources:["Completed wiki draft"],docs:[null]},
     {id:"p4t3",text:"Submit to Austin for final sign-off",due:"Oct 15",
      guide:"Austin Routt (Project Lead) gives final approval on all wiki content. Address any feedback promptly.",
-     resources:["Completed wiki draft","UH iGEM 2026 Competition Strategy Playbook"],docs:[null,"UH iGEM 2026 Team Strategy Playbook.docx"]},
+     resources:["Completed wiki draft","UH iGEM 2026 Team Strategy Guide"],docs:[null,"UH iGEM 2026 Team Strategy Guide.docx"]},
     {id:"p4t4",text:"Coordinate with Wiki Lead for final integration",due:"Oct 18",
      guide:"Work with the Wiki Lead to integrate your HP content into the full team wiki. Ensure formatting consistency, all links work, and images display correctly.",
      resources:["Wiki Lead","Full wiki structure"],docs:[null,null]},
@@ -1052,7 +1054,7 @@ const PHASES = [
      resources:["Wiki HP page"],docs:[null]},
 {id:"p5t1",text:"Prepare HP presentation materials (slides, talking points)",due:"Nov 1",
      guide:"Create presentation slides that tell the HP story clearly. Focus on: the problem, who you talked to, what changed, and the evidence. Practice the narrative flow.",
-     resources:["UH iGEM 2026 Competition Strategy Playbook","HP wiki page"],docs:["UH iGEM 2026 Team Strategy Playbook.docx",null]},
+     resources:["UH iGEM 2026 Team Strategy Guide","HP wiki page"],docs:["UH iGEM 2026 Team Strategy Guide.docx",null]},
 {id:"p5t2",text:"Practice presenting integrated HP clearly (under 3 minutes)",due:"Nov 5",
      guide:"Rehearse your HP segment of the presentation. Judges have limited time — you need to convey the feedback loop clearly in under 3 minutes. Practice with the team.",
      resources:["Presentation slides"],docs:[null]},
@@ -1086,11 +1088,10 @@ function driveUrl(file){return FILE_DRIVE_URLS[file]||DRIVE_BASE;}
 
 const RESOURCES = [
   {name:"HP Strategy Guide",desc:"Your playbook for Gold medal HP",file:"UH iGEM 2026 Human Practices Strategy Guide.docx",url:"docs/UH%20iGEM%202026%20Human%20Practices%20Strategy%20Guide.html",category:"hp-lead"},
-  {name:"Stakeholder Tracker",desc:"Log all interactions, changes, follow-ups",file:"UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx",url:"https://drive.google.com/file/d/1NlEo89NGJ0RPsEPsakvTSIUhbtQe41nr/view",category:"hp-lead"},
+  {name:"UH iGEM 2026 Stakeholder Map",desc:"Stakeholder map, tracker, and design change log",file:"UH iGEM 2026 Stakeholder Map.xlsx",url:"https://drive.google.com/file/d/1NlEo89NGJ0RPsEPsakvTSIUhbtQe41nr/view",category:"hp-lead"},
   {name:"Consent Form Template",desc:"Send before every interview",file:"UH iGEM 2026 Human Practices Consent Form.docx",url:"https://drive.google.com/file/d/1aaaTTj7on4jWf3ShK0ib3TxlpijXTIpy/view",category:"hp-lead"},
   {name:"Interview Protocol",desc:"Question framework for stakeholder interviews",file:"UH iGEM 2026 Human Practices Interview Protocol.docx",url:"https://drive.google.com/file/d/12tQbqMDoykExPL5RY-n3GMhUnU5f2W9b/view",category:"hp-lead"},
-  {name:"Design Change Log Template",desc:"Track all HP-driven changes to project",file:"HP_Design_Change_Log.xlsx",url:"https://drive.google.com/file/d/1NlEo89NGJ0RPsEPsakvTSIUhbtQe41nr/view",category:"hp-lead"},
-  {name:"UH iGEM 2026 Competition Strategy Playbook",desc:"Team-wide strategy with HP alignment",file:"UH iGEM 2026 Team Strategy Playbook.docx",url:"https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",category:"all"},
+  {name:"UH iGEM 2026 Team Strategy Guide",desc:"Team-wide strategy and competition alignment",file:"UH iGEM 2026 Team Strategy Guide.docx",url:"https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",category:"all"},
   {name:"iGEM Competition Portal",desc:"Official judging criteria and submission portal",file:null,url:"https://competition.igem.org/",category:"all"},
   {name:"iGEM HP Resources",desc:"Official HP guidelines and award information",file:null,url:"https://competition.igem.org/judging/human-practices",category:"all"},
   {name:"iGEM Judging Rubrics",desc:"Detailed Gold, Silver, Bronze medal criteria",file:null,url:"https://competition.igem.org/judging/medals",category:"all"},
@@ -1152,7 +1153,7 @@ function getNextDueTask(){
 }
 function totalStats(){let t=0,d=0;PHASES.forEach(p=>p.tasks.forEach(tk=>{t++;if(S.tasks[tk.id]||S.taskStatus[tk.id]==='complete'||S.taskStatus[tk.id]==='coordinator_approved')d++;}));return{total:t,done:d,pct:t?Math.round(d/t*100):0};}
 function phaseStats(pi){const p=PHASES[pi];let d=0;p.tasks.forEach(t=>{if(S.tasks[t.id]||S.taskStatus[t.id]==='complete'||S.taskStatus[t.id]==='coordinator_approved')d++;});return{done:d,total:p.tasks.length,pct:p.tasks.length?Math.round(d/p.tasks.length*100):0};}
-let activeTab="dashboard";
+let activeTab="dashboard";  // homepage renders separately
 
 /* ═══ QUOTES ═══ */
 let qI=0;
@@ -1438,8 +1439,8 @@ function sendTeamMessage(toId) {
 }
 
 /* ═══ TABS ═══ */
-const TABS=[{id:"dashboard",label:"Dashboard",icon:I.target},{id:"timeline",label:"Timeline & Tasks",icon:I.cal},{id:"checkins",label:"Weekly Check-Ins",icon:I.clock},{id:"wikisubmit",label:"Wiki Submissions",icon:'📤'},{id:"activity-log",label:"Activity Log",icon:'📋'},{id:"resources",label:"Resources",icon:I.book}];
-function switchTab(id){activeTab=id;renderTabs();renderPanel();}
+const TABS=[{id:"timeline",label:"Timeline & Tasks",icon:I.cal},{id:"checkins",label:"Weekly Check-Ins",icon:I.clock},{id:"wikisubmit",label:"Wiki Submissions",icon:'📤'},{id:"activity-log",label:"Activity Log",icon:'📋'},{id:"resources",label:"Resources",icon:I.book}];
+function switchTab(id){activeTab=id;renderDash();renderTabs();renderPanel();renderDash();}
 function renderTabs(){
   let tabIndex = 1;
   document.getElementById("tabBar").innerHTML=TABS.map(t=>{
@@ -1452,8 +1453,7 @@ function renderTabs(){
   document.getElementById("panel-"+activeTab).classList.add("active");
 }
 function renderPanel(){
-  if(activeTab==="dashboard")renderDash();
-  else if(activeTab==="timeline")renderTimeline();
+  if(activeTab==="timeline")renderTimeline();
   else if(activeTab==="checkins")renderCheckins();
   else if(activeTab==="wikisubmit")renderWikiSubmit();
   else if(activeTab==="activity-log")renderActivityLogPanel();
@@ -1478,8 +1478,8 @@ function renderDash(){
   }).join("");
 
   const rhythmItems=[
-    {text:"Update Google Drive stakeholder tracker with new interactions (opens Drive)",action:"window.open(driveUrl('UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx'),'_blank')"},
-    {text:"Log HP-driven project changes in Google Drive Change Log (opens Drive)",action:"window.open(driveUrl('UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx'),'_blank')"},
+    {text:"Update stakeholder map and tracker in Google Drive (opens Drive)",action:"window.open(driveUrl('UH iGEM 2026 Stakeholder Map.xlsx'),'_blank')"},
+    {text:"Log HP-driven project changes in stakeholder map (opens Drive)",action:"window.open(driveUrl('UH iGEM 2026 Stakeholder Map.xlsx'),'_blank')"},
     {text:"Check off completed tasks in timeline",action:"switchTab('timeline')"},
     {text:"Monday check-in with Project Coordinator",action:"switchTab('checkins')"},
     {text:"Review upcoming deadlines for the week",action:"openCalendar()"},
@@ -1493,7 +1493,7 @@ function renderDash(){
     </div>`;
   }).join("");
 
-  document.getElementById("panel-dashboard").innerHTML=`
+  document.getElementById("homepage-content").innerHTML=`
     <div class="phase-viewer">
       <div class="phase-viewer-header">
         <button class="phase-nav-btn" onclick="navPhase(-1)" ${ci<=0?'disabled':''}>${I.arrowL}</button>
