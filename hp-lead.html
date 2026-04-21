@@ -254,15 +254,15 @@ body {
 /* ─── Countdown Row ─── */
 .countdown-grid {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-  max-width: 100%; margin: 0 0 24px; padding: 24px 40px 0;
+  max-width: 1100px; margin: 0 auto 28px; padding: 28px 40px 0;
 }
 .countdown-card {
-  background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+  background: var(--bg-glass-97);
   border-radius: 4px; padding: 20px; text-align: center;
   position: relative; overflow: hidden; cursor: pointer;
-  transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  transition: all 0.3s ease; box-shadow: var(--shadow-1);
 }
-.countdown-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.countdown-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
 .countdown-card .accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
 .countdown-card .big-num, .cd-num {
   font-family: var(--font-display);
@@ -290,8 +290,7 @@ body {
   letter-spacing: 1px; margin-top: 4px; animation: pulse 1.5s infinite;
 }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
-.countdown-card.alarm { border: 2px solid var(--red-alarm); animation: alarm-glow 2s infinite; }
-@keyframes alarm-glow { 0%,100% { box-shadow: 0 0 0 rgba(220,38,38,0); } 50% { box-shadow: 0 0 20px rgba(220,38,38,0.3); } }
+.countdown-card.alarm { border: 2px solid var(--red-alarm); }
 .countdown-card .t-badge {
     position: absolute; top: 8px; right: 8px;
     font-family: var(--font-mono); font-size: 9px; letter-spacing: 1px;
@@ -308,7 +307,7 @@ body {
 .tabs-container {
   background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
   border-radius: 4px; padding: 4px; display: flex; gap: 2px;
-  max-width: 100%; margin: 0 0 24px; padding-left: 40px; padding-right: 40px;
+  max-width: 1100px; margin: 0 auto 24px; padding-left: 40px; padding-right: 40px;
 }
 .tab-button {
   padding: 8px 16px; border: none; background: transparent;
@@ -352,7 +351,7 @@ body {
   border: 1px solid rgba(255,255,255,0.6); border-top: none;
   box-shadow: 0 4px 24px rgba(0,0,0,0.1);
 }
-.tab-panel { display: none; }
+.tab-panel { display: none; background: rgba(255,255,255,0.03); border-radius: 4px; }
 .tab-panel.active { display: block; }
 
 /* ─── Dashboard: Phase viewer ─── */
@@ -1244,7 +1243,7 @@ function renderSnapshot(){
   ` : '';
 
   document.getElementById("today-snapshot").innerHTML = `
-    <div style="max-width:100%;margin:0 auto 24px;padding:0 40px">
+    <div style="max-width:920px;margin:0 auto 24px;padding:0 24px">
         <div style="background:rgba(255,255,255,0.95);border-radius:4px;box-shadow:0 4px 20px rgba(0,0,0,0.08);padding:24px">
             <h3 style="margin:0 0 16px;font-size:18px;font-weight:700;color:var(--scarlet-dark)">Today's Snapshot</h3>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">

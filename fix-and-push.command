@@ -31,15 +31,14 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Design system parity: convert all overlays to white-glass, cache-bust logo
+    git commit -m "Full design system parity: all dashboards match Project Lead exactly
 
-- All task detail, calendar, progress overlays converted from scarlet gradient to white card design
-- Check-in detail panels converted to white card with subtle border
-- Message modals across all dashboards converted to white header design
-- Coordinator check-in header converted with proper text colors
-- Logo cache-busting (?v=2) added across all 5 HTML files
-- Hub logo centering fix (consolidated hero-crest CSS)
-- All overlay close buttons now use slate/scarlet hover pattern (matching Project Lead)
+- Countdown grid: max-width 1100px, centered, consistent padding across all dashboards
+- Countdown cards: var(--bg-glass-97) + var(--shadow-1/2), removed backdrop-filter and alarm animation
+- Tabs container: max-width 1100px, centered with auto margins on all dashboards
+- Today's Snapshot: white card design (920px centered) on HP Lead and Wiki Lead (was scarlet gradient)
+- Tab content panels: rgba(255,255,255,0.03) background added across all dashboards
+- Coordinator tab-content background added to match Project Lead
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
