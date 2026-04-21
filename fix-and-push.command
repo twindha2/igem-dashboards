@@ -31,12 +31,10 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Add CRISPR DNA strand animation to all dashboard headers
+    git commit -m "Boost CRISPR strand visibility in dashboard headers
 
-- Double helix strands radiate from the logo across the title card
-- Subtle scarlet/gold coloring with distance-based fade
-- Canvas overlay with pointer-events:none so header remains interactive
-- Applied to all four dashboards
+- Increased strand opacity, count, and helix width for better visibility
+- 8 strands max, faster spawning, bolder rendering on white background
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
