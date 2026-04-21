@@ -1440,7 +1440,7 @@ function sendTeamMessage(toId) {
 
 /* ═══ TABS ═══ */
 const TABS=[{id:"timeline",label:"Timeline & Tasks",icon:I.cal},{id:"checkins",label:"Weekly Check-Ins",icon:I.clock},{id:"wikisubmit",label:"Wiki Submissions",icon:'📤'},{id:"activity-log",label:"Activity Log",icon:'📋'},{id:"resources",label:"Resources",icon:I.book}];
-function switchTab(id){activeTab=id;renderDash();renderTabs();renderPanel();renderDash();}
+function switchTab(id){activeTab=id;renderTabs();renderPanel();renderDash();}
 function renderTabs(){
   let tabIndex = 1;
   document.getElementById("tabBar").innerHTML=TABS.map(t=>{
@@ -2481,7 +2481,7 @@ function openCalendar(){
       const dateStr = e.date.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});
       // Direct navigation — no detail panel needed
       if(e.type==='task'){closeOverlay();openTaskDetail(e.id);return;}
-      else if(e.type==='phase'){closeOverlay();viewPhaseOffset=e.phaseIdx-getCurrentPhaseIdx();switchTab('dashboard');return;}
+      else if(e.type==='phase'){closeOverlay();viewPhaseOffset=e.phaseIdx-getCurrentPhaseIdx();switchTab('timeline');return;}
       else if(e.type==='checkin'){closeOverlay();selectedCheckin=e.wkId;switchTab('checkins');return;}
       // For jamboree/milestone, still show detail (no page to navigate to)
       detailHtml=`<div style="background:var(--scarlet-faint);border-radius:4px;padding:16px;margin-top:16px;border-left:4px solid ${e.color}">
@@ -3023,7 +3023,7 @@ function updateTapeClock() {
 initRuler();
 updateTapeClock();
 setInterval(updateTapeClock, 60000);
-renderTabs();renderPanel();renderCountdowns();renderSnapshot();renderNotifWidget();
+renderDash();renderTabs();renderPanel();renderCountdowns();renderSnapshot();renderNotifWidget();
 setInterval(()=>{renderCountdowns();renderSnapshot();},60000);
 
 /* ═══ DNA HELIX ANIMATION ═══ */

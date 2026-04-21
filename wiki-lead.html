@@ -1381,7 +1381,7 @@ function renderCountdowns() {
 
 /* ═══ TABS ═══ */
 const TABS=[{id:"timeline",label:"Timeline & Tasks",icon:I.cal,num:"01"},{id:"checkins",label:"Weekly Check-Ins",icon:I.clock,num:"02"},{id:"wikisubmit",label:"Wiki Submissions",icon:"📤",num:"03"},{id:"activity-log",label:"Activity Log",icon:"📋",num:"04"},{id:"resources",label:"Resources",icon:I.book,num:"05"}];
-function switchTab(id){activeTab=id;renderDash();renderTabs();renderPanel();renderDash();}
+function switchTab(id){activeTab=id;renderTabs();renderPanel();renderDash();}
 function renderTabs(){
   document.getElementById("tabBar").innerHTML=TABS.map(t=>
     `<button class="tab-btn ${activeTab===t.id?'active':''}" onclick="switchTab('${t.id}')"><span class="tab-num">${t.num}</span>${t.label}</button>`
@@ -2079,7 +2079,7 @@ function openCalendar(){
       const dateStr = e.date.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});
       // Direct navigation — no detail panel needed
       if(e.type==='task'){closeOverlay();openTaskDetail(e.id);return;}
-      else if(e.type==='phase'){closeOverlay();viewPhaseOffset=e.phaseIdx-getCurrentPhaseIdx();switchTab('dashboard');return;}
+      else if(e.type==='phase'){closeOverlay();viewPhaseOffset=e.phaseIdx-getCurrentPhaseIdx();switchTab('timeline');return;}
       else if(e.type==='checkin'){closeOverlay();selectedCheckin=e.wkId;switchTab('checkins');return;}
       // For jamboree/milestone, still show detail (no page to navigate to)
       detailHtml=`<div style="background:var(--scarlet-faint);border-radius:4px;padding:16px;margin-top:16px;border-left:4px solid ${e.color}">
@@ -2739,7 +2739,7 @@ window.addEventListener('storage', function(e) {
 setInterval(renderNotifWidget, 5000);
 
 /* ═══ INIT ═══ */
-renderTabs();renderPanel();renderCountdowns();renderNotifWidget();renderSnapshot();
+renderDash();renderTabs();renderPanel();renderCountdowns();renderNotifWidget();renderSnapshot();
 // Initial helix draw
 if (helixCtx) drawHelix(helixCtx, 96, 96, 0);
 // Always animate

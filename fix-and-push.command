@@ -31,14 +31,11 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Dashboard restructuring: homepage content, resource consolidation, Strategy Guide rename
+    git commit -m "Fix: renderDash on page load, remove stale dashboard tab references
 
-- HP Lead and Wiki Lead: removed Dashboard tab, moved content to always-visible homepage section
-- HP Lead: consolidated Stakeholder Tracker + Design Change Log into UH iGEM 2026 Stakeholder Map
-- All dashboards: Competition Strategy Playbook replaced with UH iGEM 2026 Team Strategy Guide
-- Coordinator: removed duplicate resource link, kept Team Strategy Guide
-- Wiki Lead: fixed duplicate name in resource listing
-- CRISPR animation: more strands per wave, outward-only movement, hub full travel
+- Add renderDash() to init sequence so homepage content renders on load
+- Remove duplicate renderDash() call in switchTab
+- Fix switchTab('dashboard') references to switchTab('timeline')
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
