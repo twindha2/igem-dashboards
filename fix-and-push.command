@@ -31,11 +31,12 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Fix logo centering: separate spin animations for img vs overlay
+    git commit -m "Re-center logo: trim and equalize PNG padding
 
-- medallion-spin used translateX(-50%) needed only by ::after overlay
-- Split into medallion-img-spin (no translate) and medallion-overlay-spin
-- Logo now centered correctly on hub page
+- Cropped logo to content bounds and re-padded symmetrically
+- Content was 171px left / 159px right / 93px top / 186px bottom
+- Now perfectly centered within image canvas
+- Cache bust v=4
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
