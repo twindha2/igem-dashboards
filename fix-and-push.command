@@ -31,14 +31,10 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Medal effect: stop spin, fix clipping, attach CRISPR to logo
+    git commit -m "Add text-shadow to hub h1 for readability over CRISPR strands
 
-- Remove spinning animation from hub logo — static medal pinned to page
-- Remove border-radius:50% clipping from all dashboard logos
-- Enlarge dashboard title card logos 50% (112→168px), hub logo to 220px
-- Move CRISPR canvas inside hero so strands scroll with logo
-- Heavier drop-shadow for pinned-medal depth effect
-- Medal z-index above CRISPR strands (DNA leaks from under it)
+- Dark scarlet shadow on iGEM 2026 em text for contrast
+- Subtle shadow on full h1 for depth
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
