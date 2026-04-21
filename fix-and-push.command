@@ -31,11 +31,12 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Fix Wiki Lead phase detection showing Phase 5 instead of Phase 1
+    git commit -m "Restructure HP Lead and Wiki Lead homepages to match Project Lead
 
-- getCurrentPhaseIdx was iterating backwards, returning last phase with future end date
-- Changed to forward iteration so it returns first phase with future end date
-- Wiki Lead now correctly shows Phase 1 on page load (Apr 2026)
+- Removed phases and weekly rhythm checklist from homepage entirely
+- Moved team directory below tabs with Project Lead styling
+- Glass-morphism cards, centered grid layout, role badges
+- renderDash() stripped to empty function for compatibility
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
