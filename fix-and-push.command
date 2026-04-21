@@ -31,12 +31,13 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Refine CRISPR strands: scarlet only, shorter, head-to-tail fade
+    git commit -m "Rewrite CRISPR strands: dark head, fading trail, wave spawning, dissolve
 
-- Removed gold/dark colors — all strands now scarlet only
-- Shortened to 4-5 helix turns max (was 10-22 segments)
-- Head is more opaque (0.55-0.70), fades strongly through length
-- Applied to all dashboards and hub page
+- Dark scarlet head leads each strand, trail fades behind it
+- 6-7 helix turns long, last 1-2 turns nearly invisible
+- Waves of 3-4 strands spawn together, 10s pause between waves
+- Strands dissolve when reaching halfway — found their matching RNA
+- All dashboards and hub page
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."

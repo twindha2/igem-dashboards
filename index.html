@@ -531,34 +531,28 @@ function animHelix(ts){
 requestAnimationFrame(animHelix);
 
 // ========= CRISPR DNA Strands =========
-// Guide RNA strands radiate from logo, following grid lines like a maze,
-// randomly turning at intersections, fading with distance
 (function(){
   const canvas = document.getElementById('crispr-canvas');
+  if(!canvas) return;
   const ctx = canvas.getContext('2d');
-  const GRID = 24; // matches background grid
-  const MAX_STRANDS = 7;
-  const SPAWN_INTERVAL = 800; // ms between spawns
-  const STRAND_SPEED = 0.9; // grid cells per second
-  const MAX_SEGMENTS = 10; // max grid cells before dying
-  const HELIX_WIDTH = 7; // width of the double helix rendering
-  const TURN_CHANCE = 0.35; // chance to turn at each intersection
-  const COLORS = [
-    {r:200,g:16,b:46},   // scarlet
-    {r:200,g:16,b:46},   // scarlet
-    {r:180,g:14,b:42},   // scarlet-deep
-  ];
+  const GRID = 24;
+  const WAVE_SIZE = 3;
+  const WAVE_PAUSE = 10000;
+  const STRAND_SPEED = 0.55;
+  const MAX_SEGMENTS = 14;
+  const HELIX_WIDTH = 7;
+  const TURN_CHANCE = 0.28;
+  const HEAD_COLOR = {r:140,g:10,b:30};
+  const BODY_COLOR = {r:200,g:16,b:46};
 
   let strands = [];
-  let lastSpawn = 0;
+  let lastWave = -WAVE_PAUSE;
   let originX, originY;
 
   function resize(){
-    // Canvas is inside .hero — size it to the hero element
     const hero = canvas.parentElement;
     canvas.width = hero.offsetWidth;
     canvas.height = hero.offsetHeight;
-    // Origin = center of the hero-crest (logo), relative to hero
     const crest = document.querySelector('.hero-crest');
     if(crest){
       originX = crest.offsetLeft + crest.offsetWidth/2;
@@ -571,49 +565,60 @@ requestAnimationFrame(animHelix);
   window.addEventListener('resize', resize);
   resize();
 
-  // Directions: 0=right, 1=down, 2=left, 3=up
   const DX = [1, 0, -1, 0];
   const DY = [0, 1, 0, -1];
 
-  function spawnStrand(){
-    // Pick a random initial direction radiating outward from logo
-    const angle = Math.random() * Math.PI * 2;
-    // Start 3-4 grid cells out from the logo center
-    const startDist = (3 + Math.random() * 2) * GRID;
-    const sx = originX + Math.cos(angle) * startDist;
-    const sy = originY + Math.sin(angle) * startDist;
-    // Snap to nearest grid intersection
-    const gx = Math.round(sx / GRID) * GRID;
-    const gy = Math.round(sy / GRID) * GRID;
-
-    // Pick initial direction closest to outward angle
-    let bestDir = 0, bestDot = -Infinity;
-    for(let d=0;d<4;d++){
-      const dot = Math.cos(angle)*DX[d] + Math.sin(angle)*DY[d];
-      if(dot > bestDot){ bestDot=dot; bestDir=d; }
+  function spawnWave(){
+    const count = WAVE_SIZE + Math.floor(Math.random()*2);
+    for(let w=0; w<count; w++){
+      const angle = Math.random() * Math.PI * 2;
+      const startDist = (3 + Math.random() * 2) * GRID;
+      const sx = originX + Math.cos(angle) * startDist;
+      const sy = originY + Math.sin(angle) * startDist;
+      const gx = Math.round(sx / GRID) * GRID;
+      const gy = Math.round(sy / GRID) * GRID;
+      let bestDir = 0, bestDot = -Infinity;
+      for(let d=0;d<4;d++){
+        const dot = Math.cos(angle)*DX[d] + Math.sin(angle)*DY[d];
+        if(dot > bestDot){ bestDot=dot; bestDir=d; }
+      }
+      strands.push({
+        points: [{x:gx, y:gy}],
+        dir: bestDir,
+        progress: 0,
+        segments: 0,
+        maxSegments: MAX_SEGMENTS - Math.floor(Math.random()*2),
+        alive: true,
+        age: 0,
+        helixPhase: Math.random() * Math.PI * 2,
+        speed: STRAND_SPEED * (0.8 + Math.random()*0.4),
+        dissolving: false,
+        dissolveAge: 0,
+      });
     }
-
-    const color = COLORS[Math.floor(Math.random()*COLORS.length)];
-    strands.push({
-      points: [{x:gx, y:gy}],
-      dir: bestDir,
-      color: color,
-      progress: 0,        // fractional grid cells traveled in current segment
-      segments: 0,         // total segments traveled
-      maxSegments: MAX_SEGMENTS - Math.floor(Math.random()*2),
-      alive: true,
-      age: 0,
-      fadeStart: 0.55 + Math.random()*0.15, // starting opacity
-      helixPhase: Math.random() * Math.PI * 2,
-      speed: STRAND_SPEED * (0.7 + Math.random()*0.6),
-    });
   }
 
   function updateStrand(s, dt){
     if(!s.alive) return;
     s.age += dt;
+    if(!s.dissolving && s.points.length > 0){
+      const head = s.points[s.points.length-1];
+      const headX = head.x + DX[s.dir]*GRID*s.progress;
+      const headY = head.y + DY[s.dir]*GRID*s.progress;
+      if(Math.abs(headX - originX) > canvas.width * 0.35 ||
+         Math.abs(headY - originY) > canvas.height * 0.4){
+        s.dissolving = true;
+        s.dissolveAge = 0;
+      }
+    }
+    if(s.dissolving){
+      s.dissolveAge += dt;
+      if(s.dissolveAge > 2.5){
+        s.alive = false;
+        return;
+      }
+    }
     s.progress += s.speed * dt;
-
     if(s.progress >= 1){
       s.progress -= 1;
       s.segments++;
@@ -621,28 +626,20 @@ requestAnimationFrame(animHelix);
       const nx = last.x + DX[s.dir]*GRID;
       const ny = last.y + DY[s.dir]*GRID;
       s.points.push({x:nx, y:ny});
-
-      // Check if off screen or too many segments
       if(nx < -GRID || nx > canvas.width+GRID || ny < -GRID || ny > canvas.height+GRID || s.segments >= s.maxSegments){
         s.alive = false;
         return;
       }
-
-      // Possibly turn at this intersection
       if(Math.random() < TURN_CHANCE){
-        // Turn 90 degrees left or right
         const turnDir = Math.random() < 0.5 ? 1 : -1;
         s.dir = (s.dir + turnDir + 4) % 4;
       }
-      // Small chance to reverse (U-turn feels unnatural, skip)
     }
   }
 
   function drawStrand(s){
     if(s.points.length < 2 && s.progress < 0.1) return;
-
     const pts = [...s.points];
-    // Add the in-progress point
     if(s.alive){
       const last = pts[pts.length-1];
       pts.push({
@@ -650,31 +647,18 @@ requestAnimationFrame(animHelix);
         y: last.y + DY[s.dir]*GRID*s.progress,
       });
     }
+    const totalSegs = pts.length - 1;
+    const dissolveMul = s.dissolving ? Math.max(0, 1 - s.dissolveAge/2.5) : 1;
 
-    // Distance from origin for fade calculation
-    const distFromOrigin = (pt)=>{
-      const dx = pt.x - originX;
-      const dy = pt.y - originY;
-      return Math.sqrt(dx*dx+dy*dy);
-    };
-
-    // Draw double helix along the path
-    const c = s.color;
-    for(let i=0; i<pts.length-1; i++){
+    for(let i=0; i<totalSegs; i++){
       const p0 = pts[i];
       const p1 = pts[i+1];
-
-      // Segment direction
       const sdx = p1.x - p0.x;
       const sdy = p1.y - p0.y;
       const segLen = Math.sqrt(sdx*sdx+sdy*sdy);
       if(segLen < 1) continue;
-
-      // Normal perpendicular to direction
       const nx = -sdy/segLen;
       const ny = sdx/segLen;
-
-      // Draw backbone lines along this segment (continuous paths)
       const steps = Math.ceil(segLen/3);
       let path1 = [], path2 = [];
       for(let j=0; j<=steps; j++){
@@ -687,69 +671,46 @@ requestAnimationFrame(animHelix);
         path1.push({x:px+nx*hw, y:py+ny*hw});
         path2.push({x:px-nx*hw, y:py-ny*hw});
       }
+      const posFromHead = totalSegs - 1 - i;
+      const trailFade = Math.max(0, 1 - Math.pow(posFromHead / Math.max(totalSegs, 1), 0.7));
+      const isHead = posFromHead < 2;
+      const c = isHead ? HEAD_COLOR : BODY_COLOR;
+      const headBoost = isHead ? 0.85 : 0.65;
+      const alpha = headBoost * trailFade * dissolveMul;
+      if(alpha < 0.008) continue;
 
-      // Segment alpha
-      const midPx = (p0.x+p1.x)/2, midPy = (p0.y+p1.y)/2;
-      const midDist = distFromOrigin({x:midPx,y:midPy});
-      const distFade = Math.max(0, 1 - midDist/(canvas.width*0.45));
-      const segFade = Math.max(0, 1 - i/(s.maxSegments*0.35));
-      const lifeFade = s.alive ? 1 : Math.max(0, 1 - (s.age - s.segments/s.speed)*2);
-      const alpha = s.fadeStart * distFade * segFade * lifeFade;
-      if(alpha < 0.01) continue;
-
-      // Draw backbone line 1
       ctx.beginPath();
       ctx.moveTo(path1[0].x, path1[0].y);
       for(let j=1;j<path1.length;j++) ctx.lineTo(path1[j].x, path1[j].y);
-      ctx.strokeStyle = `rgba(${c.r},${c.g},${c.b},${alpha*0.85})`;
-      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = 'rgba('+c.r+','+c.g+','+c.b+','+alpha+')';
+      ctx.lineWidth = isHead ? 1.8 : 1.3;
       ctx.stroke();
-
-      // Draw backbone line 2
       ctx.beginPath();
       ctx.moveTo(path2[0].x, path2[0].y);
       for(let j=1;j<path2.length;j++) ctx.lineTo(path2[j].x, path2[j].y);
-      ctx.strokeStyle = `rgba(${c.r},${c.g},${c.b},${alpha*0.6})`;
-      ctx.lineWidth = 1.2;
+      ctx.strokeStyle = 'rgba('+c.r+','+c.g+','+c.b+','+(alpha*0.75)+')';
+      ctx.lineWidth = isHead ? 1.5 : 1;
       ctx.stroke();
-
-      // Draw rungs every ~8px
       for(let j=0; j<path1.length; j+=3){
         ctx.beginPath();
         ctx.moveTo(path1[j].x, path1[j].y);
         ctx.lineTo(path2[j].x, path2[j].y);
-        ctx.strokeStyle = `rgba(${c.r},${c.g},${c.b},${alpha*0.35})`;
-        ctx.lineWidth = 0.7;
+        ctx.strokeStyle = 'rgba('+c.r+','+c.g+','+c.b+','+(alpha*0.3)+')';
+        ctx.lineWidth = 0.6;
         ctx.stroke();
       }
-
-      // Draw backbone dots at segment ends
-      const dotR = 2.2;
-      ctx.beginPath();
-      ctx.arc(path1[path1.length-1].x, path1[path1.length-1].y, dotR, 0, Math.PI*2);
-      ctx.fillStyle = `rgba(${c.r},${c.g},${c.b},${alpha*0.9})`;
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(path2[path2.length-1].x, path2[path2.length-1].y, dotR, 0, Math.PI*2);
-      ctx.fillStyle = `rgba(${c.r},${c.g},${c.b},${alpha*0.65})`;
-      ctx.fill();
     }
-
-    // Draw a bright head at the leading edge if alive
     if(s.alive && pts.length >= 2){
       const head = pts[pts.length-1];
-      const dist = distFromOrigin(head);
-      const distFade = Math.max(0, 1 - dist/(canvas.width*0.45));
-      const alpha = s.fadeStart * distFade;
-      if(alpha > 0.02){
+      const ha = 0.9 * dissolveMul;
+      if(ha > 0.02){
         ctx.beginPath();
         ctx.arc(head.x, head.y, 3.5, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(${c.r},${c.g},${c.b},${alpha*0.95})`;
+        ctx.fillStyle = 'rgba('+HEAD_COLOR.r+','+HEAD_COLOR.g+','+HEAD_COLOR.b+','+ha+')';
         ctx.fill();
-        // Glow
         ctx.beginPath();
         ctx.arc(head.x, head.y, 7, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(${c.r},${c.g},${c.b},${alpha*0.25})`;
+        ctx.fillStyle = 'rgba('+HEAD_COLOR.r+','+HEAD_COLOR.g+','+HEAD_COLOR.b+','+(ha*0.2)+')';
         ctx.fill();
       }
     }
@@ -761,32 +722,24 @@ requestAnimationFrame(animHelix);
     if(!prevT) prevT = ts;
     const dt = Math.min((ts - prevT)/1000, 0.1);
     prevT = ts;
-
-    // Spawn new strands
-    if(ts - lastSpawn > SPAWN_INTERVAL && strands.filter(s=>s.alive).length < MAX_STRANDS){
-      spawnStrand();
-      lastSpawn = ts;
+    const aliveCount = strands.filter(s=>s.alive && !s.dissolving).length;
+    if(ts - lastWave > WAVE_PAUSE && aliveCount === 0){
+      spawnWave();
+      lastWave = ts;
     }
-
-    // Clear
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Update and draw
     strands.forEach(s=>{
       updateStrand(s, dt);
       drawStrand(s);
     });
-
-    // Remove dead strands that have fully faded
-    strands = strands.filter(s=> s.alive || s.age < s.segments/s.speed + 2);
-
+    strands = strands.filter(s=> s.alive || (s.dissolving && s.dissolveAge < 3));
     if(!document.hidden){ requestAnimationFrame(animCRISPR); }
     else { running = false; }
   }
   function startCRISPR(){
     if(running) return;
     running = true;
-    prevT = null; // reset so dt doesn't spike after tab was hidden
+    prevT = null;
     requestAnimationFrame(animCRISPR);
   }
   document.addEventListener('visibilitychange', ()=>{
