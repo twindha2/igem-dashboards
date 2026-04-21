@@ -31,14 +31,13 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Full design system parity: all dashboards match Project Lead exactly
+    git commit -m "UI kit parity: Today's Focus, horizontal countdown cards, numbered tabs
 
-- Countdown grid: max-width 1100px, centered, consistent padding across all dashboards
-- Countdown cards: var(--bg-glass-97) + var(--shadow-1/2), removed backdrop-filter and alarm animation
-- Tabs container: max-width 1100px, centered with auto margins on all dashboards
-- Today's Snapshot: white card design (920px centered) on HP Lead and Wiki Lead (was scarlet gradient)
-- Tab content panels: rgba(255,255,255,0.03) background added across all dashboards
-- Coordinator tab-content background added to match Project Lead
+- All dashboards: Today's Focus scarlet gradient header bar with gold accent rail, EPIGRAPH + PRIORITY QUEUE
+- Countdown cards: 3-column horizontal layout with left accent bars, specimen-tag labels (T01/T02/T03)
+- Tabs: numbered JetBrains Mono prefixes (01-08), 11px uppercase, letter-spacing 1.8px
+- Cards: League Gothic big numbers, right-aligned, with card-info flex layout
+- Consistent design system across Project Lead, HP Lead, Wiki Lead, and Coordinator
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."

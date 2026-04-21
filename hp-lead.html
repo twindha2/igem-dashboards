@@ -253,49 +253,60 @@ body {
 
 /* ─── Countdown Row ─── */
 .countdown-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-  max-width: 1100px; margin: 0 auto 28px; padding: 28px 40px 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  max-width: 1100px; margin: 0 auto 24px; padding: 0 40px;
 }
 .countdown-card {
-  background: var(--bg-glass-97);
-  border-radius: 4px; padding: 20px; text-align: center;
+  background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+  border-radius: 4px; padding: 16px 18px 14px;
   position: relative; overflow: hidden; cursor: pointer;
-  transition: all 0.3s ease; box-shadow: var(--shadow-1);
+  transition: all 0.3s ease; box-shadow: 0 4px 14px rgba(0,0,0,0.14);
+  display: flex; align-items: center; gap: 14px;
 }
-.countdown-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
-.countdown-card .accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.countdown-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+.countdown-card .accent-bar { position: absolute; top: 0; bottom: 0; left: 0; width: 4px; }
+.countdown-card .specimen-tag {
+  position: absolute; top: 0; right: 0;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 1px;
+  padding: 3px 7px; color: var(--slate-light); text-transform: uppercase;
+  white-space: nowrap; font-variant-numeric: tabular-nums;
+  border-bottom-left-radius: 4px; background: rgba(0,0,0,0.04);
+}
 .countdown-card .big-num, .cd-num {
   font-family: var(--font-display);
   font-size: 54px;
   font-weight: 400;
-  line-height: 0.9;
-  margin: 8px 0 4px;
+  line-height: 0.85;
+  min-width: 78px; text-align: right;
+  font-feature-settings: 'tnum' 1;
 }
+.countdown-card .card-info { flex: 1; min-width: 0; padding-top: 4px; }
 .countdown-card .sub, .cd-sub {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
   color: var(--slate-light);
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.5px; font-weight: 500;
 }
 .countdown-card .label {
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--slate);
-  margin-top: 6px;
+  color: var(--slate-dark);
+  margin-top: 3px; letter-spacing: -0.1px;
 }
 .countdown-card .overdue-msg {
   font-size: 11px; font-weight: 700; color: var(--red-alarm); text-transform: uppercase;
   letter-spacing: 1px; margin-top: 4px; animation: pulse 1.5s infinite;
 }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
-.countdown-card.alarm { border: 2px solid var(--red-alarm); }
+.countdown-card.alarm { box-shadow: 0 0 0 2px var(--red-alarm), 0 4px 14px rgba(220,38,38,0.25); }
+.countdown-card.alarm .specimen-tag { background: var(--red-alarm); color: #fff; }
 .countdown-card .t-badge {
-    position: absolute; top: 8px; right: 8px;
+    position: absolute; top: 0; right: 0;
     font-family: var(--font-mono); font-size: 9px; letter-spacing: 1px;
-    color: var(--slate-light); background: rgba(0,0,0,0.05);
-    padding: 2px 6px; border-radius: 2px; text-transform: uppercase;
+    color: var(--slate-light); background: rgba(0,0,0,0.04);
+    padding: 3px 7px; border-bottom-left-radius: 4px; text-transform: uppercase;
 }
 
 /* ─── Tab bar ─── */
@@ -309,41 +320,30 @@ body {
   border-radius: 4px; padding: 4px; display: flex; gap: 2px;
   max-width: 1100px; margin: 0 auto 24px; padding-left: 40px; padding-right: 40px;
 }
-.tab-button {
-  padding: 8px 16px; border: none; background: transparent;
-  color: rgba(255,255,255,0.7); font-family: var(--font-sans);
-  font-weight: 600; font-size: 13px; border-radius: 4px;
-  cursor: pointer; transition: all 0.2s;
+.tab-button, .tab-btn {
+  position: relative; flex: 1 1 auto; min-width: 110px;
+  padding: 10px 14px; border: none; background: transparent;
+  color: rgba(255,255,255,0.78); font-family: var(--font-sans);
+  font-weight: 600; font-size: 11px; letter-spacing: 1.8px;
+  text-transform: uppercase; border-radius: 2px;
+  cursor: pointer; transition: background 0.2s, color 0.2s;
 }
-.tab-button:hover { background: rgba(255,255,255,0.1); color: white; }
-.tab-button.active {
-  background: var(--bg-glass-97); color: var(--scarlet-dark);
+.tab-button .tab-num, .tab-btn .tab-num {
+  font-family: var(--font-mono);
+  font-size: 9px; opacity: 0.55; margin-right: 8px; letter-spacing: 0;
+}
+.tab-button:hover, .tab-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+.tab-button.active, .tab-btn.active {
+  background: rgba(255,255,255,0.97); color: var(--scarlet-dark);
   box-shadow: inset 0 -2px 0 var(--scarlet);
 }
-.tab-btn, .tab-bar {
+.tab-bar {
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 4px;
   padding: 4px;
   display: flex;
-  gap: 2px;
-}
-.tab-btn {
-  padding: 8px 16px;
-  border: none;
-  background: transparent;
-  color: rgba(255,255,255,0.7);
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 13px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.tab-btn.active {
-  background: var(--bg-glass-97);
-  color: var(--scarlet-dark);
-  box-shadow: inset 0 -2px 0 var(--scarlet);
+  gap: 0;
 }
 .content-wrap {
   background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
@@ -1158,31 +1158,30 @@ function renderCountdowns(){
   document.getElementById("countdownGrid").innerHTML = `
     <div class="countdown-card${nextOverdue?' alarm':''}" onclick="${ndt ? "openTaskDetail('"+ndt.id+"')" : "switchTab('timeline')"}">
       <div class="accent-bar" style="background:${ndt ? nextAccent : '#16A34A'}"></div>
-      <div style="color:var(--slate-light);margin-bottom:6px;font-size:12px;">📋</div>
+      <div class="specimen-tag">${nextOverdue ? 'OVERDUE' : 'T01'}</div>
       <div class="big-num" style="color:${ndt ? nextAccent : '#16A34A'}">${ndt ? Math.abs(nextDays) : 0}</div>
-      <div class="sub">${ndt ? (nextOverdue ? 'days overdue' : 'days') : 'complete'}</div>
-      <div class="label">${ndt ? 'Next Deadline' : 'All Tasks Done'}</div>
+      <div class="card-info">
+        <div class="sub">${ndt ? (nextOverdue ? 'days overdue' : 'days') : 'complete'}</div>
+        <div class="label">${ndt ? 'Next Deadline' : 'All Tasks Done'}</div>
+      </div>
     </div>
     <div class="countdown-card" onclick="switchTab('checkins')">
       <div class="accent-bar" style="background:${checkinAccent}"></div>
-      <div style="color:var(--slate-light);margin-bottom:6px;font-size:12px;">🗓️</div>
+      <div class="specimen-tag">T02</div>
       <div class="big-num" style="color:${checkinAccent}">${checkinDays !== null ? Math.abs(checkinDays) : 0}</div>
-      <div class="sub">${checkinDays !== null ? (checkinDays < 0 ? 'days overdue' : checkinDays === 0 ? 'today!' : 'days') : ''}</div>
-      <div class="label">Weekly Check-In${nextCheckin ? ' — Wk '+nextCheckin.week : ''}</div>
-    </div>
-    <div class="countdown-card" onclick="switchTab('timeline')">
-      <div class="accent-bar" style="background:${st.pct >= 80 ? 'var(--emerald)' : st.pct >= 40 ? 'var(--amber)' : 'var(--scarlet)'}"></div>
-      <div style="color:var(--slate-light);margin-bottom:6px;font-size:12px;">🎯</div>
-      <div class="big-num" style="color:${st.pct >= 80 ? 'var(--emerald)' : st.pct >= 40 ? 'var(--amber)' : 'var(--scarlet)'}">${st.pct}%</div>
-      <div class="sub">${st.done}/${st.total} tasks</div>
-      <div class="label">Overall Progress</div>
+      <div class="card-info">
+        <div class="sub">${checkinDays !== null ? (checkinDays < 0 ? 'days overdue' : checkinDays === 0 ? 'today!' : 'days') : ''}</div>
+        <div class="label">Weekly Check-In${nextCheckin ? ' — Wk '+nextCheckin.week : ''}</div>
+      </div>
     </div>
     <div class="countdown-card" onclick="switchTab('timeline')">
       <div class="accent-bar" style="background:var(--gold)"></div>
-      <div style="color:var(--slate-light);margin-bottom:6px;font-size:12px;">🏆</div>
+      <div class="specimen-tag">T03</div>
       <div class="big-num" style="color:var(--scarlet)">${jd}</div>
-      <div class="sub">days (${Math.floor(jd/7)} weeks)</div>
-      <div class="label">Jamboree — Paris</div>
+      <div class="card-info">
+        <div class="sub">days (${Math.floor(jd/7)} weeks)</div>
+        <div class="label">Jamboree — Paris</div>
+      </div>
     </div>`;
 }
 
@@ -1242,23 +1241,73 @@ function renderSnapshot(){
     </div>
   ` : '';
 
+  // Due-window label (T-XX format from UI kit)
+  const dueLabel = (days) => {
+    if (days < 0) return {text:'T+'+Math.abs(days)+'d · OVERDUE', color:'var(--red-alarm)'};
+    if (days === 0) return {text:'T-00 · DUE TODAY', color:'var(--scarlet)'};
+    if (days === 1) return {text:'T-01 · TOMORROW', color:'var(--amber)'};
+    if (days <= 7) return {text:'T-'+String(days).padStart(2,'0')+' · THIS WEEK', color:'var(--amber)'};
+    return {text:'T-'+String(days).padStart(2,'0'), color:'var(--slate-light)'};
+  };
+
+  const focusQueueHtml = nextTasks.length > 0 ? nextTasks.map((t,i) => {
+    const parts = t.due.match(/(\w+)\s+(\d+)/);
+    let daysLeft = 0;
+    if (parts) {
+      const m = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ").indexOf(parts[1]);
+      const d = new Date(2026, m, parseInt(parts[2]));
+      daysLeft = Math.ceil((d - new Date()) / 86400000);
+    }
+    const dl = dueLabel(daysLeft);
+    return `<div style="display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:3px;margin-bottom:6px;background:rgba(0,0,0,0.02);border:1px solid rgba(0,0,0,0.06);cursor:pointer" onclick="openTaskDetail('${t.id}')" onmouseover="this.style.background='rgba(200,16,46,0.06)'" onmouseout="this.style.background='rgba(0,0,0,0.02)'">
+      <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:1px;color:var(--slate-light);min-width:18px">${String(i+1).padStart(2,'0')}</div>
+      <div style="flex:1">
+        <div style="font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--black)">${t.text.substring(0,50)}${t.text.length>50?'…':''}</div>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;font-weight:600;color:${dl.color};white-space:nowrap;padding:3px 8px;border-radius:2px;background:rgba(0,0,0,0.04)">${dl.text}</div>
+    </div>`;
+  }).join('') : `<div style="padding:16px 18px;border-radius:3px;background:rgba(0,0,0,0.02);border:1px dashed rgba(0,0,0,0.15);font-family:var(--font-sans);font-size:13px;color:var(--slate);line-height:1.5">
+    <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:1.8px;text-transform:uppercase;color:var(--slate-light);font-weight:600;margin-bottom:6px">· NO ITEMS ·</div>
+    <div style="color:var(--black);font-weight:600;margin-bottom:4px">Priority queue is empty.</div>
+    <div style="font-style:italic;font-family:var(--font-serif);font-size:13px;color:var(--slate)">Tasks will surface here as their due dates approach.</div>
+  </div>`;
+
+  const phaseIdx = PHASES.findIndex(p => p.tasks.some(t => !S.tasks[t.id] && S.taskStatus[t.id] !== 'complete'));
+
   document.getElementById("today-snapshot").innerHTML = `
-    <div style="max-width:920px;margin:0 auto 24px;padding:0 24px">
-        <div style="background:rgba(255,255,255,0.95);border-radius:4px;box-shadow:0 4px 20px rgba(0,0,0,0.08);padding:24px">
-            <h3 style="margin:0 0 16px;font-size:18px;font-weight:700;color:var(--scarlet-dark)">Today's Snapshot</h3>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
-                <div>
-                    <div style="font-size:12px;font-weight:600;color:rgba(0,0,0,0.6);margin-bottom:12px;text-transform:uppercase">Next Deadlines</div>
-                    <div style="display:flex;flex-direction:column;gap:12px">
-                        ${taskCards || '<div style="color:rgba(0,0,0,0.4);font-size:13px">No upcoming deadlines</div>'}
-                    </div>
-                </div>
-                <div>
-                    <div style="font-size:12px;font-weight:600;color:rgba(0,0,0,0.6);margin-bottom:12px;text-transform:uppercase">Daily Inspiration</div>
-                    ${quoteHtml}
-                </div>
+    <div style="max-width:1100px;margin:0 auto 22px;position:relative;overflow:hidden;background:#fff;border-radius:4px;box-shadow:0 8px 28px rgba(200,16,46,0.28),0 2px 6px rgba(0,0,0,0.18);border:1px solid rgba(200,16,46,0.25)">
+      <div style="position:relative;background:linear-gradient(90deg,var(--scarlet) 0%,var(--scarlet-dark) 100%);padding:18px 24px 16px;color:#fff;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold)"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;height:4px;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0.35) 0 1px,transparent 1px 8px)"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="position:relative;width:12px;height:12px;flex-shrink:0">
+              <div style="position:absolute;inset:0;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)"></div>
             </div>
+            <div>
+              <div style="font-family:var(--font-display);font-size:34px;font-weight:400;letter-spacing:2px;text-transform:uppercase;line-height:0.95;text-shadow:0 1px 2px rgba(0,0,0,0.25)">Today's Focus</div>
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:rgba(255,255,255,0.85);margin-top:4px;font-weight:500">HUMAN PRACTICES LEAD · PHASE ${phaseIdx >= 0 ? phaseIdx+1 : 1}</div>
+            </div>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,0.9);font-weight:600;padding:6px 12px;border:1px solid rgba(255,255,255,0.4);border-radius:2px;flex-shrink:0">${dateStr}</div>
         </div>
+      </div>
+      <div style="padding:20px 24px;display:grid;grid-template-columns:1fr 1.5fr;gap:28px;align-items:stretch">
+        <div style="border-right:1px dashed rgba(0,0,0,0.10);padding-right:24px;display:flex;flex-direction:column;justify-content:center">
+          <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:1.8px;color:var(--scarlet-dark);text-transform:uppercase;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px"><span style="width:14px;height:2px;background:var(--scarlet)"></span>EPIGRAPH</div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="font-family:var(--font-serif);font-size:40px;line-height:0.6;color:var(--gold);font-weight:500;margin-top:6px;flex-shrink:0">"</div>
+            <div>
+              <div style="font-family:var(--font-serif);font-size:17px;font-style:italic;font-weight:500;color:#1A1A1A;line-height:1.4;margin:0 0 10px">${quote ? quote.t : ''}</div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--slate-light);letter-spacing:1.2px;text-transform:uppercase">— ${quote ? quote.s : ''}</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:1.8px;color:var(--scarlet-dark);text-transform:uppercase;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px"><span style="width:14px;height:2px;background:var(--gold)"></span>PRIORITY QUEUE · NEXT ${nextTasks.length}</div>
+          ${focusQueueHtml}
+        </div>
+      </div>
     </div>`;
 }
 
@@ -1374,7 +1423,7 @@ function renderTabs(){
   let tabIndex = 1;
   document.getElementById("tabBar").innerHTML=TABS.map(t=>{
     const idx = String(tabIndex).padStart(2, '0');
-    const html = `<button class="tab-btn ${activeTab===t.id?'active':''}" onclick="switchTab('${t.id}')">${idx} ${t.label}</button>`;
+    const html = `<button class="tab-btn ${activeTab===t.id?'active':''}" onclick="switchTab('${t.id}')"><span class="tab-num">${idx}</span>${t.label}</button>`;
     tabIndex++;
     return html;
   }).join("");
