@@ -31,13 +31,13 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Match card widths, add pulse dot, sort tasks chronologically
+    git commit -m "Fix countdown width, header spacing, and tab styling
 
-- All card widths matched to 1100px max-width across HP/Wiki Lead
-- Added glowing/pinging yellow dot animation on Today's Focus
-- Sorted task lists chronologically within each phase (HP Lead + Coordinator)
-- Added spacing between header and content area
-- Consistent 40px padding on all content containers
+- Removed side padding from countdown grid so tiles match Today's Focus width
+- Added spacing between header/name plaque and notification bar
+- Tabs now translucent and separated (matching Project Lead style)
+- Content panel detached from tabs with full border-radius
+- Applied consistently across HP Lead and Wiki Lead dashboards
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
