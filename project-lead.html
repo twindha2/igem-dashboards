@@ -285,7 +285,7 @@
         /* Countdown Grid */
         .countdown-grid {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
-            max-width: 1100px; margin: 0 auto 24px; padding: 0 40px;
+            max-width: 1100px; margin: 0 auto 24px; padding: 20px 40px 0;
         }
         .countdown-card {
             background: rgba(255,255,255,0.97);
@@ -916,7 +916,18 @@
         .dna-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 0%,transparent 55%,rgba(0,0,0,0.28) 100%)}
         .dna-helix-svg{position:absolute;right:24px;top:40px;opacity:0.62;filter:drop-shadow(0 2px 10px rgba(0,0,0,0.25))}
         .reg-mark{position:absolute;opacity:0.35}
-    </style>
+    
+/* Yellow dot pulse animation */
+@keyframes focusDotPulse {
+  0% { box-shadow: 0 0 6px var(--gold), 0 0 12px rgba(246,190,0,0.4); transform: scale(1); }
+  50% { box-shadow: 0 0 14px var(--gold), 0 0 28px rgba(246,190,0,0.5); transform: scale(1.15); }
+  100% { box-shadow: 0 0 6px var(--gold), 0 0 12px rgba(246,190,0,0.4); transform: scale(1); }
+}
+@keyframes focusDotPing {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+</style>
 </head>
 <body>
 
@@ -2296,7 +2307,8 @@ function renderTodaySnapshot() {
         <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
           <div style="display:flex;align-items:center;gap:14px">
             <div style="position:relative;width:12px;height:12px;flex-shrink:0">
-              <div style="position:absolute;inset:0;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)"></div>
+              <div style="position:absolute;inset:0;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold);animation:focusDotPulse 2.5s ease-in-out infinite"></div>
+              <div style="position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--gold);animation:focusDotPing 2.5s ease-out infinite;pointer-events:none"></div>
             </div>
             <div>
               <div style="font-family:var(--font-display);font-size:34px;font-weight:400;letter-spacing:2px;text-transform:uppercase;line-height:0.95;text-shadow:0 1px 2px rgba(0,0,0,0.25)">Today's Focus</div>

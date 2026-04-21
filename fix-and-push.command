@@ -31,10 +31,13 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Add text-shadow to hub h1 for readability over CRISPR strands
+    git commit -m "Match card widths, add pulse dot, sort tasks chronologically
 
-- Dark scarlet shadow on iGEM 2026 em text for contrast
-- Subtle shadow on full h1 for depth
+- All card widths matched to 1100px max-width across HP/Wiki Lead
+- Added glowing/pinging yellow dot animation on Today's Focus
+- Sorted task lists chronologically within each phase (HP Lead + Coordinator)
+- Added spacing between header and content area
+- Consistent 40px padding on all content containers
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."

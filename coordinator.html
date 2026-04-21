@@ -268,7 +268,7 @@
             gap: 12px;
             max-width: 1100px;
             margin: 0 auto 24px;
-            padding: 0 40px;
+            padding: 20px 40px 0;
         }
 
         .countdown-card {
@@ -2035,7 +2035,18 @@
         .dna-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 0%,transparent 55%,rgba(0,0,0,0.28) 100%)}
         .dna-helix-svg{position:absolute;right:24px;top:40px;opacity:0.62;filter:drop-shadow(0 2px 10px rgba(0,0,0,0.25))}
         .reg-mark{position:absolute;opacity:0.35}
-    </style>
+    
+/* Yellow dot pulse animation */
+@keyframes focusDotPulse {
+  0% { box-shadow: 0 0 6px var(--gold), 0 0 12px rgba(246,190,0,0.4); transform: scale(1); }
+  50% { box-shadow: 0 0 14px var(--gold), 0 0 28px rgba(246,190,0,0.5); transform: scale(1.15); }
+  100% { box-shadow: 0 0 6px var(--gold), 0 0 12px rgba(246,190,0,0.4); transform: scale(1); }
+}
+@keyframes focusDotPing {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+</style>
 </head>
 <body>
     <!-- SVG Background Elements -->
@@ -2929,24 +2940,24 @@
             if (Object.keys(state.leads.hp.tasks).length === 0) {
                 const hpTasks = {
                     // Phase 1: Foundation (Apr 16 – May 26)
+                    'p1t6': { text: "First weekly check-in with Project Coordinator", phase: 1, due: new Date(2026, 3, 21) },
+                    'p1t5': { text: "Set up stakeholder tracker spreadsheet and begin logging", phase: 1, due: new Date(2026, 4, 1) },
                     'p1t1': { text: "Complete stakeholder map — identify and categorize all target stakeholders", phase: 1, due: new Date(2026, 4, 15) },
                     'p1t2': { text: "Submit IRB/IBC documentation (consent forms, protocols)", phase: 1, due: new Date(2026, 4, 15) },
                     'p1t3': { text: "Prioritize first 8–10 stakeholders to contact", phase: 1, due: new Date(2026, 4, 20) },
                     'p1t4': { text: "Read 3 winning HP wiki pages from past iGEM teams", phase: 1, due: new Date(2026, 4, 25) },
-                    'p1t5': { text: "Set up stakeholder tracker spreadsheet and begin logging", phase: 1, due: new Date(2026, 4, 1) },
-                    'p1t6': { text: "First weekly check-in with Project Coordinator", phase: 1, due: new Date(2026, 3, 21) },
                     // Phase 2: Engagement (May 27 – Aug 1)
                     'p2t1': { text: "Conduct first stakeholder interview", phase: 2, due: new Date(2026, 5, 15) },
+                    'p2t5': { text: "Begin drafting wiki HP narrative outline", phase: 2, due: new Date(2026, 6, 1) },
                     'p2t2': { text: "Complete 6–8 stakeholder interviews (diverse categories)", phase: 2, due: new Date(2026, 6, 15) },
                     'p2t3': { text: "Identify at least 1 concrete project change from feedback", phase: 2, due: new Date(2026, 6, 20) },
-                    'p2t4': { text: "Log all interactions in stakeholder tracker with status updates", phase: 2, due: new Date(2026, 7, 1) },
-                    'p2t5': { text: "Begin drafting wiki HP narrative outline", phase: 2, due: new Date(2026, 6, 1) },
                     'p2t6': { text: "Engage at least 1 stakeholder from underrepresented community", phase: 2, due: new Date(2026, 6, 31) },
+                    'p2t4': { text: "Log all interactions in stakeholder tracker with status updates", phase: 2, due: new Date(2026, 7, 1) },
                     // Phase 3: Integration (Aug 2 – Sep 16)
                     'p3t1': { text: "Complete remaining stakeholder interviews", phase: 3, due: new Date(2026, 7, 31) },
+                    'p3t4': { text: "HP wiki draft v1 complete — submit to Project Coordinator", phase: 3, due: new Date(2026, 7, 31) },
                     'p3t2': { text: "Document all HP-driven project changes (Gold medal evidence!)", phase: 3, due: new Date(2026, 8, 1) },
                     'p3t3': { text: "Second round of follow-ups with key stakeholders", phase: 3, due: new Date(2026, 8, 10) },
-                    'p3t4': { text: "HP wiki draft v1 complete — submit to Project Coordinator", phase: 3, due: new Date(2026, 7, 31) },
                     'p3t5': { text: "Update Change Log in tracker with all integrated HP evidence", phase: 3, due: new Date(2026, 8, 15) },
                     // Phase 4: Documentation (Sep 17 – Oct 21)
                     'p4t1': { text: "Finalize wiki HP page — narrative, evidence, photos, quotes", phase: 4, due: new Date(2026, 9, 10) },
@@ -2955,11 +2966,11 @@
                     'p4t4': { text: "Coordinate with Wiki Lead for final integration", phase: 4, due: new Date(2026, 9, 18) },
                     'p4t5': { text: "Submit online judging form (HP sections)", phase: 4, due: new Date(2026, 9, 20) },
                     // Phase 5: Jamboree Prep (Oct 22 – Nov 11)
+                    'p5t3': { text: "Final wiki freeze — no more edits after this", phase: 5, due: new Date(2026, 9, 25) },
                     'p5t1': { text: "Prepare HP presentation materials (slides, talking points)", phase: 5, due: new Date(2026, 10, 1) },
                     'p5t2': { text: "Practice presenting integrated HP clearly (under 3 minutes)", phase: 5, due: new Date(2026, 10, 5) },
-                    'p5t3': { text: "Final wiki freeze — no more edits after this", phase: 5, due: new Date(2026, 9, 25) },
                     'p5t4': { text: "Pack evidence packet for Jamboree", phase: 5, due: new Date(2026, 10, 10) }
-                };
+                }
                 state.leads.hp.tasks = hpTasks;
             }
 
@@ -3369,7 +3380,8 @@
         <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
           <div style="display:flex;align-items:center;gap:14px">
             <div style="position:relative;width:12px;height:12px;flex-shrink:0">
-              <div style="position:absolute;inset:0;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)"></div>
+              <div style="position:absolute;inset:0;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold);animation:focusDotPulse 2.5s ease-in-out infinite"></div>
+              <div style="position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--gold);animation:focusDotPing 2.5s ease-out infinite;pointer-events:none"></div>
             </div>
             <div>
               <div style="font-family:var(--font-display);font-size:34px;font-weight:400;letter-spacing:2px;text-transform:uppercase;line-height:0.95;text-shadow:0 1px 2px rgba(0,0,0,0.25)">Today's Focus</div>

@@ -254,7 +254,7 @@ body {
 /* ─── Countdown Row ─── */
 .countdown-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
-  max-width: 1100px; margin: 0 auto 24px; padding: 0 40px;
+  max-width: 1100px; margin: 0 auto 24px; padding: 20px 40px 0;
 }
 .countdown-card {
   background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
@@ -310,7 +310,7 @@ body {
 }
 
 /* ─── Tab bar ─── */
-.tab-container { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+.tab-container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
 .tab-bar-wrap {
   border-radius: 4px 4px 0 0; overflow: hidden;
   background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
@@ -666,7 +666,7 @@ body {
 
 /* ─── Footer ─── */
 .footer {
-  max-width: 920px; margin: 0 auto; padding: 20px 24px;
+  max-width: 1100px; margin: 0 auto; padding: 20px 40px;
   text-align: center; display: flex; align-items: center; justify-content: center; gap: 12px;
 }
 .footer img { height: 20px; opacity: 0.4; }
@@ -762,6 +762,17 @@ body {
 .dna-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 0%,transparent 55%,rgba(0,0,0,0.28) 100%)}
 .dna-helix-svg{position:absolute;right:24px;top:40px;opacity:0.62;filter:drop-shadow(0 2px 10px rgba(0,0,0,0.25))}
 .reg-mark{position:absolute;opacity:0.35}
+
+/* Yellow dot pulse animation */
+@keyframes focusDotPulse {
+  0% { box-shadow: 0 0 6px var(--gold), 0 0 12px rgba(246,190,0,0.4); transform: scale(1); }
+  50% { box-shadow: 0 0 14px var(--gold), 0 0 28px rgba(246,190,0,0.5); transform: scale(1.15); }
+  100% { box-shadow: 0 0 6px var(--gold), 0 0 12px rgba(246,190,0,0.4); transform: scale(1); }
+}
+@keyframes focusDotPing {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
 </style>
 </head>
 <body>
@@ -865,7 +876,7 @@ body {
 </div>
 
 <!-- ═══ NOTIFICATION WIDGET ═══ -->
-<div id="notif-widget" class="notif-widget" onclick="openNotifPanel()" style="display:none;max-width:920px;margin:0 auto 16px">
+<div id="notif-widget" class="notif-widget" onclick="openNotifPanel()" style="display:none;max-width:1100px;margin:0 auto 16px;padding:0 40px">
   <div class="notif-logo-wrap">
     <canvas id="helix-canvas" width="96" height="96" style="width:38px;height:38px;"></canvas>
     <div class="notif-badge" id="notif-badge" style="display:none;">0</div>
@@ -938,72 +949,72 @@ const QUOTES = [
 const PHASES = [
   {name:"Phase 1: Foundation",emoji:"🧬",range:"Apr 16 – May 26",end:new Date(2026,4,26),color:"#C8102E",
    tasks:[
-    {id:"p1t1",text:"Complete stakeholder map — identify and categorize all target stakeholders",due:"May 15",
-     guide:"Identify the types of people, organizations, and communities that could be affected by or inform your project. Group them by category: academic, industry, regulatory, patient/community, bioethics, public health, environmental. ⚠️ Do NOT enter names or contact details here — log all identifiable stakeholder info in your Stakeholder Tracker on Google Drive.",
-     resources:["HP Strategy Guide — Section 2: Stakeholder Strategy","Stakeholder Tracker Spreadsheet","Past iGEM HP wiki examples"],
-     docs:["UH iGEM 2026 Human Practices Strategy Guide.docx","UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx",null]},
-    {id:"p1t2",text:"Submit IRB/IBC documentation (consent forms, protocols)",due:"May 15",
-     guide:"Prepare and submit Institutional Review Board and Institutional Biosafety Committee documentation. Use the provided templates on Google Drive for consent forms and interview protocols. Get PI signature before submission. ⚠️ All IRB/IBC documents must be stored on Google Drive only — do not paste consent or protocol content into dashboard notes.",
-     resources:["Consent Form Template","Interview Protocol","IRB/IBC Letter Templates"],
-     docs:["UH iGEM 2026 Human Practices Consent Form.docx","UH iGEM 2026 Human Practices Interview Protocol.docx","UH iGEM 2026 Human Practices IRB IBC Letters.docx"]},
-    {id:"p1t3",text:"Prioritize first 8–10 stakeholders to contact",due:"May 20",
-     guide:"From your stakeholder map, select 8-10 high-priority contacts to reach out to first. Prioritize diversity of perspective: at least one from each major category. Enter all names, contact info, and outreach dates into the Stakeholder Tracker on Google Drive — not here. Use this space only for general status notes (e.g. '5 of 8 contacts identified').",
-     resources:["Stakeholder Tracker Spreadsheet","HP Strategy Guide — Stakeholder Categories Table"],
-     docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Strategy Guide.docx"]},
-    {id:"p1t4",text:"Read 3 winning HP wiki pages from past iGEM teams",due:"May 25",
-     guide:"Study what excellent HP looks like. Read at least 3 past Best HP prize winners. Take notes on: narrative structure, how they showed the feedback loop, what evidence they included, how they integrated stakeholder input into project changes.",
-     resources:["iGEM HP Resources Page","Past HP Award Winners","HP Strategy Guide — Section 6: Wiki Writing Tips"],
-     docs:[null,null,"UH iGEM 2026 Human Practices Strategy Guide.docx"]},
-    {id:"p1t5",text:"Set up stakeholder tracker spreadsheet and begin logging",due:"May 1",
-     guide:"Open the stakeholder tracker template on Google Drive. Familiarize yourself with all 4 tabs: Stakeholder Tracker, Change Log, Weekly Check-Ins, Quick Reference. All stakeholder names, contact details, and interaction logs go in the Google Drive tracker — this dashboard is for status updates only.",
-     resources:["Stakeholder Tracker Spreadsheet (4 tabs)"],
-     docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx"]},
-    {id:"p1t6",text:"First weekly check-in with Project Coordinator",due:"Apr 21",
+{id:"p1t6",text:"First weekly check-in with Project Coordinator",due:"Apr 21",
      guide:"Meet with the Project Coordinator for your first weekly check-in. Discuss initial stakeholder targets, set expectations for weekly updates, and confirm your understanding of Gold medal requirements.",
      resources:["HP Strategy Guide","UH iGEM 2026 Competition Strategy Playbook"],
      docs:["UH iGEM 2026 Human Practices Strategy Guide.docx","UH iGEM 2026 Team Strategy Playbook.docx"]},
+{id:"p1t5",text:"Set up stakeholder tracker spreadsheet and begin logging",due:"May 1",
+     guide:"Open the stakeholder tracker template on Google Drive. Familiarize yourself with all 4 tabs: Stakeholder Tracker, Change Log, Weekly Check-Ins, Quick Reference. All stakeholder names, contact details, and interaction logs go in the Google Drive tracker — this dashboard is for status updates only.",
+     resources:["Stakeholder Tracker Spreadsheet (4 tabs)"],
+     docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx"]},
+{id:"p1t1",text:"Complete stakeholder map — identify and categorize all target stakeholders",due:"May 15",
+     guide:"Identify the types of people, organizations, and communities that could be affected by or inform your project. Group them by category: academic, industry, regulatory, patient/community, bioethics, public health, environmental. ⚠️ Do NOT enter names or contact details here — log all identifiable stakeholder info in your Stakeholder Tracker on Google Drive.",
+     resources:["HP Strategy Guide — Section 2: Stakeholder Strategy","Stakeholder Tracker Spreadsheet","Past iGEM HP wiki examples"],
+     docs:["UH iGEM 2026 Human Practices Strategy Guide.docx","UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx",null]},
+{id:"p1t2",text:"Submit IRB/IBC documentation (consent forms, protocols)",due:"May 15",
+     guide:"Prepare and submit Institutional Review Board and Institutional Biosafety Committee documentation. Use the provided templates on Google Drive for consent forms and interview protocols. Get PI signature before submission. ⚠️ All IRB/IBC documents must be stored on Google Drive only — do not paste consent or protocol content into dashboard notes.",
+     resources:["Consent Form Template","Interview Protocol","IRB/IBC Letter Templates"],
+     docs:["UH iGEM 2026 Human Practices Consent Form.docx","UH iGEM 2026 Human Practices Interview Protocol.docx","UH iGEM 2026 Human Practices IRB IBC Letters.docx"]},
+{id:"p1t3",text:"Prioritize first 8–10 stakeholders to contact",due:"May 20",
+     guide:"From your stakeholder map, select 8-10 high-priority contacts to reach out to first. Prioritize diversity of perspective: at least one from each major category. Enter all names, contact info, and outreach dates into the Stakeholder Tracker on Google Drive — not here. Use this space only for general status notes (e.g. '5 of 8 contacts identified').",
+     resources:["Stakeholder Tracker Spreadsheet","HP Strategy Guide — Stakeholder Categories Table"],
+     docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Strategy Guide.docx"]},
+{id:"p1t4",text:"Read 3 winning HP wiki pages from past iGEM teams",due:"May 25",
+     guide:"Study what excellent HP looks like. Read at least 3 past Best HP prize winners. Take notes on: narrative structure, how they showed the feedback loop, what evidence they included, how they integrated stakeholder input into project changes.",
+     resources:["iGEM HP Resources Page","Past HP Award Winners","HP Strategy Guide — Section 6: Wiki Writing Tips"],
+     docs:[null,null,"UH iGEM 2026 Human Practices Strategy Guide.docx"]},
   ]},
   {name:"Phase 2: Engagement",emoji:"🔬",range:"May 27 – Aug 1",end:new Date(2026,7,1),color:"#E8394F",
    tasks:[
-    {id:"p2t1",text:"Conduct first stakeholder interview",due:"Jun 15",
+{id:"p2t1",text:"Conduct first stakeholder interview",due:"Jun 15",
      guide:"Schedule and conduct your first formal stakeholder interview. Use the Interview Protocol on Google Drive. Send consent form in advance. Record all interview details, key takeaways, and follow-up actions in your Google Drive Stakeholder Tracker — not in this dashboard. Here, just note your progress status (e.g. 'First interview completed, takeaways logged in tracker').",
      resources:["Interview Protocol","Consent Form","Stakeholder Tracker"],
      docs:["UH iGEM 2026 Human Practices Interview Protocol.docx","UH iGEM 2026 Human Practices Consent Form.docx","UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx"]},
-    {id:"p2t2",text:"Complete 6–8 stakeholder interviews (diverse categories)",due:"Jul 15",
-     guide:"Conduct interviews across diverse stakeholder categories. Judges want to see breadth AND depth. Track each interaction meticulously in your Google Drive Stakeholder Tracker — that spreadsheet is your Gold medal evidence. Use this dashboard only for progress counts (e.g. '4 of 8 interviews complete, 2 scheduled').",
-     resources:["Interview Protocol","Stakeholder Tracker","HP Strategy Guide"],
-     docs:["UH iGEM 2026 Human Practices Interview Protocol.docx","UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Strategy Guide.docx"]},
-    {id:"p2t3",text:"Identify at least 1 concrete project change from feedback",due:"Jul 20",
-     guide:"This is the GOLD MEDAL requirement. Review your stakeholder feedback (in the Google Drive tracker) and identify at least one concrete way the project design, approach, or implementation was changed. Document the full details in the Change Log tab on Google Drive. Here, just summarize what changed and why (no stakeholder names).",
-     resources:["Stakeholder Tracker — Change Log Tab","HP Strategy Guide — Gold Medal Section"],
-     docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Strategy Guide.docx"]},
-    {id:"p2t4",text:"Log all interactions in stakeholder tracker with status updates",due:"Ongoing",
-     guide:"Keep your Google Drive Stakeholder Tracker current — every interaction should be logged there with dates and status. That spreadsheet is your real-time evidence base. In this dashboard, just note your overall tracking status (e.g. '12 interactions logged, tracker up to date').",
-     resources:["Stakeholder Tracker"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx"]},
-    {id:"p2t5",text:"Begin drafting wiki HP narrative outline",due:"Jul 1",
+{id:"p2t5",text:"Begin drafting wiki HP narrative outline",due:"Jul 1",
      guide:"Start outlining your HP wiki page. Structure: Introduction → Stakeholder Overview → Engagement Process → Key Findings → Project Changes (Gold!) → Reflection. Don't write final prose yet — focus on the narrative arc.",
      resources:["HP Strategy Guide — Section 6: Wiki Writing Tips","Past HP Award Winners"],
      docs:["UH iGEM 2026 Human Practices Strategy Guide.docx",null]},
-    {id:"p2t6",text:"Engage at least 1 stakeholder from underrepresented community",due:"Jul 31",
+{id:"p2t2",text:"Complete 6–8 stakeholder interviews (diverse categories)",due:"Jul 15",
+     guide:"Conduct interviews across diverse stakeholder categories. Judges want to see breadth AND depth. Track each interaction meticulously in your Google Drive Stakeholder Tracker — that spreadsheet is your Gold medal evidence. Use this dashboard only for progress counts (e.g. '4 of 8 interviews complete, 2 scheduled').",
+     resources:["Interview Protocol","Stakeholder Tracker","HP Strategy Guide"],
+     docs:["UH iGEM 2026 Human Practices Interview Protocol.docx","UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Strategy Guide.docx"]},
+{id:"p2t3",text:"Identify at least 1 concrete project change from feedback",due:"Jul 20",
+     guide:"This is the GOLD MEDAL requirement. Review your stakeholder feedback (in the Google Drive tracker) and identify at least one concrete way the project design, approach, or implementation was changed. Document the full details in the Change Log tab on Google Drive. Here, just summarize what changed and why (no stakeholder names).",
+     resources:["Stakeholder Tracker — Change Log Tab","HP Strategy Guide — Gold Medal Section"],
+     docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Strategy Guide.docx"]},
+{id:"p2t6",text:"Engage at least 1 stakeholder from underrepresented community",due:"Jul 31",
      guide:"Inclusivity matters for the Best HP Prize. Intentionally reach out to stakeholders from underrepresented or underserved communities. Document all details in the Google Drive Stakeholder Tracker. Here, note progress status only — no names or identifying information.",
      resources:["HP Strategy Guide — Section 4: Inclusivity in HP","Stakeholder Tracker"],
      docs:["UH iGEM 2026 Human Practices Strategy Guide.docx","UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx"]},
+{id:"p2t4",text:"Log all interactions in stakeholder tracker with status updates",due:"Ongoing",
+     guide:"Keep your Google Drive Stakeholder Tracker current — every interaction should be logged there with dates and status. That spreadsheet is your real-time evidence base. In this dashboard, just note your overall tracking status (e.g. '12 interactions logged, tracker up to date').",
+     resources:["Stakeholder Tracker"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx"]},
   ]},
   {name:"Phase 3: Integration",emoji:"⚙️",range:"Aug 2 – Sep 16",end:new Date(2026,8,16),color:"#F6BE00",
    tasks:[
-    {id:"p3t1",text:"Complete remaining stakeholder interviews",due:"Aug 31",
+{id:"p3t1",text:"Complete remaining stakeholder interviews",due:"Aug 31",
      guide:"Finish all planned interviews. Aim for 12+ total interactions across diverse categories. Track all interview details and follow-ups in your Google Drive Stakeholder Tracker. Use this dashboard for progress counts only.",
      resources:["Stakeholder Tracker","Interview Protocol"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Interview Protocol.docx"]},
-    {id:"p3t2",text:"Document all HP-driven project changes (Gold medal evidence!)",due:"Sep 1",
-     guide:"This is your most important deliverable. For each HP-driven project change, document the full details in the Google Drive Change Log tab: what feedback led to the change, what was modified, and evidence of implementation. Here, summarize the number of changes documented and their general themes — no stakeholder names or quotes.",
-     resources:["Stakeholder Tracker — Change Log Tab","HP Strategy Guide — Gold Medal Section"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Strategy Guide.docx"]},
-    {id:"p3t3",text:"Second round of follow-ups with key stakeholders",due:"Sep 10",
-     guide:"Conduct follow-up conversations to share how feedback was integrated. This multi-round engagement separates Best HP Prize winners from the pack. Log all follow-up details in your Google Drive Stakeholder Tracker. Dashboard notes: status only (e.g. '3 of 5 follow-ups complete').",
-     resources:["Stakeholder Tracker","Consent Form"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Consent Form.docx"]},
-    {id:"p3t4",text:"HP wiki draft v1 complete — submit to Project Coordinator",due:"Aug 31",
+{id:"p3t4",text:"HP wiki draft v1 complete — submit to Project Coordinator",due:"Aug 31",
      guide:"Write the full first draft of your HP wiki page. Include all sections, evidence, quotes, and photos. Submit to the Project Coordinator for review and feedback.",
      resources:["HP Strategy Guide — Wiki Writing Tips","Past HP Winners"],docs:["UH iGEM 2026 Human Practices Strategy Guide.docx",null]},
-    {id:"p3t5",text:"Update Change Log in tracker with all integrated HP evidence",due:"Sep 15",
+{id:"p3t2",text:"Document all HP-driven project changes (Gold medal evidence!)",due:"Sep 1",
+     guide:"This is your most important deliverable. For each HP-driven project change, document the full details in the Google Drive Change Log tab: what feedback led to the change, what was modified, and evidence of implementation. Here, summarize the number of changes documented and their general themes — no stakeholder names or quotes.",
+     resources:["Stakeholder Tracker — Change Log Tab","HP Strategy Guide — Gold Medal Section"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Strategy Guide.docx"]},
+{id:"p3t3",text:"Second round of follow-ups with key stakeholders",due:"Sep 10",
+     guide:"Conduct follow-up conversations to share how feedback was integrated. This multi-round engagement separates Best HP Prize winners from the pack. Log all follow-up details in your Google Drive Stakeholder Tracker. Dashboard notes: status only (e.g. '3 of 5 follow-ups complete').",
+     resources:["Stakeholder Tracker","Consent Form"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx","UH iGEM 2026 Human Practices Consent Form.docx"]},
+{id:"p3t5",text:"Update Change Log in tracker with all integrated HP evidence",due:"Sep 15",
      guide:"Final pass through the Change Log. Make sure every HP-driven change is documented with clear before/after evidence. This tab is your Gold medal proof.",
      resources:["Stakeholder Tracker — Change Log Tab"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx"]},
   ]},
@@ -1027,16 +1038,16 @@ const PHASES = [
   ]},
   {name:"Phase 5: Jamboree Prep",emoji:"🏆",range:"Oct 22 – Nov 11",end:new Date(2026,10,11),color:"#9B0C23",
    tasks:[
-    {id:"p5t1",text:"Prepare HP presentation materials (slides, talking points)",due:"Nov 1",
-     guide:"Create presentation slides that tell the HP story clearly. Focus on: the problem, who you talked to, what changed, and the evidence. Practice the narrative flow.",
-     resources:["UH iGEM 2026 Competition Strategy Playbook","HP wiki page"],docs:["UH iGEM 2026 Team Strategy Playbook.docx",null]},
-    {id:"p5t2",text:"Practice presenting integrated HP clearly (under 3 minutes)",due:"Nov 5",
-     guide:"Rehearse your HP segment of the presentation. Judges have limited time — you need to convey the feedback loop clearly in under 3 minutes. Practice with the team.",
-     resources:["Presentation slides"],docs:[null]},
-    {id:"p5t3",text:"Final wiki freeze — no more edits after this",due:"Oct 25",
+{id:"p5t3",text:"Final wiki freeze — no more edits after this",due:"Oct 25",
      guide:"Lock the wiki. No more changes after this date. Do a final review for typos, broken links, and missing images before the freeze.",
      resources:["Wiki HP page"],docs:[null]},
-    {id:"p5t4",text:"Pack evidence packet for Jamboree",due:"Nov 10",
+{id:"p5t1",text:"Prepare HP presentation materials (slides, talking points)",due:"Nov 1",
+     guide:"Create presentation slides that tell the HP story clearly. Focus on: the problem, who you talked to, what changed, and the evidence. Practice the narrative flow.",
+     resources:["UH iGEM 2026 Competition Strategy Playbook","HP wiki page"],docs:["UH iGEM 2026 Team Strategy Playbook.docx",null]},
+{id:"p5t2",text:"Practice presenting integrated HP clearly (under 3 minutes)",due:"Nov 5",
+     guide:"Rehearse your HP segment of the presentation. Judges have limited time — you need to convey the feedback loop clearly in under 3 minutes. Practice with the team.",
+     resources:["Presentation slides"],docs:[null]},
+{id:"p5t4",text:"Pack evidence packet for Jamboree",due:"Nov 10",
      guide:"Prepare a physical/digital evidence packet from your Google Drive files: de-identified stakeholder summaries, approved quotes (with consent), project change documentation, photos. Have it ready for judge Q&A at the Jamboree in Paris. Note packing status here only.",
      resources:["Stakeholder Tracker Export"],docs:["UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx"]},
   ]},
@@ -1282,7 +1293,8 @@ function renderSnapshot(){
         <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
           <div style="display:flex;align-items:center;gap:14px">
             <div style="position:relative;width:12px;height:12px;flex-shrink:0">
-              <div style="position:absolute;inset:0;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)"></div>
+              <div style="position:absolute;inset:0;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold);animation:focusDotPulse 2.5s ease-in-out infinite"></div>
+              <div style="position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--gold);animation:focusDotPing 2.5s ease-out infinite;pointer-events:none"></div>
             </div>
             <div>
               <div style="font-family:var(--font-display);font-size:34px;font-weight:400;letter-spacing:2px;text-transform:uppercase;line-height:0.95;text-shadow:0 1px 2px rgba(0,0,0,0.25)">Today's Focus</div>
