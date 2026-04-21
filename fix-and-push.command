@@ -31,10 +31,12 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Boost CRISPR strand visibility in dashboard headers
+    git commit -m "Refine CRISPR strands: scarlet only, shorter, head-to-tail fade
 
-- Increased strand opacity, count, and helix width for better visibility
-- 8 strands max, faster spawning, bolder rendering on white background
+- Removed gold/dark colors — all strands now scarlet only
+- Shortened to 4-5 helix turns max (was 10-22 segments)
+- Head is more opaque (0.55-0.70), fades strongly through length
+- Applied to all dashboards and hub page
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
