@@ -40,12 +40,23 @@
   /* Soft vignette */
   body::before{
     content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
-    background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,0.06) 100%);
+    background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,0.15) 100%);
   }
+  /* Scarlet gradient wash at top */
+  body::after{
+    content:"";position:fixed;top:0;left:0;right:0;height:520px;pointer-events:none;z-index:0;
+    background:linear-gradient(180deg,rgba(200,16,46,0.07) 0%,rgba(200,16,46,0.03) 40%,transparent 100%);
+  }
+
+  /* CRISPR canvas */
+  #crispr-canvas{
+    position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:3;
+  }
+
   /* Corner registration marks */
   .reg{
     position:fixed;width:32px;height:32px;z-index:1;pointer-events:none;
-    border:1.5px solid var(--gold);border-radius:50%;opacity:0.75;
+    border:1.5px solid var(--gold);border-radius:50%;opacity:0.9;
   }
   .reg::after{
     content:"";position:absolute;inset:8px;border:1px solid var(--gold);border-radius:50%;
@@ -59,7 +70,7 @@
   .bg-helix{
     position:fixed;right:24px;top:60px;
     width:120px;height:640px;pointer-events:none;z-index:1;
-    opacity:0.6;
+    opacity:0.85;
   }
 
   /* Instrument tape at top */
@@ -285,6 +296,9 @@
 </style>
 </head>
 <body>
+
+<!-- CRISPR DNA strands canvas -->
+<canvas id="crispr-canvas"></canvas>
 
 <!-- Registration marks -->
 <div class="reg tl"></div><div class="reg tr"></div>
@@ -513,18 +527,272 @@ function animHelix(ts){
     const r = rungs[i];
     r.setAttribute('x1', x1); r.setAttribute('y1', y);
     r.setAttribute('x2', x2); r.setAttribute('y2', y);
-    r.setAttribute('stroke-opacity', 0.15 + Math.abs(depth) * 0.25);
+    r.setAttribute('stroke-opacity', 0.25 + Math.abs(depth) * 0.4);
     const [n1,n2] = nodes[i];
     n1.setAttribute('cx', x1); n1.setAttribute('cy', y);
     n1.setAttribute('fill', i % 2 ? '#F6BE00' : '#C8102E');
-    n1.setAttribute('opacity', 0.4 + depth * 0.3);
+    n1.setAttribute('opacity', 0.55 + depth * 0.35);
     n2.setAttribute('cx', x2); n2.setAttribute('cy', y);
     n2.setAttribute('fill', i % 2 ? '#C8102E' : '#F6BE00');
-    n2.setAttribute('opacity', 0.4 - depth * 0.3);
+    n2.setAttribute('opacity', 0.55 - depth * 0.35);
   }
   requestAnimationFrame(animHelix);
 }
 requestAnimationFrame(animHelix);
+
+// ========= CRISPR DNA Strands =========
+// Guide RNA strands radiate from logo, following grid lines like a maze,
+// randomly turning at intersections, fading with distance
+(function(){
+  const canvas = document.getElementById('crispr-canvas');
+  const ctx = canvas.getContext('2d');
+  const GRID = 24; // matches background grid
+  const MAX_STRANDS = 14;
+  const SPAWN_INTERVAL = 800; // ms between spawns
+  const STRAND_SPEED = 0.6; // grid cells per second
+  const MAX_SEGMENTS = 28; // max grid cells before dying
+  const HELIX_WIDTH = 5; // width of the double helix rendering
+  const TURN_CHANCE = 0.35; // chance to turn at each intersection
+  const COLORS = [
+    {r:200,g:16,b:46},   // scarlet
+    {r:200,g:16,b:46},   // scarlet (weighted)
+    {r:246,g:190,b:0},   // gold
+    {r:155,g:12,b:35},   // scarlet-dark
+  ];
+
+  let strands = [];
+  let lastSpawn = 0;
+  let originX, originY;
+
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    // Find logo center — hero-crest is centered in the hub container
+    const crest = document.querySelector('.hero-crest');
+    if(crest){
+      const r = crest.getBoundingClientRect();
+      originX = r.left + r.width/2;
+      originY = r.top + r.height/2 + window.scrollY;
+    } else {
+      originX = canvas.width/2;
+      originY = 280;
+    }
+  }
+  window.addEventListener('resize', resize);
+  resize();
+  // Recalculate origin on scroll since canvas is fixed but logo scrolls
+  window.addEventListener('scroll', ()=>{
+    const crest = document.querySelector('.hero-crest');
+    if(crest){
+      const r = crest.getBoundingClientRect();
+      originX = r.left + r.width/2;
+      originY = r.top + r.height/2;
+    }
+  });
+
+  // Directions: 0=right, 1=down, 2=left, 3=up
+  const DX = [1, 0, -1, 0];
+  const DY = [0, 1, 0, -1];
+
+  function spawnStrand(){
+    // Pick a random initial direction radiating outward from logo
+    const angle = Math.random() * Math.PI * 2;
+    // Start 3-4 grid cells out from the logo center
+    const startDist = (3 + Math.random() * 2) * GRID;
+    const sx = originX + Math.cos(angle) * startDist;
+    const sy = originY + Math.sin(angle) * startDist;
+    // Snap to nearest grid intersection
+    const gx = Math.round(sx / GRID) * GRID;
+    const gy = Math.round(sy / GRID) * GRID;
+
+    // Pick initial direction closest to outward angle
+    let bestDir = 0, bestDot = -Infinity;
+    for(let d=0;d<4;d++){
+      const dot = Math.cos(angle)*DX[d] + Math.sin(angle)*DY[d];
+      if(dot > bestDot){ bestDot=dot; bestDir=d; }
+    }
+
+    const color = COLORS[Math.floor(Math.random()*COLORS.length)];
+    strands.push({
+      points: [{x:gx, y:gy}],
+      dir: bestDir,
+      color: color,
+      progress: 0,        // fractional grid cells traveled in current segment
+      segments: 0,         // total segments traveled
+      maxSegments: MAX_SEGMENTS - Math.floor(Math.random()*12),
+      alive: true,
+      age: 0,
+      fadeStart: 0.55 + Math.random()*0.2, // starting opacity
+      helixPhase: Math.random() * Math.PI * 2,
+      speed: STRAND_SPEED * (0.7 + Math.random()*0.6),
+    });
+  }
+
+  function updateStrand(s, dt){
+    if(!s.alive) return;
+    s.age += dt;
+    s.progress += s.speed * dt;
+
+    if(s.progress >= 1){
+      s.progress -= 1;
+      s.segments++;
+      const last = s.points[s.points.length-1];
+      const nx = last.x + DX[s.dir]*GRID;
+      const ny = last.y + DY[s.dir]*GRID;
+      s.points.push({x:nx, y:ny});
+
+      // Check if off screen or too many segments
+      if(nx < -GRID || nx > canvas.width+GRID || ny < -GRID || ny > canvas.height+GRID || s.segments >= s.maxSegments){
+        s.alive = false;
+        return;
+      }
+
+      // Possibly turn at this intersection
+      if(Math.random() < TURN_CHANCE){
+        // Turn 90 degrees left or right
+        const turnDir = Math.random() < 0.5 ? 1 : -1;
+        s.dir = (s.dir + turnDir + 4) % 4;
+      }
+      // Small chance to reverse (U-turn feels unnatural, skip)
+    }
+  }
+
+  function drawStrand(s){
+    if(s.points.length < 2 && s.progress < 0.1) return;
+
+    const pts = [...s.points];
+    // Add the in-progress point
+    if(s.alive){
+      const last = pts[pts.length-1];
+      pts.push({
+        x: last.x + DX[s.dir]*GRID*s.progress,
+        y: last.y + DY[s.dir]*GRID*s.progress,
+      });
+    }
+
+    // Distance from origin for fade calculation
+    const distFromOrigin = (pt)=>{
+      const dx = pt.x - originX;
+      const dy = pt.y - originY;
+      return Math.sqrt(dx*dx+dy*dy);
+    };
+
+    // Draw double helix along the path
+    const c = s.color;
+    for(let i=0; i<pts.length-1; i++){
+      const p0 = pts[i];
+      const p1 = pts[i+1];
+
+      // Segment direction
+      const sdx = p1.x - p0.x;
+      const sdy = p1.y - p0.y;
+      const segLen = Math.sqrt(sdx*sdx+sdy*sdy);
+      if(segLen < 1) continue;
+
+      // Normal perpendicular to direction
+      const nx = -sdy/segLen;
+      const ny = sdx/segLen;
+
+      // Draw helix rungs along this segment
+      const steps = Math.ceil(segLen/4);
+      for(let j=0; j<=steps; j++){
+        const t = j/steps;
+        const px = p0.x + sdx*t;
+        const py = p0.y + sdy*t;
+        const dist = distFromOrigin({x:px,y:py});
+
+        // Fade based on distance from origin and segment index
+        const distFade = Math.max(0, 1 - dist/(canvas.width*0.45));
+        const segFade = Math.max(0, 1 - (i + t)/(s.maxSegments*0.8));
+        // Death fade — last 20% of life
+        const lifeFade = s.alive ? 1 : Math.max(0, 1 - (s.age - s.segments/s.speed)*2);
+        const alpha = s.fadeStart * distFade * segFade * lifeFade;
+        if(alpha < 0.01) continue;
+
+        // Helix wave
+        const phase = s.helixPhase + (i*GRID + t*segLen)*0.15;
+        const wave = Math.sin(phase);
+        const hw = HELIX_WIDTH * wave;
+
+        // Strand 1
+        const x1 = px + nx*hw;
+        const y1 = py + ny*hw;
+        // Strand 2
+        const x2 = px - nx*hw;
+        const y2 = py - ny*hw;
+
+        // Draw rung (connecting bar) every ~8px
+        if(j % 2 === 0){
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.strokeStyle = `rgba(${c.r},${c.g},${c.b},${alpha*0.45})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+
+        // Draw backbone dots
+        const dotR = 1.6;
+        ctx.beginPath();
+        ctx.arc(x1, y1, dotR, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(${c.r},${c.g},${c.b},${alpha*0.7})`;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(x2, y2, dotR, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(${c.r},${c.g},${c.b},${alpha*0.5})`;
+        ctx.fill();
+      }
+    }
+
+    // Draw a small bright head at the leading edge if alive
+    if(s.alive && pts.length >= 2){
+      const head = pts[pts.length-1];
+      const dist = distFromOrigin(head);
+      const distFade = Math.max(0, 1 - dist/(canvas.width*0.45));
+      const alpha = s.fadeStart * distFade * 0.9;
+      if(alpha > 0.02){
+        ctx.beginPath();
+        ctx.arc(head.x, head.y, 2.5, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(${c.r},${c.g},${c.b},${alpha})`;
+        ctx.fill();
+        // Tiny glow
+        ctx.beginPath();
+        ctx.arc(head.x, head.y, 5, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(${c.r},${c.g},${c.b},${alpha*0.2})`;
+        ctx.fill();
+      }
+    }
+  }
+
+  let prevT = null;
+  function animCRISPR(ts){
+    if(!prevT) prevT = ts;
+    const dt = Math.min((ts - prevT)/1000, 0.1);
+    prevT = ts;
+
+    // Spawn new strands
+    if(ts - lastSpawn > SPAWN_INTERVAL && strands.filter(s=>s.alive).length < MAX_STRANDS){
+      spawnStrand();
+      lastSpawn = ts;
+    }
+
+    // Clear
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Update and draw
+    strands.forEach(s=>{
+      updateStrand(s, dt);
+      drawStrand(s);
+    });
+
+    // Remove dead strands that have fully faded
+    strands = strands.filter(s=> s.alive || s.age < s.segments/s.speed + 2);
+
+    requestAnimationFrame(animCRISPR);
+  }
+  requestAnimationFrame(animCRISPR);
+})();
 </script>
 
 </body>
