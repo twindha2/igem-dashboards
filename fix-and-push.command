@@ -31,13 +31,13 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "UI kit parity: Today's Focus, horizontal countdown cards, numbered tabs
+    git commit -m "Design system fonts: all tab content uses Source Sans 3, JetBrains Mono, League Gothic
 
-- All dashboards: Today's Focus scarlet gradient header bar with gold accent rail, EPIGRAPH + PRIORITY QUEUE
-- Countdown cards: 3-column horizontal layout with left accent bars, specimen-tag labels (T01/T02/T03)
-- Tabs: numbered JetBrains Mono prefixes (01-08), 11px uppercase, letter-spacing 1.8px
-- Cards: League Gothic big numbers, right-aligned, with card-info flex layout
-- Consistent design system across Project Lead, HP Lead, Wiki Lead, and Coordinator
+- Section headers: font-family var(--font-sans), 14px, 700, letter-spacing 1.5px, uppercase
+- Sub-headers: font-family var(--font-sans), 12px, 700, letter-spacing 1px, uppercase
+- Team section h3: updated across HP Lead, Wiki Lead, Coordinator
+- Briefing headers, check-in agenda, resource sections, upload headers all standardized
+- Consistent typography across all four dashboards
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."

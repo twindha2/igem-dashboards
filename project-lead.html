@@ -1683,7 +1683,7 @@ function renderOverallProgress() {
     document.getElementById('overall-progress').innerHTML = `
         <div style="display:flex;justify-content:space-between;align-items:center;">
             <div>
-                <div style="font-size:18px;font-weight:800;color:var(--scarlet-dark);">Overall Team Progress</div>
+                <div style="font-family:var(--font-sans);font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--scarlet-dark);">Overall Team Progress</div>
                 <div style="font-size:12px;color:var(--slate);margin-top:2px;">Current Phase: ${phase.emoji} ${phase.name} (${phase.range})</div>
             </div>
             <div style="font-size:36px;font-weight:900;color:${overall.pct >= 80 ? 'var(--emerald)' : overall.pct >= 40 ? 'var(--amber)' : 'var(--scarlet)'}">${overall.pct}%</div>
@@ -1785,7 +1785,7 @@ function renderApprovalsTab() {
     const items = getPendingApprovals();
     const approved = Object.keys(state.approvals).length;
     let html = `<div style="margin-bottom:20px;">
-        <div style="font-size:18px;font-weight:800;color:white;">Deliverable Sign-Off</div>
+        <div style="font-family:var(--font-sans);font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:white;">Deliverable Sign-Off</div>
         <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:4px;">Items here have been completed by leads and approved by the Coordinator. They need your final sign-off.</div>
         <div style="margin-top:10px;font-size:13px;color:rgba(255,255,255,0.6);">${approved} item${approved!==1?'s':''} signed off · ${items.length} pending</div>
     </div>`;
@@ -1887,7 +1887,7 @@ function renderTeamOverview() {
     </div>`;
 
     document.getElementById('team-overview-content').innerHTML = `
-        <div style="font-size:18px;font-weight:800;color:white;margin-bottom:16px;">Team Overview</div>
+        <div style="font-family:var(--font-sans);font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:white;margin-bottom:16px;">Team Overview</div>
         <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:20px;">Detailed progress for each subteam lead and the coordinator.</div>
         ${html}`;
 }
@@ -2002,7 +2002,7 @@ function renderCalendar() {
 
 function renderMilestonesTab() {
     const now = new Date();
-    let html = `<div style="font-size:18px;font-weight:800;color:white;margin-bottom:4px;">Project Milestones</div>
+    let html = `<div style="font-family:var(--font-sans);font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:white;margin-bottom:4px;">Project Milestones</div>
         <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:20px;">Every major deliverable and deadline from kickoff to Jamboree.</div>`;
 
     // Full milestone timeline
@@ -2030,7 +2030,7 @@ function renderMilestonesTab() {
 
     // Full interactive calendar
     html += `<div style="margin-top:32px;">
-        <div style="font-size:18px;font-weight:800;color:white;margin-bottom:16px;">Project Calendar</div>
+        <div style="font-family:var(--font-sans);font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:white;margin-bottom:16px;">Project Calendar</div>
         <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:16px;">Click any day with events to see details, owners, and Drive links.</div>
         <div id="cal-container"></div>
     </div>`;
@@ -2163,7 +2163,7 @@ function renderWikiSubmissionsTab() {
     }).join('');
 
     document.getElementById('wiki-submissions-content').innerHTML = `
-        <div style="font-size:18px;font-weight:800;color:white;margin-bottom:24px;">Wiki Submissions</div>
+        <div style="font-family:var(--font-sans);font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:white;margin-bottom:24px;">Wiki Submissions</div>
 
         <!-- Submit for Approval Section -->
         <div class="wiki-submissions-panel" style="background:rgba(255,255,255,0.98);border-left:4px solid var(--scarlet);margin-bottom:28px;">
@@ -2338,10 +2338,10 @@ function renderResourcesTab() {
     }).join('');
 
     document.getElementById('resources-content').innerHTML = `
-        <div style="font-size:18px;font-weight:800;color:white;margin-bottom:16px;">Resources</div>
+        <div style="font-family:var(--font-sans);font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:white;margin-bottom:16px;">Resources</div>
 
         <div style="margin-bottom:24px;">
-            <div style="font-size:14px;font-weight:700;color:var(--scarlet);margin-bottom:10px;">🔬 Project Lead Resources</div>
+            <div style="font-family:var(--font-sans);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--scarlet);margin-bottom:10px;">🔬 Project Lead Resources</div>
             <a class="resource-link" href="https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view" target="_blank">📋 UH iGEM 2026 Competition Strategy Playbook</a>
             <a class="resource-link" href="genetic_circuit_map.html" target="_blank">🧬 Genetic Circuit Map</a>
             <a class="resource-link" href="https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7" target="_blank">📚 Lab Protocols & Design Docs</a>
@@ -2352,7 +2352,7 @@ function renderResourcesTab() {
         </div>
 
         <div style="margin-bottom:24px;">
-            <div style="font-size:14px;font-weight:700;color:var(--indigo);margin-bottom:10px;">📚 All Team Resources</div>
+            <div style="font-family:var(--font-sans);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--indigo);margin-bottom:10px;">📚 All Team Resources</div>
             <a class="resource-link" href="https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7" target="_blank">📊 Shared Team Drive</a>
             <a class="resource-link" href="https://competition.igem.org/" target="_blank">🌐 iGEM Competition Portal</a>
             <a class="resource-link" href="https://competition.igem.org/judging/medals" target="_blank">🏅 2026 Medal Criteria</a>

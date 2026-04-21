@@ -665,7 +665,7 @@
 
         /* ─── Team Members Grid ─── */
         .team-section { margin-top: 28px; margin-bottom: 40px; }
-        .team-section h3 { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; text-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .team-section h3 { font-family: var(--font-sans); font-size: 14px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; text-shadow: 0 1px 3px rgba(0,0,0,0.2); }
         .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
         .team-card {
           display: flex; align-items: center; gap: 10px; padding: 12px 14px;
@@ -3282,7 +3282,7 @@
             });
             el.innerHTML = `
                 <div style="display:flex;justify-content:space-between;align-items:center;">
-                    <div style="font-size:16px;font-weight:800;color:var(--scarlet-dark);">Team Progress</div>
+                    <div style="font-family:var(--font-sans);font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--scarlet-dark);">Team Progress</div>
                     <div style="font-size:24px;font-weight:900;color:var(--scarlet);">${pct}%</div>
                 </div>
                 <div class="overall-bar"><div class="overall-fill" style="width:${pct}%"></div></div>
@@ -4107,7 +4107,7 @@
                         <div style="background:var(--white); padding:20px 24px; border-radius: 4px; margin-bottom:20px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
                             <div style="display:flex; justify-content:space-between; align-items:center;">
                                 <div>
-                                    <div style="font-size:20px; font-weight:700; color:var(--scarlet-dark);">Week ${selWeek.week} Check-In</div>
+                                    <div style="font-family:var(--font-sans);font-size:16px; font-weight:700; letter-spacing:1.5px;text-transform:uppercase;color:var(--scarlet-dark);">Week ${selWeek.week} Check-In</div>
                                     <div style="font-size:14px; color:var(--slate); margin-top:4px;">
                                         ${weekStart.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}
                                     </div>
