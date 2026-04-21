@@ -31,11 +31,11 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Fix: renderDash on page load, remove stale dashboard tab references
+    git commit -m "Fix Wiki Lead phase detection showing Phase 5 instead of Phase 1
 
-- Add renderDash() to init sequence so homepage content renders on load
-- Remove duplicate renderDash() call in switchTab
-- Fix switchTab('dashboard') references to switchTab('timeline')
+- getCurrentPhaseIdx was iterating backwards, returning last phase with future end date
+- Changed to forward iteration so it returns first phase with future end date
+- Wiki Lead now correctly shows Phase 1 on page load (Apr 2026)
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."

@@ -1134,9 +1134,8 @@ function totalStats() {
 
 function getCurrentPhaseIdx() {
   const now = new Date();
-  for (let i = PHASES.length - 1; i >= 0; i--) {
-    if (now >= PHASES[i].end) continue;
-    return i;
+  for (let i = 0; i < PHASES.length; i++) {
+    if (now < PHASES[i].end) return i;
   }
   return PHASES.length - 1;
 }
