@@ -31,13 +31,7 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Fix countdown width, header spacing, and tab styling
-
-- Removed side padding from countdown grid so tiles match Today's Focus width
-- Added spacing between header/name plaque and notification bar
-- Tabs now translucent and separated (matching Project Lead style)
-- Content panel detached from tabs with full border-radius
-- Applied consistently across HP Lead and Wiki Lead dashboards
+    git commit -m "Change Longevity Track to Village TBD on all dashboards
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
