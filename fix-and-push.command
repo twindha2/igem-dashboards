@@ -31,11 +31,10 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Fix CRISPR animation: add visibilitychange handler for tab resume
+    git commit -m "Swap in final logo across all dashboards
 
-- Animation stops when tab is hidden (Chrome throttles rAF to 0fps)
-- Restarts cleanly when tab becomes visible with reset timing
-- Prevents dt spike that would teleport all strands on tab resume
+- Replace logo asset with finished metallic medallion (transparent bg)
+- Update cache-busting param v=2 → v=3 on all 5 HTML files
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
