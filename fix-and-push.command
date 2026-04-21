@@ -31,7 +31,12 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Change Longevity Track to Village TBD on all dashboards
+    git commit -m "Add CRISPR DNA strand animation to all dashboard headers
+
+- Double helix strands radiate from the logo across the title card
+- Subtle scarlet/gold coloring with distance-based fade
+- Canvas overlay with pointer-events:none so header remains interactive
+- Applied to all four dashboards
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
