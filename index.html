@@ -536,10 +536,10 @@ requestAnimationFrame(animHelix);
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
   const GRID = 24;
-  const WAVE_SIZE = 3;
+  const WAVE_SIZE = 5;
   const WAVE_PAUSE = 10000;
   const STRAND_SPEED = 0.55;
-  const MAX_SEGMENTS = 14;
+  const MAX_SEGMENTS = 22;
   const HELIX_WIDTH = 7;
   const TURN_CHANCE = 0.28;
   const HEAD_COLOR = {r:140,g:10,b:30};
@@ -605,8 +605,9 @@ requestAnimationFrame(animHelix);
       const head = s.points[s.points.length-1];
       const headX = head.x + DX[s.dir]*GRID*s.progress;
       const headY = head.y + DY[s.dir]*GRID*s.progress;
-      if(Math.abs(headX - originX) > canvas.width * 0.35 ||
-         Math.abs(headY - originY) > canvas.height * 0.4){
+      // Hub: allow full card travel — dissolve only near edges
+      if(headX < GRID*2 || headX > canvas.width - GRID*2 ||
+         headY < GRID*2 || headY > canvas.height - GRID*2){
         s.dissolving = true;
         s.dissolveAge = 0;
       }
@@ -631,8 +632,19 @@ requestAnimationFrame(animHelix);
         return;
       }
       if(Math.random() < TURN_CHANCE){
-        const turnDir = Math.random() < 0.5 ? 1 : -1;
-        s.dir = (s.dir + turnDir + 4) % 4;
+        // Never turn back toward the logo — only allow turns that move away from origin
+        const last2 = s.points[s.points.length-1];
+        const candidates = [];
+        for(let cd=0; cd<4; cd++){
+          const testX = last2.x + DX[cd]*GRID;
+          const testY = last2.y + DY[cd]*GRID;
+          const curDist = Math.abs(last2.x - originX) + Math.abs(last2.y - originY);
+          const newDist = Math.abs(testX - originX) + Math.abs(testY - originY);
+          if(newDist >= curDist) candidates.push(cd);
+        }
+        if(candidates.length > 0){
+          s.dir = candidates[Math.floor(Math.random()*candidates.length)];
+        }
       }
     }
   }

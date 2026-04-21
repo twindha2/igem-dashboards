@@ -31,12 +31,12 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Rewrite CRISPR strands: dark head, fading trail, wave spawning, dissolve
+    git commit -m "CRISPR strands: more per wave, always move away from logo, hub full travel
 
-- Dark scarlet head leads each strand, trail fades behind it
-- 6-7 helix turns long, last 1-2 turns nearly invisible
-- Waves of 3-4 strands spawn together, 10s pause between waves
-- Strands dissolve when reaching halfway — found their matching RNA
+- Increased wave size from 3-4 to 5-7 strands per burst
+- Strands never turn back toward the logo, always move outward
+- Hub page: strands travel the full card window, dissolve at edges
+- Hub MAX_SEGMENTS increased to 22 for longer travel distance
 - All dashboards and hub page
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
