@@ -31,12 +31,14 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Re-center logo: trim and equalize PNG padding
+    git commit -m "Medal effect: stop spin, fix clipping, attach CRISPR to logo
 
-- Cropped logo to content bounds and re-padded symmetrically
-- Content was 171px left / 159px right / 93px top / 186px bottom
-- Now perfectly centered within image canvas
-- Cache bust v=4
+- Remove spinning animation from hub logo — static medal pinned to page
+- Remove border-radius:50% clipping from all dashboard logos
+- Enlarge dashboard title card logos 50% (112→168px), hub logo to 220px
+- Move CRISPR canvas inside hero so strands scroll with logo
+- Heavier drop-shadow for pinned-medal depth effect
+- Medal z-index above CRISPR strands (DNA leaks from under it)
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
