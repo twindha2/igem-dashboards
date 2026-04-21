@@ -766,6 +766,7 @@ requestAnimationFrame(animHelix);
   }
 
   let prevT = null;
+  let running = false;
   function animCRISPR(ts){
     if(!prevT) prevT = ts;
     const dt = Math.min((ts - prevT)/1000, 0.1);
@@ -789,9 +790,19 @@ requestAnimationFrame(animHelix);
     // Remove dead strands that have fully faded
     strands = strands.filter(s=> s.alive || s.age < s.segments/s.speed + 2);
 
+    if(!document.hidden){ requestAnimationFrame(animCRISPR); }
+    else { running = false; }
+  }
+  function startCRISPR(){
+    if(running) return;
+    running = true;
+    prevT = null; // reset so dt doesn't spike after tab was hidden
     requestAnimationFrame(animCRISPR);
   }
-  requestAnimationFrame(animCRISPR);
+  document.addEventListener('visibilitychange', ()=>{
+    if(!document.hidden) startCRISPR();
+  });
+  startCRISPR();
 })();
 </script>
 

@@ -31,15 +31,11 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Hub title page: CRISPR DNA animation, scarlet gradient wash, art opacity boost
+    git commit -m "Fix CRISPR animation: add visibilitychange handler for tab resume
 
-- CRISPR guide RNA strands radiate from logo following grid lines like a maze
-- Strands randomly turn at intersections, fade with distance — scanning for sequences
-- Double-helix rendering with backbone dots, rungs, and glowing leading edge
-- Scarlet-to-cream gradient wash behind hero section for depth
-- Boosted vignette (0.06→0.15), helix (0.6→0.85), registration marks (0.75→0.9)
-- Helix node/rung opacity increased for stronger presence
-- Design system font fixes across all four dashboards (prior commit)
+- Animation stops when tab is hidden (Chrome throttles rAF to 0fps)
+- Restarts cleanly when tab becomes visible with reset timing
+- Prevents dt spike that would teleport all strands on tab resume
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
