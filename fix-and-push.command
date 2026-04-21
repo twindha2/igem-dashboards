@@ -31,10 +31,11 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Swap in final logo across all dashboards
+    git commit -m "Fix logo centering: separate spin animations for img vs overlay
 
-- Replace logo asset with finished metallic medallion (transparent bg)
-- Update cache-busting param v=2 → v=3 on all 5 HTML files
+- medallion-spin used translateX(-50%) needed only by ::after overlay
+- Split into medallion-img-spin (no translate) and medallion-overlay-spin
+- Logo now centered correctly on hub page
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
