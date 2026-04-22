@@ -2751,7 +2751,7 @@ function renderNotifWidget() {
     widget.classList.remove('has-new');
     badge.style.display = 'none';
     title.textContent = 'Notifications';
-    startHelix();
+    stopHelix();
     subtitle.textContent = 'All caught up — no new items';
   }
 }

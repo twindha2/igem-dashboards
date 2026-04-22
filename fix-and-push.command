@@ -31,11 +31,10 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Move Coordinator notification bar above tabs for visibility
+    git commit -m "Helix only spins on unread notifications
 
-- Relocate notif-widget and notif-panel-overlay above tab navigation
-- Now always visible regardless of active tab, matching HP/Wiki Lead placement
-- Add max-width and margin for consistent sizing
+- Change stopHelix() in empty-state branch across all 4 dashboards
+- Helix spins when unread items exist, stops when all caught up
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
