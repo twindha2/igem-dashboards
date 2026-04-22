@@ -121,15 +121,8 @@
   }
   .hero-crest img{
     width:220px !important;height:220px !important;
-    filter:drop-shadow(0 8px 24px rgba(0,0,0,0.4)) drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+    filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2)) drop-shadow(0 1px 2px rgba(0,0,0,0.3));
     position:relative;z-index:2;
-  }
-  /* Subtle shine overlay — static, no spin */
-  .hero-crest::after{
-    content:"";position:absolute;top:50%;left:50%;width:200px;height:200px;
-    transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
-    background:linear-gradient(135deg,transparent 25%,rgba(255,255,255,0.2) 45%,transparent 55%);
-    z-index:3;
   }
   .hero-kicker{
     font-family:'JetBrains Mono',monospace;font-size:11px;
@@ -563,6 +556,7 @@ requestAnimationFrame(animHelix);
     }
   }
   window.addEventListener('resize', resize);
+  setTimeout(resize, 100);
   resize();
 
   const DX = [1, 0, -1, 0];
@@ -572,7 +566,7 @@ requestAnimationFrame(animHelix);
     const count = WAVE_SIZE + Math.floor(Math.random()*2);
     for(let w=0; w<count; w++){
       const angle = Math.random() * Math.PI * 2;
-      const startDist = (3 + Math.random() * 2) * GRID;
+      const startDist = (2 + Math.random() * 2) * GRID;
       const sx = originX + Math.cos(angle) * startDist;
       const sy = originY + Math.sin(angle) * startDist;
       const gx = Math.round(sx / GRID) * GRID;
@@ -605,9 +599,8 @@ requestAnimationFrame(animHelix);
       const head = s.points[s.points.length-1];
       const headX = head.x + DX[s.dir]*GRID*s.progress;
       const headY = head.y + DY[s.dir]*GRID*s.progress;
-      // Hub: allow full card travel — dissolve only near edges
-      if(headX < GRID*2 || headX > canvas.width - GRID*2 ||
-         headY < GRID*2 || headY > canvas.height - GRID*2){
+      if(Math.abs(headX - originX) > canvas.width * 0.35 ||
+         Math.abs(headY - originY) > canvas.height * 0.8){
         s.dissolving = true;
         s.dissolveAge = 0;
       }
@@ -717,11 +710,12 @@ requestAnimationFrame(animHelix);
       const ha = 0.9 * dissolveMul;
       if(ha > 0.02){
         ctx.beginPath();
-        ctx.arc(head.x, head.y, 3.5, 0, Math.PI*2);
+        ctx.arc(head.x, head.y, 3, 0, Math.PI*2);
         ctx.fillStyle = 'rgba('+HEAD_COLOR.r+','+HEAD_COLOR.g+','+HEAD_COLOR.b+','+ha+')';
         ctx.fill();
+        // Glow
         ctx.beginPath();
-        ctx.arc(head.x, head.y, 7, 0, Math.PI*2);
+        ctx.arc(head.x, head.y, 6, 0, Math.PI*2);
         ctx.fillStyle = 'rgba('+HEAD_COLOR.r+','+HEAD_COLOR.g+','+HEAD_COLOR.b+','+(ha*0.2)+')';
         ctx.fill();
       }

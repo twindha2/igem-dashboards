@@ -31,11 +31,12 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Fix activeTab default from dashboard to timeline
+    git commit -m "Apply dashboard CRISPR strand rules to hub page and fix logo
 
-- Removed dashboard tab but activeTab still defaulted to dashboard
-- renderTabs crashed trying to find panel-dashboard (null)
-- This blocked all subsequent init (tabs, countdowns, team grid)
+- Distance-based dissolve (35% width / 80% height) instead of edge-based
+- Closer spawn distance to match title cards
+- Matched head dot size (3/6) and added delayed resize
+- Aligned logo drop-shadow with dashboard styling, removed shine overlay
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
