@@ -31,12 +31,11 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Restructure HP Lead and Wiki Lead homepages to match Project Lead
+    git commit -m "Fix activeTab default from dashboard to timeline
 
-- Removed phases and weekly rhythm checklist from homepage entirely
-- Moved team directory below tabs with Project Lead styling
-- Glass-morphism cards, centered grid layout, role badges
-- renderDash() stripped to empty function for compatibility
+- Removed dashboard tab but activeTab still defaulted to dashboard
+- renderTabs crashed trying to find panel-dashboard (null)
+- This blocked all subsequent init (tabs, countdowns, team grid)
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
