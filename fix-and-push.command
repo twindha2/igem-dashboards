@@ -31,10 +31,10 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Add .nojekyll to fix strategy guide CSS on GitHub Pages
+    git commit -m "Link Interview Protocol card to strategy guide §4
 
-Jekyll ignores files starting with underscore, so _guide_shared.css
-was not being served. Adding .nojekyll disables Jekyll processing.
+Points to docs/HP Strategy Guide#part-4 (Interview workflow section)
+instead of expiring claudeusercontent token URL.
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
