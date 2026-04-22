@@ -1105,7 +1105,7 @@ function save() { try{localStorage.setItem(LS_KEY, JSON.stringify(S))} catch(e){
 function load() { try{S=JSON.parse(localStorage.getItem(LS_KEY))||S} catch(e){} }
 load();
 
-let activeTab = 'dashboard', selectedCheckin = null;
+let activeTab = 'timeline', selectedCheckin = null;
 
 /* ═══ STATUS & PROGRESS ═══ */
 function getStatusIcon(taskId) {

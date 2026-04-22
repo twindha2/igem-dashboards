@@ -1151,7 +1151,7 @@ function getNextDueTask(){
 }
 function totalStats(){let t=0,d=0;PHASES.forEach(p=>p.tasks.forEach(tk=>{t++;if(S.tasks[tk.id]||S.taskStatus[tk.id]==='complete'||S.taskStatus[tk.id]==='coordinator_approved')d++;}));return{total:t,done:d,pct:t?Math.round(d/t*100):0};}
 function phaseStats(pi){const p=PHASES[pi];let d=0;p.tasks.forEach(t=>{if(S.tasks[t.id]||S.taskStatus[t.id]==='complete'||S.taskStatus[t.id]==='coordinator_approved')d++;});return{done:d,total:p.tasks.length,pct:p.tasks.length?Math.round(d/p.tasks.length*100):0};}
-let activeTab="dashboard";  // homepage renders separately
+let activeTab="timeline";  // default to first tab
 
 /* ═══ QUOTES ═══ */
 let qI=0;
