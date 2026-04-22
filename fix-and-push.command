@@ -31,14 +31,7 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Standardize resource links and naming across all dashboards
-
-- All strategy guides now link to local docs/ HTML copies (permanent)
-- Follow UH iGEM 2026 naming convention for all resource names
-- Add Team Google Drive link to all dashboards
-- Add HP and Wiki strategy guides to Project Lead resources
-- Remove Design System and Content Standards from Wiki Lead
-- Update all DRIVE_BASE references to correct Team Google Drive
+    git commit -m "Add UH iGEM 2026 HP Consent Form link to HP Lead resources
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
