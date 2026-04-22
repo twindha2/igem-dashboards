@@ -2696,10 +2696,8 @@ setInterval(renderNotifWidget, 5000);
 
 /* ═══ INIT ═══ */
 renderTabs();renderPanel();renderCountdowns();renderNotifWidget();renderSnapshot();renderTeamGrid();
-// Initial helix draw
+// Initial helix draw (static until notifications arrive)
 if (helixCtx) drawHelix(helixCtx, 96, 96, 0);
-// Always animate
-startHelix();
 setInterval(renderCountdowns,60000);
 
 /* ═══ DnaBackdrop Helix Animation ═══ */
@@ -2988,5 +2986,121 @@ setInterval(renderCountdowns,60000);
   startCRISPR();
 })();
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const logoImg = document.querySelector('.header-logo');
+  if (!logoImg) return;
+
+  // Get logo dimensions
+  const logoWidth = logoImg.offsetWidth;
+  const logoHeight = logoImg.offsetHeight;
+
+  // Create container wrapper
+  const container = document.createElement('div');
+  container.style.position = 'relative';
+  container.style.display = 'inline-block';
+  logoImg.parentNode.insertBefore(container, logoImg);
+  container.appendChild(logoImg);
+
+  // Create canvas overlay
+  const canvas = document.createElement('canvas');
+  canvas.width = logoWidth;
+  canvas.height = logoHeight;
+  canvas.style.position = 'absolute';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  canvas.style.pointerEvents = 'none';
+  container.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+
+  // Gear configuration (positions and dimensions as % of logo)
+  const gears = [
+    { cx: 0.62, cy: 0.22, radius: 0.16, teeth: 12, direction: 1 },    // Large, clockwise
+    { cx: 0.40, cy: 0.17, radius: 0.12, teeth: 10, direction: -1 },   // Medium, counter-clockwise
+    { cx: 0.50, cy: 0.33, radius: 0.07, teeth: 8, direction: 1 }      // Small, clockwise
+  ];
+
+  function drawGear(gear, rotation) {
+    const cx = gear.cx * logoWidth;
+    const cy = gear.cy * logoHeight;
+    const radius = gear.radius * logoWidth;
+    const toothHeight = radius * 0.25;
+    const toothWidth = (2 * Math.PI * radius) / (gear.teeth * 2);
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(rotation);
+
+    // Draw gear teeth
+    ctx.fillStyle = 'rgba(192,192,192,0.35)';
+    ctx.strokeStyle = 'rgba(160,160,160,0.5)';
+    ctx.lineWidth = 1.5;
+
+    ctx.beginPath();
+    for (let i = 0; i < gear.teeth; i++) {
+      const angle = (i / gear.teeth) * Math.PI * 2;
+      const nextAngle = ((i + 1) / gear.teeth) * Math.PI * 2;
+
+      // Outer tooth point
+      const x1 = Math.cos(angle) * (radius + toothHeight);
+      const y1 = Math.sin(angle) * (radius + toothHeight);
+
+      // Inner point between teeth
+      const midAngle = (angle + nextAngle) / 2;
+      const x2 = Math.cos(midAngle) * radius;
+      const y2 = Math.sin(midAngle) * radius;
+
+      // Outer point of next tooth
+      const x3 = Math.cos(nextAngle) * (radius + toothHeight);
+      const y3 = Math.sin(nextAngle) * (radius + toothHeight);
+
+      if (i === 0) {
+        ctx.moveTo(x1, y1);
+      } else {
+        ctx.lineTo(x1, y1);
+      }
+      ctx.lineTo(x2, y2);
+      ctx.lineTo(x3, y3);
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // Draw center hub
+    ctx.fillStyle = 'rgba(192,192,192,0.45)';
+    ctx.strokeStyle = 'rgba(160,160,160,0.6)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(0, 0, radius * 0.3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  let tickCount = 0;
+  function animateGears() {
+    ctx.clearRect(0, 0, logoWidth, logoHeight);
+
+    gears.forEach(gear => {
+      const ticksPerRevolution = gear.teeth;
+      const rotation = (tickCount / ticksPerRevolution) * Math.PI * 2 * gear.direction;
+      drawGear(gear, rotation);
+    });
+
+    requestAnimationFrame(animateGears);
+  }
+
+  // Tick every second
+  setInterval(() => {
+    tickCount++;
+  }, 1000);
+
+  animateGears();
+});
+</script>
+
 </body>
 </html>

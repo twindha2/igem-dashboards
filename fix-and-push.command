@@ -31,14 +31,13 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Add Stakeholder Map with interview hub and HP Lead link
+    git commit -m "Add ticking cog animation, fix helix, add privacy warning
 
-- New stakeholder-map.html: 27 stakeholders, 8 type-based interview guides
-- Interview form with post-checklist, urgent flagging to Project Lead
-- Change Log for Gold Medal evidence, weekly check-ins, activity log
-- Daily briefing modal + persistent focus bar
-- Submission workflow sends notifications to Coordinator dashboard
-- Added prominent Stakeholder Map link to HP Lead dashboard
+- Logo cogs now tick like a clock every second across all 5 dashboards
+- Three gears mesh with opposite rotation directions
+- Fix wiki-lead helix: remove rogue startHelix() on page load
+- Add privacy notice to stakeholder map about Google Drive access
+- Stakeholder map now deployed with all features
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
