@@ -2530,7 +2530,8 @@ function renderNotifWidget() {
         badge.textContent = count;
         title.textContent = count === 1 ? '1 Item Awaiting Your Review' : count + ' Items Awaiting Your Review';
         const fromRoles = getMyNotifications().filter(n => !n.read).map(n => n.from);
-        const unique = [...new Set(fromRoles)].map(k => k === 'coord' ? 'Coordinator' : TEAM[k]?.name || k);
+        const roleNames = {coord:'Dr. Windham',projectlead:'Project Lead',hp:'HP Lead',wiki:'Wiki Lead'};
+        const unique = [...new Set(fromRoles)].map(k => roleNames[k] || k);
         subtitle.textContent = 'From ' + unique.join(', ') + ' — click to review';
         startHelix();
     } else {
@@ -2673,7 +2674,7 @@ function sendTeamMessage() {
     }
 
     // Send notification to the recipient dashboard
-    const notificationMessage = `Message from Austin Routt: "${message}"`;
+    const notificationMessage = `Message from Project Lead: "${message}"`;
 
     const notifs = getNotifications();
     notifs.unshift({

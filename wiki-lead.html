@@ -143,7 +143,7 @@ body {
   box-shadow: 0 4px 20px rgba(0,0,0,0.12); border: 2px solid transparent;
   transition: all 0.3s ease; margin-bottom: 16px;
 }
-.notif-widget.has-new { border-color: var(--scarlet); box-shadow: 0 4px 24px rgba(200,16,46,0.25); }
+.notif-widget.has-new { border-color: var(--gold); box-shadow: 0 4px 24px rgba(246,190,0,0.25); }
 .notif-widget:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,0,0,0.15); }
 .notif-logo-wrap {
   width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
@@ -1496,11 +1496,24 @@ function sendTeamMessage(toId){
   const member=TEAM_ROSTER.find(m=>m.id===toId);
   if(!member)return;
   const urgent=document.getElementById('msg-urgent-dyn')?.checked||false;
-  const timestamp=new Date().toISOString();
-  const notification={toId:toId,toName:member.name,fromId:MY_ROLE,fromName:'Wiki Lead',message:msg,timestamp:timestamp,isUrgent:urgent};
-  const existing=JSON.parse(localStorage.getItem('uh_igem_notifications')||'[]');
-  existing.push(notification);
-  localStorage.setItem('uh_igem_notifications',JSON.stringify(existing));
+
+  // Send via shared notification system
+  const notifKey='uh_igem_notifications';
+  try{
+    const notifs=JSON.parse(localStorage.getItem(notifKey)||'[]');
+    notifs.push({
+      id: Date.now()+'_'+Math.random().toString(36).slice(2),
+      to: member.dashKey,
+      from: MY_ROLE,
+      fromName: 'Wiki Lead',
+      type: urgent ? 'urgent' : 'message',
+      message: (urgent ? '🚨 <strong>URGENT</strong>: ' : '') + 'Message from Wiki Lead: "' + msg + '"',
+      timestamp: Date.now(),
+      read: false
+    });
+    localStorage.setItem(notifKey,JSON.stringify(notifs));
+  }catch(e){}
+
   closeMessageModal();
   alert(`Message sent to ${member.name}`);
 }
@@ -2180,25 +2193,19 @@ function renderNotifWidget() {
     widget.classList.add('has-new');
     badge.style.display = 'flex';
     badge.textContent = count;
-    title.textContent = count === 1 ? '1 New Item to Address' : count + ' New Items to Address';
-    subtitle.textContent = 'From Project Coordinator — click to review';
+    title.textContent = count === 1 ? '1 Item Awaiting Your Review' : count + ' Items Awaiting Your Review';
+    const fromRoles = getMyNotifications().filter(n => !n.read).map(n => n.from);
+    const roleNames = {coord:'Dr. Windham',projectlead:'Project Lead',hp:'HP Lead',wiki:'Wiki Lead'};
+    const unique = [...new Set(fromRoles)].map(k => roleNames[k] || k);
+    subtitle.textContent = 'From ' + unique.join(', ') + ' — click to review';
     startHelix();
   } else {
-    stopHelix();
-    const myNotifs = getMyNotifications();
-    if (myNotifs.length > 0) {
-      widget.style.display = 'flex';
-      widget.classList.remove('has-new');
-      badge.style.display = 'none';
-      title.textContent = 'Notifications';
-      subtitle.textContent = 'All caught up — click to view history';
-    } else {
-      widget.style.display = 'flex';
-      widget.classList.remove('has-new');
-      badge.style.display = 'none';
-      title.textContent = 'Notifications';
-      subtitle.textContent = 'No notifications yet — updates from Dr. Windham will appear here';
-    }
+    widget.style.display = 'flex';
+    widget.classList.remove('has-new');
+    badge.style.display = 'none';
+    title.textContent = 'Notifications';
+    startHelix();
+    subtitle.textContent = 'All caught up — no new items';
   }
 }
 function openNotifPanel() {

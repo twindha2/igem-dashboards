@@ -1446,8 +1446,8 @@ function sendTeamMessage(toId) {
       from: MY_ROLE,
       fromName: 'HP Lead',
       type: urgent ? 'urgent' : 'message',
-      message: (urgent ? '🚨 <strong>URGENT</strong>: ' : '') + text,
-      timestamp: new Date().toISOString(),
+      message: (urgent ? '🚨 <strong>URGENT</strong>: ' : '') + 'Message from HP Lead: "' + text + '"',
+      timestamp: Date.now(),
       read: false
     });
     localStorage.setItem(notifKey, JSON.stringify(notifs));
@@ -2740,25 +2740,19 @@ function renderNotifWidget() {
     widget.classList.add('has-new');
     badge.style.display = 'flex';
     badge.textContent = count;
-    title.textContent = count === 1 ? '1 New Item to Address' : count + ' New Items to Address';
-    subtitle.textContent = 'From Project Coordinator — click to review';
-    startHelix(); // Spin the DNA helix when there are unread items
+    title.textContent = count === 1 ? '1 Item Awaiting Your Review' : count + ' Items Awaiting Your Review';
+    const fromRoles = getMyNotifications().filter(n => !n.read).map(n => n.from);
+    const roleNames = {coord:'Dr. Windham',projectlead:'Project Lead',hp:'HP Lead',wiki:'Wiki Lead'};
+    const unique = [...new Set(fromRoles)].map(k => roleNames[k] || k);
+    subtitle.textContent = 'From ' + unique.join(', ') + ' — click to review';
+    startHelix();
   } else {
-    stopHelix(); // Stop spinning when all caught up
-    const myNotifs = getMyNotifications();
-    if (myNotifs.length > 0) {
-      widget.style.display = 'flex';
-      widget.classList.remove('has-new');
-      badge.style.display = 'none';
-      title.textContent = 'Notifications';
-      subtitle.textContent = 'All caught up — click to view history';
-    } else {
-      widget.style.display = 'flex';
-      widget.classList.remove('has-new');
-      badge.style.display = 'none';
-      title.textContent = 'Notifications';
-      subtitle.textContent = 'No notifications yet — updates from Dr. Windham will appear here';
-    }
+    widget.style.display = 'flex';
+    widget.classList.remove('has-new');
+    badge.style.display = 'none';
+    title.textContent = 'Notifications';
+    startHelix();
+    subtitle.textContent = 'All caught up — no new items';
   }
 }
 function openNotifPanel() {

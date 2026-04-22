@@ -2929,8 +2929,8 @@
               from: MY_ROLE,
               fromName: 'Dr. Windham',
               type: urgent ? 'urgent' : 'message',
-              message: (urgent ? '🚨 <strong>URGENT</strong>: ' : '') + text,
-              timestamp: new Date().toISOString(),
+              message: (urgent ? '🚨 <strong>URGENT</strong>: ' : '') + 'Message from Dr. Windham: "' + text + '"',
+              timestamp: Date.now(),
               read: false
             });
             localStorage.setItem(notifKey, JSON.stringify(notifs));
@@ -5143,27 +5143,19 @@
                 widget.classList.add('has-new');
                 badge.style.display = 'flex';
                 badge.textContent = count;
-                title.textContent = count === 1 ? '1 New Item to Address' : count + ' New Items to Address';
+                title.textContent = count === 1 ? '1 Item Awaiting Your Review' : count + ' Items Awaiting Your Review';
                 const fromLeads = getMyNotifications().filter(n => !n.read).map(n => n.from);
-                const uniqueLeads = [...new Set(fromLeads)].map(k => state.leads[k]?.name || k);
-                subtitle.textContent = 'From ' + uniqueLeads.join(', ') + ' — click to review';
-                startHelix(); // Spin DNA helix when unread items exist
+                const roleNames = {coord:'Dr. Windham',projectlead:'Project Lead',hp:'HP Lead',wiki:'Wiki Lead'};
+                const unique = [...new Set(fromLeads)].map(k => roleNames[k] || k);
+                subtitle.textContent = 'From ' + unique.join(', ') + ' — click to review';
+                startHelix();
             } else {
-                stopHelix(); // Stop spinning when all caught up
-                const myNotifs = getMyNotifications();
-                if (myNotifs.length > 0) {
-                    widget.style.display = 'flex';
-                    widget.classList.remove('has-new');
-                    badge.style.display = 'none';
-                    title.textContent = 'Notifications';
-                    subtitle.textContent = 'All caught up — click to view history';
-                } else {
-                    widget.style.display = 'flex';
-                    widget.classList.remove('has-new');
-                    badge.style.display = 'none';
-                    title.textContent = 'Notifications';
-                    subtitle.textContent = 'All caught up — no new items';
-                }
+                widget.style.display = 'flex';
+                widget.classList.remove('has-new');
+                badge.style.display = 'none';
+                title.textContent = 'Notifications';
+                startHelix();
+                subtitle.textContent = 'All caught up — no new items';
             }
         }
         function openNotifPanel() {

@@ -31,11 +31,14 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Add Signal Booth, fix REC labels, rename Stakeholder Tracker refs
+    git commit -m "Fix cross-dashboard messaging and standardize notification bars
 
-- Add Signal Booth feedback zone to bottom of home tab on all 4 dashboards
-- Change REC to ACTIVE in header tape across all dashboards
-- Rename all Stakeholder Tracker references to Stakeholder Map in HP Lead
+- Fix sendTeamMessage field names in Wiki Lead (was using wrong keys)
+- Fix ISO string timestamps to numeric Date.now() in HP Lead and Coordinator
+- Standardize notification message format across all 4 dashboards
+- Match all renderNotifWidget to Project Lead reference (always-spin helix)
+- Dynamic sender name resolution in notification subtitles
+- Fix Wiki Lead has-new border color from scarlet to gold
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
