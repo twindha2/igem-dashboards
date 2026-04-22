@@ -31,12 +31,14 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Apply dashboard CRISPR strand rules to hub page and fix logo
+    git commit -m "Standardize resource links and naming across all dashboards
 
-- Distance-based dissolve (35% width / 80% height) instead of edge-based
-- Closer spawn distance to match title cards
-- Matched head dot size (3/6) and added delayed resize
-- Aligned logo drop-shadow with dashboard styling, removed shine overlay
+- All strategy guides now link to local docs/ HTML copies (permanent)
+- Follow UH iGEM 2026 naming convention for all resource names
+- Add Team Google Drive link to all dashboards
+- Add HP and Wiki strategy guides to Project Lead resources
+- Remove Design System and Content Standards from Wiki Lead
+- Update all DRIVE_BASE references to correct Team Google Drive
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."

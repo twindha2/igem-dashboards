@@ -1067,23 +1067,22 @@ const CHECKIN_AGENDA = [
   {label:"Blockers — anything preventing progress?", key:"blockers"},
 ];
 
-const DRIVE_BASE = "https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7";
+const DRIVE_BASE = "https://drive.google.com/drive/folders/1TkqUnm1hVyqS4-9F0jUo4PEQphNEb9rv";
 const FILE_DRIVE_URLS = {
   "UH iGEM 2026 Wiki Requirements.docx": "https://drive.google.com/file/d/1Wiki_Requirements_Link/view",
   "UH iGEM 2026 Wiki and Documentation Strategy Guide.docx": "docs/UH%20iGEM%202026%20Wiki%20Strategy%20Guide.html",
   "UH iGEM 2026 Previous Award Winners Reference.docx": "https://drive.google.com/file/d/1Previous_Winners_Link/view",
-  "UH iGEM 2026 Team Strategy Guide.docx": "https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",
+  "UH iGEM 2026 Team Strategy Guide.docx": "docs/UH%20iGEM%202026%20Team%20Strategy%20Guide.html",
 };
 function driveUrl(file){return FILE_DRIVE_URLS[file]||DRIVE_BASE;}
 
 const RESOURCES = [
-  {name:"UH iGEM 2026 Team Wiki and Documentation Strategy Guide",desc:"Your playbook for a winning wiki — structure, style guide, content standards, deadlines",file:"UH iGEM 2026 Wiki and Documentation Strategy Guide.docx",url:"docs/UH%20iGEM%202026%20Wiki%20Strategy%20Guide.html",category:"wiki-lead"},
-  {name:"Design System reference",desc:"Color palettes, typography, component patterns, accessibility standards",file:"UH iGEM 2026 Design System Reference.docx",url:"https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7",category:"wiki-lead"},
-  {name:"Content Standards",desc:"Writing style, tone, terminology guide, formatting conventions for consistency",file:"UH iGEM 2026 Content Standards.docx",url:"https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7",category:"wiki-lead"},
-  {name:"UH iGEM 2026 Team Strategy Guide",desc:"Team-wide strategy and competition alignment — village, prizes, project narrative, judging focus",file:"UH iGEM 2026 Team Strategy Guide.docx",url:"https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",category:"all"},
+  {name:"UH iGEM 2026 Wiki Strategy Guide",desc:"Your playbook for a winning wiki — structure, style guide, content standards, deadlines",file:"UH iGEM 2026 Wiki and Documentation Strategy Guide.docx",url:"docs/UH%20iGEM%202026%20Wiki%20Strategy%20Guide.html",category:"wiki-lead"},
+  {name:"UH iGEM 2026 Human Practices Strategy Guide",desc:"Stakeholder engagement, IRB/IBC protocols, Design Change Log",file:"UH iGEM 2026 Human Practices Strategy Guide.docx",url:"docs/UH%20iGEM%202026%20Human%20Practices%20Strategy%20Guide.html",category:"wiki-lead"},
+  {name:"UH iGEM 2026 Team Strategy Guide",desc:"Team-wide strategy and competition alignment — village, prizes, project narrative, judging focus",file:"UH iGEM 2026 Team Strategy Guide.docx",url:"docs/UH%20iGEM%202026%20Team%20Strategy%20Guide.html",category:"all"},
+  {name:"UH iGEM 2026 Team Google Drive",desc:"Central repository for all subteam files, designs, data, and documents",file:null,url:"https://drive.google.com/drive/folders/1TkqUnm1hVyqS4-9F0jUo4PEQphNEb9rv",category:"all"},
   {name:"iGEM Judging Rubrics",desc:"Detailed medal criteria and special achievement award scoring guidelines",file:"iGEM_Judging_Rubrics.pdf",url:"https://competition.igem.org/judging/medals",category:"all"},
   {name:"Jamboree Logistics",desc:"Wiki freeze dates, submission procedures, judging schedule, Paris venue information",file:"Jamboree_Logistics.pdf",url:"https://competition.igem.org/jamboree/info",category:"all"},
-  {name:"Shared Team Drive",desc:"Central repository for all subteam files, designs, data, and documents",file:"Team_Drive_Access",url:"https://drive.google.com/drive/u/0/folders/1-team-drive-folder-id",category:"all"},
 ];
 const EXT_LINKS = [
   {name:"iGEM Wiki Resources",url:"https://technology.igem.org/wiki"},

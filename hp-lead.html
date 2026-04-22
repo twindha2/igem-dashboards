@@ -1073,23 +1073,24 @@ const CHECKIN_AGENDA = [
   {label:"Questions for Project Lead (Austin) — anything to escalate?", key:"questions"},
 ];
 
-const DRIVE_BASE = "https://drive.google.com/drive/folders/1mKgXjGj52a94C0cz3oo7zdaIM-QuEuc7";
+const DRIVE_BASE = "https://drive.google.com/drive/folders/1TkqUnm1hVyqS4-9F0jUo4PEQphNEb9rv";
 const FILE_DRIVE_URLS = {
   "UH iGEM 2026 Human Practices Strategy Guide.docx": "docs/UH%20iGEM%202026%20Human%20Practices%20Strategy%20Guide.html",
   "UH iGEM 2026 Human Practices Stakeholder Tracker.xlsx": "https://drive.google.com/file/d/1NlEo89NGJ0RPsEPsakvTSIUhbtQe41nr/view",
   "UH iGEM 2026 Human Practices Consent Form.docx": "https://drive.google.com/file/d/1aaaTTj7on4jWf3ShK0ib3TxlpijXTIpy/view",
   "UH iGEM 2026 Human Practices Interview Protocol.docx": "https://drive.google.com/file/d/12tQbqMDoykExPL5RY-n3GMhUnU5f2W9b/view",
   "UH iGEM 2026 Human Practices IRB IBC Letters.docx": "https://drive.google.com/file/d/1C5Ua_sO4NpYbfeRrFFOuGYSHuptVNqnR/view",
-  "UH iGEM 2026 Team Strategy Playbook.docx": "https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",
+  "UH iGEM 2026 Team Strategy Guide.docx": "docs/UH%20iGEM%202026%20Team%20Strategy%20Guide.html",
 };
 function driveUrl(file){return FILE_DRIVE_URLS[file]||DRIVE_BASE;}
 
 const RESOURCES = [
-  {name:"HP Strategy Guide",desc:"Your playbook for Gold medal HP",file:"UH iGEM 2026 Human Practices Strategy Guide.docx",url:"docs/UH%20iGEM%202026%20Human%20Practices%20Strategy%20Guide.html",category:"hp-lead"},
+  {name:"UH iGEM 2026 Human Practices Strategy Guide",desc:"Your playbook for Gold medal HP",file:"UH iGEM 2026 Human Practices Strategy Guide.docx",url:"docs/UH%20iGEM%202026%20Human%20Practices%20Strategy%20Guide.html",category:"hp-lead"},
   {name:"UH iGEM 2026 Stakeholder Map",desc:"Stakeholder map, tracker, and design change log",file:"UH iGEM 2026 Stakeholder Map.xlsx",url:"https://drive.google.com/file/d/1NlEo89NGJ0RPsEPsakvTSIUhbtQe41nr/view",category:"hp-lead"},
-  {name:"Consent Form Template",desc:"Send before every interview",file:"UH iGEM 2026 Human Practices Consent Form.docx",url:"https://drive.google.com/file/d/1aaaTTj7on4jWf3ShK0ib3TxlpijXTIpy/view",category:"hp-lead"},
-  {name:"Interview Protocol",desc:"Question framework for stakeholder interviews",file:"UH iGEM 2026 Human Practices Interview Protocol.docx",url:"https://drive.google.com/file/d/12tQbqMDoykExPL5RY-n3GMhUnU5f2W9b/view",category:"hp-lead"},
-  {name:"UH iGEM 2026 Team Strategy Guide",desc:"Team-wide strategy and competition alignment",file:"UH iGEM 2026 Team Strategy Guide.docx",url:"https://drive.google.com/file/d/1hj-l_HbEm5Cx4HDjlZUQ8Uah3U0rxQqm/view",category:"all"},
+  {name:"UH iGEM 2026 Consent Form Template",desc:"Send before every interview",file:"UH iGEM 2026 Human Practices Consent Form.docx",url:"https://drive.google.com/file/d/1aaaTTj7on4jWf3ShK0ib3TxlpijXTIpy/view",category:"hp-lead"},
+  {name:"UH iGEM 2026 Interview Protocol",desc:"Question framework for stakeholder interviews",file:"UH iGEM 2026 Human Practices Interview Protocol.docx",url:"https://drive.google.com/file/d/12tQbqMDoykExPL5RY-n3GMhUnU5f2W9b/view",category:"hp-lead"},
+  {name:"UH iGEM 2026 Team Strategy Guide",desc:"Team-wide strategy and competition alignment",file:"UH iGEM 2026 Team Strategy Guide.docx",url:"docs/UH%20iGEM%202026%20Team%20Strategy%20Guide.html",category:"all"},
+  {name:"UH iGEM 2026 Team Google Drive",desc:"Central repository for all subteam files and documents",file:null,url:"https://drive.google.com/drive/folders/1TkqUnm1hVyqS4-9F0jUo4PEQphNEb9rv",category:"all"},
   {name:"iGEM Competition Portal",desc:"Official judging criteria and submission portal",file:null,url:"https://competition.igem.org/",category:"all"},
   {name:"iGEM HP Resources",desc:"Official HP guidelines and award information",file:null,url:"https://competition.igem.org/judging/human-practices",category:"all"},
   {name:"iGEM Judging Rubrics",desc:"Detailed Gold, Silver, Bronze medal criteria",file:null,url:"https://competition.igem.org/judging/medals",category:"all"},
