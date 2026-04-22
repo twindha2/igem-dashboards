@@ -67,6 +67,16 @@
         }
         @keyframes hdBlink { 0%,55%,100%{opacity:1} 60%,90%{opacity:0.3} }
 
+        /* Signal Booth — feedback zone */
+        .signal-booth{margin:32px 0 8px;padding:20px 24px;background:var(--cream);border:1px solid var(--warm-gray);border-radius:10px;display:flex;align-items:center;gap:16px}
+        .signal-booth:hover{border-color:var(--gold);box-shadow:0 2px 12px rgba(246,190,0,0.10)}
+        .signal-booth-icon{width:36px;height:36px;border-radius:8px;background:var(--gold-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+        .signal-booth-body{flex:1;min-width:0}
+        .signal-booth-title{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--slate);font-weight:600;margin-bottom:3px}
+        .signal-booth-desc{font-size:13px;color:var(--slate-light);line-height:1.4}
+        .signal-booth-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:6px;background:var(--white);border:1px solid var(--warm-gray);font-family:var(--font-mono);font-size:11px;letter-spacing:0.5px;color:var(--slate);text-decoration:none;white-space:nowrap;transition:all 0.15s}
+        .signal-booth-btn:hover{border-color:var(--scarlet);color:var(--scarlet-dark);background:var(--scarlet-faint)}
+
         /* Header wrapper — white glass panel */
         .header-wrap{position:sticky;top:0;z-index:10;background:rgba(255,255,255,0.98);backdrop-filter:blur(16px);box-shadow:0 6px 18px rgba(0,0,0,0.18)}
         .header-left-group{display:flex;align-items:center;gap:18px}
@@ -2077,7 +2087,7 @@
     <div class="header-wrap">
       <canvas id="crispr-header-canvas"></canvas>
       <div class="instrument-tape">
-        <div><span class="rec-dot"></span> REC &nbsp;|&nbsp; IGEM-2026 &nbsp;|&nbsp; COORDINATOR-DASH</div>
+        <div><span class="rec-dot"></span> ACTIVE &nbsp;·&nbsp; IGEM-2026 &nbsp;·&nbsp; COORDINATOR-DASH</div>
         <div id="tape-clock"></div>
       </div>
       <div class="header-main">
@@ -2245,6 +2255,16 @@
                     <a class="austin-review-link" href="https://drive.google.com/drive/folders/1DQWOox8tgx6aqjgXsNejiYEK-8jySxV_" target="_blank">→ View Shared Drive Folder</a>
                 </div>
                 <div class="austin-review-files" id="austin-review-files"></div>
+            </div>
+
+            <!-- Signal Booth -->
+            <div class="signal-booth">
+                <div class="signal-booth-icon">📡</div>
+                <div class="signal-booth-body">
+                    <div class="signal-booth-title">Signal Booth</div>
+                    <div class="signal-booth-desc">Something not working? Have a suggestion to make this dashboard better? Drop a quick note.</div>
+                </div>
+                <a class="signal-booth-btn" href="mailto:timothydds@gmail.com?subject=%5BiGEM%20Dashboard%5D%20Coordinator%20%E2%80%94%20Feedback&body=Dashboard%3A%20Coordinator%0AType%3A%20%5BBug%20%2F%20Suggestion%5D%0A%0ADescribe%20what%20happened%20or%20what%20you%E2%80%99d%20like%20to%20see%3A%0A%0A">Send Feedback →</a>
             </div>
 
                         </div>

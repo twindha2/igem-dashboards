@@ -31,10 +31,11 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Link Interview Protocol card to strategy guide §4
+    git commit -m "Add Signal Booth, fix REC labels, rename Stakeholder Tracker refs
 
-Points to docs/HP Strategy Guide#part-4 (Interview workflow section)
-instead of expiring claudeusercontent token URL.
+- Add Signal Booth feedback zone to bottom of home tab on all 4 dashboards
+- Change REC to ACTIVE in header tape across all dashboards
+- Rename all Stakeholder Tracker references to Stakeholder Map in HP Lead
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
