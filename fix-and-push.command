@@ -31,13 +31,10 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Upgrade quotes, move stakeholder card, add wiki link
+    git commit -m "Fix Team Directory label: white text on dark background
 
-- Expand quotes to 40+ curated entries across all 4 dashboards
-- Fetch supplemental quotes from dummyjson.com API with graceful fallback
-- Smooth crossfade rotation every 10 seconds on all quote displays
-- Move Stakeholder Map card below Today's Focus on HP Lead
-- Add Team Wiki link button to Wiki Lead (2026.igem.wiki/houston-tx)
+- Change team-directory section-label from scarlet to white on HP Lead and Wiki Lead
+- Change section-rule gradient from scarlet to gold to match other section headers
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
