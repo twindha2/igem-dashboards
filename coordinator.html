@@ -2120,6 +2120,33 @@
     <!-- Today's Snapshot -->
     <div id="today-snapshot"></div>
 
+    <!-- Notification Widget (above tabs, always visible) -->
+    <div id="notif-widget" class="notif-widget" onclick="openNotifPanel()" style="display:none;max-width:1100px;margin:24px auto 16px;">
+        <div class="notif-logo-wrap">
+            <canvas id="helix-canvas" width="96" height="96" style="width:40px;height:40px;"></canvas>
+            <div class="notif-badge" id="notif-badge" style="display:none;">0</div>
+        </div>
+        <div class="notif-text">
+            <div class="notif-text-title" id="notif-title">New Items to Address</div>
+            <div class="notif-text-sub" id="notif-subtitle">Click to review</div>
+        </div>
+        <div class="notif-arrow">›</div>
+    </div>
+
+    <!-- Notification Panel Overlay -->
+    <div class="notif-panel-overlay" id="notif-panel-overlay" onclick="if(event.target===this)closeNotifPanel()">
+        <div class="notif-panel">
+            <div class="notif-panel-header">
+                <h3>Notifications</h3>
+                <div class="notif-panel-actions">
+                    <button onclick="markAllNotifsRead()">Mark All Read</button>
+                    <button onclick="closeNotifPanel()">Close</button>
+                </div>
+            </div>
+            <div id="notif-list"></div>
+        </div>
+    </div>
+
     <!-- Tab Navigation -->
     <div class="tabs-container">
         <button class="tab-button active" data-tab="command-center"><span class="tab-num">01</span>Command Center</button>
@@ -2136,33 +2163,6 @@
     <div class="content-area">
         <!-- Command Center Tab -->
         <div id="command-center" class="tab-content active">
-
-            <!-- Notification Widget -->
-            <div id="notif-widget" class="notif-widget" onclick="openNotifPanel()" style="display:none;">
-                <div class="notif-logo-wrap">
-                    <canvas id="helix-canvas" width="96" height="96" style="width:40px;height:40px;"></canvas>
-                    <div class="notif-badge" id="notif-badge" style="display:none;">0</div>
-                </div>
-                <div class="notif-text">
-                    <div class="notif-text-title" id="notif-title">New Items to Address</div>
-                    <div class="notif-text-sub" id="notif-subtitle">Click to review</div>
-                </div>
-                <div class="notif-arrow">›</div>
-            </div>
-
-            <!-- Notification Panel Overlay -->
-            <div class="notif-panel-overlay" id="notif-panel-overlay" onclick="if(event.target===this)closeNotifPanel()">
-                <div class="notif-panel">
-                    <div class="notif-panel-header">
-                        <h3>Notifications</h3>
-                        <div class="notif-panel-actions">
-                            <button onclick="markAllNotifsRead()">Mark All Read</button>
-                            <button onclick="closeNotifPanel()">Close</button>
-                        </div>
-                    </div>
-                    <div id="notif-list"></div>
-                </div>
-            </div>
 
             <!-- Overall Progress -->
             <div class="overall-progress" id="overall-progress-bar"></div>
