@@ -31,10 +31,14 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Helix only spins on unread notifications
+    git commit -m "Add Stakeholder Map with interview hub and HP Lead link
 
-- Change stopHelix() in empty-state branch across all 4 dashboards
-- Helix spins when unread items exist, stops when all caught up
+- New stakeholder-map.html: 27 stakeholders, 8 type-based interview guides
+- Interview form with post-checklist, urgent flagging to Project Lead
+- Change Log for Gold Medal evidence, weekly check-ins, activity log
+- Daily briefing modal + persistent focus bar
+- Submission workflow sends notifications to Coordinator dashboard
+- Added prominent Stakeholder Map link to HP Lead dashboard
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."

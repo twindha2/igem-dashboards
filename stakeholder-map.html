@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stakeholder Map — UH iGEM 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --scarlet: #C8102E; --scarlet-dark: #9B0C23; --scarlet-deep: #7A091B;
+  --scarlet-mid: #D42A47; --scarlet-light: #E8394F; --scarlet-faint: #FDE8EC;
+  --gold: #F6BE00; --gold-light: #FFF3CC; --gold-dark: #C49900;
+  --white: #FFFFFF; --off-white: #FAFAFA; --cream: #FFF8F0;
+  --warm-gray: #E8E3DB; --slate: #54585A; --slate-light: #888B8D;
+  --slate-dark: #334155; --black: #1A1A1A;
+  --emerald: #16A34A; --emerald-light: #DCFCE7; --amber: #D97706;
+  --red-alarm: #DC2626; --indigo: #6366F1; --indigo-dark: #4F46E5;
+  --purple: #8B5CF6; --purple-dark: #7C3AED;
+  --bg-glass: rgba(255,255,255,0.95); --bg-glass-97: rgba(255,255,255,0.97);
+  --shadow-1: 0 4px 16px rgba(0,0,0,0.10); --shadow-2: 0 8px 24px rgba(0,0,0,0.15);
+  --font-display: 'League Gothic', 'Oswald', 'Impact', sans-serif;
+  --font-sans: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Crimson Pro', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+body {
+  font-family: var(--font-sans);
+  min-height: 100vh; color: var(--black);
+  background: linear-gradient(135deg, var(--scarlet) 0%, var(--scarlet-dark) 40%, var(--scarlet-deep) 100%);
+  background-attachment: fixed;
+}
+.page-wrap { position: relative; z-index: 1; min-height: 100vh; }
+
+/* Instrument Tape */
+.instrument-tape {
+  background: #1A1A1A; padding: 6px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.2px;
+  color: rgba(255,255,255,0.7); z-index: 100;
+}
+.instrument-tape .rec-dot {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--scarlet-light); margin-right: 6px; animation: hdBlink 2s infinite;
+}
+@keyframes hdBlink { 0%,55%,100%{opacity:1} 60%,90%{opacity:0.3} }
+
+/* Header */
+.header-wrap {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(255,255,255,0.98); backdrop-filter: blur(16px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+.header-main {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 28px; width: 100%;
+}
+.header-left-group { display: flex; align-items: center; gap: 18px; }
+.header-logo { height: 100px; width: 100px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2)); }
+.header-mark-sep { width: 1px; height: 60px; background: rgba(200,16,46,0.25); }
+.header-kicker { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--slate-light); margin-bottom: 3px; }
+.header-name {
+  font-family: var(--font-display); font-size: 32px; text-transform: uppercase;
+  line-height: 0.92; color: #1A1A1A; letter-spacing: 1px;
+}
+.header-role-line { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.header-role-swatch { width: 18px; height: 3px; background: var(--scarlet-light); }
+.header-role-text {
+  font-family: var(--font-sans); font-size: 11px; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--scarlet-dark); font-weight: 600;
+}
+.header-right { display: flex; align-items: center; gap: 16px; }
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 16px; border-radius: 6px; background: var(--white);
+  border: 1px solid var(--warm-gray); font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.5px; color: var(--slate);
+  text-decoration: none; transition: all 0.15s;
+}
+.back-link:hover { border-color: var(--scarlet); color: var(--scarlet-dark); background: var(--scarlet-faint); }
+
+/* Notification Widget */
+.notif-widget {
+  position: relative; cursor: pointer; display: flex; align-items: center; gap: 12px;
+  background: rgba(255,255,255,0.95); border-radius: 4px; padding: 12px 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12); border: 2px solid transparent;
+  transition: all 0.3s ease; margin-bottom: 16px;
+}
+.notif-widget.has-new { border-color: var(--gold); box-shadow: 0 4px 24px rgba(246,190,0,0.25); }
+.notif-logo-wrap {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: linear-gradient(135deg, var(--scarlet) 0%, var(--scarlet-dark) 100%);
+  flex-shrink: 0; position: relative;
+}
+.notif-logo-wrap canvas { display: block; }
+.notif-badge {
+  position: absolute; top: -4px; right: -4px; background: var(--red-alarm); color: white;
+  font-size: 11px; font-weight: 800; min-width: 20px; height: 20px; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center; padding: 0 5px;
+  box-shadow: 0 2px 6px rgba(220,38,38,0.4);
+}
+.notif-text { flex: 1; }
+.notif-text-title { font-size: 14px; font-weight: 700; color: var(--scarlet-dark); }
+.notif-text-sub { font-size: 12px; color: var(--slate); margin-top: 2px; }
+.notif-arrow { color: var(--slate); opacity: 0.4; font-size: 18px; }
+.notif-panel-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 10000;
+  display: none; align-items: flex-start; justify-content: center; padding-top: 80px;
+}
+.notif-panel-overlay.open { display: flex; }
+.notif-panel {
+  background: white; border-radius: 4px; width: 100%; max-width: 480px; max-height: 70vh;
+  overflow-y: auto; box-shadow: 0 12px 48px rgba(0,0,0,0.25);
+}
+.notif-panel-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 20px; border-bottom: 1px solid rgba(0,0,0,0.08);
+  position: sticky; top: 0; background: white; z-index: 1; border-radius: 4px 4px 0 0;
+}
+.notif-panel-header h3 { margin: 0; font-size: 16px; color: var(--scarlet-dark); }
+.notif-panel-header::before {
+  content: 'INBOX'; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--gold); position: absolute; top: 6px; left: 20px;
+}
+.notif-panel-actions { display: flex; gap: 8px; }
+.notif-panel-actions button {
+  padding: 6px 12px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.12);
+  background: white; cursor: pointer; font-size: 12px; font-weight: 600;
+  font-family: inherit; transition: all 0.2s;
+}
+.notif-panel-actions button:hover { background: rgba(200,16,46,0.06); border-color: var(--scarlet); }
+.notif-item {
+  display: flex; gap: 12px; padding: 14px 20px; border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: background 0.2s;
+}
+.notif-item.unread { background: rgba(246,190,0,0.06); }
+.notif-item:hover { background: rgba(200,16,46,0.04); }
+.notif-item-icon {
+  width: 36px; height: 36px; border-radius: 4px; display: flex; align-items: center;
+  justify-content: center; font-size: 18px; flex-shrink: 0;
+}
+.notif-item-body { flex: 1; min-width: 0; }
+.notif-item-msg { font-size: 13px; color: #333; line-height: 1.4; }
+.notif-item-msg strong { color: var(--scarlet-dark); }
+.notif-item-time { font-size: 11px; color: var(--slate); margin-top: 3px; }
+.notif-empty { padding: 40px 20px; text-align: center; color: var(--slate); font-size: 13px; }
+
+/* Section Headers */
+.section-header {
+  display: flex; align-items: center; gap: 12px; margin: 24px 0 16px; color: white;
+}
+.section-index { font-family: var(--font-mono); font-size: 12px; color: var(--gold); letter-spacing: 1px; }
+.section-label {
+  font-family: var(--font-sans); font-size: 16px; font-weight: 700;
+  color: white; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.section-rule { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
+
+/* Tabs */
+.tabs-container {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px; padding: 4px; display: flex; gap: 2px; flex-wrap: wrap;
+  max-width: 1100px; margin: 0 auto 24px; padding-left: 40px; padding-right: 40px;
+}
+.tab-btn {
+  position: relative; flex: 1 1 auto; min-width: 100px;
+  padding: 10px 14px; border: none; background: transparent;
+  color: rgba(255,255,255,0.78); font-family: var(--font-sans);
+  font-weight: 600; font-size: 11px; letter-spacing: 1.8px;
+  text-transform: uppercase; border-radius: 2px;
+  cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+.tab-btn .tab-num {
+  font-family: var(--font-mono); font-size: 9px; opacity: 0.55; margin-right: 8px;
+}
+.tab-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+.tab-btn.active {
+  background: rgba(255,255,255,0.97); color: var(--scarlet-dark);
+  box-shadow: inset 0 -2px 0 var(--scarlet);
+}
+.content-wrap {
+  background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+  border-radius: 4px; padding: 24px; min-height: 400px;
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  max-width: 1100px; margin: 0 auto 24px;
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Today's Focus sidebar */
+.focus-bar {
+  max-width: 1100px; margin: 0 auto 16px; padding: 16px 20px;
+  background: var(--gold-light); border: 1px solid var(--gold);
+  border-radius: 4px; display: flex; align-items: flex-start; gap: 14px;
+}
+.focus-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+.focus-body { flex: 1; }
+.focus-title {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gold-dark); font-weight: 600; margin-bottom: 6px;
+}
+.focus-items { display: flex; flex-direction: column; gap: 6px; }
+.focus-item {
+  font-size: 13px; color: var(--slate-dark); line-height: 1.4;
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.focus-item .fi-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--scarlet);
+  flex-shrink: 0; margin-top: 6px;
+}
+.focus-item.overdue .fi-dot { background: var(--red-alarm); animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+/* Countdown cards */
+.countdown-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  max-width: 1100px; margin: 0 auto 24px;
+}
+.countdown-card {
+  background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+  border-radius: 4px; padding: 16px 18px 14px;
+  position: relative; overflow: hidden; cursor: default;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.14);
+  display: flex; align-items: center; gap: 14px;
+}
+.countdown-card .accent-bar { position: absolute; top: 0; bottom: 0; left: 0; width: 4px; }
+.countdown-card .cd-num {
+  font-family: var(--font-display); font-size: 42px; font-weight: 400;
+  line-height: 0.85; min-width: 56px; text-align: right;
+}
+.countdown-card .cd-sub {
+  font-family: var(--font-mono); font-size: 9px; color: var(--slate-light);
+  text-transform: uppercase; letter-spacing: 1.5px;
+}
+.countdown-card .cd-label {
+  font-family: var(--font-sans); font-size: 13px; font-weight: 600;
+  color: var(--slate-dark); margin-top: 3px;
+}
+
+/* Stakeholder Cards */
+.stakeholder-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;
+}
+.sh-card {
+  background: white; border-radius: 4px; border: 1px solid rgba(0,0,0,0.08);
+  overflow: hidden; transition: all 0.2s; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.sh-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-1px); }
+.sh-card.overdue { border-color: var(--red-alarm); box-shadow: 0 0 0 1px var(--red-alarm), 0 2px 8px rgba(220,38,38,0.15); }
+.sh-card.upcoming { border-color: var(--amber); }
+.sh-card-header {
+  padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.sh-card-type-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.sh-card-name { font-size: 15px; font-weight: 700; color: var(--black); flex: 1; }
+.sh-card-status {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 1px;
+  text-transform: uppercase; padding: 3px 8px; border-radius: 3px;
+  font-weight: 600;
+}
+.sh-card-status.not-started { background: #f3f4f6; color: #6b7280; }
+.sh-card-status.in-progress { background: rgba(99,102,241,0.1); color: var(--indigo); }
+.sh-card-status.contacted { background: rgba(217,119,6,0.1); color: var(--amber); }
+.sh-card-status.scheduled { background: rgba(139,92,246,0.1); color: var(--purple); }
+.sh-card-status.completed { background: rgba(22,163,74,0.1); color: var(--emerald); }
+.sh-card-body { padding: 12px 16px; }
+.sh-card-org { font-size: 12px; color: var(--slate); margin-bottom: 8px; }
+.sh-card-meta {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+  font-size: 11px; color: var(--slate-light);
+}
+.sh-card-meta-label { font-weight: 600; color: var(--slate); }
+.sh-card-footer {
+  padding: 10px 16px; background: rgba(0,0,0,0.02);
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.sh-card-action {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.5px;
+  color: var(--scarlet); font-weight: 600; text-transform: uppercase;
+  cursor: pointer; border: none; background: none; padding: 4px 8px;
+  border-radius: 3px; transition: all 0.15s;
+}
+.sh-card-action:hover { background: var(--scarlet-faint); }
+.sh-card-days {
+  font-family: var(--font-mono); font-size: 10px; color: var(--slate-light);
+}
+.sh-card-days.overdue { color: var(--red-alarm); font-weight: 700; }
+
+/* Filter bar */
+.filter-bar {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; align-items: center;
+}
+.filter-chip {
+  padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.12);
+  background: white; font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: all 0.15s; font-family: var(--font-sans); color: var(--slate);
+}
+.filter-chip:hover { border-color: var(--scarlet); color: var(--scarlet); }
+.filter-chip.active { background: var(--scarlet); color: white; border-color: var(--scarlet); }
+.filter-chip .chip-count {
+  display: inline-block; background: rgba(0,0,0,0.08); padding: 1px 6px;
+  border-radius: 10px; font-size: 10px; margin-left: 4px;
+}
+.filter-chip.active .chip-count { background: rgba(255,255,255,0.3); }
+.search-input {
+  padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.12);
+  font-size: 12px; font-family: var(--font-sans); width: 200px;
+  transition: border-color 0.15s;
+}
+.search-input:focus { outline: none; border-color: var(--scarlet); }
+
+/* Modal */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10000;
+  display: none; align-items: flex-start; justify-content: center;
+  padding-top: 40px; overflow-y: auto;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: white; border-radius: 4px; width: 100%; max-width: 700px;
+  box-shadow: 0 16px 64px rgba(0,0,0,0.3); margin-bottom: 40px;
+}
+.modal-header {
+  padding: 20px 24px; border-bottom: 1px solid rgba(0,0,0,0.08);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.modal-header h2 { font-size: 18px; font-weight: 700; color: var(--scarlet-dark); margin: 0; }
+.modal-close {
+  background: none; border: none; font-size: 24px; cursor: pointer;
+  color: var(--slate); transition: color 0.15s;
+}
+.modal-close:hover { color: var(--scarlet); }
+.modal-body { padding: 24px; max-height: 70vh; overflow-y: auto; }
+.modal-footer {
+  padding: 16px 24px; border-top: 1px solid rgba(0,0,0,0.08);
+  display: flex; justify-content: flex-end; gap: 12px;
+}
+
+/* Form elements */
+.form-group { margin-bottom: 16px; }
+.form-label {
+  display: block; font-size: 12px; font-weight: 600; color: var(--slate-dark);
+  margin-bottom: 4px; font-family: var(--font-sans);
+}
+.form-label .required { color: var(--red-alarm); }
+.form-input, .form-select, .form-textarea {
+  width: 100%; padding: 8px 12px; border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px; font-family: var(--font-sans); font-size: 13px;
+  color: var(--black); transition: border-color 0.15s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none; border-color: var(--scarlet);
+}
+.form-textarea { min-height: 80px; resize: vertical; }
+.form-hint { font-size: 11px; color: var(--slate-light); margin-top: 3px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* Buttons */
+.btn {
+  padding: 8px 20px; border-radius: 4px; font-size: 13px; font-weight: 600;
+  font-family: var(--font-sans); cursor: pointer; transition: all 0.15s;
+  border: 1px solid transparent; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-primary { background: var(--scarlet); color: white; }
+.btn-primary:hover { background: var(--scarlet-dark); }
+.btn-urgent { background: var(--red-alarm); color: white; }
+.btn-urgent:hover { background: #b91c1c; }
+.btn-secondary { background: white; color: var(--slate); border-color: rgba(0,0,0,0.15); }
+.btn-secondary:hover { border-color: var(--scarlet); color: var(--scarlet); }
+.btn-gold { background: var(--gold); color: var(--black); }
+.btn-gold:hover { background: var(--gold-dark); color: white; }
+
+/* Interview Form */
+.interview-section {
+  background: var(--cream); border: 1px solid var(--warm-gray);
+  border-radius: 4px; padding: 16px; margin-bottom: 16px;
+}
+.interview-section-title {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gold-dark); font-weight: 600; margin-bottom: 12px;
+}
+.interview-q {
+  margin-bottom: 12px; padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.interview-q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.interview-q-label {
+  font-size: 13px; font-weight: 600; color: var(--slate-dark); margin-bottom: 6px;
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.interview-q-num {
+  font-family: var(--font-mono); font-size: 10px; color: var(--scarlet);
+  background: var(--scarlet-faint); padding: 2px 6px; border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* Change Log */
+.change-log-item {
+  padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.change-log-item:last-child { border-bottom: none; }
+.cl-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.cl-id { font-family: var(--font-mono); font-size: 11px; color: var(--scarlet); font-weight: 600; }
+.cl-date { font-family: var(--font-mono); font-size: 11px; color: var(--slate-light); }
+.cl-status-badge {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 1px;
+  text-transform: uppercase; padding: 2px 8px; border-radius: 3px; font-weight: 600;
+}
+.cl-status-badge.pending { background: rgba(217,119,6,0.1); color: var(--amber); }
+.cl-status-badge.implemented { background: rgba(22,163,74,0.1); color: var(--emerald); }
+.cl-status-badge.under-review { background: rgba(99,102,241,0.1); color: var(--indigo); }
+.cl-body { font-size: 13px; color: var(--slate-dark); line-height: 1.5; }
+.cl-quote { font-style: italic; color: var(--slate); margin-top: 4px; padding-left: 12px; border-left: 2px solid var(--gold); }
+
+/* Weekly check-in */
+.week-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px;
+}
+.week-cell {
+  padding: 10px; border-radius: 4px; text-align: center; font-size: 12px;
+  cursor: pointer; transition: all 0.15s; border: 1px solid rgba(0,0,0,0.08);
+}
+.week-cell.past { background: #f9fafb; color: var(--slate-light); }
+.week-cell.current { background: var(--gold-light); border-color: var(--gold); font-weight: 700; }
+.week-cell.future { background: white; }
+.week-cell.completed { background: var(--emerald-light); border-color: var(--emerald); }
+.week-cell:hover { transform: scale(1.03); }
+.week-num { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; color: var(--slate); }
+.week-date { font-size: 11px; margin-top: 2px; }
+
+/* Activity Log */
+.activity-item {
+  display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.05);
+  font-size: 13px;
+}
+.activity-icon {
+  width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center;
+  justify-content: center; font-size: 14px; flex-shrink: 0;
+}
+.activity-icon.interview { background: rgba(200,16,46,0.1); }
+.activity-icon.submission { background: rgba(99,102,241,0.1); }
+.activity-icon.change { background: rgba(246,190,0,0.1); }
+.activity-icon.status { background: rgba(22,163,74,0.1); }
+.activity-icon.upload { background: rgba(59,130,246,0.1); }
+.activity-body { flex: 1; }
+.activity-msg { color: var(--slate-dark); line-height: 1.4; }
+.activity-msg strong { color: var(--scarlet-dark); }
+.activity-time { font-size: 11px; color: var(--slate-light); margin-top: 2px; }
+
+/* Quick Reference */
+.qr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.qr-card {
+  background: var(--cream); border: 1px solid var(--warm-gray);
+  border-radius: 4px; padding: 16px;
+}
+.qr-card-title {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gold-dark); font-weight: 600; margin-bottom: 10px;
+}
+.qr-item { font-size: 13px; color: var(--slate-dark); padding: 4px 0; line-height: 1.4; }
+.qr-item strong { color: var(--black); }
+
+/* Daily Modal */
+.daily-modal {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 20000;
+  display: none; align-items: center; justify-content: center;
+}
+.daily-modal.open { display: flex; }
+.daily-content {
+  background: white; border-radius: 8px; width: 100%; max-width: 520px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden;
+}
+.daily-header {
+  background: linear-gradient(135deg, var(--scarlet), var(--scarlet-dark));
+  padding: 20px 24px; color: white;
+}
+.daily-header h2 { font-size: 20px; font-weight: 700; margin: 0 0 4px; }
+.daily-header p { font-size: 13px; opacity: 0.85; }
+.daily-body { padding: 20px 24px; }
+.daily-checklist { list-style: none; }
+.daily-checklist li {
+  padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.06);
+  display: flex; align-items: center; gap: 10px; font-size: 14px;
+}
+.daily-checklist li:last-child { border-bottom: none; }
+.daily-checklist input[type="checkbox"] {
+  width: 18px; height: 18px; accent-color: var(--scarlet);
+}
+.daily-priority {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 1px;
+  padding: 2px 6px; border-radius: 3px; text-transform: uppercase; font-weight: 600;
+}
+.daily-priority.high { background: rgba(220,38,38,0.1); color: var(--red-alarm); }
+.daily-priority.medium { background: rgba(217,119,6,0.1); color: var(--amber); }
+.daily-priority.low { background: rgba(22,163,74,0.1); color: var(--emerald); }
+.daily-footer {
+  padding: 16px 24px; border-top: 1px solid rgba(0,0,0,0.08);
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .countdown-grid { grid-template-columns: 1fr 1fr; }
+  .stakeholder-grid { grid-template-columns: 1fr; }
+  .qr-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .tabs-container { padding-left: 8px; padding-right: 8px; }
+  .header-main { padding: 10px 16px; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- Instrument Tape -->
+<div class="instrument-tape">
+  <span><span class="rec-dot"></span>UH-IGEM-2026 :: STAKEHOLDER-MAP</span>
+  <span id="tapeClock"></span>
+</div>
+
+<!-- Header -->
+<div class="header-wrap">
+  <div class="header-main">
+    <div class="header-left-group">
+      <img class="header-logo" src="https://twindha2.github.io/igem-dashboards/uh-igem-logo.png" alt="UH iGEM" onerror="this.style.display='none'">
+      <div class="header-mark-sep"></div>
+      <div>
+        <div class="header-kicker">Human Practices</div>
+        <div class="header-name">Stakeholder Map</div>
+        <div class="header-role-line">
+          <div class="header-role-swatch"></div>
+          <span class="header-role-text">Interactive Engagement Tracker</span>
+        </div>
+      </div>
+    </div>
+    <div class="header-right">
+      <a class="back-link" href="hp-lead.html">&#8592; HP Dashboard</a>
+    </div>
+  </div>
+</div>
+
+<!-- Notification Widget -->
+<div style="max-width:1100px;margin:16px auto 0;padding:0 20px;">
+  <div class="notif-widget" id="notifWidget" onclick="toggleNotifPanel()">
+    <div class="notif-logo-wrap">
+      <canvas id="helixCanvas" width="28" height="28"></canvas>
+    </div>
+    <div class="notif-text">
+      <div class="notif-text-title" id="notifTitle">No new notifications</div>
+      <div class="notif-text-sub" id="notifSub">All caught up</div>
+    </div>
+    <div class="notif-arrow">&#8250;</div>
+  </div>
+</div>
+
+<!-- Notification Panel Overlay -->
+<div class="notif-panel-overlay" id="notifOverlay" onclick="if(event.target===this)toggleNotifPanel()">
+  <div class="notif-panel">
+    <div class="notif-panel-header">
+      <h3>Notifications</h3>
+      <div class="notif-panel-actions">
+        <button onclick="markAllRead()">Mark all read</button>
+        <button onclick="toggleNotifPanel()">Close</button>
+      </div>
+    </div>
+    <div id="notifList"></div>
+  </div>
+</div>
+
+<!-- Today's Focus Bar -->
+<div class="focus-bar" id="focusBar" style="display:none;">
+  <div class="focus-icon">&#9888;&#65039;</div>
+  <div class="focus-body">
+    <div class="focus-title">Today's Focus</div>
+    <div class="focus-items" id="focusItems"></div>
+  </div>
+</div>
+
+<!-- Stats Row -->
+<div class="countdown-grid" id="statsRow"></div>
+
+<!-- Tabs -->
+<div class="tabs-container" id="tabBar"></div>
+
+<!-- Content -->
+<div class="content-wrap">
+  <div class="tab-panel" id="panel-map"></div>
+  <div class="tab-panel" id="panel-interview"></div>
+  <div class="tab-panel" id="panel-changelog"></div>
+  <div class="tab-panel" id="panel-checkins"></div>
+  <div class="tab-panel" id="panel-activity"></div>
+  <div class="tab-panel" id="panel-reference"></div>
+</div>
+
+</div><!-- /page-wrap -->
+
+<!-- Interview Modal -->
+<div class="modal-overlay" id="interviewModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="interviewModalTitle">Interview Form</h2>
+      <button class="modal-close" onclick="closeInterviewModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="interviewModalBody"></div>
+    <div class="modal-footer" id="interviewModalFooter"></div>
+  </div>
+</div>
+
+<!-- Stakeholder Detail/Edit Modal -->
+<div class="modal-overlay" id="stakeholderModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="shModalTitle">Stakeholder Details</h2>
+      <button class="modal-close" onclick="closeStakeholderModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="shModalBody"></div>
+    <div class="modal-footer" id="shModalFooter"></div>
+  </div>
+</div>
+
+<!-- Daily Briefing Modal -->
+<div class="daily-modal" id="dailyModal">
+  <div class="daily-content">
+    <div class="daily-header">
+      <h2 id="dailyTitle">Good morning!</h2>
+      <p id="dailyDate"></p>
+    </div>
+    <div class="daily-body" id="dailyBody"></div>
+    <div class="daily-footer">
+      <span style="font-size:11px;color:var(--slate-light);">This briefing shows once per day</span>
+      <button class="btn btn-primary" onclick="closeDailyModal()">Let's Go</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   UH iGEM 2026 — STAKEHOLDER MAP
+   Single-file interactive HP engagement tracker
+   ═══════════════════════════════════════════════════════ */
+
+const MY_ROLE = 'hp';
+const STORAGE_KEY = 'uh_igem_stakeholder_map';
+const NOTIF_KEY = 'uh_igem_notifications';
+
+/* ─── TYPE COLORS ─── */
+const TYPE_COLORS = {
+  'Academic/Faculty': '#6366F1',
+  'Bioethicist/Regulatory': '#8B5CF6',
+  'Industry/Biotech': '#0891B2',
+  'Medical/Clinical Professional': '#DC2626',
+  'Patient/Community Advocate': '#16A34A',
+  'Public Health/Policy': '#D97706',
+  'Scientific/Technical Expert': '#2563EB',
+  'Community Organization': '#DB2777',
+  'Other iGEM Team': '#F59E0B'
+};
+
+/* ─── INTERVIEW QUESTIONS BY TYPE ─── */
+const INTERVIEW_QUESTIONS = {
+  'Academic/Faculty': {
+    sections: [
+      { title: 'Research Context', questions: [
+        'What is your area of expertise and how does it relate to synthetic biology or metabolic engineering?',
+        'What current research challenges in your field could benefit from engineered biological systems?',
+        'How do you see computational modeling (like FBA) complementing wet-lab experimentation?'
+      ]},
+      { title: 'Project Feedback', questions: [
+        'After reviewing our project design (LitOpt strain), what aspects do you find most scientifically promising?',
+        'What potential pitfalls or technical challenges do you foresee with our approach?',
+        'Are there alternative strategies or organisms we should consider?'
+      ]},
+      { title: 'Broader Impact', questions: [
+        'How do you see this type of metabolic engineering contributing to sustainability goals?',
+        'What ethical considerations should we keep in mind as we develop this technology?',
+        'What advice would you give to undergraduate researchers working on synthetic biology projects?'
+      ]}
+    ]
+  },
+  'Bioethicist/Regulatory': {
+    sections: [
+      { title: 'Regulatory Landscape', questions: [
+        'What are the key regulatory frameworks that apply to engineered microorganisms for industrial use?',
+        'How do current biosafety regulations address metabolic engineering specifically?',
+        'What regulatory approvals would be needed before our organism could be used at scale?'
+      ]},
+      { title: 'Ethical Considerations', questions: [
+        'What ethical concerns does the public most commonly raise about synthetic biology?',
+        'How should we address dual-use concerns in our project documentation?',
+        'What responsible innovation frameworks would you recommend we follow?'
+      ]},
+      { title: 'Public Communication', questions: [
+        'How can we communicate our project to non-scientists in a transparent and trustworthy way?',
+        'What lessons from past biotech controversies should inform our approach?',
+        'What role should community input play in directing synthetic biology research?'
+      ]}
+    ]
+  },
+  'Industry/Biotech': {
+    sections: [
+      { title: 'Industry Perspective', questions: [
+        'What are the current bottlenecks in bio-based chemical production that industry is trying to solve?',
+        'How does your company evaluate new biological production platforms?',
+        'What scale-up challenges should we anticipate when moving from lab to industrial production?'
+      ]},
+      { title: 'Market & Feasibility', questions: [
+        'Is there current market demand for bio-produced succinate or the compounds our strain targets?',
+        'What production metrics (titer, yield, productivity) would make this commercially viable?',
+        'How does bio-production compare economically to petrochemical synthesis for these compounds?'
+      ]},
+      { title: 'Collaboration & Future', questions: [
+        'What skills or capabilities should our team develop to be competitive in industrial biotech?',
+        'Are there existing strain engineering platforms we should be aware of or compatible with?',
+        'What advice do you have for academic teams trying to bridge the gap to industry application?'
+      ]}
+    ]
+  },
+  'Medical/Clinical Professional': {
+    sections: [
+      { title: 'Clinical Relevance', questions: [
+        'How do you see metabolic engineering contributing to medical or pharmaceutical applications?',
+        'Are there clinical applications for bio-produced compounds that our project could enable?',
+        'What patient needs could be addressed by more efficient biological production methods?'
+      ]},
+      { title: 'Safety & Practice', questions: [
+        'What safety concerns do clinicians have about products derived from engineered organisms?',
+        'How do patients typically respond to learning that their treatments involve biotechnology?',
+        'What quality control standards are most critical for clinically-used biological products?'
+      ]},
+      { title: 'Translational Potential', questions: [
+        'What is the typical timeline from lab discovery to clinical application in your experience?',
+        'What partnerships between academia and clinical practice have you seen work well?',
+        'How should we design our project to maximize its translational potential?'
+      ]}
+    ]
+  },
+  'Patient/Community Advocate': {
+    sections: [
+      { title: 'Community Perspective', questions: [
+        'What does your community understand about synthetic biology and its potential benefits?',
+        'What concerns does your community have about genetically engineered organisms?',
+        'How can we ensure our project addresses real community needs rather than just academic interest?'
+      ]},
+      { title: 'Engagement & Trust', questions: [
+        'What is the best way to communicate scientific research to your community?',
+        'What would make your community trust that this type of research is conducted responsibly?',
+        'Have there been past experiences with biotechnology that shape your community\'s perspective?'
+      ]},
+      { title: 'Impact & Access', questions: [
+        'How can we ensure that benefits from this research are accessible to underserved communities?',
+        'What role should community members play in guiding research priorities?',
+        'What would a successful community engagement process look like to you?'
+      ]}
+    ]
+  },
+  'Public Health/Policy': {
+    sections: [
+      { title: 'Policy Framework', questions: [
+        'What policies currently govern the use of engineered organisms in your jurisdiction?',
+        'How do you see synthetic biology fitting into public health strategies?',
+        'What policy gaps exist that could affect the responsible development of this technology?'
+      ]},
+      { title: 'Risk Assessment', questions: [
+        'How do public health officials evaluate risks from engineered biological systems?',
+        'What containment and monitoring protocols should we consider in our project design?',
+        'How should environmental risk assessments be conducted for metabolic engineering projects?'
+      ]},
+      { title: 'Public Benefit', questions: [
+        'How can metabolic engineering contribute to solving public health challenges?',
+        'What would convince policymakers that this technology is worth supporting?',
+        'How do you balance innovation incentives with precautionary approaches?'
+      ]}
+    ]
+  },
+  'Scientific/Technical Expert': {
+    sections: [
+      { title: 'Technical Assessment', questions: [
+        'Based on our strain design, what are the most significant technical risks?',
+        'What experimental controls or validation steps would you recommend?',
+        'Are there specific analytical methods or tools we should be using that we might have overlooked?'
+      ]},
+      { title: 'Design Optimization', questions: [
+        'How would you optimize the genetic circuit design for stability and performance?',
+        'What host organism considerations should factor into our engineering strategy?',
+        'What computational tools or databases would you recommend for pathway optimization?'
+      ]},
+      { title: 'State of the Art', questions: [
+        'What recent advances in metabolic engineering are most relevant to our project?',
+        'Are there published studies with similar approaches that we should reference?',
+        'What emerging techniques could significantly improve our project outcomes?'
+      ]}
+    ]
+  },
+  'Community Organization': {
+    sections: [
+      { title: 'Organizational Mission', questions: [
+        'How does your organization\'s mission relate to biotechnology or scientific innovation?',
+        'What role does your organization play in shaping public understanding of science?',
+        'Are there existing programs or initiatives we could collaborate on?'
+      ]},
+      { title: 'Outreach & Education', questions: [
+        'What educational approaches have you found most effective for science communication?',
+        'How can university research teams best partner with community organizations?',
+        'What resources or materials would be most useful for your members?'
+      ]},
+      { title: 'Impact Assessment', questions: [
+        'How does your organization measure the impact of science engagement programs?',
+        'What barriers to science literacy have you observed in your community?',
+        'How can our iGEM team contribute meaningfully to your organization\'s goals?'
+      ]}
+    ]
+  },
+  'Other iGEM Team': {
+    sections: [
+      { title: 'Project Comparison', questions: [
+        'What is your team\'s project focus this year?',
+        'Are there overlapping technical challenges between our projects?',
+        'What approaches have you found most effective in your project design?'
+      ]},
+      { title: 'Collaboration', questions: [
+        'What collaboration opportunities do you see between our teams?',
+        'Are there shared resources, protocols, or parts we could develop together?',
+        'How do you handle data sharing and intellectual property between iGEM teams?'
+      ]},
+      { title: 'iGEM Experience', questions: [
+        'What lessons from previous iGEM cycles have most influenced your current approach?',
+        'How does your team manage the balance between wet lab and HP activities?',
+        'What advice would you give about the wiki, presentation, or judging process?'
+      ]}
+    ]
+  }
+};
+
+/* ─── ALL 27 STAKEHOLDERS (from tracker) ─── */
+const DEFAULT_STAKEHOLDERS = [
+  {id:'SH-001',type:'Academic/Faculty',name:'Dr. Sergey Shevkoplyas',org:'UH BME / PI',contact:'Sergey Shevkoplyas',email:'sshevkop@central.uh.edu',phone:'',status:'In Progress',lastAction:'2026-04-15',nextDue:'2026-04-28',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Principal Investigator'},
+  {id:'SH-002',type:'Academic/Faculty',name:'Dr. Mehmet Orman',org:'UH ChBE',contact:'Mehmet Orman',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-05-05',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Metabolic engineering faculty'},
+  {id:'SH-003',type:'Academic/Faculty',name:'Dr. Megan Palmer',org:'Stanford',contact:'Megan Palmer',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-05-12',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Biosecurity & policy expert'},
+  {id:'SH-004',type:'Bioethicist/Regulatory',name:'UH IRB Office',org:'UH Research Compliance',contact:'IRB Coordinator',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-05-01',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'IRB protocol review'},
+  {id:'SH-005',type:'Bioethicist/Regulatory',name:'UH IBC Office',org:'UH Biosafety',contact:'IBC Coordinator',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-05-01',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'IBC protocol review'},
+  {id:'SH-006',type:'Bioethicist/Regulatory',name:'Dr. Kirstin Matthews',org:'Rice Baker Institute',contact:'Kirstin Matthews',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-05-19',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Science & technology policy'},
+  {id:'SH-007',type:'Industry/Biotech',name:'Ginkgo Bioworks',org:'Ginkgo Bioworks',contact:'Community Outreach',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-05-26',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Cell programming platform'},
+  {id:'SH-008',type:'Industry/Biotech',name:'Solugen',org:'Solugen (Houston)',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-05-26',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Houston biotech, bio-based chemicals'},
+  {id:'SH-009',type:'Industry/Biotech',name:'Genomatica',org:'Genomatica',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-06-02',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Bio-based materials & chemicals'},
+  {id:'SH-010',type:'Medical/Clinical Professional',name:'Texas Medical Center Contact',org:'TMC',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-06-09',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Clinical perspective on bio-production'},
+  {id:'SH-011',type:'Medical/Clinical Professional',name:'MD Anderson Researcher',org:'MD Anderson',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-06-09',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Cancer research & biotech applications'},
+  {id:'SH-012',type:'Patient/Community Advocate',name:'Houston Health Foundation',org:'HHF',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-06-16',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Community health advocacy'},
+  {id:'SH-013',type:'Patient/Community Advocate',name:'Environmental Defense Fund',org:'EDF Houston',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-06-16',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Environmental advocacy & sustainability'},
+  {id:'SH-014',type:'Patient/Community Advocate',name:'Houston Community College STEM',org:'HCC',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-06-23',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'STEM education pipeline'},
+  {id:'SH-015',type:'Public Health/Policy',name:'Houston Health Department',org:'City of Houston',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-06-30',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Public health policy'},
+  {id:'SH-016',type:'Public Health/Policy',name:'Texas DSHS Biotech Division',org:'TX DSHS',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-06-30',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'State biotech regulation'},
+  {id:'SH-017',type:'Scientific/Technical Expert',name:'Dr. George Church Lab',org:'Harvard/MIT',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-07-07',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Synthetic biology pioneer'},
+  {id:'SH-018',type:'Scientific/Technical Expert',name:'Dr. Hal Alper',org:'UT Austin',contact:'Hal Alper',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-07-07',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Metabolic engineering, yeast'},
+  {id:'SH-019',type:'Scientific/Technical Expert',name:'Dr. Kristala Prather',org:'MIT',contact:'Kristala Prather',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-07-14',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Metabolic pathway engineering'},
+  {id:'SH-020',type:'Community Organization',name:'BioHouston',org:'BioHouston',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-07-21',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Houston life sciences network'},
+  {id:'SH-021',type:'Community Organization',name:'Houston Museum of Natural Science',org:'HMNS',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-07-21',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Science outreach & education'},
+  {id:'SH-022',type:'Community Organization',name:'Children\'s Museum Houston',org:'CMH',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-07-28',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Youth STEM engagement'},
+  {id:'SH-023',type:'Other iGEM Team',name:'Rice University iGEM',org:'Rice',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-05-19',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Local iGEM team collaboration'},
+  {id:'SH-024',type:'Other iGEM Team',name:'UT Austin iGEM',org:'UT Austin',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-05-19',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Texas iGEM network'},
+  {id:'SH-025',type:'Other iGEM Team',name:'Texas A&M iGEM',org:'TAMU',contact:'',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-05-26',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Texas iGEM network'},
+  {id:'SH-026',type:'Academic/Faculty',name:'Dr. Patrick Cirino',org:'UH ChBE',contact:'Patrick Cirino',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-05-12',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Protein & metabolic engineering'},
+  {id:'SH-027',type:'Academic/Faculty',name:'Alejandro Schmieder',org:'Columbia Business School',contact:'Alejandro Schmieder',email:'',phone:'',status:'Not Started',lastAction:'',nextDue:'2026-05-05',meetingDate:'',meetingLoc:'',recChanges:'',changeMade:'',followUp:'',followNotes:'',complete:'',notes:'Team mentor, business strategy'}
+];
+
+/* ─── WEEKLY CHECK-IN WEEKS ─── */
+const WEEKS = [];
+(function(){
+  const start = new Date(2026, 3, 21); // Apr 21, 2026
+  for(let i=0; i<30; i++){
+    const d = new Date(start); d.setDate(d.getDate() + i*7);
+    WEEKS.push({ num: i+1, date: d.toISOString().split('T')[0] });
+  }
+})();
+
+/* ─── STATE ─── */
+let S;
+function loadState(){
+  try { S = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e){}
+  if(!S) S = {};
+  if(!S.stakeholders) S.stakeholders = JSON.parse(JSON.stringify(DEFAULT_STAKEHOLDERS));
+  if(!S.changeLog) S.changeLog = [];
+  if(!S.activityLog) S.activityLog = [];
+  if(!S.weekCheckins) S.weekCheckins = {};
+  if(!S.interviews) S.interviews = {};
+  if(!S.lastDailyBriefing) S.lastDailyBriefing = '';
+  save();
+}
+function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(S)); }
+
+/* ─── ACTIVITY LOGGER ─── */
+function logActivity(type, title, detail){
+  S.activityLog.unshift({
+    id: Date.now()+'_'+Math.random().toString(36).slice(2),
+    type, title, detail, timestamp: Date.now()
+  });
+  if(S.activityLog.length > 500) S.activityLog = S.activityLog.slice(0, 500);
+  save();
+}
+
+/* ─── NOTIFICATION SYSTEM ─── */
+function sendNotification(to, message, type='message'){
+  try {
+    const notifs = JSON.parse(localStorage.getItem(NOTIF_KEY)||'[]');
+    notifs.push({
+      id: Date.now()+'_'+Math.random().toString(36).slice(2),
+      to, from: MY_ROLE, fromName: 'HP Lead (Stakeholder Map)',
+      type, message, timestamp: Date.now(), read: false
+    });
+    localStorage.setItem(NOTIF_KEY, JSON.stringify(notifs));
+  } catch(e){}
+}
+
+let helixAnim = null;
+function startHelix(){
+  if(helixAnim) return;
+  const c = document.getElementById('helixCanvas');
+  if(!c) return;
+  const ctx = c.getContext('2d');
+  let t = 0;
+  helixAnim = setInterval(()=>{
+    t += 0.12;
+    ctx.clearRect(0,0,28,28);
+    for(let i=0;i<6;i++){
+      const y = 2 + i*4.2;
+      const x1 = 14 + Math.sin(t+i*0.7)*6;
+      const x2 = 14 - Math.sin(t+i*0.7)*6;
+      ctx.beginPath(); ctx.arc(x1,y,1.6,0,Math.PI*2);
+      ctx.fillStyle = 'rgba(255,255,255,0.9)'; ctx.fill();
+      ctx.beginPath(); ctx.arc(x2,y,1.6,0,Math.PI*2);
+      ctx.fillStyle = 'rgba(246,190,0,0.9)'; ctx.fill();
+      ctx.beginPath(); ctx.moveTo(x1,y); ctx.lineTo(x2,y);
+      ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 0.5; ctx.stroke();
+    }
+  }, 50);
+}
+function stopHelix(){
+  if(helixAnim){ clearInterval(helixAnim); helixAnim = null; }
+  const c = document.getElementById('helixCanvas');
+  if(!c) return;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,28,28);
+  for(let i=0;i<6;i++){
+    const y = 2 + i*4.2;
+    ctx.beginPath(); ctx.arc(14+6,y,1.6,0,Math.PI*2);
+    ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(14-6,y,1.6,0,Math.PI*2);
+    ctx.fillStyle = 'rgba(246,190,0,0.5)'; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(14+6,y); ctx.lineTo(14-6,y);
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)'; ctx.lineWidth = 0.5; ctx.stroke();
+  }
+}
+
+function getMyNotifs(){
+  try {
+    const all = JSON.parse(localStorage.getItem(NOTIF_KEY)||'[]');
+    return all.filter(n => n.to === MY_ROLE);
+  } catch(e){ return []; }
+}
+
+const roleNames = {coord:'Dr. Windham',projectlead:'Project Lead',hp:'HP Lead',wiki:'Wiki Lead'};
+
+function renderNotifWidget(){
+  const notifs = getMyNotifs();
+  const unread = notifs.filter(n => !n.read);
+  const w = document.getElementById('notifWidget');
+  const title = document.getElementById('notifTitle');
+  const sub = document.getElementById('notifSub');
+  if(unread.length > 0){
+    w.classList.add('has-new');
+    title.textContent = unread.length + ' new notification' + (unread.length>1?'s':'');
+    sub.textContent = 'From: ' + [...new Set(unread.map(n=>roleNames[n.from]||n.fromName||n.from))].join(', ');
+    const badge = w.querySelector('.notif-badge');
+    if(!badge){
+      const b = document.createElement('div'); b.className='notif-badge';
+      b.textContent = unread.length;
+      w.querySelector('.notif-logo-wrap').appendChild(b);
+    } else badge.textContent = unread.length;
+    startHelix();
+  } else {
+    w.classList.remove('has-new');
+    title.textContent = 'No new notifications';
+    sub.textContent = 'All caught up';
+    const badge = w.querySelector('.notif-badge');
+    if(badge) badge.remove();
+    stopHelix();
+  }
+  renderNotifList();
+}
+
+function renderNotifList(){
+  const notifs = getMyNotifs().sort((a,b)=>b.timestamp-a.timestamp);
+  const el = document.getElementById('notifList');
+  if(!notifs.length){ el.innerHTML='<div class="notif-empty">No notifications yet</div>'; return; }
+  el.innerHTML = notifs.map(n=>{
+    const iconClass = n.type==='urgent'?'submit':n.type==='approval'?'approve':'checkin';
+    const icon = n.type==='urgent'?'&#128680;':n.type==='approval'?'&#9989;':'&#128172;';
+    const ago = timeAgo(n.timestamp);
+    return `<div class="notif-item ${n.read?'':'unread'}" onclick="markRead('${n.id}')">
+      <div class="notif-item-icon ${iconClass}">${icon}</div>
+      <div class="notif-item-body">
+        <div class="notif-item-msg">${n.message}</div>
+        <div class="notif-item-time">${roleNames[n.from]||n.fromName||n.from} &middot; ${ago}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleNotifPanel(){
+  document.getElementById('notifOverlay').classList.toggle('open');
+}
+function markRead(id){
+  try {
+    const all = JSON.parse(localStorage.getItem(NOTIF_KEY)||'[]');
+    const n = all.find(x=>x.id===id);
+    if(n) n.read = true;
+    localStorage.setItem(NOTIF_KEY, JSON.stringify(all));
+  } catch(e){}
+  renderNotifWidget();
+}
+function markAllRead(){
+  try {
+    const all = JSON.parse(localStorage.getItem(NOTIF_KEY)||'[]');
+    all.forEach(n=>{ if(n.to===MY_ROLE) n.read=true; });
+    localStorage.setItem(NOTIF_KEY, JSON.stringify(all));
+  } catch(e){}
+  renderNotifWidget();
+}
+
+/* ─── UTILITIES ─── */
+function timeAgo(ts){
+  const diff = Date.now() - ts;
+  if(diff < 60000) return 'Just now';
+  if(diff < 3600000) return Math.floor(diff/60000) + 'm ago';
+  if(diff < 86400000) return Math.floor(diff/3600000) + 'h ago';
+  return Math.floor(diff/86400000) + 'd ago';
+}
+function daysBetween(d1, d2){
+  return Math.round((new Date(d2) - new Date(d1)) / 86400000);
+}
+function formatDate(d){
+  if(!d) return '--';
+  return new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+function todayStr(){ return new Date().toISOString().split('T')[0]; }
+
+/* ─── TABS ─── */
+const TABS = [
+  {id:'map',label:'Stakeholder Map',icon:'&#128506;'},
+  {id:'interview',label:'Interview Guide',icon:'&#128221;'},
+  {id:'changelog',label:'Change Log',icon:'&#128196;'},
+  {id:'checkins',label:'Weekly Check-Ins',icon:'&#128197;'},
+  {id:'activity',label:'Activity Log',icon:'&#128203;'},
+  {id:'reference',label:'Quick Reference',icon:'&#128218;'}
+];
+let activeTab = 'map';
+
+function switchTab(id){ activeTab=id; renderTabs(); renderPanel(); }
+function renderTabs(){
+  document.getElementById('tabBar').innerHTML = TABS.map((t,i)=>{
+    const idx = String(i+1).padStart(2,'0');
+    return `<button class="tab-btn ${activeTab===t.id?'active':''}" onclick="switchTab('${t.id}')"><span class="tab-num">${idx}</span>${t.label}</button>`;
+  }).join('');
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  const panel = document.getElementById('panel-'+activeTab);
+  if(panel) panel.classList.add('active');
+}
+function renderPanel(){
+  if(activeTab==='map') renderMap();
+  else if(activeTab==='interview') renderInterviewGuide();
+  else if(activeTab==='changelog') renderChangeLog();
+  else if(activeTab==='checkins') renderCheckins();
+  else if(activeTab==='activity') renderActivityLog();
+  else if(activeTab==='reference') renderReference();
+}
+
+/* ─── STATS ROW ─── */
+function renderStats(){
+  const today = todayStr();
+  const total = S.stakeholders.length;
+  const completed = S.stakeholders.filter(s=>s.status==='Completed').length;
+  const overdue = S.stakeholders.filter(s=>s.nextDue && s.nextDue < today && s.status!=='Completed').length;
+  const upcoming = S.stakeholders.filter(s=>{
+    if(!s.nextDue || s.status==='Completed') return false;
+    const diff = daysBetween(today, s.nextDue);
+    return diff >= 0 && diff <= 7;
+  }).length;
+  document.getElementById('statsRow').innerHTML = `
+    <div class="countdown-card">
+      <div class="accent-bar" style="background:var(--scarlet)"></div>
+      <div class="cd-num" style="color:var(--scarlet)">${total}</div>
+      <div><div class="cd-sub">Total</div><div class="cd-label">Stakeholders</div></div>
+    </div>
+    <div class="countdown-card">
+      <div class="accent-bar" style="background:var(--emerald)"></div>
+      <div class="cd-num" style="color:var(--emerald)">${completed}</div>
+      <div><div class="cd-sub">Done</div><div class="cd-label">Completed</div></div>
+    </div>
+    <div class="countdown-card" ${overdue>0?'style="box-shadow:0 0 0 2px var(--red-alarm),0 4px 14px rgba(220,38,38,0.25)"':''}>
+      <div class="accent-bar" style="background:var(--red-alarm)"></div>
+      <div class="cd-num" style="color:var(--red-alarm)">${overdue}</div>
+      <div><div class="cd-sub">Action needed</div><div class="cd-label">Overdue</div></div>
+    </div>
+    <div class="countdown-card">
+      <div class="accent-bar" style="background:var(--amber)"></div>
+      <div class="cd-num" style="color:var(--amber)">${upcoming}</div>
+      <div><div class="cd-sub">This week</div><div class="cd-label">Upcoming</div></div>
+    </div>
+  `;
+}
+
+/* ─── FOCUS BAR ─── */
+function renderFocusBar(){
+  const today = todayStr();
+  const items = [];
+  // Overdue
+  S.stakeholders.filter(s=>s.nextDue && s.nextDue < today && s.status!=='Completed').forEach(s=>{
+    items.push({text:`<strong>OVERDUE:</strong> ${s.name} was due ${formatDate(s.nextDue)}`, priority:'high', overdue:true});
+  });
+  // Due today
+  S.stakeholders.filter(s=>s.nextDue === today && s.status!=='Completed').forEach(s=>{
+    items.push({text:`<strong>Due Today:</strong> Follow up with ${s.name}`, priority:'high'});
+  });
+  // Due this week
+  S.stakeholders.filter(s=>{
+    if(!s.nextDue || s.status==='Completed' || s.nextDue<=today) return false;
+    return daysBetween(today, s.nextDue) <= 7;
+  }).forEach(s=>{
+    items.push({text:`Due ${formatDate(s.nextDue)}: Contact ${s.name}`, priority:'medium'});
+  });
+  // Weekly check-in reminder (Monday)
+  if(new Date().getDay() === 1){
+    const currentWeek = WEEKS.find(w=>w.date===today) || WEEKS.find(w=>daysBetween(today,w.date)>=0 && daysBetween(today,w.date)<=6);
+    if(currentWeek && !S.weekCheckins[currentWeek.num]){
+      items.push({text:`Weekly check-in due (Week ${currentWeek.num})`, priority:'medium'});
+    }
+  }
+  const bar = document.getElementById('focusBar');
+  const list = document.getElementById('focusItems');
+  if(items.length === 0){ bar.style.display='none'; return; }
+  bar.style.display='flex';
+  list.innerHTML = items.map(it=>`
+    <div class="focus-item ${it.overdue?'overdue':''}">
+      <div class="fi-dot"></div>
+      <span>${it.text}</span>
+    </div>
+  `).join('');
+}
+
+/* ─── STAKEHOLDER MAP TAB ─── */
+let mapFilter = 'all';
+let mapSearch = '';
+
+function renderMap(){
+  const panel = document.getElementById('panel-map');
+  const today = todayStr();
+
+  // Count per type
+  const typeCounts = {};
+  S.stakeholders.forEach(s=>{
+    typeCounts[s.type] = (typeCounts[s.type]||0) + 1;
+  });
+
+  // Filter
+  let filtered = S.stakeholders;
+  if(mapFilter !== 'all'){
+    if(mapFilter === 'overdue') filtered = filtered.filter(s=>s.nextDue && s.nextDue < today && s.status!=='Completed');
+    else if(mapFilter === 'upcoming') filtered = filtered.filter(s=>s.nextDue && daysBetween(today,s.nextDue)>=0 && daysBetween(today,s.nextDue)<=7 && s.status!=='Completed');
+    else if(mapFilter === 'completed') filtered = filtered.filter(s=>s.status==='Completed');
+    else filtered = filtered.filter(s=>s.type===mapFilter);
+  }
+  if(mapSearch){
+    const q = mapSearch.toLowerCase();
+    filtered = filtered.filter(s=>
+      s.name.toLowerCase().includes(q) || s.org.toLowerCase().includes(q) ||
+      s.type.toLowerCase().includes(q) || (s.notes||'').toLowerCase().includes(q)
+    );
+  }
+
+  panel.innerHTML = `
+    <div class="filter-bar">
+      <input class="search-input" type="text" placeholder="Search stakeholders..." value="${mapSearch}" oninput="mapSearch=this.value;renderMap()">
+      <div class="filter-chip ${mapFilter==='all'?'active':''}" onclick="mapFilter='all';renderMap()">All <span class="chip-count">${S.stakeholders.length}</span></div>
+      ${Object.keys(TYPE_COLORS).map(t=>`
+        <div class="filter-chip ${mapFilter===t?'active':''}" onclick="mapFilter='${t}';renderMap()" style="${mapFilter===t?`background:${TYPE_COLORS[t]};border-color:${TYPE_COLORS[t]}`:''}">${t.split('/')[0]} <span class="chip-count">${typeCounts[t]||0}</span></div>
+      `).join('')}
+      <div class="filter-chip ${mapFilter==='overdue'?'active':''}" onclick="mapFilter='overdue';renderMap()" style="${mapFilter==='overdue'?'background:var(--red-alarm);border-color:var(--red-alarm)':''}">Overdue</div>
+      <div class="filter-chip ${mapFilter==='upcoming'?'active':''}" onclick="mapFilter='upcoming';renderMap()">This Week</div>
+      <div class="filter-chip ${mapFilter==='completed'?'active':''}" onclick="mapFilter='completed';renderMap()">Completed</div>
+    </div>
+    <div style="margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:13px;color:var(--slate);">Showing ${filtered.length} of ${S.stakeholders.length} stakeholders</span>
+      <button class="btn btn-secondary" onclick="openAddStakeholder()">+ Add Stakeholder</button>
+    </div>
+    <div class="stakeholder-grid">
+      ${filtered.map(s=>{
+        const color = TYPE_COLORS[s.type]||'#888';
+        const statusClass = s.status.toLowerCase().replace(/\s+/g,'-');
+        const isOverdue = s.nextDue && s.nextDue < today && s.status!=='Completed';
+        const isUpcoming = s.nextDue && daysBetween(today,s.nextDue)>=0 && daysBetween(today,s.nextDue)<=7 && s.status!=='Completed';
+        const daysSince = s.lastAction ? daysBetween(s.lastAction, today) : '--';
+        return `
+          <div class="sh-card ${isOverdue?'overdue':isUpcoming?'upcoming':''}" onclick="openStakeholderDetail('${s.id}')">
+            <div class="sh-card-header">
+              <div class="sh-card-type-dot" style="background:${color}"></div>
+              <div class="sh-card-name">${s.name}</div>
+              <span class="sh-card-status ${statusClass}">${s.status}</span>
+            </div>
+            <div class="sh-card-body">
+              <div class="sh-card-org">${s.org} ${s.contact?' &middot; '+s.contact:''}</div>
+              <div class="sh-card-meta">
+                <div><span class="sh-card-meta-label">Type:</span> ${s.type}</div>
+                <div><span class="sh-card-meta-label">Next Due:</span> ${formatDate(s.nextDue)}</div>
+              </div>
+            </div>
+            <div class="sh-card-footer">
+              <button class="sh-card-action" onclick="event.stopPropagation();openInterviewForm('${s.id}')">&#128221; Interview</button>
+              <span class="sh-card-days ${isOverdue?'overdue':''}">${isOverdue?'OVERDUE '+Math.abs(daysBetween(today,s.nextDue))+'d':daysSince!=='--'?daysSince+'d since contact':'No contact yet'}</span>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+/* ─── STAKEHOLDER DETAIL MODAL ─── */
+function openStakeholderDetail(id){
+  const s = S.stakeholders.find(x=>x.id===id);
+  if(!s) return;
+  const color = TYPE_COLORS[s.type]||'#888';
+  document.getElementById('shModalTitle').innerHTML = `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${color};margin-right:8px;"></span>${s.name}`;
+  document.getElementById('shModalBody').innerHTML = `
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Organization</label>
+        <input class="form-input" value="${s.org}" onchange="updateSH('${id}','org',this.value)">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contact Person</label>
+        <input class="form-input" value="${s.contact}" onchange="updateSH('${id}','contact',this.value)">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" value="${s.email}" onchange="updateSH('${id}','email',this.value)">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone</label>
+        <input class="form-input" value="${s.phone}" onchange="updateSH('${id}','phone',this.value)">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select class="form-select" onchange="updateSH('${id}','status',this.value)">
+          ${['Not Started','In Progress','Contacted','Scheduled','Completed'].map(opt=>`<option ${s.status===opt?'selected':''}>${opt}</option>`).join('')}
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Stakeholder Type</label>
+        <select class="form-select" onchange="updateSH('${id}','type',this.value)">
+          ${Object.keys(TYPE_COLORS).map(t=>`<option ${s.type===t?'selected':''}>${t}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Next Action Due</label>
+        <input class="form-input" type="date" value="${s.nextDue}" onchange="updateSH('${id}','nextDue',this.value)">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Last Action Date</label>
+        <input class="form-input" type="date" value="${s.lastAction}" onchange="updateSH('${id}','lastAction',this.value)">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Meeting Date/Time</label>
+        <input class="form-input" type="datetime-local" value="${s.meetingDate}" onchange="updateSH('${id}','meetingDate',this.value)">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Meeting Location</label>
+        <input class="form-input" value="${s.meetingLoc}" onchange="updateSH('${id}','meetingLoc',this.value)">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Recommended Changes to Project</label>
+      <textarea class="form-textarea" onchange="updateSH('${id}','recChanges',this.value)">${s.recChanges}</textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Change Made?</label>
+        <select class="form-select" onchange="updateSH('${id}','changeMade',this.value)">
+          <option value="" ${!s.changeMade?'selected':''}>--</option>
+          <option value="Yes" ${s.changeMade==='Yes'?'selected':''}>Yes</option>
+          <option value="No" ${s.changeMade==='No'?'selected':''}>No</option>
+          <option value="Pending" ${s.changeMade==='Pending'?'selected':''}>Pending</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Interaction Complete?</label>
+        <select class="form-select" onchange="updateSH('${id}','complete',this.value)">
+          <option value="" ${!s.complete?'selected':''}>--</option>
+          <option value="Yes" ${s.complete==='Yes'?'selected':''}>Yes</option>
+          <option value="No" ${s.complete==='No'?'selected':''}>No</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Follow-Up Notes</label>
+      <textarea class="form-textarea" onchange="updateSH('${id}','followNotes',this.value)">${s.followNotes||''}</textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">General Notes</label>
+      <textarea class="form-textarea" onchange="updateSH('${id}','notes',this.value)">${s.notes||''}</textarea>
+    </div>
+  `;
+  document.getElementById('shModalFooter').innerHTML = `
+    <button class="btn btn-secondary" onclick="closeStakeholderModal()">Close</button>
+    <button class="btn btn-primary" onclick="openInterviewForm('${id}');closeStakeholderModal()">&#128221; Start Interview</button>
+  `;
+  document.getElementById('stakeholderModal').classList.add('open');
+}
+function closeStakeholderModal(){ document.getElementById('stakeholderModal').classList.remove('open'); }
+function updateSH(id, field, value){
+  const s = S.stakeholders.find(x=>x.id===id);
+  if(!s) return;
+  s[field] = value;
+  if(field==='status' && value==='Completed') s.complete='Yes';
+  logActivity('status', 'Updated Stakeholder', `${s.name}: ${field} changed to "${value}"`);
+  save(); renderStats(); renderFocusBar();
+}
+
+/* ─── ADD STAKEHOLDER ─── */
+function openAddStakeholder(){
+  document.getElementById('shModalTitle').textContent = 'Add New Stakeholder';
+  document.getElementById('shModalBody').innerHTML = `
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Name/Organization <span class="required">*</span></label>
+        <input class="form-input" id="newShName" placeholder="e.g., Dr. Jane Smith">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Stakeholder Type <span class="required">*</span></label>
+        <select class="form-select" id="newShType">
+          ${Object.keys(TYPE_COLORS).map(t=>`<option>${t}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Organization</label>
+        <input class="form-input" id="newShOrg" placeholder="e.g., UH BME">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contact Person</label>
+        <input class="form-input" id="newShContact">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="newShEmail" type="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Next Action Due</label>
+        <input class="form-input" id="newShDue" type="date">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Notes</label>
+      <textarea class="form-textarea" id="newShNotes"></textarea>
+    </div>
+  `;
+  document.getElementById('shModalFooter').innerHTML = `
+    <button class="btn btn-secondary" onclick="closeStakeholderModal()">Cancel</button>
+    <button class="btn btn-primary" onclick="saveNewStakeholder()">Add Stakeholder</button>
+  `;
+  document.getElementById('stakeholderModal').classList.add('open');
+}
+function saveNewStakeholder(){
+  const name = document.getElementById('newShName').value.trim();
+  const type = document.getElementById('newShType').value;
+  if(!name){ alert('Name is required'); return; }
+  const id = 'SH-'+String(S.stakeholders.length+1).padStart(3,'0');
+  S.stakeholders.push({
+    id, type, name,
+    org: document.getElementById('newShOrg').value.trim(),
+    contact: document.getElementById('newShContact').value.trim(),
+    email: document.getElementById('newShEmail').value.trim(),
+    phone: '', status: 'Not Started',
+    lastAction: '', nextDue: document.getElementById('newShDue').value,
+    meetingDate: '', meetingLoc: '', recChanges: '', changeMade: '',
+    followUp: '', followNotes: '', complete: '',
+    notes: document.getElementById('newShNotes').value.trim()
+  });
+  logActivity('status', 'Added Stakeholder', `${name} (${type})`);
+  save(); closeStakeholderModal(); renderMap(); renderStats();
+}
+
+/* ─── INTERVIEW FORM MODAL ─── */
+function openInterviewForm(shId){
+  const s = S.stakeholders.find(x=>x.id===shId);
+  if(!s) return;
+  const qs = INTERVIEW_QUESTIONS[s.type] || INTERVIEW_QUESTIONS['Academic/Faculty'];
+  const existing = S.interviews[shId] || {};
+  document.getElementById('interviewModalTitle').innerHTML = `Interview: ${s.name} <span style="font-size:12px;color:var(--slate);font-weight:400;">(${s.type})</span>`;
+
+  let html = `
+    <div style="margin-bottom:16px;padding:12px 16px;background:var(--scarlet-faint);border-radius:4px;font-size:13px;color:var(--scarlet-dark);">
+      <strong>Stakeholder:</strong> ${s.name} &middot; ${s.org}<br>
+      <strong>Contact:</strong> ${s.contact||'--'} &middot; ${s.email||'--'}<br>
+      <strong>Type:</strong> ${s.type}
+    </div>
+    <div class="form-group">
+      <label class="form-label">Interview Date</label>
+      <input class="form-input" type="date" id="intDate" value="${existing.date||todayStr()}">
+    </div>
+  `;
+
+  let qNum = 1;
+  qs.sections.forEach((sec, si)=>{
+    html += `<div class="interview-section">
+      <div class="interview-section-title">${sec.title}</div>`;
+    sec.questions.forEach((q, qi)=>{
+      const key = `s${si}_q${qi}`;
+      html += `<div class="interview-q">
+        <div class="interview-q-label"><span class="interview-q-num">Q${qNum}</span> ${q}</div>
+        <textarea class="form-textarea" id="int_${key}" placeholder="Enter response...">${existing[key]||''}</textarea>
+      </div>`;
+      qNum++;
+    });
+    html += `</div>`;
+  });
+
+  html += `
+    <div class="interview-section" style="background:rgba(22,163,74,0.05);border-color:var(--emerald);">
+      <div class="interview-section-title" style="color:var(--emerald);">Post-Interview Checklist</div>
+      <div class="interview-q">
+        <div class="interview-q-label"><span class="interview-q-num">&#9745;</span> Recommended changes to project design</div>
+        <textarea class="form-textarea" id="int_recChanges" placeholder="What changes did this stakeholder suggest?">${existing.recChanges||s.recChanges||''}</textarea>
+      </div>
+      <div class="interview-q">
+        <div class="interview-q-label"><span class="interview-q-num">&#9745;</span> Key takeaways / insights</div>
+        <textarea class="form-textarea" id="int_takeaways" placeholder="Summarize the most important insights...">${existing.takeaways||''}</textarea>
+      </div>
+      <div class="interview-q">
+        <div class="interview-q-label"><span class="interview-q-num">&#9745;</span> Follow-up needed?</div>
+        <select class="form-select" id="int_followUp">
+          <option value="">-- Select --</option>
+          <option value="Yes" ${existing.followUp==='Yes'?'selected':''}>Yes</option>
+          <option value="No" ${existing.followUp==='No'?'selected':''}>No</option>
+        </select>
+      </div>
+      <div class="interview-q">
+        <div class="interview-q-label"><span class="interview-q-num">&#9745;</span> Follow-up notes</div>
+        <textarea class="form-textarea" id="int_followNotes" placeholder="What follow-up is needed?">${existing.followNotes||''}</textarea>
+      </div>
+      <div class="form-row" style="margin-top:12px;">
+        <div class="form-group">
+          <label class="form-label" style="display:flex;align-items:center;gap:6px;">
+            <input type="checkbox" id="int_urgent" ${existing.urgent?'checked':''} style="width:16px;height:16px;accent-color:var(--red-alarm);">
+            Flag as URGENT (design change needed)
+          </label>
+          <div class="form-hint">This will notify the Project Lead immediately</div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('interviewModalBody').innerHTML = html;
+  document.getElementById('interviewModalFooter').innerHTML = `
+    <button class="btn btn-secondary" onclick="closeInterviewModal()">Cancel</button>
+    <button class="btn btn-secondary" onclick="saveInterviewDraft('${shId}')">Save Draft</button>
+    <button class="btn btn-primary" onclick="submitInterview('${shId}')">Submit for Review</button>
+  `;
+  document.getElementById('interviewModal').classList.add('open');
+}
+function closeInterviewModal(){ document.getElementById('interviewModal').classList.remove('open'); }
+
+function collectInterviewData(shId){
+  const s = S.stakeholders.find(x=>x.id===shId);
+  if(!s) return null;
+  const qs = INTERVIEW_QUESTIONS[s.type] || INTERVIEW_QUESTIONS['Academic/Faculty'];
+  const data = { date: document.getElementById('intDate').value };
+  qs.sections.forEach((sec,si)=>{
+    sec.questions.forEach((q,qi)=>{
+      const key = `s${si}_q${qi}`;
+      data[key] = document.getElementById('int_'+key)?.value||'';
+    });
+  });
+  data.recChanges = document.getElementById('int_recChanges')?.value||'';
+  data.takeaways = document.getElementById('int_takeaways')?.value||'';
+  data.followUp = document.getElementById('int_followUp')?.value||'';
+  data.followNotes = document.getElementById('int_followNotes')?.value||'';
+  data.urgent = document.getElementById('int_urgent')?.checked||false;
+  data.submitted = false;
+  return data;
+}
+
+function saveInterviewDraft(shId){
+  const data = collectInterviewData(shId);
+  if(!data) return;
+  S.interviews[shId] = data;
+  save();
+  logActivity('interview', 'Saved Interview Draft', S.stakeholders.find(x=>x.id===shId)?.name);
+  alert('Draft saved!');
+}
+
+function submitInterview(shId){
+  const data = collectInterviewData(shId);
+  if(!data) return;
+  data.submitted = true;
+  data.submittedAt = Date.now();
+  S.interviews[shId] = data;
+
+  // Update stakeholder fields from checklist
+  const s = S.stakeholders.find(x=>x.id===shId);
+  if(s){
+    s.recChanges = data.recChanges;
+    s.followUp = data.followUp;
+    s.followNotes = data.followNotes;
+    s.lastAction = todayStr();
+    if(s.status === 'Not Started' || s.status === 'Contacted') s.status = 'In Progress';
+  }
+
+  // Send notification to coordinator
+  sendNotification('coord', `Interview submitted for review: <strong>${s?.name}</strong> (${s?.type}). ${data.recChanges ? 'Recommended changes: "'+data.recChanges.slice(0,80)+'..."' : 'No design changes recommended.'}`, 'submit');
+
+  // If urgent, also notify project lead
+  if(data.urgent){
+    sendNotification('projectlead', `&#128680; <strong>URGENT HP Flag:</strong> Interview with ${s?.name} suggests design change: "${data.recChanges?.slice(0,100)}..."`, 'urgent');
+    // Add to change log
+    S.changeLog.unshift({
+      id: 'CL-'+String(S.changeLog.length+1).padStart(3,'0'),
+      date: todayStr(),
+      source: s?.name,
+      whatTheySaid: data.recChanges,
+      whatWeChanged: '',
+      where: '',
+      evidence: 'Interview form submission',
+      status: 'Pending'
+    });
+  }
+
+  logActivity('submission', 'Submitted Interview', `${s?.name} sent to Project Coordinator for review${data.urgent?' [URGENT - Project Lead notified]':''}`);
+  save();
+  closeInterviewModal();
+  renderMap(); renderStats(); renderFocusBar();
+  alert(`Interview submitted for review!${data.urgent?'\n\nURGENT flag sent to Project Lead.':''}`);
+}
+
+/* ─── INTERVIEW GUIDE TAB ─── */
+function renderInterviewGuide(){
+  const panel = document.getElementById('panel-interview');
+  let html = `
+    <div style="margin-bottom:20px;">
+      <h3 style="color:var(--scarlet-dark);margin-bottom:8px;">Interview Strategy Guide</h3>
+      <p style="font-size:13px;color:var(--slate);line-height:1.6;margin-bottom:16px;">
+        This guide provides tailored interview questions for each stakeholder type. Select a type below to preview the questions,
+        or click "Interview" on any stakeholder card to open a pre-populated form ready for use.
+      </p>
+      <div class="form-group">
+        <label class="form-label">Select Stakeholder Type to Preview</label>
+        <select class="form-select" id="guideTypeSelect" onchange="renderGuideQuestions()">
+          ${Object.keys(INTERVIEW_QUESTIONS).map(t=>`<option>${t}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div id="guideQuestionsArea"></div>
+    <div style="margin-top:24px;padding:16px;background:var(--cream);border:1px solid var(--warm-gray);border-radius:4px;">
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dark);font-weight:600;margin-bottom:10px;">Tips for Effective Interviews</div>
+      <div style="font-size:13px;color:var(--slate-dark);line-height:1.6;">
+        <p style="margin-bottom:8px;"><strong>Before:</strong> Review the stakeholder's background and prepare 2-3 personalized follow-up questions beyond the template.</p>
+        <p style="margin-bottom:8px;"><strong>During:</strong> Listen actively. Take detailed notes. Ask "Can you tell me more about that?" when they mention something unexpected.</p>
+        <p style="margin-bottom:8px;"><strong>After:</strong> Complete the post-interview checklist within 24 hours while details are fresh. Flag design changes immediately.</p>
+        <p><strong>For Gold Medal:</strong> The Change Log documents how stakeholder input shaped your project. Every recommended change should be recorded, whether you implement it or not.</p>
+      </div>
+    </div>
+  `;
+  panel.innerHTML = html;
+  renderGuideQuestions();
+}
+
+function renderGuideQuestions(){
+  const type = document.getElementById('guideTypeSelect').value;
+  const qs = INTERVIEW_QUESTIONS[type];
+  if(!qs) return;
+  let qNum = 1;
+  let html = qs.sections.map(sec=>`
+    <div class="interview-section">
+      <div class="interview-section-title">${sec.title}</div>
+      ${sec.questions.map(q=>`
+        <div class="interview-q">
+          <div class="interview-q-label"><span class="interview-q-num">Q${qNum++}</span> ${q}</div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+  document.getElementById('guideQuestionsArea').innerHTML = html;
+}
+
+/* ─── CHANGE LOG TAB ─── */
+function renderChangeLog(){
+  const panel = document.getElementById('panel-changelog');
+  let html = `
+    <div style="margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <h3 style="color:var(--scarlet-dark);margin-bottom:4px;">HP-Driven Project Changes</h3>
+        <p style="font-size:12px;color:var(--slate);">Gold Medal evidence: documented changes from stakeholder input</p>
+      </div>
+      <button class="btn btn-secondary" onclick="openAddChangeLog()">+ Add Change</button>
+    </div>
+  `;
+  if(S.changeLog.length === 0){
+    html += `<div style="text-align:center;padding:40px;color:var(--slate);font-size:13px;">No changes logged yet. Changes will appear here when stakeholder interviews recommend project modifications.</div>`;
+  } else {
+    html += S.changeLog.map(c=>`
+      <div class="change-log-item">
+        <div class="cl-header">
+          <span class="cl-id">${c.id}</span>
+          <span class="cl-date">${formatDate(c.date)}</span>
+          <span class="cl-status-badge ${c.status.toLowerCase().replace(/\s+/g,'-')}">${c.status}</span>
+        </div>
+        <div class="cl-body">
+          <div><strong>Source:</strong> ${c.source}</div>
+          <div class="cl-quote">${c.whatTheySaid}</div>
+          ${c.whatWeChanged?`<div style="margin-top:6px;"><strong>What we changed:</strong> ${c.whatWeChanged}</div>`:''}
+          ${c.where?`<div><strong>Where:</strong> ${c.where}</div>`:''}
+          ${c.evidence?`<div><strong>Evidence:</strong> ${c.evidence}</div>`:''}
+        </div>
+      </div>
+    `).join('');
+  }
+  panel.innerHTML = html;
+}
+
+function openAddChangeLog(){
+  document.getElementById('shModalTitle').textContent = 'Log a Project Change';
+  document.getElementById('shModalBody').innerHTML = `
+    <div class="form-group">
+      <label class="form-label">Stakeholder Source <span class="required">*</span></label>
+      <select class="form-select" id="clSource">
+        ${S.stakeholders.map(s=>`<option>${s.name}</option>`).join('')}
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">What They Said <span class="required">*</span></label>
+      <textarea class="form-textarea" id="clSaid" placeholder="Describe what the stakeholder recommended..."></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">What We Changed</label>
+      <textarea class="form-textarea" id="clChanged" placeholder="Describe the change made to the project..."></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Where (project area)</label>
+        <input class="form-input" id="clWhere" placeholder="e.g., Strain design, Safety, HP approach">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select class="form-select" id="clStatus">
+          <option>Pending</option>
+          <option>Under Review</option>
+          <option>Implemented</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Evidence</label>
+      <input class="form-input" id="clEvidence" placeholder="e.g., Meeting notes, email, interview form">
+    </div>
+  `;
+  document.getElementById('shModalFooter').innerHTML = `
+    <button class="btn btn-secondary" onclick="closeStakeholderModal()">Cancel</button>
+    <button class="btn btn-primary" onclick="saveChangeLog()">Log Change</button>
+  `;
+  document.getElementById('stakeholderModal').classList.add('open');
+}
+
+function saveChangeLog(){
+  const said = document.getElementById('clSaid').value.trim();
+  if(!said){ alert('Please describe what the stakeholder said.'); return; }
+  S.changeLog.push({
+    id: 'CL-'+String(S.changeLog.length+1).padStart(3,'0'),
+    date: todayStr(),
+    source: document.getElementById('clSource').value,
+    whatTheySaid: said,
+    whatWeChanged: document.getElementById('clChanged').value.trim(),
+    where: document.getElementById('clWhere').value.trim(),
+    evidence: document.getElementById('clEvidence').value.trim(),
+    status: document.getElementById('clStatus').value
+  });
+  logActivity('change', 'Logged Project Change', `From ${document.getElementById('clSource').value}: "${said.slice(0,60)}..."`);
+  save(); closeStakeholderModal(); renderChangeLog();
+}
+
+/* ─── WEEKLY CHECK-INS TAB ─── */
+function renderCheckins(){
+  const panel = document.getElementById('panel-checkins');
+  const today = todayStr();
+  let html = `
+    <h3 style="color:var(--scarlet-dark);margin-bottom:4px;">Weekly HP Check-Ins</h3>
+    <p style="font-size:12px;color:var(--slate);margin-bottom:16px;">30 weeks: April 21 to November 10, 2026. Click a week to log your check-in.</p>
+    <div class="week-grid">
+      ${WEEKS.map(w=>{
+        const isPast = w.date < today;
+        const isCurrent = daysBetween(w.date, today) >= 0 && daysBetween(w.date, today) < 7;
+        const isCompleted = !!S.weekCheckins[w.num];
+        let cls = isPast ? 'past' : 'future';
+        if(isCurrent) cls = 'current';
+        if(isCompleted) cls = 'completed';
+        return `<div class="week-cell ${cls}" onclick="openWeekCheckin(${w.num})">
+          <div class="week-num">WK ${String(w.num).padStart(2,'0')}</div>
+          <div class="week-date">${formatDate(w.date)}</div>
+          ${isCompleted?'<div style="color:var(--emerald);font-size:14px;margin-top:2px;">&#10003;</div>':''}
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+  panel.innerHTML = html;
+}
+
+function openWeekCheckin(num){
+  const w = WEEKS.find(x=>x.num===num);
+  const existing = S.weekCheckins[num] || {};
+  document.getElementById('shModalTitle').textContent = `Week ${num} Check-In (${formatDate(w.date)})`;
+  document.getElementById('shModalBody').innerHTML = `
+    <div class="form-group">
+      <label class="form-label">Stakeholders contacted this week</label>
+      <textarea class="form-textarea" id="wkContacted" placeholder="List stakeholders contacted...">${existing.contacted||''}</textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Key findings / insights</label>
+      <textarea class="form-textarea" id="wkFindings" placeholder="What did you learn?">${existing.findings||''}</textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Changes recommended to project</label>
+      <textarea class="form-textarea" id="wkChanges" placeholder="Any design changes from this week's conversations?">${existing.changes||''}</textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Next week's plan</label>
+      <textarea class="form-textarea" id="wkPlan" placeholder="Who to contact next week, what to follow up on...">${existing.plan||''}</textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Blockers or concerns</label>
+      <textarea class="form-textarea" id="wkBlockers" placeholder="Anything slowing you down?">${existing.blockers||''}</textarea>
+    </div>
+  `;
+  document.getElementById('shModalFooter').innerHTML = `
+    <button class="btn btn-secondary" onclick="closeStakeholderModal()">Cancel</button>
+    <button class="btn btn-primary" onclick="saveWeekCheckin(${num})">Save Check-In</button>
+  `;
+  document.getElementById('stakeholderModal').classList.add('open');
+}
+
+function saveWeekCheckin(num){
+  S.weekCheckins[num] = {
+    contacted: document.getElementById('wkContacted').value.trim(),
+    findings: document.getElementById('wkFindings').value.trim(),
+    changes: document.getElementById('wkChanges').value.trim(),
+    plan: document.getElementById('wkPlan').value.trim(),
+    blockers: document.getElementById('wkBlockers').value.trim(),
+    savedAt: Date.now()
+  };
+  logActivity('status', 'Completed Weekly Check-In', `Week ${num}`);
+  sendNotification('coord', `HP Weekly Check-In completed: Week ${num}. ${S.weekCheckins[num].findings?'Key findings: "'+S.weekCheckins[num].findings.slice(0,80)+'..."':'No new findings.'}`, 'message');
+  save(); closeStakeholderModal(); renderCheckins();
+  alert('Week '+num+' check-in saved and sent to Project Coordinator!');
+}
+
+/* ─── ACTIVITY LOG TAB ─── */
+function renderActivityLog(){
+  const panel = document.getElementById('panel-activity');
+  let html = `
+    <h3 style="color:var(--scarlet-dark);margin-bottom:4px;">Activity Log</h3>
+    <p style="font-size:12px;color:var(--slate);margin-bottom:16px;">All stakeholder map activity is recorded here automatically.</p>
+  `;
+  if(S.activityLog.length === 0){
+    html += `<div style="text-align:center;padding:40px;color:var(--slate);font-size:13px;">No activity yet. Actions will be logged as you use the stakeholder map.</div>`;
+  } else {
+    html += S.activityLog.slice(0, 100).map(a=>{
+      const iconMap = {interview:'interview',submission:'submission',change:'change',status:'status',upload:'upload'};
+      const emojiMap = {interview:'&#128221;',submission:'&#128228;',change:'&#128196;',status:'&#9989;',upload:'&#128193;',message:'&#128172;'};
+      return `<div class="activity-item">
+        <div class="activity-icon ${iconMap[a.type]||'status'}">${emojiMap[a.type]||'&#128196;'}</div>
+        <div class="activity-body">
+          <div class="activity-msg"><strong>${a.title}</strong>: ${a.detail||''}</div>
+          <div class="activity-time">${timeAgo(a.timestamp)}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  panel.innerHTML = html;
+}
+
+/* ─── QUICK REFERENCE TAB ─── */
+function renderReference(){
+  const panel = document.getElementById('panel-reference');
+  const today = new Date();
+  const jamboree = new Date(2026, 10, 13); // Nov 13
+  const daysToJamboree = Math.ceil((jamboree - today) / 86400000);
+  const wikiFreeze = new Date(2026, 9, 17); // Oct 17
+  const daysToWiki = Math.ceil((wikiFreeze - today) / 86400000);
+
+  panel.innerHTML = `
+    <h3 style="color:var(--scarlet-dark);margin-bottom:16px;">Quick Reference</h3>
+    <div class="qr-grid">
+      <div class="qr-card">
+        <div class="qr-card-title">Key Dates</div>
+        <div class="qr-item"><strong>${daysToJamboree} days</strong> to Jamboree (Nov 13-16, Paris)</div>
+        <div class="qr-item"><strong>${daysToWiki} days</strong> to Wiki Freeze (Oct 17)</div>
+        <div class="qr-item"><strong>May 2026:</strong> Begin stakeholder outreach</div>
+        <div class="qr-item"><strong>Jul 2026:</strong> Mid-season HP review</div>
+        <div class="qr-item"><strong>Sep 2026:</strong> Final stakeholder interviews</div>
+        <div class="qr-item"><strong>Oct 2026:</strong> HP documentation complete</div>
+      </div>
+      <div class="qr-card">
+        <div class="qr-card-title">HP Medal Requirements</div>
+        <div class="qr-item"><strong>Bronze:</strong> Describe how your project addresses a real-world problem</div>
+        <div class="qr-item"><strong>Silver:</strong> Document stakeholder engagement; show how it influenced your project</div>
+        <div class="qr-item"><strong>Gold:</strong> Demonstrate integrated HP with documented evidence of iterative project changes based on stakeholder input</div>
+      </div>
+      <div class="qr-card">
+        <div class="qr-card-title">Team Contacts</div>
+        <div class="qr-item"><strong>PI:</strong> Dr. Sergey Shevkoplyas (sshevkop@central.uh.edu)</div>
+        <div class="qr-item"><strong>Project Lead:</strong> Austin Routt</div>
+        <div class="qr-item"><strong>Coordinator:</strong> Timothy Windham, DDS</div>
+        <div class="qr-item"><strong>HP Lead:</strong> May (proposed)</div>
+        <div class="qr-item"><strong>Wiki Lead:</strong> Lyba (proposed)</div>
+        <div class="qr-item"><strong>Mentor:</strong> Alejandro Schmieder (Columbia)</div>
+      </div>
+      <div class="qr-card">
+        <div class="qr-card-title">Resources</div>
+        <div class="qr-item"><a href="https://responsibility.igem.org/human-practices" target="_blank" style="color:var(--scarlet);">iGEM HP Handbook</a></div>
+        <div class="qr-item"><a href="https://drive.google.com/drive/folders/1_fmMDgCc5Ud8mng7kwSGWwKF4vu9-qBh" target="_blank" style="color:var(--scarlet);">HP Documents Drive</a></div>
+        <div class="qr-item"><a href="https://drive.google.com/drive/folders/1DQWOox8tgx6aqjgXsNejiYEK-8jySxV_" target="_blank" style="color:var(--scarlet);">Submissions for Coordinator</a></div>
+        <div class="qr-item"><a href="hp-lead.html" style="color:var(--scarlet);">HP Lead Dashboard</a></div>
+        <div class="qr-item"><a href="coordinator.html" style="color:var(--scarlet);">Coordinator Dashboard</a></div>
+      </div>
+    </div>
+    <div style="margin-top:20px;padding:16px;background:var(--cream);border:1px solid var(--warm-gray);border-radius:4px;">
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dark);font-weight:600;margin-bottom:10px;">HP Workflow Summary</div>
+      <div style="font-size:13px;color:var(--slate-dark);line-height:1.8;">
+        <strong>Daily:</strong> Check the "Today's Focus" bar for overdue or due items. Update stakeholder statuses after any contact.<br>
+        <strong>Weekly:</strong> Complete the weekly check-in (Mondays). Review upcoming stakeholder due dates. Log any project changes to the Change Log.<br>
+        <strong>Monthly:</strong> Review all stakeholder progress. Ensure the Change Log is up to date for Gold Medal evidence. Plan next month's outreach priority.
+      </div>
+    </div>
+  `;
+}
+
+/* ─── DAILY BRIEFING MODAL ─── */
+function showDailyBriefing(){
+  const today = todayStr();
+  if(S.lastDailyBriefing === today) return; // Already shown today
+  S.lastDailyBriefing = today;
+  save();
+
+  const now = new Date();
+  const hour = now.getHours();
+  let greeting = 'Good morning';
+  if(hour >= 12 && hour < 17) greeting = 'Good afternoon';
+  else if(hour >= 17) greeting = 'Good evening';
+
+  document.getElementById('dailyTitle').textContent = greeting + '!';
+  document.getElementById('dailyDate').textContent = now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+
+  // Build checklist
+  const items = [];
+
+  // Overdue stakeholders
+  const overdue = S.stakeholders.filter(s=>s.nextDue && s.nextDue < today && s.status!=='Completed');
+  if(overdue.length > 0){
+    items.push({text:`${overdue.length} overdue stakeholder${overdue.length>1?'s':''} need attention`, priority:'high', detail: overdue.map(s=>s.name).join(', ')});
+  }
+
+  // Due today
+  const dueToday = S.stakeholders.filter(s=>s.nextDue === today && s.status!=='Completed');
+  dueToday.forEach(s=>{
+    items.push({text:`Follow up with ${s.name}`, priority:'high'});
+  });
+
+  // Due this week
+  const dueWeek = S.stakeholders.filter(s=>{
+    if(!s.nextDue || s.status==='Completed' || s.nextDue<=today) return false;
+    return daysBetween(today, s.nextDue) <= 7;
+  });
+  if(dueWeek.length > 0){
+    items.push({text:`${dueWeek.length} stakeholder${dueWeek.length>1?'s':''} due this week`, priority:'medium', detail: dueWeek.map(s=>s.name).join(', ')});
+  }
+
+  // Unsubmitted interviews
+  const drafts = Object.entries(S.interviews).filter(([k,v])=>!v.submitted);
+  if(drafts.length > 0){
+    items.push({text:`${drafts.length} interview draft${drafts.length>1?'s':''} waiting to be submitted`, priority:'medium'});
+  }
+
+  // Weekly check-in
+  if(now.getDay() === 1){
+    const currentWeek = WEEKS.find(w=>daysBetween(today,w.date)>=0 && daysBetween(today,w.date)<7) || WEEKS.find(w=>w.date===today);
+    if(currentWeek && !S.weekCheckins[currentWeek.num]){
+      items.push({text:`Weekly check-in due (Week ${currentWeek.num})`, priority:'medium'});
+    }
+  }
+
+  // Progress stat
+  const completed = S.stakeholders.filter(s=>s.status==='Completed').length;
+  items.push({text:`${completed}/${S.stakeholders.length} stakeholders completed (${Math.round(completed/S.stakeholders.length*100)}%)`, priority:'low'});
+
+  if(items.length === 0){
+    items.push({text:'No urgent items today. Keep up the great work!', priority:'low'});
+  }
+
+  document.getElementById('dailyBody').innerHTML = `
+    <div style="font-size:13px;color:var(--slate);margin-bottom:12px;">Here's what needs your attention today:</div>
+    <ul class="daily-checklist">
+      ${items.map(it=>`
+        <li>
+          <input type="checkbox">
+          <span style="flex:1;">${it.text}${it.detail?`<br><span style="font-size:11px;color:var(--slate-light);">${it.detail}</span>`:''}</span>
+          <span class="daily-priority ${it.priority}">${it.priority}</span>
+        </li>
+      `).join('')}
+    </ul>
+  `;
+
+  document.getElementById('dailyModal').classList.add('open');
+}
+function closeDailyModal(){ document.getElementById('dailyModal').classList.remove('open'); }
+
+/* ─── TAPE CLOCK ─── */
+function updateClock(){
+  const now = new Date();
+  document.getElementById('tapeClock').textContent =
+    now.toLocaleDateString('en-US',{month:'short',day:'numeric'}).toUpperCase()+' '+
+    now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false});
+}
+
+/* ─── INIT ─── */
+function init(){
+  loadState();
+  updateClock(); setInterval(updateClock, 30000);
+  renderNotifWidget();
+  renderStats();
+  renderFocusBar();
+  renderTabs();
+  renderPanel();
+  // Show daily briefing after a short delay
+  setTimeout(showDailyBriefing, 500);
+  // Poll notifications
+  setInterval(renderNotifWidget, 5000);
+}
+init();
+</script>
+</body>
+</html>
