@@ -31,7 +31,12 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Add UH iGEM 2026 HP Consent Form link to HP Lead resources
+    git commit -m "Revamp HP Lead resources: direct doc links, print PDFs, rename section
+
+- Rename section to Human Practices Lead Resources
+- Cards link directly to HTML docs, not Google Drive
+- Add Print PDF (Google Drive) links on consent form and interview protocol
+- Card text changed from Open in Google Drive to View Document
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
