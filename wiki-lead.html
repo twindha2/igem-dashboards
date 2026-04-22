@@ -679,7 +679,14 @@ body {
   border-color: var(--scarlet);
   box-shadow: 0 0 0 1px var(--scarlet);
 }
-.team-directory-section .tc-emoji { font-size: 32px; margin-bottom: 8px; }
+.team-directory-section .tc-emoji {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, #F5F0E8, #E8DDD0);
+  border: 1.5px solid #C4A882;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 8px;
+  box-shadow: inset 0 1px 3px rgba(93,64,55,0.1);
+}
 .team-directory-section .tc-name { font-weight: 700; font-size: 13px; color: var(--scarlet-dark); margin-bottom: 3px; }
 .team-directory-section .tc-role { font-size: 10px; color: var(--slate-light); font-weight: 600; text-transform: uppercase; }
 
@@ -894,6 +901,8 @@ body {
     <div class="team-grid" id="team-grid-bottom"></div>
   </div>
 
+  <div id="signal-booth-anchor"></div>
+
   <div style="text-align:center;color:rgba(255,255,255,0.45);font-size:10px;margin-top:40px;font-family:var(--font-mono);letter-spacing:1.5px;text-transform:uppercase;line-height:1.8;padding-bottom:40px">
     University of Houston · iGEM 2026 · Village TBD<br>
     Jamboree · Nov 13–16 · Paris
@@ -948,21 +957,21 @@ const LS_KEY = 'uh_igem_wiki_v1';
 const WIKI_SUBMISSIONS_KEY = 'uh_igem_wiki_submissions';
 
 const TEAM_ROSTER = [
-  {id:'austin', name:'Austin Routt', role:'Project Lead', emoji:'👑', dashKey:'projectlead', assignment:'Project Lead'},
-  {id:'coord', name:'Timothy Windham, DDS', role:'Project Coordinator', emoji:'🎯', dashKey:'coord', assignment:'Project Coordinator — Operations & Mentorship'},
-  {id:'hp', name:'May Shin Thant', role:'HP Lead', emoji:'🤝', dashKey:'hp', assignment:'Human Practices Lead'},
-  {id:'wiki', name:'Lyba Siddiqui', role:'Wiki Lead', emoji:'📖', dashKey:'wiki', assignment:'Wiki & Documentation Lead'},
-  {id:'christopher', name:'Christopher Loorkhoor', role:'Undergraduate', emoji:'🔬', dashKey:'christopher', assignment:'Undergraduate Student, UH'},
-  {id:'harry', name:'Harry Odiakosa', role:'Student', emoji:'🔬', dashKey:'harry', assignment:'Student, UH'},
-  {id:'itsy', name:'Itsy', role:'Lab Assistant', emoji:'🧪', dashKey:'itsy', assignment:'Laboratory Assistant, UH'},
-  {id:'jaekyun', name:'Jaekyun Baek', role:'Graduate Student', emoji:'🧬', dashKey:'jaekyun', assignment:'Graduate Student, UH'},
-  {id:'mary', name:'Mary', role:'Research Assistant', emoji:'🔬', dashKey:'mary', assignment:'Research Assistant, UH'},
-  {id:'nora', name:'Nora', role:'Student Researcher', emoji:'🔬', dashKey:'nora', assignment:'Student Researcher, UH'},
-  {id:'ruchi', name:'Ruchi', role:'Graduate Researcher', emoji:'🧬', dashKey:'ruchi', assignment:'Graduate Student Researcher, UH'},
-  {id:'shalaka', name:'Shalaka', role:'Student', emoji:'🔬', dashKey:'shalaka', assignment:'Student, UH'},
-  {id:'vu', name:'Vu Phuong Uyen Van', role:'Undergraduate', emoji:'🔬', dashKey:'vu', assignment:'Undergraduate Student, UH'},
-  {id:'alejandro', name:'Alejandro Schmieder', role:'Community Mentor', emoji:'💼', dashKey:'alejandro', assignment:'Community Mentor — Columbia MBA'},
-  {id:'shevkoplyas', name:'Prof. Sergey Shevkoplyas', role:'Faculty PI', emoji:'🎓', dashKey:'shevkoplyas', assignment:'Faculty PI, UH'}
+  {id:'austin', name:'Austin Routt', role:'Project Lead', emoji:'📐', dashKey:'projectlead', assignment:'Project Lead', email:'ahroutt@cougarnet.uh.edu'},
+  {id:'coord', name:'Timothy Windham, DDS', role:'Project Coordinator', emoji:'⚙️', dashKey:'coord', assignment:'Project Coordinator — Operations & Mentorship', email:'twindha2@cougarnet.uh.edu'},
+  {id:'hp', name:'May Shin Thant', role:'HP Lead', emoji:'🤝', dashKey:'hp', assignment:'Human Practices Lead', email:'mthant@cougarnet.uh.edu'},
+  {id:'wiki', name:'Lyba Siddiqui', role:'Wiki Lead', emoji:'🪶', dashKey:'wiki', assignment:'Wiki & Documentation Lead', email:'lsiddiq2@cougarnet.uh.edu'},
+  {id:'christopher', name:'Christopher Loorkhoor', role:'Undergraduate', emoji:'⚗️', dashKey:'christopher', assignment:'Undergraduate Student, UH', email:''},
+  {id:'harry', name:'Harry Odiakosa', role:'Student', emoji:'⚗️', dashKey:'harry', assignment:'Student, UH', email:'hodiakos@cougarnet.uh.edu'},
+  {id:'itsy', name:'Itsy', role:'Lab Assistant', emoji:'🧪', dashKey:'itsy', assignment:'Laboratory Assistant, UH', email:''},
+  {id:'jaekyun', name:'Jaekyun Baek', role:'Graduate Student', emoji:'🧬', dashKey:'jaekyun', assignment:'Graduate Student, UH', email:'jbaek5@cougarnet.uh.edu'},
+  {id:'mary', name:'Mary', role:'Research Assistant', emoji:'🔭', dashKey:'mary', assignment:'Research Assistant, UH', email:'mmadwer@cougarnet.uh.edu'},
+  {id:'nora', name:'Nora', role:'Student Researcher', emoji:'⚗️', dashKey:'nora', assignment:'Student Researcher, UH', email:''},
+  {id:'ruchi', name:'Ruchi', role:'Graduate Researcher', emoji:'🧬', dashKey:'ruchi', assignment:'Graduate Student Researcher, UH', email:'rsingh37@cougarnet.uh.edu'},
+  {id:'shalaka', name:'Shalaka', role:'Student', emoji:'⚗️', dashKey:'shalaka', assignment:'Student, UH', email:'sdhavali@cougarnet.uh.edu'},
+  {id:'vu', name:'Vu Phuong Uyen Van', role:'Undergraduate', emoji:'⚗️', dashKey:'vu', assignment:'Undergraduate Student, UH', email:'vvan@cougarnet.uh.edu'},
+  {id:'alejandro', name:'Alejandro Schmieder', role:'Community Mentor', emoji:'📜', dashKey:'alejandro', assignment:'Community Mentor — Columbia MBA', email:''},
+  {id:'shevkoplyas', name:'Prof. Sergey Shevkoplyas', role:'Faculty PI', emoji:'🏛️', dashKey:'shevkoplyas', assignment:'Faculty PI, UH', email:'sshevkop@central.uh.edu'}
 ];
 
 const QUOTES = [
@@ -1522,6 +1531,7 @@ function openMessageModal(memberId){
             <input type="checkbox" id="msg-urgent-dyn"> <label for="msg-urgent-dyn">🚨 Mark as urgent</label>
           </div>
           <button class="msg-send-btn" onclick="sendTeamMessage('${memberId}')">Send Message</button>
+          ${member.email ? `<a href="mailto:${member.email}" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:8px 16px;border-radius:6px;background:var(--cream);border:1px solid var(--warm-gray);font-family:var(--font-mono);font-size:12px;color:var(--slate-dark);text-decoration:none;transition:all 0.15s;" onmouseover="this.style.borderColor='var(--scarlet)';this.style.color='var(--scarlet-dark)'" onmouseout="this.style.borderColor='var(--warm-gray)';this.style.color='var(--slate-dark)'">✉️ Email ${member.name.split(' ')[0]}</a>` : ''}
         </div>
       </div>`;
     document.body.appendChild(overlay);
@@ -1540,8 +1550,9 @@ function openMessageModal(memberId){
           <div style="background:var(--cream);border-radius:4px;padding:16px;text-align:left;font-size:13px;color:var(--slate);">
             <p style="margin:0 0 8px;"><strong>Role:</strong> ${member.role}</p>
             <p style="margin:0 0 8px;"><strong>Team:</strong> UH iGEM 2026</p>
-            <p style="margin:0;"><strong>Contact:</strong> Reach out via team Slack or email</p>
+            <p style="margin:0;"><strong>Contact:</strong> ${member.email ? '<a href="mailto:'+member.email+'" style="color:var(--scarlet-dark);text-decoration:none;">'+member.email+'</a>' : 'Contact via team channels'}</p>
           </div>
+          ${member.email ? '<a href="mailto:'+member.email+'" style="display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:10px 24px;border-radius:6px;background:var(--scarlet);color:white;font-family:var(--font-mono);font-size:12px;letter-spacing:0.5px;text-decoration:none;transition:all 0.15s;" onmouseover="this.style.background=\'var(--scarlet-dark)\'" onmouseout="this.style.background=\'var(--scarlet)\'">✉️ Send Email</a>' : ''}
           <p style="font-size:11px;color:var(--slate-light);margin-top:12px;font-style:italic;">This member doesn't have a dashboard — messages can be sent via Slack or email.</p>
         </div>
       </div>`;
@@ -1808,8 +1819,9 @@ function renderTimeline(){
       <div class="phase-tasks-list">${tasksHtml}</div>
     </div>`;
   }).join('');
+  document.getElementById("panel-timeline").innerHTML=`<div>${phasesSections}</div>`;
   const signalBooth=`<div class="signal-booth"><div class="signal-booth-icon">📡</div><div class="signal-booth-body"><div class="signal-booth-title">Signal Booth</div><div class="signal-booth-desc">Something not working? Have a suggestion to make this dashboard better? Drop a quick note.</div></div><a class="signal-booth-btn" href="mailto:timothydds@gmail.com?subject=%5BiGEM%20Dashboard%5D%20Wiki%20Lead%20%E2%80%94%20Feedback&body=Dashboard%3A%20Wiki%20Lead%0AType%3A%20%5BBug%20%2F%20Suggestion%5D%0A%0ADescribe%20what%20happened%20or%20what%20you%E2%80%99d%20like%20to%20see%3A%0A%0A">Send Feedback →</a></div>`;
-  document.getElementById("panel-timeline").innerHTML=`<div>${phasesSections}</div>${signalBooth}`;
+  document.getElementById("signal-booth-anchor").innerHTML=signalBooth;
 }
 
 /* ═══ CHECK-INS ═══ */

@@ -31,10 +31,11 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Fix Team Directory label: white text on dark background
+    git commit -m "Add email overlays, Da Vinci icons, and move Signal Booth
 
-- Change team-directory section-label from scarlet to white on HP Lead and Wiki Lead
-- Change section-rule gradient from scarlet to gold to match other section headers
+- Add email addresses to TEAM_ROSTER and mailto links in card overlays
+- Replace emoji icons with Da Vinci-inspired symbols in sepia circles
+- Move Signal Booth below Team Directory on all dashboards
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
