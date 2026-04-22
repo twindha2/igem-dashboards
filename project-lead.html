@@ -1215,14 +1215,46 @@ const JAMBOREE = new Date(2026, 10, 13);
 const WIKI_FREEZE = new Date(2026, 9, 25);
 
 const QUOTES = [
-    {t:"The role of the project lead is to remove barriers so the team can do their best work.", s:"iGEM Handbook"},
-    {t:"A good leader takes a little more than his share of the blame, a little less than his share of the credit.", s:"Arnold Glasow"},
-    {t:"The best way to predict the future is to create it.", s:"Peter Drucker"},
-    {t:"In the middle of difficulty lies opportunity.", s:"Albert Einstein"},
-    {t:"Alone we can do so little; together we can do so much.", s:"Helen Keller"},
-    {t:"iGEM is not a sprint. It is a relay — every handoff matters.", s:"Past Grand Prize Winner"},
-    {t:"The strength of the team is each individual member. The strength of each member is the team.", s:"Phil Jackson"},
-    {t:"Success is not final, failure is not fatal: it is the courage to continue that counts.", s:"Winston Churchill"},
+    {t:"The role of the project lead is to remove barriers so the team can do their best work.",s:"iGEM Handbook"},
+    {t:"A good leader takes a little more than his share of the blame, a little less than his share of the credit.",s:"Arnold Glasow"},
+    {t:"The best way to predict the future is to create it.",s:"Peter Drucker"},
+    {t:"In the middle of difficulty lies opportunity.",s:"Albert Einstein"},
+    {t:"Alone we can do so little; together we can do so much.",s:"Helen Keller"},
+    {t:"iGEM is not a sprint. It is a relay -- every handoff matters.",s:"Past Grand Prize Winner"},
+    {t:"The strength of the team is each individual member. The strength of each member is the team.",s:"Phil Jackson"},
+    {t:"Success is not final, failure is not fatal: it is the courage to continue that counts.",s:"Winston Churchill"},
+    {t:"Science is not only a disciple of reason but also one of romance and passion.",s:"Stephen Hawking"},
+    {t:"The important thing is not to stop questioning. Curiosity has its own reason for existing.",s:"Albert Einstein"},
+    {t:"Somewhere, something incredible is waiting to be known.",s:"Carl Sagan"},
+    {t:"The good thing about science is that it's true whether or not you believe in it.",s:"Neil deGrasse Tyson"},
+    {t:"Nothing in biology makes sense except in the light of evolution.",s:"Theodosius Dobzhansky"},
+    {t:"What I cannot create, I do not understand.",s:"Richard Feynman"},
+    {t:"Science knows no country, because knowledge belongs to humanity, and is the torch which illuminates the world.",s:"Louis Pasteur"},
+    {t:"If you want to go fast, go alone. If you want to go far, go together.",s:"African Proverb"},
+    {t:"Coming together is a beginning, staying together is progress, and working together is success.",s:"Henry Ford"},
+    {t:"Research is what I'm doing when I don't know what I'm doing.",s:"Wernher von Braun"},
+    {t:"An experiment is a question which science poses to Nature.",s:"Max Planck"},
+    {t:"The meeting of two personalities is like the contact of two chemical substances: if there is any reaction, both are transformed.",s:"Carl Jung"},
+    {t:"We cannot solve our problems with the same thinking we used when we created them.",s:"Albert Einstein"},
+    {t:"Biology is the most powerful technology ever created. DNA is software, protein are hardware, cells are factories.",s:"Arvind Gupta"},
+    {t:"Synthetic biology will be to the 21st century what computing was to the 20th.",s:"Drew Endy"},
+    {t:"The best teams are those that listen to each other and build on each other's ideas.",s:"iGEM Community"},
+    {t:"Every expert was once a beginner.",s:"Helen Hayes"},
+    {t:"Tell me and I forget, teach me and I may remember, involve me and I learn.",s:"Benjamin Franklin"},
+    {t:"The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice.",s:"Brian Herbert"},
+    {t:"The measure of intelligence is the ability to change.",s:"Albert Einstein"},
+    {t:"Innovation distinguishes between a leader and a follower.",s:"Steve Jobs"},
+    {t:"It always seems impossible until it's done.",s:"Nelson Mandela"},
+    {t:"The greatest glory in living lies not in never falling, but in rising every time we fall.",s:"Nelson Mandela"},
+    {t:"Act as if what you do makes a difference. It does.",s:"William James"},
+    {t:"The only limit to our realization of tomorrow is our doubts of today.",s:"Franklin D. Roosevelt"},
+    {t:"Do not go where the path may lead, go instead where there is no path and leave a trail.",s:"Ralph Waldo Emerson"},
+    {t:"What we know is a drop, what we don't know is an ocean.",s:"Isaac Newton"},
+    {t:"Progress is impossible without change, and those who cannot change their minds cannot change anything.",s:"George Bernard Shaw"},
+    {t:"The only way to do great work is to love what you do.",s:"Steve Jobs"},
+    {t:"The art of life is a constant readjustment to our surroundings.",s:"Kakuzo Okakura"},
+    {t:"Human practices is the bridge between the lab and the world. Cross it often.",s:"iGEM Foundation"},
+    {t:"Life is not measured by the number of breaths we take, but by the moments that take our breath away.",s:"Maya Angelou"},
 ];
 
 const MILESTONES = [
@@ -1660,17 +1692,40 @@ function submitWikiFiles(variant = 'pending') {
 // ============================================================================
 // RENDER — QUOTES
 // ============================================================================
-let quoteIdx = 0;
+
+let quoteIdx = Math.floor(Math.random() * QUOTES.length);
+
+// Try to fetch additional quotes from API
+(async function fetchApiQuotes() {
+  try {
+    const res = await fetch("https://dummyjson.com/quotes?limit=30");
+    if (res.ok) {
+      const data = await res.json();
+      if (data.quotes && data.quotes.length) {
+        data.quotes.forEach(q => {
+          if (q.quote && q.author) QUOTES.push({t: q.quote, s: q.author});
+        });
+        for (let i = QUOTES.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [QUOTES[i], QUOTES[j]] = [QUOTES[j], QUOTES[i]];
+        }
+      }
+    }
+  } catch(e) { /* Curated quotes are sufficient */ }
+})();
+
 function renderQuote() {
     const el = document.getElementById('quote-text');
+    if (!el) return;
     const q = QUOTES[quoteIdx % QUOTES.length];
-    el.style.opacity = '0';
+    el.style.transition = "opacity 0.6s ease";
+    el.style.opacity = "0";
     setTimeout(() => {
-        el.innerHTML = `"${q.t}" — <em>${q.s}</em>`;
-        el.style.opacity = '1';
-    }, 400);
+      el.textContent = `\u201C${q.t}\u201D \u2014 ${q.s}`;
+      el.style.opacity = "1";
+    }, 600);
 }
-setInterval(() => { quoteIdx++; renderQuote(); }, 8000);
+setInterval(() => { quoteIdx = (quoteIdx + 1) % QUOTES.length; renderQuote(); }, 10000);
 
 // ============================================================================
 // RENDER — COUNTDOWNS

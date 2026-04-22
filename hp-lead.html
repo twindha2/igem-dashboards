@@ -915,6 +915,9 @@ body {
 <!-- ═══ COUNTDOWN ROW ═══ -->
 <div class="countdown-grid" id="countdownGrid"></div>
 
+<!-- ═══ TODAY'S SNAPSHOT ═══ -->
+<div id="today-snapshot"></div>
+
 <!-- ═══ STAKEHOLDER MAP LINK ═══ -->
 <div style="max-width:1100px;margin:0 auto 20px;padding:0;">
   <a href="stakeholder-map.html" style="display:flex;align-items:center;gap:16px;padding:16px 24px;background:linear-gradient(135deg,rgba(255,255,255,0.97),rgba(255,248,240,0.97));border:2px solid var(--gold);border-radius:4px;text-decoration:none;box-shadow:0 4px 16px rgba(246,190,0,0.2);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 24px rgba(246,190,0,0.3)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px rgba(246,190,0,0.2)'">
@@ -927,9 +930,6 @@ body {
     <div style="font-size:24px;color:var(--gold-dark);opacity:0.6;">&#8250;</div>
   </a>
 </div>
-
-<!-- ═══ TODAY'S SNAPSHOT ═══ -->
-<div id="today-snapshot"></div>
 
 <!-- ═══ MAIN CONTENT ═══ -->
 <div class="tab-container">
@@ -972,9 +972,46 @@ body {
    ═══════════════════════════════════════════════ */
 const JAMBOREE = new Date("2026-11-13T00:00:00");
 const QUOTES = [
-  {t:"The best Human Practices aren't about checking boxes — they're about letting the world reshape your science.",s:"iGEM Judging Guide"},
+  {t:"The best Human Practices aren't about checking boxes -- they're about letting the world reshape your science.",s:"iGEM Judging Guide"},
   {t:"Gold medal teams don't just talk to stakeholders. They listen, adapt, and prove it.",s:"Past iGEM Grand Prize Winner"},
   {t:"Engineering longevity starts with understanding the humans who need it most.",s:"UH iGEM 2026"},
+  {t:"Science is not only a disciple of reason but also one of romance and passion.",s:"Stephen Hawking"},
+  {t:"The important thing is not to stop questioning. Curiosity has its own reason for existing.",s:"Albert Einstein"},
+  {t:"In every walk with nature one receives far more than he seeks.",s:"John Muir"},
+  {t:"The good thing about science is that it's true whether or not you believe in it.",s:"Neil deGrasse Tyson"},
+  {t:"Nothing in biology makes sense except in the light of evolution.",s:"Theodosius Dobzhansky"},
+  {t:"What I cannot create, I do not understand.",s:"Richard Feynman"},
+  {t:"The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice.",s:"Brian Herbert"},
+  {t:"Science knows no country, because knowledge belongs to humanity, and is the torch which illuminates the world.",s:"Louis Pasteur"},
+  {t:"Somewhere, something incredible is waiting to be known.",s:"Carl Sagan"},
+  {t:"The only way to do great work is to love what you do.",s:"Steve Jobs"},
+  {t:"Alone we can do so little; together we can do so much.",s:"Helen Keller"},
+  {t:"If you want to go fast, go alone. If you want to go far, go together.",s:"African Proverb"},
+  {t:"Coming together is a beginning, staying together is progress, and working together is success.",s:"Henry Ford"},
+  {t:"Research is what I'm doing when I don't know what I'm doing.",s:"Wernher von Braun"},
+  {t:"The best way to predict the future is to create it.",s:"Peter Drucker"},
+  {t:"An experiment is a question which science poses to Nature.",s:"Max Planck"},
+  {t:"Success is not final, failure is not fatal: it is the courage to continue that counts.",s:"Winston Churchill"},
+  {t:"The meeting of two personalities is like the contact of two chemical substances: if there is any reaction, both are transformed.",s:"Carl Jung"},
+  {t:"We cannot solve our problems with the same thinking we used when we created them.",s:"Albert Einstein"},
+  {t:"Biology is the most powerful technology ever created. DNA is software, protein are hardware, cells are factories.",s:"Arvind Gupta"},
+  {t:"Synthetic biology will be to the 21st century what computing was to the 20th.",s:"Drew Endy"},
+  {t:"The best teams are those that listen to each other and build on each other's ideas.",s:"iGEM Community"},
+  {t:"Every expert was once a beginner.",s:"Helen Hayes"},
+  {t:"Tell me and I forget, teach me and I may remember, involve me and I learn.",s:"Benjamin Franklin"},
+  {t:"Human practices is the bridge between the lab and the world. Cross it often.",s:"iGEM Foundation"},
+  {t:"The measure of intelligence is the ability to change.",s:"Albert Einstein"},
+  {t:"Innovation distinguishes between a leader and a follower.",s:"Steve Jobs"},
+  {t:"It always seems impossible until it's done.",s:"Nelson Mandela"},
+  {t:"The greatest glory in living lies not in never falling, but in rising every time we fall.",s:"Nelson Mandela"},
+  {t:"Act as if what you do makes a difference. It does.",s:"William James"},
+  {t:"Your work is going to fill a large part of your life. Don't settle for anything less than great.",s:"Steve Jobs"},
+  {t:"Life is not measured by the number of breaths we take, but by the moments that take our breath away.",s:"Maya Angelou"},
+  {t:"The only limit to our realization of tomorrow is our doubts of today.",s:"Franklin D. Roosevelt"},
+  {t:"Do not go where the path may lead, go instead where there is no path and leave a trail.",s:"Ralph Waldo Emerson"},
+  {t:"What we know is a drop, what we don't know is an ocean.",s:"Isaac Newton"},
+  {t:"The art of life is a constant readjustment to our surroundings.",s:"Kakuzo Okakura"},
+  {t:"Progress is impossible without change, and those who cannot change their minds cannot change anything.",s:"George Bernard Shaw"},
 ];
 
 const PHASES = [
@@ -1177,10 +1214,41 @@ function phaseStats(pi){const p=PHASES[pi];let d=0;p.tasks.forEach(t=>{if(S.task
 let activeTab="timeline";  // default to first tab
 
 /* ═══ QUOTES ═══ */
-let qI=0;
-function renderQuote(){const q=QUOTES[qI];document.getElementById("quote-text").textContent=`"${q.t}" — ${q.s}`;}
-setInterval(()=>{qI=(qI+1)%QUOTES.length;renderQuote();},8000);
+let qI = Math.floor(Math.random() * QUOTES.length);
+const quoteEl = document.getElementById("quote-text");
+
+// Try to fetch additional quotes from API
+(async function fetchApiQuotes() {
+  try {
+    const res = await fetch("https://dummyjson.com/quotes?limit=30");
+    if (res.ok) {
+      const data = await res.json();
+      if (data.quotes && data.quotes.length) {
+        data.quotes.forEach(q => {
+          if (q.quote && q.author) QUOTES.push({t: q.quote, s: q.author});
+        });
+        // Shuffle to mix API quotes with curated ones
+        for (let i = QUOTES.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [QUOTES[i], QUOTES[j]] = [QUOTES[j], QUOTES[i]];
+        }
+      }
+    }
+  } catch(e) { /* Curated quotes are sufficient */ }
+})();
+
+function renderQuote() {
+  if (!quoteEl) return;
+  const q = QUOTES[qI % QUOTES.length];
+  quoteEl.style.transition = "opacity 0.6s ease";
+  quoteEl.style.opacity = "0";
+  setTimeout(() => {
+    quoteEl.textContent = `\u201C${q.t}\u201D \u2014 ${q.s}`;
+    quoteEl.style.opacity = "1";
+  }, 600);
+}
 renderQuote();
+setInterval(() => { qI = (qI + 1) % QUOTES.length; renderQuote(); }, 10000);
 document.getElementById('header-date').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
 /* ═══ COUNTDOWNS ═══ */

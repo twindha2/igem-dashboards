@@ -2754,7 +2754,40 @@
             "Every team member's contribution moves the entire project forward.",
             "Your role is to remove blockers and keep momentum alive.",
             "Trust your team, but verify their progress.",
-            "Celebrate small wins — they add up to large victories.",
+            "Celebrate small wins -- they add up to large victories.",
+            "The important thing is not to stop questioning. Curiosity has its own reason for existing. -- Albert Einstein",
+            "Science is not only a disciple of reason but also one of romance and passion. -- Stephen Hawking",
+            "Somewhere, something incredible is waiting to be known. -- Carl Sagan",
+            "The best way to predict the future is to create it. -- Peter Drucker",
+            "Alone we can do so little; together we can do so much. -- Helen Keller",
+            "If you want to go fast, go alone. If you want to go far, go together. -- African Proverb",
+            "Coming together is a beginning, staying together is progress, and working together is success. -- Henry Ford",
+            "The strength of the team is each individual member. The strength of each member is the team. -- Phil Jackson",
+            "Success is not final, failure is not fatal: it is the courage to continue that counts. -- Winston Churchill",
+            "In the middle of difficulty lies opportunity. -- Albert Einstein",
+            "What I cannot create, I do not understand. -- Richard Feynman",
+            "Nothing in biology makes sense except in the light of evolution. -- Theodosius Dobzhansky",
+            "Science knows no country, because knowledge belongs to humanity, and is the torch which illuminates the world. -- Louis Pasteur",
+            "The good thing about science is that it's true whether or not you believe in it. -- Neil deGrasse Tyson",
+            "Biology is the most powerful technology ever created. DNA is software, protein are hardware, cells are factories. -- Arvind Gupta",
+            "Synthetic biology will be to the 21st century what computing was to the 20th. -- Drew Endy",
+            "Tell me and I forget, teach me and I may remember, involve me and I learn. -- Benjamin Franklin",
+            "Every expert was once a beginner. -- Helen Hayes",
+            "The measure of intelligence is the ability to change. -- Albert Einstein",
+            "Innovation distinguishes between a leader and a follower. -- Steve Jobs",
+            "It always seems impossible until it's done. -- Nelson Mandela",
+            "Act as if what you do makes a difference. It does. -- William James",
+            "Research is what I'm doing when I don't know what I'm doing. -- Wernher von Braun",
+            "An experiment is a question which science poses to Nature. -- Max Planck",
+            "Progress is impossible without change, and those who cannot change their minds cannot change anything. -- George Bernard Shaw",
+            "What we know is a drop, what we don't know is an ocean. -- Isaac Newton",
+            "The only way to do great work is to love what you do. -- Steve Jobs",
+            "The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice. -- Brian Herbert",
+            "iGEM is not a sprint. It is a relay -- every handoff matters. -- Past Grand Prize Winner",
+            "Human practices is the bridge between the lab and the world. Cross it often. -- iGEM Foundation",
+            "The best teams are those that listen to each other and build on each other's ideas. -- iGEM Community",
+            "Do not go where the path may lead, go instead where there is no path and leave a trail. -- Ralph Waldo Emerson",
+            "The only limit to our realization of tomorrow is our doubts of today. -- Franklin D. Roosevelt",
         ];
 
         let state = {
@@ -3201,6 +3234,42 @@
 
                 function getRandomQuote() {
             return QUOTES[Math.floor(Math.random() * QUOTES.length)];
+        }
+
+        // Try to fetch additional quotes from API
+        (async function fetchApiQuotes() {
+          try {
+            const res = await fetch("https://dummyjson.com/quotes?limit=30");
+            if (res.ok) {
+              const data = await res.json();
+              if (data.quotes && data.quotes.length) {
+                data.quotes.forEach(q => {
+                  if (q.quote && q.author) QUOTES.push(`${q.quote} -- ${q.author}`);
+                });
+                for (let i = QUOTES.length - 1; i > 0; i--) {
+                  const j = Math.floor(Math.random() * (i + 1));
+                  [QUOTES[i], QUOTES[j]] = [QUOTES[j], QUOTES[i]];
+                }
+              }
+            }
+          } catch(e) { /* Curated quotes are sufficient */ }
+        })();
+
+        // Rotate header quote with crossfade
+        const headerQuoteEl = document.querySelector('.header-quote');
+        if (headerQuoteEl) {
+          let coordQI = Math.floor(Math.random() * QUOTES.length);
+          function rotateCoordQuote() {
+            headerQuoteEl.style.transition = "opacity 0.6s ease";
+            headerQuoteEl.style.opacity = "0";
+            setTimeout(() => {
+              headerQuoteEl.textContent = QUOTES[coordQI % QUOTES.length];
+              headerQuoteEl.style.opacity = "1";
+            }, 600);
+            coordQI = (coordQI + 1) % QUOTES.length;
+          }
+          rotateCoordQuote();
+          setInterval(rotateCoordQuote, 10000);
         }
 
         function getLead(leadKey) {

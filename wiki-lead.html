@@ -859,6 +859,19 @@ body {
 
   <div id="today-snapshot"></div>
 
+<!-- ═══ TEAM WIKI LINK ═══ -->
+<div style="max-width:1100px;margin:0 auto 20px;padding:0;">
+  <a href="https://2026.igem.wiki/houston-tx/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:16px;padding:16px 24px;background:linear-gradient(135deg,rgba(255,255,255,0.97),rgba(240,248,255,0.97));border:2px solid var(--gold);border-radius:4px;text-decoration:none;box-shadow:0 4px 16px rgba(246,190,0,0.2);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 24px rgba(246,190,0,0.3)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px rgba(246,190,0,0.2)'">
+    <div style="width:44px;height:44px;border-radius:8px;background:var(--gold-light);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">&#127760;</div>
+    <div style="flex:1;">
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dark);font-weight:600;">Live Site</div>
+      <div style="font-size:16px;font-weight:700;color:var(--scarlet-dark);margin-top:2px;">UH iGEM 2026 Team Wiki</div>
+      <div style="font-size:12px;color:var(--slate);margin-top:2px;">View and edit the live team wiki at 2026.igem.wiki/houston-tx</div>
+    </div>
+    <div style="font-size:24px;color:var(--gold-dark);opacity:0.6;">&#8250;</div>
+  </a>
+</div>
+
 <div class="tab-container">
     <div class="tab-bar-wrap">
       <div class="tab-bar" id="tabBar"></div>
@@ -953,24 +966,88 @@ const TEAM_ROSTER = [
 ];
 
 const QUOTES = [
-  { text: "The wiki is where your science becomes a story the world can understand.", src: "iGEM Philosophy" },
-  { text: "Documentation is a love letter to your future self.", src: "Damian Conway" },
-  { text: "Good design is as little design as possible.", src: "Dieter Rams" },
-  { text: "Make your wiki simple enough for judges to remember, complex enough to impress them.", src: "iGEM Wisdom" },
-  { text: "Every page must answer one question clearly before asking the next.", src: "Technical Writing" },
-  { text: "A well-documented project is a well-understood project.", src: "Wiki Best Practice" },
-  { text: "Clear communication wins judging more than complex science.", src: "iGEM Judge Feedback" }
+  {text:"The wiki is where your science becomes a story the world can understand.",src:"iGEM Philosophy"},
+  {text:"Documentation is a love letter to your future self.",src:"Damian Conway"},
+  {text:"Good design is as little design as possible.",src:"Dieter Rams"},
+  {text:"Make your wiki simple enough for judges to remember, complex enough to impress them.",src:"iGEM Wisdom"},
+  {text:"Every page must answer one question clearly before asking the next.",src:"Technical Writing"},
+  {text:"A well-documented project is a well-understood project.",src:"Wiki Best Practice"},
+  {text:"Clear communication wins judging more than complex science.",src:"iGEM Judge Feedback"},
+  {text:"The important thing is not to stop questioning. Curiosity has its own reason for existing.",src:"Albert Einstein"},
+  {text:"Science is not only a disciple of reason but also one of romance and passion.",src:"Stephen Hawking"},
+  {text:"Somewhere, something incredible is waiting to be known.",src:"Carl Sagan"},
+  {text:"What I cannot create, I do not understand.",src:"Richard Feynman"},
+  {text:"The only way to do great work is to love what you do.",src:"Steve Jobs"},
+  {text:"Simplicity is the ultimate sophistication.",src:"Leonardo da Vinci"},
+  {text:"Design is not just what it looks like. Design is how it works.",src:"Steve Jobs"},
+  {text:"The best writing is rewriting.",src:"E.B. White"},
+  {text:"If you can't explain it simply, you don't understand it well enough.",src:"Albert Einstein"},
+  {text:"A picture is worth a thousand words, but a well-placed diagram is worth a thousand pictures.",src:"Wiki Design"},
+  {text:"The details are not the details. They make the design.",src:"Charles Eames"},
+  {text:"Content precedes design. Design in the absence of content is not design, it's decoration.",src:"Jeffrey Zeldman"},
+  {text:"Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away.",src:"Antoine de Saint-Exupery"},
+  {text:"Tell me and I forget, teach me and I may remember, involve me and I learn.",src:"Benjamin Franklin"},
+  {text:"The art of writing is the art of discovering what you believe.",src:"Gustave Flaubert"},
+  {text:"We cannot solve our problems with the same thinking we used when we created them.",src:"Albert Einstein"},
+  {text:"Innovation distinguishes between a leader and a follower.",src:"Steve Jobs"},
+  {text:"Progress is impossible without change, and those who cannot change their minds cannot change anything.",src:"George Bernard Shaw"},
+  {text:"Do not go where the path may lead, go instead where there is no path and leave a trail.",src:"Ralph Waldo Emerson"},
+  {text:"Every expert was once a beginner.",src:"Helen Hayes"},
+  {text:"Act as if what you do makes a difference. It does.",src:"William James"},
+  {text:"Research is what I'm doing when I don't know what I'm doing.",src:"Wernher von Braun"},
+  {text:"The measure of intelligence is the ability to change.",src:"Albert Einstein"},
+  {text:"Nothing in biology makes sense except in the light of evolution.",src:"Theodosius Dobzhansky"},
+  {text:"Biology is the most powerful technology ever created. DNA is software, protein are hardware, cells are factories.",src:"Arvind Gupta"},
+  {text:"What we know is a drop, what we don't know is an ocean.",src:"Isaac Newton"},
+  {text:"It always seems impossible until it's done.",src:"Nelson Mandela"},
+  {text:"The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice.",src:"Brian Herbert"},
+  {text:"An experiment is a question which science poses to Nature.",src:"Max Planck"},
+  {text:"Science knows no country, because knowledge belongs to humanity, and is the torch which illuminates the world.",src:"Louis Pasteur"},
+  {text:"The greatest glory in living lies not in never falling, but in rising every time we fall.",src:"Nelson Mandela"},
+  {text:"Synthetic biology will be to the 21st century what computing was to the 20th.",src:"Drew Endy"},
+  {text:"The only limit to our realization of tomorrow is our doubts of today.",src:"Franklin D. Roosevelt"},
 ];
+
+let wikiQI = Math.floor(Math.random() * QUOTES.length);
+
+// Try to fetch additional quotes from API
+(async function fetchApiQuotes() {
+  try {
+    const res = await fetch("https://dummyjson.com/quotes?limit=30");
+    if (res.ok) {
+      const data = await res.json();
+      if (data.quotes && data.quotes.length) {
+        data.quotes.forEach(q => {
+          if (q.quote && q.author) QUOTES.push({text: q.quote, src: q.author});
+        });
+        for (let i = QUOTES.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [QUOTES[i], QUOTES[j]] = [QUOTES[j], QUOTES[i]];
+        }
+      }
+    }
+  } catch(e) { /* Curated quotes are sufficient */ }
+})();
 
 function getRandomQuote() { return QUOTES[Math.floor(Math.random() * QUOTES.length)]; }
 function getQuoteOfDay() {
-  const dateStr = new Date().toISOString().split('T')[0];
-  const seed = dateStr.split('-').reduce((a, b) => a + parseInt(b), 0);
-  return QUOTES[seed % QUOTES.length];
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+  return QUOTES[dayOfYear % QUOTES.length];
 }
-const quoteOfDay = getRandomQuote();
-const quoteEl = document.getElementById('quote-text');
-if (quoteEl) quoteEl.innerHTML = `<div style="opacity:0.85">"${quoteOfDay.text}"</div>`;
+
+const quoteElHeader = document.getElementById('quote-text');
+function renderWikiQuote() {
+  if (!quoteElHeader) return;
+  const q = QUOTES[wikiQI % QUOTES.length];
+  quoteElHeader.style.transition = "opacity 0.6s ease";
+  quoteElHeader.style.opacity = "0";
+  setTimeout(() => {
+    quoteElHeader.innerHTML = `<div style="opacity:0.85">\u201C${q.text}\u201D</div>`;
+    quoteElHeader.style.opacity = "1";
+  }, 600);
+}
+renderWikiQuote();
+setInterval(() => { wikiQI = (wikiQI + 1) % QUOTES.length; renderWikiQuote(); }, 10000);
 
 function updateTapeClock() {
   const now = new Date();

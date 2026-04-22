@@ -31,13 +31,13 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Add ticking cog animation, fix helix, add privacy warning
+    git commit -m "Upgrade quotes, move stakeholder card, add wiki link
 
-- Logo cogs now tick like a clock every second across all 5 dashboards
-- Three gears mesh with opposite rotation directions
-- Fix wiki-lead helix: remove rogue startHelix() on page load
-- Add privacy notice to stakeholder map about Google Drive access
-- Stakeholder map now deployed with all features
+- Expand quotes to 40+ curated entries across all 4 dashboards
+- Fetch supplemental quotes from dummyjson.com API with graceful fallback
+- Smooth crossfade rotation every 10 seconds on all quote displays
+- Move Stakeholder Map card below Today's Focus on HP Lead
+- Add Team Wiki link button to Wiki Lead (2026.igem.wiki/houston-tx)
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
