@@ -4951,7 +4951,8 @@
             renderTeamPulse();
             renderTeamGrid();
             renderCoordTasks();
-            document.querySelector('.motivational-quote').textContent = `"${getRandomQuote()}"`;
+            const mq = document.querySelector('.motivational-quote');
+            if (mq) mq.textContent = `"${getRandomQuote()}"`;
         }
 
         // ============================================================================

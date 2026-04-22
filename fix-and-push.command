@@ -31,14 +31,14 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Fix cross-dashboard messaging and standardize notification bars
+    git commit -m "Fix Coordinator crash, cross-dashboard messaging, notification bars
 
-- Fix sendTeamMessage field names in Wiki Lead (was using wrong keys)
+- Fix null reference crash in render() — motivational-quote element missing
+  This crash killed all JS after render(), breaking tabs and notifications
+- Fix sendTeamMessage field names in Wiki Lead (wrong keys)
 - Fix ISO string timestamps to numeric Date.now() in HP Lead and Coordinator
-- Standardize notification message format across all 4 dashboards
-- Match all renderNotifWidget to Project Lead reference (always-spin helix)
+- Standardize notification format and renderNotifWidget across all dashboards
 - Dynamic sender name resolution in notification subtitles
-- Fix Wiki Lead has-new border color from scarlet to gold
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."
