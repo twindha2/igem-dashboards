@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UH iGEM 2026 — Variant A · McGill 2025 inspired</title>
+<!--
+  Variant A — inspired by McGill 2025 (Grand Prize, Undergraduate).
+  Feel: editorial / scientific publication.
+   - Single wide column, generous line-height.
+   - Serif display + humanist sans body.
+   - Large numbered section eyebrows (01 · 02 · 03).
+   - Monochrome + a single accent (UH scarlet).
+   - Figures stretch full-bleed; captions are small caps.
+   - Feels like a long-read in Nature Methods.
+-->
+<style>
+  :root{
+    --ink:#111418;
+    --paper:#fbfaf7;
+    --rule:#e5e1d8;
+    --muted:#6b6558;
+    --accent:#C8102E;          /* UH scarlet */
+    --serif: "Source Serif 4","Source Serif Pro",Georgia,serif;
+    --sans: "Inter",-apple-system,system-ui,sans-serif;
+    --mono: ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  body{font-size:17px;line-height:1.65}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(200,16,46,.3)}
+  a:hover{border-bottom-color:var(--accent)}
+
+  /* ── masthead ── */
+  .masthead{border-bottom:1px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:10}
+  .masthead-inner{max-width:1160px;margin:0 auto;padding:18px 40px;display:flex;justify-content:space-between;align-items:baseline}
+  .mast-title{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:-.01em}
+  .mast-title em{font-style:italic;color:var(--accent)}
+  .mast-nav{display:flex;gap:22px;font-size:13px;text-transform:uppercase;letter-spacing:.12em}
+  .mast-nav a{color:var(--ink);border:none}
+  .mast-nav a:hover{color:var(--accent)}
+
+  /* ── hero ── */
+  .hero{max-width:1160px;margin:0 auto;padding:96px 40px 80px;border-bottom:1px solid var(--rule)}
+  .hero-eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
+  .hero h1{font-family:var(--serif);font-weight:500;font-size:84px;line-height:1.02;letter-spacing:-.025em;margin:0 0 28px;max-width:16ch}
+  .hero h1 em{font-style:italic;color:var(--accent)}
+  .hero-lede{font-family:var(--serif);font-size:24px;line-height:1.4;max-width:38ch;color:#2b2f34;font-weight:400}
+  .hero-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:72px;padding-top:32px;border-top:1px solid var(--rule)}
+  .meta-cell{}
+  .meta-label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .meta-value{font-family:var(--serif);font-size:20px;font-weight:500}
+
+  /* ── sections ── */
+  main{max-width:1160px;margin:0 auto;padding:0 40px}
+  .section{padding:80px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:120px 1fr;gap:60px}
+  .section-num{font-family:var(--serif);font-size:56px;line-height:1;font-weight:400;color:var(--accent);font-variant-numeric:lining-nums}
+  .section-num small{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:12px;font-weight:600}
+  .section-body{max-width:68ch}
+  .section-body h2{font-family:var(--serif);font-weight:500;font-size:44px;line-height:1.1;letter-spacing:-.02em;margin:0 0 28px}
+  .section-body h3{font-family:var(--serif);font-weight:600;font-size:22px;margin:40px 0 12px}
+  .section-body h4{font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:24px 0 8px}
+  .section-body p{margin:0 0 16px}
+  .section-body ul,.section-body ol{margin:0 0 16px;padding-left:24px}
+  .section-body li{margin-bottom:6px}
+
+  /* figure */
+  figure{margin:36px 0;padding:0}
+  .figbox{background:#efece4;border:1px solid var(--rule);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+  figcaption{margin-top:10px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  figcaption b{color:var(--ink);font-weight:700;margin-right:8px}
+
+  /* D-B-T-L cards */
+  .cycle{border-left:3px solid var(--accent);padding:16px 20px;margin:20px 0;background:#fff}
+  .cycle h3{margin-top:0}
+  .dbtl{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px}
+  .dbtl > div h4{margin-top:0}
+  .dbtl > div p{font-size:15px}
+
+  /* tables */
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--rule)}
+  th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--ink)}
+
+  /* tier badges */
+  .tier{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;padding:3px 8px;border:1px solid currentColor;border-radius:2px;text-transform:uppercase;margin-left:10px;vertical-align:middle}
+  .tier.bronze{color:#8b6a3b}
+  .tier.silver{color:#556069}
+  .tier.gold{color:#a88118}
+
+  footer{max-width:1160px;margin:0 auto;padding:48px 40px 80px;font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+
+  @media (max-width:820px){
+    .hero h1{font-size:48px}
+    .hero-lede{font-size:18px}
+    .section{grid-template-columns:1fr;gap:24px;padding:56px 0}
+    .hero-meta{grid-template-columns:repeat(2,1fr)}
+    .dbtl{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="mast-title">UH iGEM 2026 <em>— Houston</em></div>
+    <nav class="mast-nav">
+      <a href="#description">Project</a>
+      <a href="#results">Results</a>
+      <a href="#model">Model</a>
+      <a href="#human-practices">HP</a>
+      <a href="#team">Team</a>
+    </nav>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-eyebrow">UH iGEM 2026 · Undergraduate · Village TBD</div>
+  <h1>Engineering <em>E. coli</em> Nissle 1917 for <em>C. elegans</em> longevity.</h1>
+  <p class="hero-lede">A proof-of-concept probiotic chassis with a six-module design, a 16-stage FBA pipeline, and three layers of biosafety baked in.</p>
+  <div class="hero-meta">
+    <div class="meta-cell"><div class="meta-label">Chassis</div><div class="meta-value"><em>E. coli</em> Nissle 1917</div></div>
+    <div class="meta-cell"><div class="meta-label">Model organism</div><div class="meta-value"><em>C. elegans</em></div></div>
+    <div class="meta-cell"><div class="meta-label">Jamboree</div><div class="meta-value">Paris · Nov 13–16</div></div>
+    <div class="meta-cell"><div class="meta-label">Team size</div><div class="meta-value">15 members</div></div>
+  </div>
+</section>
+
+<main>
+
+  <div class="section" id="description">
+    <div class="section-num">01<small>Description <span class="tier bronze">Bronze</span></small></div>
+    <div class="section-body">
+      <h2>What we built, and why.</h2>
+      <p>[Problem frame — who is affected, why current approaches fall short.]</p>
+      <h3>System design</h3>
+      <ol><li>Module 1 — [name]</li><li>Module 2 — [name]</li><li>Module 3 — [name]</li></ol>
+      <h3>Scope</h3>
+      <p>[Proof-of-concept claim. What we do not claim.]</p>
+      <figure><div class="figbox">System diagram</div><figcaption><b>Fig. 1</b>Six-module architecture.</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="section" id="engineering">
+    <div class="section-num">02<small>Engineering <span class="tier silver">Silver</span></small></div>
+    <div class="section-body">
+      <h2>Design, build, test, learn — three times over.</h2>
+      <div class="cycle">
+        <h3>Cycle 1 — [title]</h3>
+        <div class="dbtl">
+          <div><h4>Design</h4><p>[hypothesis]</p></div>
+          <div><h4>Build</h4><p>[construct]</p></div>
+          <div><h4>Test</h4><p>[assay]</p></div>
+          <div><h4>Learn</h4><p>[outcome]</p></div>
+        </div>
+      </div>
+      <div class="cycle">
+        <h3>Cycle 2 — [title]</h3>
+        <div class="dbtl">
+          <div><h4>Design</h4><p>…</p></div><div><h4>Build</h4><p>…</p></div>
+          <div><h4>Test</h4><p>…</p></div><div><h4>Learn</h4><p>…</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="results">
+    <div class="section-num">03<small>Results <span class="tier silver">Silver</span></small></div>
+    <div class="section-body">
+      <h2>What the data show.</h2>
+      <figure><div class="figbox">Figure placeholder · full-width</div><figcaption><b>Fig. 2</b>[Caption]</figcaption></figure>
+      <h4>Interpretation</h4><p>…</p>
+      <h4>Limitations</h4><p>…</p>
+    </div>
+  </div>
+
+  <div class="section" id="model">
+    <div class="section-num">04<small>Model <span class="tier gold">Gold</span></small></div>
+    <div class="section-body">
+      <h2>A 16-stage FBA pipeline on iHM1533.</h2>
+      <h4>Purpose</h4><p>[question]</p>
+      <h4>Methods</h4><p>[framework, assumptions]</p>
+      <h4>How the model changed the wet lab</h4><p>[decision trail]</p>
+      <figure><div class="figbox">Flux map</div><figcaption><b>Fig. M1</b>Stage-wise flux.</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="section" id="parts">
+    <div class="section-num">05<small>Parts <span class="tier gold">Gold</span></small></div>
+    <div class="section-body">
+      <h2>Our BioBrick collection.</h2>
+      <table>
+        <thead><tr><th>BBa</th><th>Name</th><th>Type</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>BBa_K…</td><td>[name]</td><td>Composite</td><td>Characterized</td></tr>
+          <tr><td>BBa_K…</td><td>[name]</td><td>Basic</td><td>Characterized</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="human-practices">
+    <div class="section-num">06<small>Human Practices <span class="tier silver">Silver</span></small></div>
+    <div class="section-body">
+      <h2>Three pillars, and the change log that proves they mattered.</h2>
+      <h3>Pillars</h3>
+      <ol><li><strong>Colibactin safety</strong> — [question]</li><li><strong>Regulatory path</strong> — [question]</li><li><strong>Longevity ethics</strong> — [question]</li></ol>
+      <h3>Design Change Log</h3>
+      <table><thead><tr><th>Input</th><th>Source</th><th>Change we made</th></tr></thead>
+      <tbody><tr><td>…</td><td>…</td><td>…</td></tr></tbody></table>
+    </div>
+  </div>
+
+  <div class="section" id="safety">
+    <div class="section-num">07<small>Safety <span class="tier silver">Silver</span></small></div>
+    <div class="section-body">
+      <h2>Three layers of containment.</h2>
+      <ul><li>GRAS chassis</li><li>ΔthyA auxotrophy</li><li>mf-lon kill switch</li></ul>
+    </div>
+  </div>
+
+  <div class="section" id="team">
+    <div class="section-num">08<small>Team <span class="tier bronze">Bronze</span></small></div>
+    <div class="section-body">
+      <h2>Fifteen people, one small lab.</h2>
+      <p>[Team portraits + one-paragraph bios.]</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>UH iGEM 2026 · Houston-TX · CC BY 4.0 · Variant A inspired by McGill 2025</footer>
+
+</body>
+</html>

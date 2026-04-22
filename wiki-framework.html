@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UH iGEM 2026 — Wiki Framework (No Style)</title>
+<!--
+  ============================================================
+  UH iGEM 2026 · Wiki Framework — UNSTYLED
+  ============================================================
+  This is the pure semantic skeleton of every required iGEM
+  wiki page. No colors, no fonts, no layout — just HTML tags
+  and content placeholders in the order judges expect them.
+
+  USE IT AS:
+   - a content-collection template for each lane lead
+   - a structural reference when a designer applies a theme
+   - the canonical list of Standard URLs a team must submit
+
+  Each <section data-page> below corresponds to one page the
+  iGEM judges will evaluate. The `data-standard-url` attribute
+  is the exact URL the judging form expects.
+
+  Medal tier legend:
+   - BRONZE : required for any medal
+   - SILVER : adds Engineering + Human Practices integration
+   - GOLD   : adds Model, Parts, Implementation, and the
+              Inclusivity / Sustainable / Education trio
+  ============================================================
+-->
+</head>
+<body>
+
+<header data-role="site-header">
+  <p>UH iGEM 2026 · Houston-TX</p>
+  <h1>[Team / Project Name]</h1>
+  <p>[One-line project tagline]</p>
+  <nav aria-label="Primary">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#project">Project</a>
+        <ul>
+          <li><a href="#description">Description</a></li>
+          <li><a href="#engineering">Engineering Success</a></li>
+          <li><a href="#contribution">Contribution</a></li>
+          <li><a href="#implementation">Implementation</a></li>
+        </ul>
+      </li>
+      <li><a href="#lab">Lab</a>
+        <ul>
+          <li><a href="#experiments">Experiments</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#notebook">Notebook</a></li>
+          <li><a href="#safety">Safety</a></li>
+        </ul>
+      </li>
+      <li><a href="#model">Model</a></li>
+      <li><a href="#parts">Parts</a></li>
+      <li><a href="#human-practices">Human Practices</a>
+        <ul>
+          <li><a href="#inclusivity">Inclusivity</a></li>
+          <li><a href="#sustainable">Sustainable Development</a></li>
+          <li><a href="#education">Education &amp; Communication</a></li>
+        </ul>
+      </li>
+      <li><a href="#team">Team</a>
+        <ul>
+          <li><a href="#attributions">Attributions</a></li>
+        </ul>
+      </li>
+      <li><a href="#judging">Judging</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ─────────── HOME ─────────── -->
+  <section id="home" data-page="home" data-standard-url="/" data-tier="bronze">
+    <h2>Home</h2>
+    <p><strong>Hook (1 sentence):</strong> [What is the problem in one line?]</p>
+    <p><strong>Pitch (30 seconds):</strong> [Who, what, why, how, result.]</p>
+    <figure><figcaption>Hero visual — project graphic or team photo.</figcaption></figure>
+    <h3>Project at a glance</h3>
+    <ul>
+      <li>Chassis: [organism]</li>
+      <li>Application area: [area]</li>
+      <li>Village: [village]</li>
+      <li>Status: [Proof-of-concept / Prototype / Deployed]</li>
+    </ul>
+    <h3>Navigate the wiki</h3>
+    <ul>
+      <li><a href="#description">What we built →</a></li>
+      <li><a href="#results">What the data show →</a></li>
+      <li><a href="#human-practices">Who we talked to →</a></li>
+      <li><a href="#team">Who we are →</a></li>
+    </ul>
+  </section>
+
+  <!-- ─────────── DESCRIPTION ─────────── -->
+  <section id="description" data-page="description" data-standard-url="/description" data-tier="bronze">
+    <h2>Description</h2>
+    <h3>The problem</h3>
+    <p>[Frame the problem; who is affected; why current solutions fall short.]</p>
+    <h3>Our approach</h3>
+    <p>[One paragraph summary of the engineered system.]</p>
+    <h3>System design</h3>
+    <ol>
+      <li>Module 1 — [name &amp; role]</li>
+      <li>Module 2 — [name &amp; role]</li>
+      <li>Module 3 — [name &amp; role]</li>
+    </ol>
+    <h3>Scope &amp; proof-of-concept statement</h3>
+    <p>[State explicitly what we claim and what we do not claim.]</p>
+    <h3>References</h3>
+    <ol><li>[Citation]</li></ol>
+  </section>
+
+  <!-- ─────────── ENGINEERING ─────────── -->
+  <section id="engineering" data-page="engineering" data-standard-url="/engineering" data-tier="silver">
+    <h2>Engineering Success</h2>
+    <p>Design → Build → Test → Learn cycles with evidence of iteration.</p>
+
+    <article data-cycle="1">
+      <h3>Cycle 1 — [title]</h3>
+      <h4>Design</h4><p>[hypothesis]</p>
+      <h4>Build</h4><p>[construct / protocol]</p>
+      <h4>Test</h4><p>[assay + data]</p>
+      <h4>Learn</h4><p>[what the data changed]</p>
+    </article>
+
+    <article data-cycle="2">
+      <h3>Cycle 2 — [title]</h3>
+      <h4>Design</h4><p>…</p>
+      <h4>Build</h4><p>…</p>
+      <h4>Test</h4><p>…</p>
+      <h4>Learn</h4><p>…</p>
+    </article>
+
+    <article data-cycle="3">
+      <h3>Cycle 3 — [title]</h3>
+      <h4>Design</h4><p>…</p>
+      <h4>Build</h4><p>…</p>
+      <h4>Test</h4><p>…</p>
+      <h4>Learn</h4><p>…</p>
+    </article>
+  </section>
+
+  <!-- ─────────── CONTRIBUTION ─────────── -->
+  <section id="contribution" data-page="contribution" data-standard-url="/contribution" data-tier="bronze">
+    <h2>Contribution</h2>
+    <p>What we leave behind for future iGEM teams.</p>
+    <ul>
+      <li><strong>Parts:</strong> [list]</li>
+      <li><strong>Protocols:</strong> [list]</li>
+      <li><strong>Software / models:</strong> [list]</li>
+      <li><strong>Documentation improvements:</strong> [list]</li>
+      <li><strong>Community resources:</strong> [list]</li>
+    </ul>
+  </section>
+
+  <!-- ─────────── IMPLEMENTATION ─────────── -->
+  <section id="implementation" data-page="implementation" data-standard-url="/implementation" data-tier="gold">
+    <h2>Implementation</h2>
+    <h3>End user</h3><p>[who uses this, how]</p>
+    <h3>Deployment path</h3><ol><li>[step]</li></ol>
+    <h3>Regulatory / safety gates</h3><ul><li>[gate]</li></ul>
+    <h3>Open questions &amp; limits</h3><p>[what still has to be solved]</p>
+  </section>
+
+  <!-- ─────────── EXPERIMENTS ─────────── -->
+  <section id="experiments" data-page="experiments" data-standard-url="/experiments" data-tier="silver">
+    <h2>Experiments</h2>
+    <h3>Strains</h3><ul><li>[strain, source]</li></ul>
+    <h3>Plasmids</h3><ul><li>[plasmid, map link]</li></ul>
+    <h3>Protocols</h3>
+    <article><h4>Protocol 1 — [title]</h4><ol><li>step</li></ol></article>
+    <article><h4>Protocol 2 — [title]</h4><ol><li>step</li></ol></article>
+  </section>
+
+  <!-- ─────────── RESULTS ─────────── -->
+  <section id="results" data-page="results" data-standard-url="/results" data-tier="silver">
+    <h2>Results</h2>
+    <article>
+      <h3>Result 1 — [title]</h3>
+      <figure><figcaption>Figure 1. [caption]</figcaption></figure>
+      <p><strong>Interpretation:</strong> …</p>
+      <p><strong>Limitations:</strong> …</p>
+    </article>
+    <article>
+      <h3>Result 2 — [title]</h3>
+      <figure><figcaption>Figure 2. [caption]</figcaption></figure>
+      <p><strong>Interpretation:</strong> …</p>
+      <p><strong>Limitations:</strong> …</p>
+    </article>
+  </section>
+
+  <!-- ─────────── NOTEBOOK ─────────── -->
+  <section id="notebook" data-page="notebook" data-standard-url="/notebook" data-tier="silver">
+    <h2>Lab Notebook</h2>
+    <article><h3>Week of [date]</h3><p>[entry]</p></article>
+    <article><h3>Week of [date]</h3><p>[entry]</p></article>
+  </section>
+
+  <!-- ─────────── SAFETY ─────────── -->
+  <section id="safety" data-page="safety" data-standard-url="/safety" data-tier="silver">
+    <h2>Safety</h2>
+    <h3>Chassis risk</h3><p>[risk group, rationale]</p>
+    <h3>Containment</h3><ul><li>[layer 1]</li><li>[layer 2]</li><li>[layer 3 — kill switch]</li></ul>
+    <h3>Waste &amp; disposal</h3><p>[procedure]</p>
+    <h3>Institutional biosafety form</h3><p>Submitted: [date]</p>
+  </section>
+
+  <!-- ─────────── MODEL ─────────── -->
+  <section id="model" data-page="model" data-standard-url="/model" data-tier="gold">
+    <h2>Model</h2>
+    <h3>Purpose</h3><p>[what question the model answers]</p>
+    <h3>Methods</h3><p>[framework, tools, assumptions]</p>
+    <h3>Results</h3>
+    <figure><figcaption>Figure M1. [caption]</figcaption></figure>
+    <h3>How the model changed the wet-lab design</h3><p>[decision trail]</p>
+    <h3>Validation</h3><p>[comparison to experimental data]</p>
+    <h3>Code availability</h3><p><a href="#">[repo link]</a></p>
+  </section>
+
+  <!-- ─────────── PARTS ─────────── -->
+  <section id="parts" data-page="parts" data-standard-url="/parts" data-tier="gold">
+    <h2>Parts</h2>
+    <table>
+      <thead><tr><th>BBa number</th><th>Name</th><th>Type</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>BBa_K…</td><td>[name]</td><td>[basic / composite]</td><td>[characterized]</td></tr>
+      </tbody>
+    </table>
+    <h3>Featured part</h3>
+    <article>
+      <h4>BBa_K… — [name]</h4>
+      <p>[function + why it matters]</p>
+      <figure><figcaption>Characterization data.</figcaption></figure>
+    </article>
+  </section>
+
+  <!-- ─────────── HUMAN PRACTICES ─────────── -->
+  <section id="human-practices" data-page="human-practices" data-standard-url="/human-practices" data-tier="silver">
+    <h2>Human Practices</h2>
+    <h3>Pillars</h3>
+    <ol>
+      <li><strong>[Pillar 1]</strong> — [question]</li>
+      <li><strong>[Pillar 2]</strong> — [question]</li>
+      <li><strong>[Pillar 3]</strong> — [question]</li>
+    </ol>
+    <h3>Stakeholders engaged</h3>
+    <ul><li>[name, role, date, method]</li></ul>
+    <h3>Design Change Log</h3>
+    <table>
+      <thead><tr><th>Input</th><th>Source</th><th>Date</th><th>Change we made</th></tr></thead>
+      <tbody><tr><td>…</td><td>…</td><td>…</td><td>…</td></tr></tbody>
+    </table>
+  </section>
+
+  <!-- ─────────── INCLUSIVITY ─────────── -->
+  <section id="inclusivity" data-page="inclusivity" data-standard-url="/inclusivity" data-tier="gold">
+    <h2>Inclusivity</h2>
+    <p>[Team composition, recruitment, accessibility of project &amp; wiki.]</p>
+  </section>
+
+  <!-- ─────────── SUSTAINABLE ─────────── -->
+  <section id="sustainable" data-page="sustainable" data-standard-url="/sustainable" data-tier="gold">
+    <h2>Sustainable Development</h2>
+    <h3>Primary SDG</h3><p>[SDG #, title, why]</p>
+    <h3>Secondary SDGs</h3><ul><li>[SDG #]</li></ul>
+    <h3>Honest limits</h3><p>[what we do not yet address]</p>
+  </section>
+
+  <!-- ─────────── EDUCATION ─────────── -->
+  <section id="education" data-page="education" data-standard-url="/education" data-tier="gold">
+    <h2>Education &amp; Communication</h2>
+    <h3>Programs</h3><ul><li>[program, audience, reach]</li></ul>
+    <h3>Materials</h3><ul><li>[reusable asset]</li></ul>
+    <h3>Learning outcomes</h3><p>[measurement]</p>
+  </section>
+
+  <!-- ─────────── TEAM ─────────── -->
+  <section id="team" data-page="team" data-standard-url="/team" data-tier="bronze">
+    <h2>Team</h2>
+    <article>
+      <h3>[Name] — [Role]</h3>
+      <p>[Program, year, contribution summary.]</p>
+    </article>
+  </section>
+
+  <!-- ─────────── ATTRIBUTIONS ─────────── -->
+  <section id="attributions" data-page="attributions" data-standard-url="/attributions" data-tier="bronze">
+    <h2>Attributions</h2>
+    <h3>Student work</h3><p>[who did what, by module]</p>
+    <h3>Advisors &amp; mentors</h3><ul><li>[name, role, help provided]</li></ul>
+    <h3>External collaborators</h3><ul><li>[name, institution, help]</li></ul>
+    <h3>Materials &amp; funding</h3><ul><li>[source, form of support]</li></ul>
+    <h3>Software &amp; third-party tools</h3><ul><li>[tool, license]</li></ul>
+  </section>
+
+  <!-- ─────────── JUDGING ─────────── -->
+  <section id="judging" data-page="judging" data-standard-url="/judging" data-tier="bronze">
+    <h2>Judging Form</h2>
+    <h3>Medal criteria pointers</h3>
+    <ul>
+      <li>Bronze: <a href="#description">Description</a>, <a href="#contribution">Contribution</a>, <a href="#team">Team</a>, <a href="#attributions">Attributions</a></li>
+      <li>Silver: <a href="#engineering">Engineering</a>, <a href="#human-practices">HP</a>, <a href="#safety">Safety</a>, characterization</li>
+      <li>Gold: <a href="#model">Model</a>, <a href="#implementation">Implementation</a>, <a href="#inclusivity">Inclusivity</a>, <a href="#sustainable">Sustainable</a>, <a href="#education">Education</a></li>
+    </ul>
+    <h3>Special-prize nominations</h3>
+    <ul><li>[prize] — see <a href="#">[page]</a></li></ul>
+    <h3>Contact</h3><p>[email]</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>UH iGEM 2026 · Houston-TX · Licensed under Creative Commons Attribution 4.0 International.</p>
+</footer>
+
+</body>
+</html>

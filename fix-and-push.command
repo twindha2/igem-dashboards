@@ -31,11 +31,10 @@ git add -A
 if git diff --cached --quiet; then
     echo "Nothing new to commit."
 else
-    git commit -m "Add email overlays, Da Vinci icons, and move Signal Booth
+    git commit -m "Add wiki framework collection and link card on Wiki Lead
 
-- Add email addresses to TEAM_ROSTER and mailto links in card overlays
-- Replace emoji icons with Da Vinci-inspired symbols in sepia circles
-- Move Signal Booth below Team Directory on all dashboards
+- Add wiki-framework/ folder with index, unstyled framework, and 3 past-team variants
+- Add Framework link card below Team Wiki link on Wiki Lead dashboard
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
     echo "Committed."

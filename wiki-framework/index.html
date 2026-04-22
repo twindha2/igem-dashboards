@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UH iGEM 2026 — Wiki Framework Package</title>
+<style>
+  :root{
+    --ink:#111418; --paper:#fbfaf7; --rule:#e5e1d8; --muted:#6b6558;
+    --scarlet:#C8102E; --gold:#F6BE00;
+    --sans:"Inter",system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+  a{color:var(--scarlet);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1040px;margin:0 auto;padding:56px 32px 80px}
+  .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:14px}
+  h1{font-size:44px;line-height:1.1;margin:0 0 12px;letter-spacing:-.02em;font-weight:800}
+  .lede{font-size:18px;color:#3a3e44;max-width:68ch;margin:0 0 36px}
+
+  .note{background:#fff;border:1px solid var(--rule);border-left:3px solid var(--scarlet);padding:18px 22px;margin-bottom:36px;font-size:15px}
+  .note b{color:var(--ink)}
+  .note code{font-family:var(--mono);font-size:13px;background:#f1ede4;padding:1px 6px;border-radius:3px}
+
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid var(--ink);padding-bottom:8px;margin:40px 0 18px}
+  .sec-head h2{margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em}
+  .sec-head span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:720px){.cards{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:20px 22px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s,transform .15s}
+  .card:hover{border-color:var(--ink);transform:translateY(-1px)}
+  .card h3{margin:0;font-size:18px;font-weight:700}
+  .card .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+  .card p{margin:0;font-size:14.5px;color:#3a3e44}
+  .card .inspired{font-size:12px;color:var(--muted);font-style:italic;margin-top:4px}
+  .card .open{margin-top:6px;font-size:13px;font-weight:700;color:var(--scarlet)}
+  .card.primary{border:2px solid var(--ink)}
+  .card.primary .tag{background:var(--gold);color:var(--ink);padding:2px 8px;border-radius:3px;display:inline-block;width:fit-content;font-weight:700}
+
+  .drive{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:22px 24px;margin-top:28px}
+  .drive h3{margin:0 0 10px;font-size:18px}
+  .drive ol{margin:0;padding-left:20px}
+  .drive li{margin-bottom:8px;font-size:15px}
+  .drive code{font-family:var(--mono);font-size:13px;background:#f1ede4;padding:1px 6px;border-radius:3px}
+
+  footer{margin-top:48px;color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">UH iGEM 2026 · Wiki Framework Package</div>
+  <h1>A framework, and three directions.</h1>
+  <p class="lede">
+    One structural skeleton with no styling — the file you asked for to share with the team — plus
+    three re-skins of that same structure, each inspired by a recent iGEM Grand Prize wiki, so the team
+    can discuss <em>direction</em> before committing to design.
+  </p>
+
+  <div class="note">
+    <b>Share with the team via Google Drive.</b> These are plain HTML files. To put them in a shared Drive folder:
+    use the Download button in your toolbar to export the whole <code>wiki-framework/</code> folder as a .zip,
+    then upload that .zip to Google Drive and extract. Or upload the individual .html files directly — Drive
+    will preview them in the browser. Detailed steps are at the bottom of this page.
+  </div>
+
+  <div class="sec-head"><h2>The framework you asked for</h2><span>No style · Pure HTML</span></div>
+  <div class="cards">
+    <a class="card primary" href="01-framework-no-style.html">
+      <span class="tag">Primary deliverable</span>
+      <h3>Wiki framework — unstyled</h3>
+      <p>Every required iGEM wiki page, in order judges expect, as a single semantic HTML document. Every section is marked with <code>data-standard-url</code>, <code>data-tier</code>, and <code>data-page</code> so a designer can theme it or a team lead can fill it in.</p>
+      <span class="open">Open →</span>
+    </a>
+  </div>
+
+  <div class="sec-head"><h2>Three directions, inspired by recent Grand Prize winners</h2><span>Same structure · Different skins</span></div>
+  <div class="cards">
+
+    <a class="card" href="02-variant-mcgill-2025.html">
+      <span class="tag">Variant A</span>
+      <h3>Editorial / scientific long-read</h3>
+      <p>Single wide column, serif display type, numbered sections, full-bleed figures with small-caps captions. Reads like a Nature Methods article.</p>
+      <div class="inspired">Inspired by McGill 2025 — Grand Prize (Undergraduate)</div>
+      <span class="open">Open →</span>
+    </a>
+
+    <a class="card" href="03-variant-brno-2025.html">
+      <span class="tag">Variant B</span>
+      <h3>Field-guide / mascot poster</h3>
+      <p>Playful, confident, bold color blocks, mascot-driven hero, zine-like numbered cards, side-rail ToC. Friendly but specific.</p>
+      <div class="inspired">Inspired by Brno_Czech_Republic 2025 "NitroDuck" — Grand Prize (Overgraduate)</div>
+      <span class="open">Open →</span>
+    </a>
+
+    <a class="card" href="04-variant-mcgill-2023.html">
+      <span class="tag">Variant C</span>
+      <h3>Dark-mode product page</h3>
+      <p>Left-rail persistent nav, stat hero with gradient accent, two-up feature cards. Reads like an academic lab's product launch.</p>
+      <div class="inspired">Inspired by McGill 2023 — Grand Prize (Undergraduate)</div>
+      <span class="open">Open →</span>
+    </a>
+
+  </div>
+
+  <div class="sec-head"><h2>Save to Google Drive &amp; share</h2><span>5 minutes</span></div>
+  <div class="drive">
+    <h3>Step-by-step</h3>
+    <ol>
+      <li>Use the <b>Download</b> action in the toolbar and choose the <code>wiki-framework/</code> folder — you'll get a .zip of all four HTML files plus this index.</li>
+      <li>Go to <a href="https://drive.google.com" target="_blank" rel="noopener">drive.google.com</a> → <b>New</b> → <b>Folder</b>. Name it <code>UH iGEM 2026 — Wiki Framework</code>.</li>
+      <li>Unzip locally, then drag the four HTML files (plus this index) into the Drive folder.</li>
+      <li>Right-click the folder → <b>Share</b> → add team emails, or set <b>Anyone with the link</b> (Viewer) for a shareable URL.</li>
+      <li>In Drive, each <code>.html</code> file previews in the browser when clicked — no download needed for reviewers.</li>
+    </ol>
+    <p style="margin-top:14px;font-size:13.5px;color:var(--muted)">
+      Tip: for a single link that opens the framework file directly, right-click <code>01-framework-no-style.html</code> in Drive → <b>Get link</b>. That's the URL to paste into Slack.
+    </p>
+  </div>
+
+  <footer>UH iGEM 2026 · Houston-TX · CC BY 4.0 · Framework package v1</footer>
+</div>
+</body>
+</html>
